@@ -1,0 +1,10 @@
+{
+    "llm_providers": {},
+    "tool_paths": {
+        "verilator": "/usr/bin/verilator",
+        "yosys": "/usr/bin/yosys"
+    },
+    "token_budgets": {
+        "max_cost_usd": 10.0
+    }
+}

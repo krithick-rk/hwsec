@@ -1,0 +1,8 @@
+node_modules/
+hwsec-output/
+dummy_rtl/
+docx_content.txt
+read_docx.mjs
+test_env.py
+bad_config.json
+test_unrelated/
