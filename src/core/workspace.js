@@ -5,15 +5,33 @@ import crypto from 'crypto';
 export class Workspace {
     /**
      * @param {string} baseDir 
+     * @param {string} [existingId]
      */
-    constructor(baseDir) {
-        const now = new Date();
-        const timestamp = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
-        const randId = crypto.randomBytes(4).toString('hex');
-        this.analysisId = `${timestamp}-${randId}`;
-        this.outputDir = path.join(baseDir, this.analysisId);
-        
-        this._initDirectories();
+    constructor(baseDir, existingId) {
+        if (existingId) {
+            this.analysisId = existingId;
+            this.outputDir = path.join(baseDir, this.analysisId);
+            if (!fs.existsSync(this.outputDir)) {
+                throw new Error(`Workspace not found: ${this.outputDir}`);
+            }
+        } else {
+            const now = new Date();
+            const timestamp = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
+            const randId = crypto.randomBytes(4).toString('hex');
+            this.analysisId = `${timestamp}-${randId}`;
+            this.outputDir = path.join(baseDir, this.analysisId);
+            this._initDirectories();
+        }
+    }
+
+    static load(baseDir, analysisId) {
+        return new Workspace(baseDir, analysisId);
+    }
+    
+    loadJson(name) {
+        const fullPath = path.join(this.outputDir, name);
+        if (!fs.existsSync(fullPath)) return null;
+        return JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
     }
 
     _initDirectories() {

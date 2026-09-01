@@ -6,3 +6,10 @@ read_docx.mjs
 test_env.py
 bad_config.json
 test_unrelated/
+
+# Local secrets — never commit the real config
+config.json
+
+# One-off test scripts
+test_phase6.js
+test_run.bat

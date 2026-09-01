@@ -1,0 +1,21 @@
+{
+    "llm_providers": {
+        "default": {
+            "provider": "gemini",
+            "api_key": "YOUR_GEMINI_API_KEY",
+            "model": "gemini-2.5-flash"
+        }
+    },
+    "model_routing": {
+        "planner":  { "model": "gemini-2.5-pro" },
+        "worker":   { "model": "gemini-2.5-flash" },
+        "verifier": { "model": "gemini-2.5-pro" }
+    },
+    "tool_paths": {
+        "verilator": "/path/to/oss-cad-suite/bin/verilator",
+        "yosys":     "/path/to/oss-cad-suite/bin/yosys"
+    },
+    "token_budgets": {
+        "max_cost_usd": 10.0
+    }
+}
