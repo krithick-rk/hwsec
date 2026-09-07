@@ -35,6 +35,28 @@ export function toWindowsPath(wslPath) {
     return wslPath;
 }
 
+export const ExecutionTransport = {
+    LOCAL_PROCESS: 'LOCAL_PROCESS',
+    MCP: 'MCP',
+    REMOTE: 'REMOTE'
+};
+
+/**
+ * Executes a command in WSL safely without shell interpolation.
+ * @param {string} command - Linux binary or command inside WSL
+ * @param {string[]} args - Arguments
+ * @param {Object} options - Standard options
+ * @returns {Promise<Object>}
+ */
+export async function runWslCommand(command, args = [], options = {}) {
+    // Invoke wsl directly with argument array
+    const wslArgs = [command, ...args];
+    return runCommand('wsl', wslArgs, {
+        ...options,
+        shell: false
+    });
+}
+
 /**
  * Deterministically executes a command with a timeout, capturing telemetry.
  * @param {string} command 
@@ -42,34 +64,102 @@ export function toWindowsPath(wslPath) {
  * @param {Object} options 
  * @param {number} [options.timeout=60000] - Timeout in milliseconds
  * @param {string} [options.cwd]
+ * @param {boolean} [options.shell]
  * @returns {Promise<Object>}
  */
-export function runCommand(command, args, options = {}) {
+function sanitizeEnv(customEnv) {
+    if (customEnv) {
+        return customEnv;
+    }
+    const cleanEnv = { ...process.env };
+    for (const key of ['PATH', 'Path']) {
+        if (cleanEnv[key]) {
+            cleanEnv[key] = cleanEnv[key]
+                .split(path.delimiter)
+                .filter(entry => !entry.toLowerCase().includes('krithick'))
+                .join(path.delimiter);
+        }
+    }
+    return cleanEnv;
+}
+
+export function runCommand(command, args = [], options = {}) {
     const timeout = options.timeout || 60000;
-    
+    const maxOutputBytes = options.maxOutputBytes || 10485760; // 10MB default buffer ceiling
+    const useShell = options.shell === true; // Never default to shell: true!
+
     return new Promise((resolve) => {
         const startTime = Date.now();
         
         let stdout = '';
         let stderr = '';
         let isTimeout = false;
+        let stdoutTruncated = false;
+        let stderrTruncated = false;
         
-        const child = spawn(command, args, {
-            cwd: options.cwd || process.cwd(),
-            shell: process.platform === 'win32' && command !== 'cmd.exe' && command !== 'wsl'
-        });
+        let child;
+        try {
+            const isWindowsBatch = process.platform === 'win32' && (command.toLowerCase().endsWith('.bat') || command.toLowerCase().endsWith('.cmd'));
+            child = spawn(command, args, {
+                cwd: options.cwd || process.cwd(),
+                shell: useShell || isWindowsBatch,
+                env: sanitizeEnv(options.env)
+            });
+        } catch (err) {
+            return resolve({
+                command: `${command} ${args.join(' ')}`,
+                exitCode: null,
+                stdout: '',
+                stderr: `Spawn Error: ${err.message}`,
+                timeout: false,
+                durationMs: 0,
+                environment: {
+                    platform: os.platform(),
+                    release: os.release(),
+                    wsl: command === 'wsl'
+                },
+                executionError: err.message
+            });
+        }
+
+        const killTree = () => {
+            if (!child || !child.pid) return;
+            if (process.platform === 'win32') {
+                try {
+                    spawn('taskkill', ['/pid', String(child.pid), '/T', '/F'], { shell: false });
+                } catch {
+                    try { child.kill('SIGKILL'); } catch {}
+                }
+            } else {
+                try {
+                    child.kill('SIGKILL');
+                } catch {}
+            }
+        };
 
         const timer = setTimeout(() => {
             isTimeout = true;
-            child.kill('SIGKILL');
+            killTree();
         }, timeout);
 
-        child.stdout.on('data', (data) => {
-            stdout += data.toString();
+        child.stdout?.on('data', (data) => {
+            if (stdout.length < maxOutputBytes) {
+                stdout += data.toString();
+                if (stdout.length >= maxOutputBytes && !stdoutTruncated) {
+                    stdoutTruncated = true;
+                    stdout += '\n[HWSEC: Output truncated at max buffer size]';
+                }
+            }
         });
 
-        child.stderr.on('data', (data) => {
-            stderr += data.toString();
+        child.stderr?.on('data', (data) => {
+            if (stderr.length < maxOutputBytes) {
+                stderr += data.toString();
+                if (stderr.length >= maxOutputBytes && !stderrTruncated) {
+                    stderrTruncated = true;
+                    stderr += '\n[HWSEC: Error output truncated at max buffer size]';
+                }
+            }
         });
 
         child.on('close', (code) => {
@@ -111,3 +201,4 @@ export function runCommand(command, args, options = {}) {
         });
     });
 }
+

@@ -22,10 +22,13 @@ export class EvidenceCorrelationEngine {
      * @returns {Promise<{graph: Object, correlatedClusters: Array, attackPaths: Array, summary: string}>}
      */
     async correlate(allFindings, hypotheses, telemetries) {
-        // --- Step 1: Structural Join (shared RTL location / signals) ---
+        // --- Step 1: Structural Join (shared location / signals) ---
         const locationMap = new Map();
         for (const finding of allFindings) {
-            const loc = finding.rtl_location || 'unknown';
+            const loc = finding.rtl_location || 
+                (finding.source_locations?.[0]?.path ? `${path.basename(finding.source_locations[0].path)}:${finding.source_locations[0].line || 1}` : null) || 
+                finding.location || 
+                'unknown';
             if (!locationMap.has(loc)) locationMap.set(loc, []);
             locationMap.get(loc).push(finding);
         }

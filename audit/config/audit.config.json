@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "HWSEC Security & Adversarial Validation Framework Configuration",
+  "version": "1.0.0",
+  "profiles": {
+    "quick": {
+      "description": "Fast smoke check of critical security invariants and evidence integrity",
+      "suites": [
+        "security/execution_injection.adversarial.js",
+        "security/filesystem_traversal.adversarial.js",
+        "evidence/verifier_integrity.adversarial.js",
+        "evidence/artifact_provenance.adversarial.js"
+      ]
+    },
+    "security": {
+      "description": "Exhaustive adversarial security suite (Command Injection, Path Traversal, Symlinks, Process Isolation, LLM Injection)",
+      "suites": [
+        "security/execution_injection.adversarial.js",
+        "security/filesystem_traversal.adversarial.js",
+        "security/process_isolation.adversarial.js",
+        "security/symlink_escape.adversarial.js",
+        "llm/prompt_injection.adversarial.js",
+        "llm/gateway_telemetry.security.js"
+      ]
+    },
+    "evidence": {
+      "description": "Evidence integrity, layered verifier, cryptographic provenance, and cross-domain rejection",
+      "suites": [
+        "evidence/verifier_integrity.adversarial.js",
+        "evidence/artifact_provenance.adversarial.js",
+        "evidence/cross_domain_evidence.adversarial.js",
+        "evidence/telemetry_poisoning.adversarial.js"
+      ]
+    },
+    "integration": {
+      "description": "Architectural integration, live CodeGraph, incremental lifecycle, Qdrant semantic RAG, state machine",
+      "suites": [
+        "graph/codegraph_live.integration.js",
+        "rag/qdrant_isolation.integration.js",
+        "integration/incremental_lifecycle.integration.js",
+        "integration/state_machine.adversarial.js",
+        "tools/real_tool_validation.integration.js"
+      ]
+    },
+    "stress": {
+      "description": "Resource exhaustion, deep recursion, oversized inputs, infinite process handling",
+      "suites": [
+        "resource/resource_limits.adversarial.js",
+        "resource/process_tree_cleanup.stress.js"
+      ]
+    },
+    "full": {
+      "description": "Complete adversarial, architectural, evidence, and stress validation suite",
+      "suites": [
+        "security/execution_injection.adversarial.js",
+        "security/filesystem_traversal.adversarial.js",
+        "security/process_isolation.adversarial.js",
+        "security/symlink_escape.adversarial.js",
+        "evidence/verifier_integrity.adversarial.js",
+        "evidence/artifact_provenance.adversarial.js",
+        "evidence/cross_domain_evidence.adversarial.js",
+        "evidence/telemetry_poisoning.adversarial.js",
+        "graph/codegraph_live.integration.js",
+        "rag/qdrant_isolation.integration.js",
+        "llm/prompt_injection.adversarial.js",
+        "llm/gateway_telemetry.security.js",
+        "integration/incremental_lifecycle.integration.js",
+        "integration/state_machine.adversarial.js",
+        "tools/real_tool_validation.integration.js",
+        "resource/resource_limits.adversarial.js",
+        "resource/process_tree_cleanup.stress.js"
+      ]
+    }
+  },
+  "resource_limits": {
+    "max_file_size_bytes": 10485760,
+    "max_files": 10000,
+    "max_directory_depth": 20,
+    "max_total_input_bytes": 104857600,
+    "max_tool_output_bytes": 52428800,
+    "max_process_runtime_ms": 120000,
+    "max_concurrent_tools": 4,
+    "max_graph_nodes": 50000,
+    "max_llm_tokens": 100000,
+    "max_embeddings": 10000,
+    "max_database_growth_bytes": 524288000
+  },
+  "security_gates": {
+    "block_on_critical": true,
+    "block_on_high": true,
+    "min_readiness_score": 8.0,
+    "required_controls": [
+      "EXECUTION_INJECTION_DEFENSE",
+      "FILESYSTEM_ESCAPE_DEFENSE",
+      "VERIFIER_SUBSTRING_BAN",
+      "ARTIFACT_PROVENANCE_HMAC_SHA256",
+      "CODEGRAPH_LIVE_POPULATION",
+      "INCREMENTAL_HASH_ENFORCEMENT",
+      "QDRANT_PROJECT_ISOLATION"
+    ]
+  },
+  "scoring_weights": {
+    "execution_security": 0.15,
+    "filesystem_security": 0.10,
+    "tool_isolation": 0.10,
+    "evidence_integrity": 0.15,
+    "verifier_integrity": 0.10,
+    "graph_integrity": 0.08,
+    "rag_integrity": 0.08,
+    "llm_security": 0.06,
+    "database_integrity": 0.06,
+    "incremental_analysis": 0.06,
+    "performance": 0.06
+  }
+}

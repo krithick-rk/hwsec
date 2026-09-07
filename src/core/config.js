@@ -1,15 +1,139 @@
 import fs from 'fs';
 import path from 'path';
 
+/**
+ * Loads a .env file into process.env if present
+ */
+export function loadEnvFile(envPath = null) {
+    const candidates = [
+        envPath,
+        path.resolve(process.cwd(), '.env'),
+        path.resolve(process.cwd(), '.env.local'),
+        path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([a-zA-Z]:)/, '$1')), '../../.env')
+    ].filter(Boolean);
+
+    for (const p of candidates) {
+        if (fs.existsSync(p)) {
+            try {
+                const content = fs.readFileSync(p, 'utf-8');
+                for (const line of content.split('\n')) {
+                    const trimmed = line.trim();
+                    if (!trimmed || trimmed.startsWith('#')) continue;
+                    const eqIdx = trimmed.indexOf('=');
+                    if (eqIdx > 0) {
+                        const key = trimmed.slice(0, eqIdx).trim();
+                        let val = trimmed.slice(eqIdx + 1).trim();
+                        // Strip quotes if present
+                        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+                            val = val.slice(1, -1);
+                        }
+                        if (!process.env[key]) {
+                            process.env[key] = val;
+                        }
+                    }
+                }
+                break;
+            } catch {}
+        }
+    }
+}
+
+// Auto-load .env on module load
+loadEnvFile();
+
+/**
+ * Recursively interpolates ${ENV_VAR} placeholders in config objects
+ */
+function interpolateEnv(val) {
+    if (typeof val === 'string') {
+        return val.replace(/\$\{([A-Z0-9_]+)\}/g, (match, varName) => {
+            return process.env[varName] || '';
+        });
+    }
+    if (Array.isArray(val)) {
+        return val.map(interpolateEnv);
+    }
+    if (val && typeof val === 'object') {
+        const out = {};
+        for (const [k, v] of Object.entries(val)) {
+            out[k] = interpolateEnv(v);
+        }
+        return out;
+    }
+    return val;
+}
+
+/**
+ * Auto-detects local tool installation paths if not set in config
+ */
+function enrichToolPaths(config) {
+    if (!config.tool_paths) {
+        config.tool_paths = {};
+    }
+
+    const defaultOssCadSuite = 'E:/Intern/krithick/Downloads/oss-cad-suite/bin';
+    if (fs.existsSync(defaultOssCadSuite)) {
+        if (!config.tool_paths.sby) {
+            config.tool_paths.sby = path.join(defaultOssCadSuite, 'sby.exe').replace(/\\/g, '/');
+        }
+        if (!config.tool_paths.yosys) {
+            config.tool_paths.yosys = path.join(defaultOssCadSuite, 'yosys.exe').replace(/\\/g, '/');
+        }
+        if (!config.tool_paths.verilator) {
+            config.tool_paths.verilator = path.join(defaultOssCadSuite, 'verilator').replace(/\\/g, '/');
+        }
+    }
+
+    return config;
+}
+
 export function loadConfig(configPath) {
+    loadEnvFile();
+    let config = {};
+
     if (fs.existsSync(configPath)) {
-        const raw = fs.readFileSync(configPath, 'utf-8');
+        let raw = fs.readFileSync(configPath, 'utf-8');
         try {
-            return JSON.parse(raw);
+            // Strip BOM if present
+            raw = raw.replace(/^\uFEFF/, '');
+            config = JSON.parse(raw);
         } catch (e) {
             console.error(`[!] Failed to parse config file ${configPath}:`, e.message);
             return {};
         }
     }
-    return {};
+
+    config = interpolateEnv(config);
+    config = enrichToolPaths(config);
+
+    // Fall back to process.env for standard providers if still empty
+    if (config.llm_providers?.nvidia && !config.llm_providers.nvidia.api_key && process.env.NVIDIA_API_KEY) {
+        config.llm_providers.nvidia.api_key = process.env.NVIDIA_API_KEY;
+    }
+    if (config.llm_providers?.gemini && !config.llm_providers.gemini.api_key && (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY)) {
+        config.llm_providers.gemini.api_key = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+    }
+
+    return config;
+}
+
+/**
+ * Returns a sanitized copy of the config safe for logging, telemetry, or reports.
+ */
+export function sanitizeConfig(config) {
+    if (!config || typeof config !== 'object') return config;
+    const sanitized = JSON.parse(JSON.stringify(config));
+
+    function redact(obj) {
+        for (const k of Object.keys(obj)) {
+            if (typeof obj[k] === 'object' && obj[k] !== null) {
+                redact(obj[k]);
+            } else if (typeof obj[k] === 'string' && (k.includes('api_key') || k.includes('secret') || k.includes('password'))) {
+                obj[k] = obj[k] ? '[REDACTED]' : '';
+            }
+        }
+    }
+
+    redact(sanitized);
+    return sanitized;
 }

@@ -1,0 +1,8 @@
+# running in tests/fixtures/test_formal/src/
+read -formal test_formal.v
+prep -top test_formal
+
+hierarchy -smtcheck
+rename -witness
+write_jny -no-connections ../model/design.json
+write_rtlil ../model/design.il

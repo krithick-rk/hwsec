@@ -7,9 +7,30 @@ test_env.py
 bad_config.json
 test_unrelated/
 
-# Local secrets — never commit the real config
+# Local secrets — never commit real secrets or credentials
+.env
+.env.local
 config.json
 
-# One-off test scripts
+# One-off test scripts and scratch files
 test_phase6.js
 test_run.bat
+test.c
+verify.sc
+run_joern.sh
+test_empty_dir/
+
+# Temporary and extraction artifacts
+temp.zip
+temp_docx/
+new_docx_content.txt
+
+# Runtime output and databases
+hwsec-live-audit-run/
+workspace/
+*.db
+*.log
+
+# Vulnerability benchmark datasets (large archives, left local)
+quality-benchmark/
+

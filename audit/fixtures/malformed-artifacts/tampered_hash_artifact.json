@@ -1,0 +1,6 @@
+{
+  "finding_id": "FINDING-TEST-001",
+  "tool": "symbiyosys",
+  "timestamp": "2026-09-07T10:00:00Z",
+  "data": "Tampered payload with valid-looking structure"
+}

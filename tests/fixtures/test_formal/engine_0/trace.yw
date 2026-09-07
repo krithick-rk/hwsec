@@ -1,0 +1,17 @@
+{
+  "format": "Yosys Witness Trace",
+  "generator": "smtbmc",
+  "clocks": [
+    {"path": ["\\clk"], "edge": "posedge", "offset": 0}
+  ],
+  "signals": [
+    {"path": ["\\clk"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\data_in"], "width": 8, "offset": 0, "init_only": false},
+    {"path": ["\\reset"], "width": 1, "offset": 0, "init_only": false},
+    {"path": ["\\data_out"], "width": 8, "offset": 0, "init_only": true}
+  ],
+  "steps": [
+    {"bits": "111111110000000000"},
+    {"bits": "0000000000"}
+  ]
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+<testsuite timestamp="2026-09-07T13:45:13" hostname="DESKTOP-0RI8SFC" package="test_formal" id="0" name="default" tests="1" errors="0" failures="2" time="0" skipped="0">
+<properties>
+<property name="os" value="Windows"/>
+<property name="expect" value="PASS"/>
+<property name="status" value="FAIL"/>
+</properties>
+<testcase classname="default" name="build execution" time="0">
+<failure type="FAIL" message="Task returned status FAIL." />
+</testcase>
+<testcase classname="default" name="Property ASSERT in test_formal at test_formal.v:18.13-18.38" time="0" type="ASSERT" location="test_formal.v:18.13-18.38" id="_witness_.check_assert_test_formal_v_18_4" tracefile="engine_0\trace.vcd">
+<failure type="ASSERT" message="Property ASSERT in test_formal at test_formal.v:18.13-18.38 failed. Trace file: engine_0\trace.vcd" />
+</testcase>
+<system-out>SBY 13:45:11 [tests/fixtures/test_formal] Removing directory 'E:\Intern\hwsec\tests\fixtures\test_formal'.
+SBY 13:45:11 [tests/fixtures/test_formal] Copy 'E:\Intern\hwsec\tests\fixtures\test_formal.v' to 'E:\Intern\hwsec\tests\fixtures\test_formal\src\test_formal.v'.
+SBY 13:45:11 [tests/fixtures/test_formal] engine_0: smtbmc
+SBY 13:45:11 [tests/fixtures/test_formal] base: starting process &quot;cd tests/fixtures/test_formal/src&amp; yosys -ql ../model/design.log ../model/design.ys&quot;
+SBY 13:45:12 [tests/fixtures/test_formal] base: finished (returncode=0)
+SBY 13:45:12 [tests/fixtures/test_formal] prep: starting process &quot;cd tests/fixtures/test_formal/model&amp; yosys -ql design_prep.log design_prep.ys&quot;
+SBY 13:45:12 [tests/fixtures/test_formal] prep: finished (returncode=0)
+SBY 13:45:12 [tests/fixtures/test_formal] smt2: starting process &quot;cd tests/fixtures/test_formal/model&amp; yosys -ql design_smt2.log design_smt2.ys&quot;
+SBY 13:45:12 [tests/fixtures/test_formal] smt2: finished (returncode=0)
+SBY 13:45:12 [tests/fixtures/test_formal] engine_0: starting process &quot;cd tests/fixtures/test_formal&amp; yosys-smtbmc --presat --unroll --noprogress -t 5  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2&quot;
+SBY 13:45:12 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Solver: yices
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Checking assumptions in step 0..
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Checking assertions in step 0..
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Checking assumptions in step 1..
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Checking assertions in step 1..
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  BMC failed!
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Assert failed in test_formal: test_formal.v:18.13-18.38 (_witness_.check_assert_test_formal_v_18_4)
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace.vcd
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace_tb.v
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace.smtc
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace.yw
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: ##   0:00:00  Status: failed
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: finished (returncode=1)
+SBY 13:45:13 [tests/fixtures/test_formal] engine_0: Status returned by engine: FAIL
+SBY 13:45:13 [tests/fixtures/test_formal] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 13:45:13 [tests/fixtures/test_formal] summary: Elapsed process time unvailable on Windows
+SBY 13:45:13 [tests/fixtures/test_formal] summary: engine_0 (smtbmc) returned FAIL
+SBY 13:45:13 [tests/fixtures/test_formal] summary: counterexample trace: tests\fixtures\test_formal\engine_0\trace.vcd
+SBY 13:45:13 [tests/fixtures/test_formal] summary:   failed assertion test_formal._witness_.check_assert_test_formal_v_18_4 at test_formal.v:18.13-18.38 step 1
+SBY 13:45:13 [tests/fixtures/test_formal] DONE (FAIL, rc=2)
+</system-out>
+<system-err>
+</system-err>
+</testsuite>
+</testsuites>

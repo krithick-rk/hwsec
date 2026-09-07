@@ -1,0 +1,7 @@
+{
+  "total_executions": 500000,
+  "crashes": 0,
+  "unique_hangs": 0,
+  "status": "COMPLETED",
+  "message": "No crash found during 10 hours of fuzzing"
+}

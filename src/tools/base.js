@@ -1,33 +1,90 @@
-/**
- * Base Tool Adapter for HWSEC
+﻿/**
+ * Generalized Base Tool Adapter for HWSEC (Hardware and Software Domains)
  */
 export class ToolAdapter {
-    constructor(config) {
+    constructor(config = {}) {
         this.config = config;
     }
 
     /**
-     * @returns {string} The name of the tool
+     * Unique identifier of the tool (e.g. 'verilator', 'semgrep')
+     * @returns {string}
      */
+    get id() {
+        return this.name;
+    }
+
     get name() {
-        throw new Error("Must implement name getter");
+        throw new Error("Must implement name/id getter");
+    }
+
+    /**
+     * Capabilities this tool satisfies (e.g. ['rtl_lint'], ['sast_pattern_scan'])
+     * @returns {string[]}
+     */
+    get capabilities() {
+        return [];
+    }
+
+    /**
+     * Supported programming / hardware languages (e.g. ['verilog'], ['python', 'c'])
+     * @returns {string[]}
+     */
+    get supportedLanguages() {
+        return [];
+    }
+
+    /**
+     * Whether this adapter supports MCP transport
+     * @returns {boolean}
+     */
+    get supportsMCP() {
+        return false;
     }
 
     /**
      * Checks if the tool is installed and accessible.
-     * @returns {boolean}
+     * @returns {Promise<{installed: boolean, version?: string, error?: string}>}
      */
-    checkInstalled() {
+    async checkInstalled() {
         throw new Error("Must implement checkInstalled()");
     }
 
     /**
-     * Executes the deterministic tool and returns structured findings/evidence.
-     * @param {string[]} rtlFiles - List of RTL source files
-     * @param {string} outputDir - Directory to store evidence artifacts
-     * @returns {import('../core/schema.js').Finding[]}
+     * Generalized execution method supporting both object params and legacy (files, outputDir) call signatures.
+     * @param {Object|string[]} params
+     * @param {string} [legacyOutputDir]
+     * @param {Object} [legacyOptions]
+     * @returns {Promise<{status: string, findings: Array<Object>, toolErrors?: Array<Object>, telemetry?: Object}>}
      */
-    async run(rtlFiles, outputDir) {
+    async run(params, legacyOutputDir, legacyOptions) {
         throw new Error("Must implement run()");
+    }
+}
+
+/**
+ * Adapter for tools executed as local child processes
+ */
+export class LocalProcessAdapter extends ToolAdapter {
+    get adapterType() {
+        return 'local_process';
+    }
+}
+
+/**
+ * Adapter for tools communicating over Model Context Protocol (MCP)
+ */
+export class MCPAdapter extends ToolAdapter {
+    constructor(config = {}, mcpClient = null) {
+        super(config);
+        this.mcpClient = mcpClient;
+    }
+
+    get adapterType() {
+        return 'mcp';
+    }
+
+    get supportsMCP() {
+        return true;
     }
 }

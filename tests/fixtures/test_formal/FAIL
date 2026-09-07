@@ -1,0 +1,6 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+Elapsed process time unvailable on Windows
+engine_0 (smtbmc) returned FAIL
+counterexample trace: engine_0\trace.vcd
+counterexample trace: engine_0\trace.yw
+  failed assertion test_formal._witness_.check_assert_test_formal_v_18_4 at test_formal.v:18.13-18.38 step 1
