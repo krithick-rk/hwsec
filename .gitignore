@@ -31,6 +31,13 @@ workspace/
 *.db
 *.log
 
-# Vulnerability benchmark datasets (large archives, left local)
-quality-benchmark/
-
+# Vulnerability benchmark datasets and evidence runs (large local archives)
+quality-benchmark/c/
+quality-benchmark/cpp/
+quality-benchmark/cross-project/
+quality-benchmark/evidence/
+quality-benchmark/go/
+quality-benchmark/hardware/
+quality-benchmark/java/
+quality-benchmark/manifests/
+quality-benchmark/python/
