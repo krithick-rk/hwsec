@@ -21,7 +21,14 @@ const testFiles = [
     'test_e0_e5_verifier.js',
     'test_adaptive_suspicion.js',
     'test_cli_commands.js',
-    'test_e2e_multilang.js'
+    'test_e2e_multilang.js',
+    'test_benchmark_crawler.js',
+    'test_architecture_upgrade.js',
+    'test_improved_architecture.js',
+    'test_preflight_scheduler.js',
+    'test_exploit_preflight.js',
+    'test_controlled_proof_verifier.js',
+    'test_bep_evidence.js'
 ];
 
 console.log('=====================================================');

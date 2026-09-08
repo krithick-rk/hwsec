@@ -26,6 +26,33 @@ const BUILTIN_PATTERNS = [
         desc: "Execution of dynamic shell command or evaluated code."
     },
     {
+        id: "SEMGREP-PY-SQL-INJECTION",
+        lang: ["python"],
+        regex: /\b(execute|executemany)\s*\(/g,
+        title: "Potential SQL Injection",
+        cwe: "CWE-89",
+        severity: Severity.HIGH,
+        desc: "Database query execution with potential dynamic string formatting."
+    },
+    {
+        id: "SEMGREP-PY-XSS",
+        lang: ["python"],
+        regex: /\b(render_template_string|mark_safe|HttpResponse)\s*\(/g,
+        title: "Potential Cross-Site Scripting (XSS)",
+        cwe: "CWE-79",
+        severity: Severity.MEDIUM,
+        desc: "Direct rendering of unescaped HTML content."
+    },
+    {
+        id: "SEMGREP-PY-SSRF",
+        lang: ["python"],
+        regex: /\b(requests\.get|requests\.post|urlopen)\s*\(/g,
+        title: "Potential Server-Side Request Forgery",
+        cwe: "CWE-918",
+        severity: Severity.HIGH,
+        desc: "Outbound HTTP request with dynamic parameters."
+    },
+    {
         id: "SEMGREP-JAVA-DESERIALIZATION",
         lang: ["java"],
         regex: /\b(readObject|ObjectInputStream)\b/g,
@@ -35,6 +62,69 @@ const BUILTIN_PATTERNS = [
         desc: "Deserialization of untrusted data stream."
     },
     {
+        id: "SEMGREP-JAVA-SQLI",
+        lang: ["java"],
+        regex: /\b(createQuery|createNativeQuery|execSQL|rawQuery|executeQuery|executeUpdate)\s*\(/g,
+        title: "Potential SQL Injection",
+        cwe: "CWE-89",
+        severity: Severity.HIGH,
+        desc: "Execution of database SQL statement."
+    },
+    {
+        id: "SEMGREP-JAVA-CMDI",
+        lang: ["java"],
+        regex: /\b(Runtime\.getRuntime\(\)\.exec|ProcessBuilder)\s*\(/g,
+        title: "Potential Command Injection",
+        cwe: "CWE-78",
+        severity: Severity.CRITICAL,
+        desc: "Execution of operating system command."
+    },
+    {
+        id: "SEMGREP-JAVA-PATH-TRAVERSAL",
+        lang: ["java"],
+        regex: /\b(new\s+File|FileInputStream|FileOutputStream|Paths\.get|getCanonicalPath)\s*\(/g,
+        title: "Potential Path Traversal / File Access",
+        cwe: "CWE-22",
+        severity: Severity.MEDIUM,
+        desc: "File path construction or stream creation."
+    },
+    {
+        id: "SEMGREP-JAVA-WEAK-CRYPTO",
+        lang: ["java"],
+        regex: /\bMessageDigest\.getInstance\s*\(\s*["'](MD5|SHA-1|SHA1)["']/gi,
+        title: "Use of Weak Cryptographic Hash Algorithm",
+        cwe: "CWE-327",
+        severity: Severity.MEDIUM,
+        desc: "Use of broken cryptographic hashing algorithm (MD5/SHA1)."
+    },
+    {
+        id: "SEMGREP-JAVA-WEAK-RANDOM",
+        lang: ["java"],
+        regex: /\bnew\s+Random\s*\(/g,
+        title: "Use of Insecure Pseudo-Random Number Generator",
+        cwe: "CWE-330",
+        severity: Severity.LOW,
+        desc: "Use of java.util.Random for security-sensitive operations."
+    },
+    {
+        id: "SEMGREP-JAVA-LDAP",
+        lang: ["java"],
+        regex: /\b(DirContext|InitialDirContext|LdapContext|\.search)\s*\(/g,
+        title: "Potential LDAP Injection",
+        cwe: "CWE-90",
+        severity: Severity.HIGH,
+        desc: "LDAP directory query execution."
+    },
+    {
+        id: "SEMGREP-JAVA-XXE",
+        lang: ["java"],
+        regex: /\b(DocumentBuilderFactory|SAXParserFactory|XMLInputFactory)\.newInstance\s*\(/g,
+        title: "XML External Entity (XXE) Parsing",
+        cwe: "CWE-611",
+        severity: Severity.HIGH,
+        desc: "XML parser initialization without explicit XXE protections."
+    },
+    {
         id: "SEMGREP-GO-HARDCODED-KEY",
         lang: ["go"],
         regex: /(api[_-]?key|secret|password)\s*[:=]\s*["`][a-zA-Z0-9_\-]{8,}["`]/gi,
@@ -42,6 +132,24 @@ const BUILTIN_PATTERNS = [
         cwe: "CWE-798",
         severity: Severity.MEDIUM,
         desc: "Hardcoded cryptographic secret or authentication token detected."
+    },
+    {
+        id: "SEMGREP-GO-CMDI",
+        lang: ["go"],
+        regex: /\bexec\.Command\s*\(/g,
+        title: "Command Execution",
+        cwe: "CWE-78",
+        severity: Severity.HIGH,
+        desc: "Execution of OS command in Go."
+    },
+    {
+        id: "SEMGREP-GO-SQLI",
+        lang: ["go"],
+        regex: /\b(db\.Query|db\.QueryRow|db\.Exec)\s*\(/g,
+        title: "Database Query Execution",
+        cwe: "CWE-89",
+        severity: Severity.HIGH,
+        desc: "Database SQL query execution."
     },
     {
         id: "SEMGREP-GENERIC-PATH-TRAVERSAL",

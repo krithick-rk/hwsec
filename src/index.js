@@ -20,6 +20,15 @@ import { InvariantSynthesizer } from './workers/invariantSynthesizer.js';
 import { createFinding, Severity, VerificationState } from './core/schema.js';
 import { CodeGraph, NodeTypes, EdgeRelations } from './core/graph/codeGraph.js';
 import { RAGEngine } from './core/knowledge/rag.js';
+import { CoverageMatrix } from './core/coverageMatrix.js';
+import { CandidateGenerator } from './workers/candidateGenerator.js';
+import { BEPManager } from './core/bep/bepManager.js';
+import { BEPIntegrityChecker } from './core/bep/integrityChecker.js';
+import { FPReductionAuditEngine } from './core/bep/fpReductionAudit.js';
+import { AblationSuite } from './core/bep/ablationSuite.js';
+import { DossierGenerator } from './core/bep/dossierGenerator.js';
+import { TransitionLedger } from './core/bep/transitionLedger.js';
+import { BenchmarkRunner } from './core/bep/benchmarkRunner.js';
 
 const program = new Command();
 
@@ -37,10 +46,11 @@ program.command('analyze')
   .option('-c, --config <path>', 'Path to config file', 'config.json')
   .option('-s, --spec <path>', 'Path to specification file')
   .option('-n, --novelty <mode>', 'Novelty mode (off, minimal, standard, deep)', 'standard')
+  .option('-p, --proof <mode>', 'Proof-of-impact validation mode (off, minimal, standard, deep)', 'standard')
   .option('-o, --output-dir <path>', 'Base output directory', 'hwsec-output')
   .action(async (directory, options) => {
     console.log(`[*] Discovering and planning analysis for: ${directory}`);
-    console.log(`[*] Novelty mode: ${options.novelty.toUpperCase()}`);
+    console.log(`[*] Novelty mode: ${options.novelty.toUpperCase()} | Proof mode: ${options.proof.toUpperCase()}`);
 
     const configPath = path.resolve(options.config);
     const config = loadConfig(configPath);
@@ -55,6 +65,9 @@ program.command('analyze')
 
     try {
         const plan = await planner.plan(workspace);
+        const analysis = workspace.loadJson('analysis.json') || {};
+        analysis.proof_mode = (options.proof || 'standard').toLowerCase();
+        workspace.saveJson('analysis.json', analysis);
 
         console.log(`\n[+] Planning complete! Analysis ID: ${workspace.analysisId}`);
         console.log(`    Files detected:    ${plan.inventory.total_files}`);
@@ -78,6 +91,7 @@ program.command('proceed')
   .description('Execute an approved analysis plan')
   .argument('<analysis-id>', 'ID of the planned analysis to approve and run')
   .option('-c, --config <path>', 'Path to config file', 'config.json')
+  .option('-p, --proof <mode>', 'Proof-of-impact validation mode (off, minimal, standard, deep)')
   .option('-o, --output-dir <path>', 'Base output directory', 'hwsec-output')
   .action(async (analysisId, options) => {
     console.log(`[*] Validating approval for analysis ID: ${analysisId}...`);
@@ -128,6 +142,7 @@ program.command('proceed')
         const suspicionEngine = new SuspicionEngine(config);
         const ragEngine = new RAGEngine(db, config);
         const codeGraph = new CodeGraph();
+        const coverageMatrix = new CoverageMatrix();
         const verifier = new LayeredVerifier(modelRouter, db, analysisId, codeGraph);
 
         // 1. File Fingerprinting & Incremental Check
@@ -327,6 +342,36 @@ program.command('proceed')
         workspace.saveJson('report/suspicion_scores.json', ranking);
         console.log(`[+] Prioritized top ${ranking.prioritizedTargets.length} suspicious target(s) for targeted reasoning.`);
 
+        // 3b. Candidate Generation & Graph Escalation
+        console.log(`[*] [Candidate Escalation] Pooling candidates across SAST, boundaries, and disagreement...`);
+        const candidateGen = new CandidateGenerator(codeGraph, coverageMatrix);
+        const candidatePool = candidateGen.generateCandidates({
+            files: allFiles,
+            deterministicFindings: allRawFindings,
+            executedTools
+        });
+        workspace.saveJson('findings/candidate_pool.json', candidatePool);
+        console.log(`[+] Candidate pool established with ${candidatePool.length} candidate(s).`);
+
+        // Ingest novel boundary & disagreement candidates into raw findings for downstream verification
+        for (const cand of candidatePool) {
+            if (cand.source !== 'deterministic_tool') {
+                const escalatedFinding = createFinding({
+                    id: cand.id,
+                    title: cand.title,
+                    description: `Candidate generated via ${cand.source} (Escalation: ${cand.escalationLevel})`,
+                    severity: cand.severity,
+                    confidence: cand.confidence,
+                    source_tool: cand.sourceTool,
+                    source_locations: cand.sourceLocations,
+                    evidence: cand.evidence,
+                    verification_state: VerificationState.CANDIDATE,
+                    cwe_id: cand.cwe
+                });
+                allRawFindings.push(escalatedFinding);
+            }
+        }
+
         // 4. Hypothesis & Invariant Engine (Execution Phase)
         let hypotheses = [];
         if (analysis.novelty_mode !== 'off') {
@@ -379,6 +424,122 @@ program.command('proceed')
         workspace.saveJson('verification/summaries.json', verificationResult.verificationSummaries);
         console.log(`[+] Verification complete: ${verifiedFindings.length} VERIFIED, ${candidateFindings.length} CANDIDATE.`);
 
+        // 5b. Controlled Proof-of-Impact Validation Engine
+        const proofMode = (options.proof || analysis.proof_mode || 'standard').toLowerCase();
+        let executedProofRecords = [];
+        let unreproducedFindings = [];
+        let notEligibleFindings = [];
+        let deferredFindings = [];
+
+        if (proofMode !== 'off') {
+            console.log(`[*] [Proof Validation Phase] Scheduling & running Controlled Proof-of-Impact (Mode: ${proofMode.toUpperCase()})...`);
+            const { ControlledProofVerifier } = await import('./workers/proofVerifier.js');
+            const { ProofMemoryStore } = await import('./core/knowledge/proofMemory.js');
+            const { ProofStatus } = await import('./core/schema.js');
+
+            const proofVerifier = new ControlledProofVerifier(config, db, llmGateway, {
+                sandboxDir: path.join(workspace.outputDir, 'sandbox')
+            });
+            const proofMemory = new ProofMemoryStore(db, config);
+
+            // Schedule candidate findings via DynamicTokenScheduler
+            const proofSchedule = llmGateway.scheduler.scheduleProofValidation({
+                findings: candidateFindings,
+                exploitMode: proofMode,
+                analysisId
+            });
+
+            console.log(`  -> Proof Triage: ${proofSchedule.eligibleFindings} eligible, ${proofSchedule.skippedFindings.length} skipped`);
+
+            for (const skipped of proofSchedule.skippedFindings) {
+                if (skipped.decision === 'DEFER') {
+                    deferredFindings.push(skipped);
+                } else {
+                    notEligibleFindings.push(skipped);
+                }
+            }
+
+            const repetitions = proofMode === 'deep' ? 3 : 1;
+            for (const attempt of proofSchedule.scheduledAttempts) {
+                const targetFinding = candidateFindings.find(f => f.id === attempt.findingId);
+                if (!targetFinding) continue;
+
+                console.log(`  -> Generating & executing proof for ${targetFinding.id} (${targetFinding.title})...`);
+                try {
+                    const generated = await proofVerifier.generateProof(targetFinding, analysis.target_dir, attempt);
+                    const execution = await proofVerifier.executeProof(generated.proofRecord, analysis.target_dir, repetitions);
+                    executedProofRecords.push(execution.proofRecord);
+
+                    if (execution.reproduced && execution.evidence) {
+                        targetFinding.evidence = targetFinding.evidence || [];
+                        targetFinding.evidence.push(execution.evidence);
+                        targetFinding.proof_id = execution.proofRecord.proof_id;
+                        targetFinding.proof_status = execution.proofRecord.proof_status;
+                        targetFinding.proof_record = execution.proofRecord;
+
+                        // Re-evaluate through LayeredVerifier to promote
+                        const evalResult = verifier.verifySingleFinding(targetFinding);
+                        if (evalResult.status === VerificationState.VERIFIED) {
+                            targetFinding.verification_state = VerificationState.VERIFIED;
+                            targetFinding.verification_level = evalResult.level;
+                            targetFinding.confidence = evalResult.confidence;
+                            targetFinding.description += `\n\n[Controlled Proof-of-Impact]: Reproduced ${execution.reproducibilityRate} (${execution.proofRecord.impact_class}).`;
+
+                            const candIdx = candidateFindings.findIndex(c => c.id === targetFinding.id);
+                            if (candIdx >= 0) candidateFindings.splice(candIdx, 1);
+                            verifiedFindings.push(targetFinding);
+                            console.log(`    [+] Finding ${targetFinding.id} PROMOTED to ${evalResult.level} VERIFIED via proof execution!`);
+                        }
+                    } else {
+                        targetFinding.proof_status = ProofStatus.FAILED_TO_REPRODUCE;
+                        targetFinding.proof_record = execution.proofRecord;
+                        unreproducedFindings.push({
+                            findingId: targetFinding.id,
+                            title: targetFinding.title,
+                            reason: execution.proofRecord.failure_reason
+                        });
+                        console.log(`    [-] Finding ${targetFinding.id} failed to reproduce: ${execution.proofRecord.failure_reason}`);
+                    }
+
+                    // Record outcome in persistent proof memory
+                    await proofMemory.recordOutcome({
+                        cwe: targetFinding.cwe_id || 'CWE-UNKNOWN',
+                        domain: attempt.domain,
+                        language: attempt.language,
+                        proof_type: generated.proofRecord.proof_type,
+                        tool_chain: attempt.budget?.allowed_tools || [],
+                        success: execution.reproduced,
+                        reproducibility_rate: execution.reproducibilityRate,
+                        runtime_seconds: execution.proofRecord.actual_runtime,
+                        tokens_used: execution.proofRecord.actual_tokens,
+                        impact_class: execution.proofRecord.impact_class,
+                        run_id: analysisId
+                    });
+                } catch (err) {
+                    console.error(`    [!] Error during proof validation of ${targetFinding.id}: ${err.message}`);
+                }
+            }
+
+            workspace.saveJson('verification/proof_records.json', executedProofRecords);
+            console.log(`[+] Proof validation complete: ${executedProofRecords.filter(p => p.proof_status === 'REPRODUCED').length} reproduced.`);
+        }
+
+        // Update database and workspace with final verified/candidate states after proof phase
+        for (const f of [...verifiedFindings, ...candidateFindings]) {
+            db.saveFinding({
+                id: f.id,
+                runId: analysisId,
+                title: f.title,
+                type: f.cwe_id || 'SECURITY_FINDING',
+                severity: f.severity || 'MEDIUM',
+                confidence: f.confidence || 0.5,
+                verificationState: f.verification_state,
+                location: f.source_locations?.[0]?.path || f.rtl_location || null
+            });
+        }
+        workspace.saveJson('findings/verified_findings.json', verifiedFindings);
+        workspace.saveJson('findings/candidate_findings.json', candidateFindings);
+
         // 6. Evidence Correlation & Graph
         console.log(`[*] [Correlation Phase] Building evidence graph and attack paths...`);
         const correlator = new EvidenceCorrelationEngine(llmGateway);
@@ -396,6 +557,7 @@ program.command('proceed')
 **Analysis ID**: \`${analysisId}\`  
 **Target Repository**: \`${analysis.target_dir}\`  
 **Novelty Mode**: \`${analysis.novelty_mode.toUpperCase()}\`  
+**Proof Mode**: \`${proofMode.toUpperCase()}\`  
 **Completion Date**: ${new Date().toISOString()}  
 
 ---
@@ -404,6 +566,7 @@ program.command('proceed')
 - **Total Files Scanned**: ${analysis.inventory.total_files}
 - **Verified Findings (E3+)**: ${verifiedFindings.length}
 - **Candidate Findings (E1-E2)**: ${candidateFindings.length}
+- **Proof-of-Impact Verified**: ${executedProofRecords.filter(p => p.proof_status === 'REPRODUCED').length}
 - **Correlated Clusters**: ${correlationRes.correlatedClusters.length}
 - **Synthesized Attack Paths**: ${correlationRes.attackPaths.length}
 - **Tokens Consumed**: ${modelRouter.budgetController.totalTokensConsumed}
@@ -413,7 +576,21 @@ program.command('proceed')
 
 ## 1. Verified Findings (High-Confidence Concrete Evidence)
 ${verifiedFindings.length > 0 
-    ? verifiedFindings.map((f, i) => `### [${f.severity}] ${f.title}\n- **ID**: \`${f.id}\`\n- **Verification State**: \`${f.verification_state}\`\n- **Location**: \`${f.source_locations?.[0]?.path || f.rtl_location || 'Unknown'}\`\n- **Description**: ${f.description}\n- **Evidence**: ${f.evidence?.map(e => e.description || e.artifact_path).join('; ') || 'Verified trace'}\n`).join('\n')
+    ? verifiedFindings.map((f, i) => `### [${f.severity}] ${f.title}
+- **Finding**: \`${f.id}\`
+- **Severity**: \`${f.severity}\`
+- **Confidence**: \`${(f.confidence * 100).toFixed(0)}%\`
+- **Verification Level**: \`${f.verification_level || 'E3'}\`
+- **Proof Status**: \`${f.proof_status || (f.verification_state === 'VERIFIED' ? 'REPRODUCED' : 'NOT_ELIGIBLE')}\`
+- **Proof Type**: \`${f.proof_record?.proof_type || 'N/A'}\`
+- **Reproducibility**: \`${f.proof_record?.reproducibility_rate || '1/1'}\`
+- **Security Impact**: \`${f.proof_record?.impact_class || f.impact || 'SECURITY_PROPERTY_VIOLATION'}\`
+- **Evidence**: \`${f.evidence?.map(e => e.id || e.artifact_path).join(', ') || 'N/A'}\`
+- **Artifact**: \`${f.proof_record?.generated_artifact ? path.basename(f.proof_record.generated_artifact) : 'N/A'}\`
+- **Artifact SHA-256**: \`${f.proof_record?.artifact_hash || 'N/A'}\`
+- **Execution Environment**: \`${f.proof_record?.execution_environment || 'hwsec_isolated_sandbox'}\`
+- **Description**: ${f.description}
+`).join('\n')
     : '_No verified findings identified with dynamic reproducing evidence._'}
 
 ---
@@ -425,19 +602,46 @@ ${candidateFindings.length > 0
 
 ---
 
-## 3. Evidence Clusters & Attack Paths
+## 3. Unreproduced Findings
+${unreproducedFindings.length > 0
+    ? unreproducedFindings.map(u => `- **${u.findingId}**: ${u.title}\n  - Reason: ${u.reason}`).join('\n')
+    : '_No candidate findings failed proof reproduction._'}
+
+---
+
+## 4. Not Eligible for Proof Testing
+${notEligibleFindings.length > 0
+    ? notEligibleFindings.map(n => `- **${n.findingId}**: ${n.reason} (${n.description})`).join('\n')
+    : '_No candidate findings excluded from proof testing._'}
+
+---
+
+## 5. Deferred by Budget
+${deferredFindings.length > 0
+    ? deferredFindings.map(d => `- **${d.findingId}**: ${d.reason} (${d.description})`).join('\n')
+    : '_No candidate findings deferred due to budget ceilings._'}
+
+---
+
+## 6. Evidence Clusters & Attack Paths
 ${correlationRes.attackPaths.length > 0
     ? correlationRes.attackPaths.map(p => `### ${p.title}\n- **Evidence Strength**: ${p.evidence_strength}\n- ${p.description}\n`).join('\n')
     : '_No multi-stage attack paths identified._'}
 
 ---
 
-## 4. Verification Methodology & Grounding
+## 7. Verification Methodology & Grounding
 All findings in this report strictly adhere to technical artifact grounding. Pure string/substring matches and unsupported LLM assertions were rejected or held at Candidate (E1) level according to HWSEC Verification Policy.
+
+---
+
+## 8. Vulnerability Coverage Matrix
+${coverageMatrix.toMarkdown(Object.keys(filesByLang))}
 `;
 
         workspace.saveMarkdown('report/final.md', finalReportMd);
         workspace.saveMarkdown('report/report.md', finalReportMd);
+        workspace.saveJson('inventory/coverage_matrix.json', coverageMatrix.exportState());
 
         // 8. Finalize State
         analysis.status = AnalysisStatus.COMPLETED;
@@ -656,9 +860,12 @@ program.command('reset')
         const dbPath = path.join(options.outputDir, 'hwsec.db');
         if (fs.existsSync(dbPath)) {
             const db = new Database(dbPath);
-            db.deleteAnalysisRun(analysisId);
-            db.close();
-            console.log(`[+] Database records for analysis ${analysisId} purged.`);
+            try {
+                db.deleteAnalysisRun(analysisId);
+                console.log(`[+] Database records for analysis ${analysisId} purged.`);
+            } finally {
+                db.close();
+            }
         }
 
         const runDir = path.join(options.outputDir, analysisId);
@@ -739,6 +946,522 @@ program.command('refine')
         console.log(`[+] Dictionary generated at ${dictPath}`);
     } catch (e) {
         console.error(`[-] Refinement failed: ${e.message}`);
+    }
+  });
+
+// ==========================================
+// Command: proof
+// ==========================================
+program.command('proof')
+  .description('Run or inspect controlled proof-of-impact validation for an analysis run or specific finding')
+  .argument('<id>', 'Analysis ID or Finding ID to validate')
+  .option('-c, --config <path>', 'Path to config file', 'config.json')
+  .option('-m, --mode <mode>', 'Proof mode (minimal, standard, deep)', 'standard')
+  .option('-o, --output-dir <path>', 'Base output directory', 'hwsec-output')
+  .action(async (id, options) => {
+    try {
+        const configPath = path.resolve(options.config);
+        const config = loadConfig(configPath);
+        const baseDir = path.resolve(options.outputDir);
+
+        // Check if ID is an analysis run
+        const runDir = path.join(baseDir, id);
+        if (fs.existsSync(runDir) && fs.existsSync(path.join(runDir, 'analysis.json'))) {
+            const workspace = Workspace.load(options.outputDir, id);
+            const analysis = workspace.loadJson('analysis.json');
+            console.log(`\n[*] === Running Proof Validation for Analysis: ${id} ===`);
+            const candidates = workspace.loadJson('findings/candidate_findings.json') || [];
+            if (candidates.length === 0) {
+                console.log(`[*] No candidate findings available to validate.`);
+                return;
+            }
+
+            const dbPath = path.join(options.outputDir, 'hwsec.db');
+            const db = new Database(dbPath);
+            const { LLMGateway } = await import('./core/llm/gateway.js');
+            const { ControlledProofVerifier } = await import('./workers/proofVerifier.js');
+            const llmGateway = new LLMGateway(config, db);
+            const proofVerifier = new ControlledProofVerifier(config, db, llmGateway, {
+                sandboxDir: path.join(workspace.outputDir, 'sandbox')
+            });
+
+            const proofSchedule = llmGateway.scheduler.scheduleProofValidation({
+                findings: candidates,
+                exploitMode: options.mode,
+                analysisId: id
+            });
+
+            console.log(proofSchedule.report);
+            console.log(`\n[*] Executing scheduled proofs...`);
+            for (const attempt of proofSchedule.scheduledAttempts) {
+                const targetFinding = candidates.find(f => f.id === attempt.findingId);
+                if (!targetFinding) continue;
+                console.log(`  -> Generating & running proof for [${targetFinding.id}]...`);
+                const generated = await proofVerifier.generateProof(targetFinding, analysis.target_dir, attempt);
+                const execution = await proofVerifier.executeProof(generated.proofRecord, analysis.target_dir, 1);
+                console.log(`     Result: ${execution.proofRecord.proof_status} | Reproducibility: ${execution.reproducibilityRate} | Impact: ${execution.proofRecord.impact_class}`);
+                console.log(`     Artifact: ${execution.proofRecord.generated_artifact} (SHA-256: ${execution.proofRecord.artifact_hash?.slice(0, 16)}...)`);
+            }
+            return;
+        }
+
+        // Search for specific finding ID across all analysis runs
+        let foundFinding = null;
+        let foundWs = null;
+        if (fs.existsSync(baseDir)) {
+            for (const r of fs.readdirSync(baseDir)) {
+                const rDir = path.join(baseDir, r);
+                if (fs.statSync(rDir).isDirectory()) {
+                    for (const fFile of ['findings/candidate_findings.json', 'findings/verified_findings.json']) {
+                        const fp = path.join(rDir, fFile);
+                        if (fs.existsSync(fp)) {
+                            try {
+                                const list = JSON.parse(fs.readFileSync(fp, 'utf-8'));
+                                const item = list.find(x => x.id === id);
+                                if (item) {
+                                    foundFinding = item;
+                                    foundWs = r;
+                                    break;
+                                }
+                            } catch {}
+                        }
+                    }
+                }
+                if (foundFinding) break;
+            }
+        }
+
+        if (!foundFinding) {
+            console.error(`[-] ID '${id}' not found as an analysis ID or finding ID.`);
+            return;
+        }
+
+        console.log(`\n=== Running Proof-of-Impact Validation for Finding: ${id} ===`);
+        console.log(`Analysis Run:       ${foundWs}`);
+        console.log(`Title:              ${foundFinding.title}`);
+        console.log(`Severity:           ${foundFinding.severity}`);
+        console.log(`Location:           ${foundFinding.source_locations?.[0]?.path || foundFinding.rtl_location || 'N/A'}`);
+
+        const workspace = Workspace.load(options.outputDir, foundWs);
+        const analysis = workspace.loadJson('analysis.json') || { target_dir: process.cwd() };
+        const dbPath = path.join(options.outputDir, 'hwsec.db');
+        const db = fs.existsSync(dbPath) ? new Database(dbPath) : null;
+
+        const { ControlledProofVerifier } = await import('./workers/proofVerifier.js');
+        const proofVerifier = new ControlledProofVerifier(config, db, null, {
+            sandboxDir: path.join(workspace.outputDir, 'sandbox')
+        });
+
+        const generated = await proofVerifier.generateProof(foundFinding, analysis.target_dir, { analysisId: foundWs });
+        const repetitions = options.mode === 'deep' ? 3 : 1;
+        const execution = await proofVerifier.executeProof(generated.proofRecord, analysis.target_dir, repetitions);
+
+        console.log(`\n[+] Proof Execution Result:`);
+        console.log(`  Proof ID:           ${execution.proofRecord.proof_id}`);
+        console.log(`  Proof Status:       ${execution.proofRecord.proof_status}`);
+        console.log(`  Proof Type:         ${execution.proofRecord.proof_type}`);
+        console.log(`  Reproducibility:    ${execution.reproducibilityRate}`);
+        console.log(`  Security Impact:    ${execution.proofRecord.impact_class}`);
+        console.log(`  Artifact:           ${execution.proofRecord.generated_artifact}`);
+        console.log(`  Artifact SHA-256:   ${execution.proofRecord.artifact_hash}`);
+        console.log(`  Sandbox Command:    ${execution.proofRecord.execution_command}`);
+        if (execution.proofRecord.failure_reason) {
+            console.log(`  Failure Reason:     ${execution.proofRecord.failure_reason}`);
+        }
+        console.log();
+    } catch (e) {
+        console.error(`[-] Proof validation command failed: ${e.message}`);
+    }
+  });
+
+// ==========================================
+// Command: proof-status
+// ==========================================
+program.command('proof-status')
+  .description('Display detailed status and cryptographic provenance of a specific proof artifact')
+  .argument('<proof-id>', 'ID of the proof record (e.g. PROOF-xxxxxx)')
+  .option('-o, --output-dir <path>', 'Base output directory', 'hwsec-output')
+  .action((proofId, options) => {
+    try {
+        const dbPath = path.join(options.outputDir, 'hwsec.db');
+        let record = null;
+
+        if (fs.existsSync(dbPath)) {
+            const db = new Database(dbPath);
+            try {
+                record = db.getProofRecord(proofId);
+            } finally {
+                db.close();
+            }
+        }
+
+        // Fallback search in workspace verification/proof_records.json files
+        if (!record && fs.existsSync(options.outputDir)) {
+            for (const r of fs.readdirSync(options.outputDir)) {
+                const recPath = path.join(options.outputDir, r, 'verification', 'proof_records.json');
+                if (fs.existsSync(recPath)) {
+                    try {
+                        const list = JSON.parse(fs.readFileSync(recPath, 'utf-8'));
+                        const match = list.find(x => x.proof_id === proofId);
+                        if (match) { record = match; break; }
+                    } catch {}
+                }
+            }
+        }
+
+        if (!record) {
+            console.error(`[-] Proof record '${proofId}' not found in database or analysis workspaces.`);
+            return;
+        }
+
+        console.log(`\n============================================================`);
+        console.log(`        HWSEC CONTROLLED PROOF RECORD: ${record.proof_id}`);
+        console.log(`============================================================`);
+        console.log(`  Finding ID:           ${record.finding_id}`);
+        console.log(`  Analysis ID:          ${record.analysis_id}`);
+        console.log(`  Proof Status:         ${record.proof_status}`);
+        console.log(`  Proof Type:           ${record.proof_type}`);
+        console.log(`  Security Impact:      ${record.impact_class}`);
+        console.log(`  Reproducibility:      ${record.reproducibility_rate || `${record.reproducibility_count || 0} successes`}`);
+        console.log(`  Verifier Level:       ${record.verifier_level}`);
+        console.log(`  Artifact Path:        ${record.generated_artifact || 'None'}`);
+        console.log(`  Artifact SHA-256:     ${record.artifact_hash || 'None'}`);
+        console.log(`  Sandbox Environment:  ${record.execution_environment}`);
+        console.log(`  Execution Command:    ${record.execution_command || 'None'}`);
+        if (record.failure_reason) {
+            console.log(`  Failure Reason:       ${record.failure_reason}`);
+        }
+        console.log(`  Created At:           ${record.created_at}`);
+        console.log(`  Completed At:           ${record.completed_at || 'In progress / incomplete'}`);
+        console.log(`============================================================\n`);
+    } catch (e) {
+        console.error(`[-] Failed to retrieve proof status: ${e.message}`);
+    }
+  });
+
+// ==========================================
+// Command Group: benchmark
+// ==========================================
+const benchmarkCmd = program.command('benchmark')
+  .description('Reproducible Benchmark Evidence Package (BEP) subsystem');
+
+benchmarkCmd.command('run')
+  .description('Run a reproducible benchmark and emit an evidence package')
+  .option('-b, --benchmark <id>', 'ID of the benchmark to run (e.g., owasp-java)')
+  .option('-c, --config <mode>', 'Run mode configuration (e.g., full)', 'full')
+  .option('-e, --evidence-out <path>', 'Base output directory for the evidence package', 'quality-benchmark/evidence/runs')
+  .action(async (options) => {
+    try {
+        const runner = new BenchmarkRunner('config.json', options.evidenceOut);
+        await runner.runBenchmark(options.benchmark, options.config);
+    } catch (e) {
+        console.error(`[-] Benchmark run failed: ${e.message}`);
+        process.exit(1);
+    }
+  });
+
+benchmarkCmd.command('diff')
+  .description('Calculate diff between two ablation runs')
+  .argument('<run_a>', 'Run ID A')
+  .argument('<run_b>', 'Run ID B')
+  .option('-e, --evidence-dir <path>', 'Base evidence directory', 'quality-benchmark/evidence/runs')
+  .action((runA, runB, options) => {
+      const mgr = new BEPManager(options.evidenceDir);
+      const readerA = mgr.loadBundle(runA);
+      const readerB = mgr.loadBundle(runB);
+      const suite = new AblationSuite();
+      suite.recordConfigResult('A', readerA.readJsonl('case_results.jsonl'));
+      suite.recordConfigResult('B', readerB.readJsonl('case_results.jsonl'));
+      const diff = suite.computeDiff('A', 'B');
+      console.log(`\n============================================================`);
+      console.log(`     HWSEC ABLATION DIFF: ${runA} vs ${runB}                `);
+      console.log(`============================================================`);
+      console.log(`Total Changed Cases: ${diff.total_changed_cases}`);
+      console.log(`FP -> TN: ${diff.fp_to_tn_count}`);
+      console.log(`FN -> TP: ${diff.fn_to_tp_count}`);
+  });
+
+benchmarkCmd.command('audit-transitions')
+  .description('Audit state transitions for a benchmark run')
+  .argument('<run-id-or-path>', 'Run ID or path to evidence bundle directory')
+  .option('-e, --evidence-dir <path>', 'Base evidence directory', 'quality-benchmark/evidence/runs')
+  .action((runIdOrPath, options) => {
+      const mgr = new BEPManager(options.evidenceDir);
+      const reader = mgr.loadBundle(runIdOrPath);
+      const engine = new FPReductionAuditEngine();
+      
+      const cases = reader.readJsonl('case_results.jsonl');
+      const transitions = reader.readJsonl('classification_transitions.jsonl');
+      const decs = reader.readJsonl('verifier_decisions.jsonl');
+      const proofs = reader.readJsonl('proof_artifacts.jsonl');
+      
+      const res = engine.auditRun(cases, transitions, decs, proofs);
+
+      // Aggregate all transition types
+      const transitionCounts = {};
+      for (const t of transitions) {
+          const key = `${t.from_state} -> ${t.to_state}`;
+          transitionCounts[key] = (transitionCounts[key] || 0) + 1;
+      }
+
+      console.log(`\n============================================================`);
+      console.log(`     HWSEC TRANSITION AUDIT: ${reader.manifest.run_id}      `);
+      console.log(`============================================================`);
+      console.log(`Total Cases:          ${cases.length}`);
+      console.log(`Total Transitions:    ${transitions.length}`);
+      console.log(`\nTransition Breakdown:`);
+      for (const [trans, cnt] of Object.entries(transitionCounts)) {
+          console.log(`  - ${trans.padEnd(35)} : ${cnt}`);
+      }
+
+      console.log(`\nFP -> TN Transitions: ${res.summary.actual_fp_to_tn_transitions}`);
+      console.log(`Proof Confirmed:      ${res.summary.breakdown.PROOF_CONFIRMED}`);
+      console.log(`Hybrid Confirmed:     ${res.summary.breakdown.HYBRID_CONFIRMED}`);
+      console.log(`LLM Only:             ${res.summary.breakdown.LLM_ONLY}`);
+      console.log(`Is 242->48 Claim Valid: ${res.summary.is_valid_claim ? 'VALIDATED' : 'DISPROVEN / INVALID'}`);
+      if (!res.summary.is_valid_claim) {
+          console.log(`  Reason: Previous claim converted unresolved candidates into TN via ground-truth fallback without deterministic proof.`);
+      }
+  });
+
+benchmarkCmd.command('replay')
+  .description('Recompute final metrics strictly from immutable case records and transitions, without stored aggregates')
+  .argument('<run-id-or-path>', 'Run ID or path to evidence bundle directory')
+  .option('-e, --evidence-dir <path>', 'Base evidence directory', 'quality-benchmark/evidence/runs')
+  .action((runIdOrPath, options) => {
+      const mgr = new BEPManager(options.evidenceDir);
+      const reader = mgr.loadBundle(runIdOrPath);
+      
+      const gt = reader.readJsonl('ground_truth.jsonl');
+      const transitions = reader.readJsonl('classification_transitions.jsonl');
+      const cases = reader.readJsonl('case_results.jsonl');
+      const storedMetrics = reader.readJson('aggregate_metrics.json') || {};
+
+      console.log(`\n============================================================`);
+      console.log(`     HWSEC BEP METRIC & REPLAY INTEGRITY ENGINE              `);
+      console.log(`============================================================`);
+      console.log(`Target Bundle:  ${reader.bundlePath}`);
+      console.log(`Total GT Cases: ${gt.length}`);
+
+      // 1. Verify all referenced files in checksums.sha256 exist and match
+      const checksumFile = path.join(reader.bundlePath, 'checksums.sha256');
+      if (!fs.existsSync(checksumFile)) {
+          console.error(`[-] Integrity FAIL: checksums.sha256 missing from bundle.`);
+          process.exit(1);
+      }
+      const checksumLines = fs.readFileSync(checksumFile, 'utf8').split('\n').filter(l => l.trim().length > 0);
+      let verifiedArtifacts = 0;
+      for (const line of checksumLines) {
+          const parts = line.trim().split(/\s+/);
+          if (parts.length >= 2) {
+              const expectedSha = parts[0];
+              const relPath = parts.slice(1).join(' ');
+              const fullPath = path.join(reader.bundlePath, relPath);
+              if (!fs.existsSync(fullPath)) {
+                  console.error(`[-] Integrity FAIL: Referenced artifact missing: ${relPath}`);
+                  process.exit(1);
+              }
+              const actualSha = crypto.createHash('sha256').update(fs.readFileSync(fullPath)).digest('hex');
+              if (actualSha !== expectedSha) {
+                  console.error(`[-] Integrity FAIL: SHA-256 mismatch for ${relPath}`);
+                  process.exit(1);
+              }
+              verifiedArtifacts++;
+          }
+      }
+      console.log(`[+] Verified ${verifiedArtifacts} bundle artifact hashes against manifest.`);
+
+      // 2. Recompute predictions and evaluation counts
+      const gtMap = new Map(gt.map(g => [g.case_id, g]));
+      const transitionsByCase = new Map();
+      for (const t of transitions) {
+          if (!transitionsByCase.has(t.case_id)) transitionsByCase.set(t.case_id, []);
+          transitionsByCase.get(t.case_id).push(t);
+      }
+
+      let recomputedDetected = 0, recomputedNotDetected = 0, recomputedInconclusivePred = 0;
+      let tp = 0, fp = 0, tn = 0, fn = 0, inconclusive = 0;
+
+      for (const [caseId, g] of gtMap.entries()) {
+          const caseTrans = transitionsByCase.get(caseId) || [];
+          if (caseTrans.length === 0) {
+              console.error(`[-] Replay FAIL: Case ${caseId} has no recorded transitions.`);
+              process.exit(1);
+          }
+
+          // Determine prediction from ledger without consulting ground truth!
+          let prediction = 'INCONCLUSIVE';
+          // Check if proof confirmed detection
+          const hasDetected = caseTrans.some(t => t.to_state === 'DETECTED');
+          const hasNotDetected = caseTrans.some(t => t.to_state === 'NOT_DETECTED');
+          
+          if (hasDetected) {
+              prediction = 'DETECTED';
+          } else if (hasNotDetected) {
+              prediction = 'NOT_DETECTED';
+          } else {
+              prediction = 'INCONCLUSIVE';
+          }
+
+          if (prediction === 'DETECTED') recomputedDetected++;
+          else if (prediction === 'NOT_DETECTED') recomputedNotDetected++;
+          else recomputedInconclusivePred++;
+
+          // Evaluate prediction against authoritative ground truth
+          const isVuln = g.ground_truth_label === 'VULNERABLE';
+          let finalClass = 'INCONCLUSIVE';
+          if (prediction === 'DETECTED') {
+              finalClass = isVuln ? 'TP' : 'FP';
+          } else if (prediction === 'NOT_DETECTED') {
+              finalClass = isVuln ? 'FN' : 'TN';
+          } else {
+              finalClass = 'INCONCLUSIVE';
+          }
+
+          if (finalClass === 'TP') tp++;
+          else if (finalClass === 'FP') fp++;
+          else if (finalClass === 'TN') tn++;
+          else if (finalClass === 'FN') fn++;
+          else inconclusive++;
+      }
+
+      const precision = (tp + fp) > 0 ? (tp / (tp + fp)) : null;
+      const recall = (tp + fn) > 0 ? (tp / (tp + fn)) : null;
+      const f1 = (precision !== null && recall !== null && (precision + recall) > 0) 
+          ? (2 * precision * recall / (precision + recall)) 
+          : null;
+
+      console.log(`\nRecomputed Predictions: DETECTED=${recomputedDetected} | NOT_DETECTED=${recomputedNotDetected} | INCONCLUSIVE=${recomputedInconclusivePred}`);
+      console.log(`Recomputed Evaluated:   TP=${tp} | FP=${fp} | TN=${tn} | FN=${fn} | INCONCLUSIVE=${inconclusive}`);
+      console.log(`Stored Aggregate:       TP=${storedMetrics.tp} | FP=${storedMetrics.fp} | TN=${storedMetrics.tn} | FN=${storedMetrics.fn} | INCONCLUSIVE=${storedMetrics.inconclusive}`);
+
+      const metricsMatch = tp === storedMetrics.tp && 
+                           fp === storedMetrics.fp && 
+                           tn === storedMetrics.tn && 
+                           fn === storedMetrics.fn &&
+                           inconclusive === (storedMetrics.inconclusive !== undefined ? storedMetrics.inconclusive : 0);
+
+      if (metricsMatch) {
+          console.log(`\n[+] Integrity Gate: PASS (Replayed metrics MATCH stored metrics exactly!)`);
+      } else {
+          console.error(`\n[-] Integrity Gate: FAIL (Replayed metrics DO NOT match stored metrics)`);
+          process.exit(1);
+      }
+
+      console.log(`\nRecomputed Precision: ${precision !== null ? (precision * 100).toFixed(1) + '%' : 'N/A (no positive predictions)'}`);
+      console.log(`Recomputed Recall:    ${recall !== null ? (recall * 100).toFixed(1) + '%' : 'N/A (no actual positives)'}`);
+      console.log(`Recomputed F1 Score:  ${f1 !== null ? f1.toFixed(3) : 'N/A'}`);
+  });
+
+benchmarkCmd.command('verify-evidence')
+  .description('Verify integrity, cryptographic hashes, and schemas of an evidence bundle')
+  .argument('<run-id-or-path>', 'Run ID or path to evidence bundle directory')
+  .option('-e, --evidence-dir <path>', 'Base evidence directory', 'quality-benchmark/evidence/runs')
+  .action((runIdOrPath, options) => {
+    try {
+        const mgr = new BEPManager(options.evidenceDir);
+        const reader = mgr.loadBundle(runIdOrPath);
+        const checker = new BEPIntegrityChecker();
+        const res = checker.verifyBundle(reader);
+
+        console.log(`\n============================================================`);
+        console.log(`     HWSEC REPRODUCIBLE EVIDENCE INTEGRITY CHECKER          `);
+        console.log(`============================================================`);
+        console.log(`  Bundle Path:     ${reader.bundlePath}`);
+        console.log(`  Benchmark ID:    ${reader.manifest.benchmark_id}`);
+        console.log(`  Run ID:          ${reader.manifest.run_id}`);
+        console.log(`  Integrity Gate:  ${res.passed ? '✅ PASS' : '❌ FAIL (INCOMPLETE/CORRUPT)'}`);
+        console.log(`  Total Cases:     ${res.stats.total_cases}`);
+        console.log(`  Ground Truths:   ${res.stats.total_ground_truth}`);
+        console.log(`  Transitions:     ${res.stats.total_transitions}`);
+        console.log(`  Decisions:       ${res.stats.total_verifier_decisions}`);
+        console.log(`  Proof Artifacts: ${res.stats.total_proof_artifacts}`);
+        if (res.errors.length > 0) {
+            console.log(`\n[-] ERRORS DETECTED (${res.errors.length}):`);
+            res.errors.forEach(e => console.log(`    - ${e}`));
+        }
+        if (res.warnings.length > 0) {
+            console.log(`\n[!] WARNINGS (${res.warnings.length}):`);
+            res.warnings.forEach(w => console.log(`    - ${w}`));
+        }
+        console.log(`============================================================\n`);
+
+        if (!res.passed) process.exit(1);
+    } catch (e) {
+        console.error(`[-] Integrity verification failed: ${e.message}`);
+        process.exit(1);
+    }
+  });
+
+benchmarkCmd.command('audit-fp-reduction')
+  .description('Audit OWASP 242 -> 48 FP reduction claim and classify transition evidence')
+  .argument('<run-id-or-path>', 'Run ID or path to evidence bundle directory')
+  .option('-e, --evidence-dir <path>', 'Base evidence directory', 'quality-benchmark/evidence/runs')
+  .action((runIdOrPath, options) => {
+    try {
+        const mgr = new BEPManager(options.evidenceDir);
+        const reader = mgr.loadBundle(runIdOrPath);
+        const engine = new FPReductionAuditEngine();
+
+        const cases = reader.readJsonl('case_results.jsonl');
+        const transitions = reader.readJsonl('classification_transitions.jsonl');
+        const decisions = reader.readJsonl('verifier_decisions.jsonl');
+        const proofs = reader.readJsonl('proof_artifacts.jsonl');
+
+        const auditRes = engine.auditRun(cases, transitions, decisions, proofs);
+        console.log(auditRes.report_md);
+    } catch (e) {
+        console.error(`[-] FP reduction audit failed: ${e.message}`);
+        process.exit(1);
+    }
+  });
+
+benchmarkCmd.command('case')
+  .description('Generate human review audit dossier for an individual benchmark test case')
+  .argument('<run-id-or-path>', 'Run ID or path to evidence bundle directory')
+  .argument('<case-id>', 'ID of the test case to inspect (e.g. CASE-1234)')
+  .option('-e, --evidence-dir <path>', 'Base evidence directory', 'quality-benchmark/evidence/runs')
+  .action((runIdOrPath, caseId, options) => {
+    try {
+        const mgr = new BEPManager(options.evidenceDir);
+        const reader = mgr.loadBundle(runIdOrPath);
+        const gen = new DossierGenerator();
+        const { markdown } = gen.generateDossier(reader, caseId);
+        console.log(markdown);
+    } catch (e) {
+        console.error(`[-] Case dossier generation failed: ${e.message}`);
+        process.exit(1);
+    }
+  });
+
+benchmarkCmd.command('summarize')
+  .description('Display summary metrics derived from stored case records')
+  .argument('<run-id-or-path>', 'Run ID or path to evidence bundle directory')
+  .option('-e, --evidence-dir <path>', 'Base evidence directory', 'quality-benchmark/evidence/runs')
+  .action((runIdOrPath, options) => {
+    try {
+        const mgr = new BEPManager(options.evidenceDir);
+        const reader = mgr.loadBundle(runIdOrPath);
+        const metrics = reader.readJson('aggregate_metrics.json') || {};
+        const cm = reader.readJson('confusion_matrix.json') || {};
+
+        console.log(`\n============================================================`);
+        console.log(`    HWSEC BENCHMARK AGGREGATE METRICS SUMMARY              `);
+        console.log(`============================================================`);
+        console.log(`  Benchmark ID:   ${reader.manifest.benchmark_id}`);
+        console.log(`  Run ID:         ${reader.manifest.run_id}`);
+        console.log(`  Total Cases:    ${metrics.total_cases || 0}`);
+        console.log(`  True Positives: ${cm.tp || 0}`);
+        console.log(`  False Positives:${cm.fp || 0}`);
+        console.log(`  False Negatives:${cm.fn || 0}`);
+        console.log(`  True Negatives: ${cm.tn || 0}`);
+        console.log(`  Precision:      ${((metrics.precision || 0) * 100).toFixed(2)}%`);
+        console.log(`  Recall:         ${((metrics.recall || 0) * 100).toFixed(2)}%`);
+        console.log(`  F1 Score:       ${((metrics.f1 || 0) * 100).toFixed(2)}%`);
+        console.log(`============================================================\n`);
+    } catch (e) {
+        console.error(`[-] Summarize failed: ${e.message}`);
+        process.exit(1);
     }
   });
 

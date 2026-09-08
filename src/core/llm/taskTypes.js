@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Standard Task Types for LLM Task-Based Routing
  */
 
@@ -13,7 +13,10 @@ export const TaskTypes = {
     CROSS_FILE_REASONING: 'cross_file_reasoning',
     VERIFICATION: 'verification',
     NOVELTY_ANALYSIS: 'novelty_analysis',
-    REPORT_GENERATION: 'report_generation'
+    REPORT_GENERATION: 'report_generation',
+    EXPLOIT_TRIAGE: 'exploit_triage',
+    EXPLOIT_GENERATION: 'exploit_generation',
+    EXPLOIT_VERIFICATION: 'exploit_verification'
 };
 
 export const TASK_PROFILES = {
@@ -92,6 +95,27 @@ export const TASK_PROFILES = {
         requiresReasoning: false,
         requiresCode: false,
         costPreference: 'low',
+        isExploratory: false
+    },
+    [TaskTypes.EXPLOIT_TRIAGE]: {
+        priority: 'high',
+        requiresReasoning: true,
+        requiresCode: false,
+        costPreference: 'low',
+        isExploratory: false
+    },
+    [TaskTypes.EXPLOIT_GENERATION]: {
+        priority: 'critical',
+        requiresReasoning: true,
+        requiresCode: true,
+        costPreference: 'high',
+        isExploratory: false
+    },
+    [TaskTypes.EXPLOIT_VERIFICATION]: {
+        priority: 'high',
+        requiresReasoning: true,
+        requiresCode: true,
+        costPreference: 'medium',
         isExploratory: false
     }
 };

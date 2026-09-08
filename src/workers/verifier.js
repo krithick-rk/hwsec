@@ -100,12 +100,14 @@ export class LayeredVerifier {
                 finding.verification_level = evaluation.level;
                 finding.description += `\n\nVerified at Level ${evaluation.level}: ${evaluation.justification}`;
                 verifiedFindings.push(finding);
+                this._persistFinding(finding);
                 this._persistVerification(finding.id, evaluation);
             } else {
                 finding.verification_state = VerificationState.CANDIDATE;
                 finding.confidence = evaluation.confidence;
                 finding.verification_level = evaluation.level;
                 candidateFindings.push(finding);
+                this._persistFinding(finding);
                 this._persistVerification(finding.id, evaluation);
             }
         }
@@ -205,7 +207,22 @@ export class LayeredVerifier {
             }
         }
 
-        // 4. File-type specific validation
+        // 4. Dynamic Proof Reproduction Evidence
+        if (ev.evidence_type === 'DYNAMIC_PROOF_REPRODUCTION' || ev.tool === 'controlled_proof_verifier') {
+            const hasCounterexample = !!(ev.raw_evidence?.hasCounterexample);
+            const rate = ev.raw_evidence?.reproducibility_rate || '1/1';
+            const impact = ev.raw_evidence?.impact_class || 'UNKNOWN';
+            return {
+                exists: true,
+                valid: true,
+                hasCounterexample,
+                reason: hasCounterexample 
+                    ? `Controlled proof reproduced: ${impact} (${rate} reproductions)` 
+                    : `Controlled proof executed but failed to reproduce under tested conditions`
+            };
+        }
+
+        // 5. File-type specific validation
         // Markdown / Documentation claims
         if (ext === '.md' || ext === '.markdown') {
             return {
@@ -288,12 +305,33 @@ export class LayeredVerifier {
                 };
             }
 
-            if (parsed.findings && Array.isArray(parsed.findings) && parsed.findings.length > 0) {
+            if (parsed.violations !== undefined) {
+                const count = Number(parsed.violations);
+                const hasViolation = !isNaN(count) && count > 0;
+                return {
+                    exists: true,
+                    valid: true,
+                    hasCounterexample: hasViolation,
+                    reason: hasViolation ? `Telemetry records ${count} invariant violations` : `Zero invariant violations recorded`
+                };
+            }
+
+            if (parsed.counterexample === true || parsed.hasCounterexample === true) {
                 return {
                     exists: true,
                     valid: true,
                     hasCounterexample: true,
-                    reason: `Telemetry contains ${parsed.findings.length} findings`
+                    reason: `Telemetry explicitly confirms counterexample trace: ${parsed.reason || 'reproduced'}`
+                };
+            }
+
+            if (parsed.findings && Array.isArray(parsed.findings) && parsed.findings.length > 0) {
+                // Static findings array in telemetry is an observation, not a dynamic reproducing counterexample
+                return {
+                    exists: true,
+                    valid: true,
+                    hasCounterexample: false,
+                    reason: `Telemetry contains ${parsed.findings.length} static findings (observation only, dynamic counterexample required for full verification)`
                 };
             }
 
@@ -318,10 +356,15 @@ export class LayeredVerifier {
             };
         }
 
+        // Strict affirmative execution failure traces (avoiding generic "crash", "FAIL", or "verified" substring matches)
         const hasFailurePattern = /\bAssert(ion)? failed\b/i.test(contentStr) ||
                                  /\bBMC failed at step\b/i.test(contentStr) ||
                                  /\bFATAL: assertion violation\b/i.test(contentStr) ||
-                                 /\bcounterexample trace found\b/i.test(contentStr);
+                                 /\bcounterexample trace found\b/i.test(contentStr) ||
+                                 /\bSegmentation fault \(core dumped\)\b/i.test(contentStr) ||
+                                 /\bAddressSanitizer:\s*([A-Za-z-]+)\b/i.test(contentStr) ||
+                                 /\bUndefinedBehaviorSanitizer:\s*([A-Za-z-]+)\b/i.test(contentStr) ||
+                                 /\bFatal error: Core dumped\b/i.test(contentStr);
 
         return {
             exists: true,
@@ -452,6 +495,20 @@ export class LayeredVerifier {
             }
         }
 
+        // LLM self-certification rejection: LLM claims cannot verify without concrete counterexample
+        const isLLMClaim = finding.llm_certified || 
+                           finding.source_tool === 'llm' || 
+                           finding.source_tool === 'deep_reasoning' ||
+                           finding.source_tool === 'hypothesis_generator';
+        if (isLLMClaim && !anyCounterexample) {
+            return {
+                level: VerificationLevel.E1_TOOL_OBSERVATION,
+                status: VerificationState.CANDIDATE,
+                confidence: 0.50,
+                justification: `E1 Candidate: LLM/reasoning claim cannot self-certify without concrete dynamic execution counterexample or formal proof.`
+            };
+        }
+
         const isDataflowReachable = this._checkDataflowReachability(finding);
         const hasSecurityProperty = !!(finding.security_property || finding.cwe_id);
 
@@ -477,6 +534,15 @@ export class LayeredVerifier {
                 status: VerificationState.VERIFIED,
                 confidence: 0.90,
                 justification: `E3 Semantic Match verified: reproducible violation artifact on disk (${lastReason}).`
+            };
+        }
+
+        if (finding.proof_status === 'FAILED_TO_REPRODUCE') {
+            return {
+                level: anyArtifactExists ? VerificationLevel.E2_REPRODUCIBLE_ARTIFACT : VerificationLevel.E1_TOOL_OBSERVATION,
+                status: VerificationState.CANDIDATE,
+                confidence: 0.55,
+                justification: `Retained as Candidate: Proof not reproduced under tested conditions (${finding.proof_record?.failure_reason || lastReason || 'unreproduced'}).`
             };
         }
 

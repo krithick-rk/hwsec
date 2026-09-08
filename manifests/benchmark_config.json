@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "name": "HWSEC Vulnerability Benchmark Suite",
+  "description": "Unified benchmark repository configuration across C, C++, Java, Go, Python, and Cross-Project targets.",
+  "created_at": "2026-09-07",
+  "languages": {
+    "c": {
+      "benchmarks": {
+        "juliet": {
+          "type": "synthetic",
+          "path": "quality-benchmark/c/juliet",
+          "description": "NIST Juliet Test Suite v1.3 for C (106,093 files)",
+          "status": "INSTALLED"
+        },
+        "bigvul": {
+          "type": "real_world",
+          "path": "quality-benchmark/c/bigvul",
+          "description": "Big-Vul C/C++ vulnerability commit dataset",
+          "status": "SKIPPED",
+          "enabled": false,
+          "skip_reason": "Manual download required; excluded per benchmark configuration"
+        },
+        "diversevul": {
+          "type": "real_world",
+          "path": "quality-benchmark/c/diversevul",
+          "description": "DiverseVul C/C++ vulnerable source code dataset",
+          "status": "SKIPPED",
+          "enabled": false,
+          "skip_reason": "Manual download required; excluded per benchmark configuration"
+        }
+      }
+    },
+    "cpp": {
+      "benchmarks": {
+        "juliet": {
+          "type": "synthetic",
+          "path": "quality-benchmark/cpp/juliet",
+          "description": "NIST Juliet Test Suite v1.3 for C++ (106,093 files)",
+          "status": "INSTALLED"
+        },
+        "bigvul": {
+          "type": "real_world",
+          "path": "quality-benchmark/cpp/bigvul",
+          "description": "Big-Vul C/C++ vulnerability commit dataset",
+          "status": "SKIPPED",
+          "enabled": false,
+          "skip_reason": "Manual download required; excluded per benchmark configuration"
+        },
+        "diversevul": {
+          "type": "real_world",
+          "path": "quality-benchmark/cpp/diversevul",
+          "description": "DiverseVul C/C++ vulnerable source code dataset",
+          "status": "SKIPPED",
+          "enabled": false,
+          "skip_reason": "Manual download required; excluded per benchmark configuration"
+        }
+      }
+    },
+    "java": {
+      "benchmarks": {
+        "juliet": {
+          "type": "synthetic",
+          "path": "quality-benchmark/java/juliet",
+          "description": "NIST Juliet Test Suite v1.3 for Java",
+          "status": "SKIPPED",
+          "enabled": false,
+          "skip_reason": "Manual download required; excluded per benchmark configuration"
+        },
+        "owasp-benchmark": {
+          "type": "synthetic_web",
+          "repository": "https://github.com/OWASP-Benchmark/BenchmarkJava.git",
+          "path": "quality-benchmark/java/owasp-benchmark",
+          "description": "OWASP Benchmark for Java (SAST/DAST verification)",
+          "status": "INSTALLED"
+        },
+        "vul4j": {
+          "type": "real_world_reproducible",
+          "repository": "https://github.com/tuhh-softsec/vul4j.git",
+          "path": "quality-benchmark/java/vul4j",
+          "description": "Vul4J dataset of reproducible Java vulnerabilities",
+          "status": "INSTALLED"
+        },
+        "webgoat": {
+          "type": "vulnerable_app",
+          "repository": "https://github.com/WebGoat/WebGoat.git",
+          "path": "quality-benchmark/java/webgoat",
+          "description": "OWASP WebGoat deliberately insecure application",
+          "status": "INSTALLED"
+        },
+        "vulnerableapp": {
+          "type": "vulnerable_app",
+          "repository": "https://github.com/SasanLabs/VulnerableApp.git",
+          "path": "quality-benchmark/java/vulnerableapp",
+          "description": "SasanLabs VulnerableApp modular security testing target",
+          "status": "INSTALLED"
+        }
+      }
+    },
+    "go": {
+      "benchmarks": {
+        "go-test-bench": {
+          "type": "vulnerable_app",
+          "repository": "https://github.com/Contrast-Security-OSS/go-test-bench.git",
+          "path": "quality-benchmark/go/go-test-bench",
+          "description": "OWASP Go Test Bench for security analysis",
+          "status": "INSTALLED"
+        }
+      }
+    },
+    "python": {
+      "benchmarks": {
+        "pygoat": {
+          "type": "vulnerable_app",
+          "repository": "https://github.com/adeyosemanputra/pygoat.git",
+          "path": "quality-benchmark/python/pygoat",
+          "description": "OWASP PyGoat intentionally vulnerable Python/Django application",
+          "status": "INSTALLED"
+        }
+      }
+    },
+    "cross-project": {
+      "benchmarks": {
+        "selected-real-projects": {
+          "type": "curated_real_projects",
+          "path": "quality-benchmark/cross-project/selected-real-projects",
+          "description": "Curated real-world multi-language target repositories for cross-project evaluation",
+          "status": "CONFIGURED"
+        }
+      }
+    }
+  }
+}

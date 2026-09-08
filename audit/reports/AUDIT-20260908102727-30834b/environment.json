@@ -1,0 +1,10 @@
+{
+  "auditId": "AUDIT-20260908102727-30834b",
+  "platform": "win32",
+  "release": "10.0.22631",
+  "arch": "x64",
+  "nodeVersion": "v24.20.0",
+  "cpus": 6,
+  "totalMemoryBytes": 16948436992,
+  "timestamp": "2026-09-08T10:27:27.808Z"
+}

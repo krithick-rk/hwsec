@@ -1,16 +1,16 @@
 {
   "meta": {
-    "auditId": "AUDIT-20260907110344-75b6f3",
+    "auditId": "AUDIT-20260908103845-444e5e",
     "platform": "win32",
     "release": "10.0.22631",
     "arch": "x64",
     "nodeVersion": "v24.20.0",
     "cpus": 6,
     "totalMemoryBytes": 16948436992,
-    "timestamp": "2026-09-07T11:03:53.393Z"
+    "timestamp": "2026-09-08T10:38:54.194Z"
   },
   "metrics": {
-    "durationMs": 9068,
+    "durationMs": 8779,
     "totalTests": 50,
     "passedTests": 50,
     "failedTests": 0,
@@ -45,12 +45,12 @@
       "tier": "ADVERSARIAL TEST",
       "passed": true,
       "expected": "Direct spawn of verilator binary with argument array, without cmd.exe /c unquoted chaining",
-      "actual": "command: E:\\Intern\\krithick\\Downloads\\oss-cad-suite\\bin\\verilator_bin.exe, args: [\"--lint-only\",\"-Wall\",\"C:\\\\Users\\\\Intern\\\\AppData\\\\Local\\\\Temp\\\\hwsec-exec-inject-rVLr0j\\\\test&echo HWSEC_COMMAND_INJECTION_TEST.v\"]",
+      "actual": "command: E:\\Intern\\krithick\\Downloads\\oss-cad-suite\\bin\\verilator_bin.exe, args: [\"--lint-only\",\"-Wall\",\"C:\\\\Users\\\\Intern\\\\AppData\\\\Local\\\\Temp\\\\hwsec-exec-inject-SLiMte\\\\test&echo HWSEC_COMMAND_INJECTION_TEST.v\"]",
       "severity": "CRITICAL",
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": "Secure argument array",
-      "timestamp": "2026-09-07T11:03:44.331Z"
+      "timestamp": "2026-09-08T10:38:45.428Z"
     },
     {
       "suite": "Execution Security & Command Injection Adversarial Suite",
@@ -59,12 +59,12 @@
       "tier": "ADVERSARIAL TEST",
       "passed": true,
       "expected": "Strict path quoting or validation before embedding in .ys script file",
-      "actual": "Safely rejected with validation error: Potentially malicious characters detected in RTL filename: C:\\Users\\Intern\\AppData\\Local\\Temp\\hwsec-exec-inject-rVLr0j\\test\" ; echo INJECTED ;.v",
+      "actual": "Safely rejected with validation error: Potentially malicious characters detected in RTL filename: C:\\Users\\Intern\\AppData\\Local\\Temp\\hwsec-exec-inject-SLiMte\\test\" ; echo INJECTED ;.v",
       "severity": "CRITICAL",
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.332Z"
+      "timestamp": "2026-09-08T10:38:45.428Z"
     },
     {
       "suite": "Execution Security & Command Injection Adversarial Suite",
@@ -78,7 +78,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.332Z"
+      "timestamp": "2026-09-08T10:38:45.428Z"
     },
     {
       "suite": "Execution Security & Command Injection Adversarial Suite",
@@ -92,7 +92,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.352Z"
+      "timestamp": "2026-09-08T10:38:45.447Z"
     },
     {
       "suite": "Execution Security & Command Injection Adversarial Suite",
@@ -106,7 +106,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.352Z"
+      "timestamp": "2026-09-08T10:38:45.447Z"
     },
     {
       "suite": "Filesystem Traversal & Path Validation Adversarial Suite",
@@ -120,7 +120,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.356Z"
+      "timestamp": "2026-09-08T10:38:45.451Z"
     },
     {
       "suite": "Filesystem Traversal & Path Validation Adversarial Suite",
@@ -134,7 +134,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.371Z"
+      "timestamp": "2026-09-08T10:38:45.466Z"
     },
     {
       "suite": "Filesystem Traversal & Path Validation Adversarial Suite",
@@ -148,7 +148,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.398Z"
+      "timestamp": "2026-09-08T10:38:45.490Z"
     },
     {
       "suite": "Filesystem Traversal & Path Validation Adversarial Suite",
@@ -162,7 +162,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.398Z"
+      "timestamp": "2026-09-08T10:38:45.490Z"
     },
     {
       "suite": "Symlink & Reparse Point Boundary Escape Adversarial Suite",
@@ -176,7 +176,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.408Z"
+      "timestamp": "2026-09-08T10:38:45.500Z"
     },
     {
       "suite": "Symlink & Reparse Point Boundary Escape Adversarial Suite",
@@ -190,7 +190,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:44.408Z"
+      "timestamp": "2026-09-08T10:38:45.500Z"
     },
     {
       "suite": "Process Isolation & Execution Security Adversarial Suite",
@@ -199,12 +199,12 @@
       "tier": "ADVERSARIAL TEST",
       "passed": true,
       "expected": "Process timed out after 1.5s with timeout: true flag",
-      "actual": "timeout: true, elapsedMs: 1638",
+      "actual": "timeout: true, elapsedMs: 1596",
       "severity": "HIGH",
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.048Z"
+      "timestamp": "2026-09-08T10:38:47.098Z"
     },
     {
       "suite": "Process Isolation & Execution Security Adversarial Suite",
@@ -218,7 +218,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.174Z"
+      "timestamp": "2026-09-08T10:38:47.207Z"
     },
     {
       "suite": "Process Isolation & Execution Security Adversarial Suite",
@@ -232,7 +232,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.192Z"
+      "timestamp": "2026-09-08T10:38:47.226Z"
     },
     {
       "suite": "LLM Prompt Injection & Untrusted Content Isolation Adversarial Suite",
@@ -246,7 +246,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.195Z"
+      "timestamp": "2026-09-08T10:38:47.233Z"
     },
     {
       "suite": "LLM Gateway Telemetry & Audit Persistence Suite",
@@ -260,7 +260,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.290Z"
+      "timestamp": "2026-09-08T10:38:47.361Z"
     },
     {
       "suite": "LayeredVerifier Evidence-Integrity & Substring-Bypass Adversarial Suite",
@@ -274,7 +274,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": "Correctly rejected",
-      "timestamp": "2026-09-07T11:03:46.306Z"
+      "timestamp": "2026-09-08T10:38:47.366Z"
     },
     {
       "suite": "LayeredVerifier Evidence-Integrity & Substring-Bypass Adversarial Suite",
@@ -288,7 +288,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.314Z"
+      "timestamp": "2026-09-08T10:38:47.368Z"
     },
     {
       "suite": "LayeredVerifier Evidence-Integrity & Substring-Bypass Adversarial Suite",
@@ -302,7 +302,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.320Z"
+      "timestamp": "2026-09-08T10:38:47.370Z"
     },
     {
       "suite": "LayeredVerifier Evidence-Integrity & Substring-Bypass Adversarial Suite",
@@ -316,7 +316,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.321Z"
+      "timestamp": "2026-09-08T10:38:47.370Z"
     },
     {
       "suite": "Artifact Cryptographic Provenance & Tamper-Detection Adversarial Suite",
@@ -330,7 +330,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.330Z"
+      "timestamp": "2026-09-08T10:38:47.374Z"
     },
     {
       "suite": "Artifact Cryptographic Provenance & Tamper-Detection Adversarial Suite",
@@ -344,7 +344,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.331Z"
+      "timestamp": "2026-09-08T10:38:47.375Z"
     },
     {
       "suite": "Cross-Domain Evidence Semantic Compatibility Adversarial Suite",
@@ -358,7 +358,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.333Z"
+      "timestamp": "2026-09-08T10:38:47.377Z"
     },
     {
       "suite": "Cross-Domain Evidence Semantic Compatibility Adversarial Suite",
@@ -372,7 +372,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.334Z"
+      "timestamp": "2026-09-08T10:38:47.379Z"
     },
     {
       "suite": "Telemetry & Tool Output Poisoning Adversarial Suite",
@@ -386,7 +386,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.337Z"
+      "timestamp": "2026-09-08T10:38:47.385Z"
     },
     {
       "suite": "Telemetry & Tool Output Poisoning Adversarial Suite",
@@ -400,7 +400,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.338Z"
+      "timestamp": "2026-09-08T10:38:47.387Z"
     },
     {
       "suite": "CodeGraph Live Integration & Graph Integrity Suite",
@@ -414,7 +414,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.414Z"
+      "timestamp": "2026-09-08T10:38:47.500Z"
     },
     {
       "suite": "CodeGraph Live Integration & Graph Integrity Suite",
@@ -428,7 +428,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.454Z"
+      "timestamp": "2026-09-08T10:38:47.543Z"
     },
     {
       "suite": "CodeGraph Live Integration & Graph Integrity Suite",
@@ -442,7 +442,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.454Z"
+      "timestamp": "2026-09-08T10:38:47.544Z"
     },
     {
       "suite": "CodeGraph Live Integration & Graph Integrity Suite",
@@ -456,7 +456,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.454Z"
+      "timestamp": "2026-09-08T10:38:47.544Z"
     },
     {
       "suite": "Qdrant Vector Memory & RAG Isolation Integration Suite",
@@ -470,7 +470,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.489Z"
+      "timestamp": "2026-09-08T10:38:47.577Z"
     },
     {
       "suite": "Qdrant Vector Memory & RAG Isolation Integration Suite",
@@ -484,7 +484,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.550Z"
+      "timestamp": "2026-09-08T10:38:47.646Z"
     },
     {
       "suite": "Qdrant Vector Memory & RAG Isolation Integration Suite",
@@ -498,7 +498,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.607Z"
+      "timestamp": "2026-09-08T10:38:47.699Z"
     },
     {
       "suite": "Qdrant Vector Memory & RAG Isolation Integration Suite",
@@ -512,7 +512,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.877Z"
+      "timestamp": "2026-09-08T10:38:47.906Z"
     },
     {
       "suite": "Incremental Analysis Lifecycle & Stale Data Invalidation Suite",
@@ -526,7 +526,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.998Z"
+      "timestamp": "2026-09-08T10:38:48.040Z"
     },
     {
       "suite": "Incremental Analysis Lifecycle & Stale Data Invalidation Suite",
@@ -540,7 +540,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:46.999Z"
+      "timestamp": "2026-09-08T10:38:48.041Z"
     },
     {
       "suite": "Incremental Analysis Lifecycle & Stale Data Invalidation Suite",
@@ -554,7 +554,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:47.009Z"
+      "timestamp": "2026-09-08T10:38:48.051Z"
     },
     {
       "suite": "CLI State-Machine & Approval Boundary Adversarial Suite",
@@ -568,7 +568,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:47.013Z"
+      "timestamp": "2026-09-08T10:38:48.055Z"
     },
     {
       "suite": "CLI State-Machine & Approval Boundary Adversarial Suite",
@@ -582,7 +582,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:47.014Z"
+      "timestamp": "2026-09-08T10:38:48.056Z"
     },
     {
       "suite": "CLI State-Machine & Approval Boundary Adversarial Suite",
@@ -596,7 +596,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:47.014Z"
+      "timestamp": "2026-09-08T10:38:48.056Z"
     },
     {
       "suite": "Real Tool Validation & Phantom Integration Detection Suite",
@@ -610,7 +610,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:47.026Z"
+      "timestamp": "2026-09-08T10:38:48.068Z"
     },
     {
       "suite": "Real Tool Validation & Phantom Integration Detection Suite",
@@ -624,7 +624,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:47.044Z"
+      "timestamp": "2026-09-08T10:38:48.086Z"
     },
     {
       "suite": "Real Tool Validation & Phantom Integration Detection Suite",
@@ -638,7 +638,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:47.178Z"
+      "timestamp": "2026-09-08T10:38:48.222Z"
     },
     {
       "suite": "Real Tool Validation & Phantom Integration Detection Suite",
@@ -652,7 +652,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:50.717Z"
+      "timestamp": "2026-09-08T10:38:51.491Z"
     },
     {
       "suite": "Real Tool Validation & Phantom Integration Detection Suite",
@@ -666,7 +666,7 @@
       "empiricalStatus": "NOT IMPLEMENTED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:50.824Z"
+      "timestamp": "2026-09-08T10:38:51.601Z"
     },
     {
       "suite": "Real Tool Validation & Phantom Integration Detection Suite",
@@ -680,7 +680,7 @@
       "empiricalStatus": "NOT IMPLEMENTED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:50.931Z"
+      "timestamp": "2026-09-08T10:38:51.712Z"
     },
     {
       "suite": "Real Tool Validation & Phantom Integration Detection Suite",
@@ -694,7 +694,7 @@
       "empiricalStatus": "NOT IMPLEMENTED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:50.931Z"
+      "timestamp": "2026-09-08T10:38:51.712Z"
     },
     {
       "suite": "Resource Bounds & Denial-of-Service Defense Adversarial Suite",
@@ -708,7 +708,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:51.190Z"
+      "timestamp": "2026-09-08T10:38:51.984Z"
     },
     {
       "suite": "Resource Bounds & Denial-of-Service Defense Adversarial Suite",
@@ -722,7 +722,7 @@
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:51.245Z"
+      "timestamp": "2026-09-08T10:38:52.039Z"
     },
     {
       "suite": "Process-Tree Termination & Resource Leak Stress Suite",
@@ -731,12 +731,12 @@
       "tier": "PERFORMANCE TEST",
       "passed": true,
       "expected": "Parent and all child processes terminated when timeout fires",
-      "actual": "timeout: true, elapsedMs: 2098",
+      "actual": "timeout: true, elapsedMs: 2102",
       "severity": "HIGH",
       "empiricalStatus": "EMPIRICALLY VERIFIED",
       "reproductionArtifact": null,
       "details": null,
-      "timestamp": "2026-09-07T11:03:53.392Z"
+      "timestamp": "2026-09-08T10:38:54.192Z"
     }
   ]
 }

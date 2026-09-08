@@ -1,8 +1,10 @@
-﻿import { ModelRegistry } from './modelRegistry.js';
+import { ModelRegistry } from './modelRegistry.js';
 import { BudgetController } from './budgetController.js';
 import { NvidiaProvider } from './nvidiaProvider.js';
 import { GeminiProvider } from './geminiProvider.js';
+import { OpenRouterProvider } from './openRouterProvider.js';
 import { TaskTypes, TASK_PROFILES } from './taskTypes.js';
+
 
 export class ModelRouter {
     /**
@@ -16,7 +18,8 @@ export class ModelRouter {
 
         this.providers = {
             nvidia: new NvidiaProvider(this.config),
-            gemini: new GeminiProvider(this.config)
+            gemini: new GeminiProvider(this.config),
+            openrouter: new OpenRouterProvider(this.config)
         };
     }
 
@@ -28,7 +31,7 @@ export class ModelRouter {
      * Returns true if at least one LLM provider is available.
      */
     isAvailable() {
-        return this.providers.nvidia.isAvailable() || this.providers.gemini.isAvailable();
+        return Object.values(this.providers).some(p => p.isAvailable());
     }
 
     /**
@@ -126,7 +129,24 @@ export class ModelRouter {
             throw new Error(`[ModelRouter] Provider '${modelEntry.provider}' is not available (no credentials).`);
         }
 
-        return this._callProvider(provider, modelEntry, params);
+        try {
+            return await this._callProvider(provider, modelEntry, params);
+        } catch (err) {
+            const fallbackPriority = ['gemini', 'openrouter', 'nvidia'].filter(p => p !== modelEntry.provider);
+            for (const altName of fallbackPriority) {
+                const altProvider = this.providers[altName];
+                if (altProvider && altProvider.isAvailable()) {
+                    const altModel = this.registry.findBestModel({ provider: altName }) || modelEntry;
+                    try {
+                        console.log(`[!] [ModelRouter] Provider '${modelEntry.provider}' failed (${err.message}). Falling back to '${altName}'...`);
+                        return await this._callProvider(altProvider, altModel, params);
+                    } catch (altErr) {
+                        console.warn(`[!] [ModelRouter] Fallback provider '${altName}' also failed: ${altErr.message}`);
+                    }
+                }
+            }
+            throw err;
+        }
     }
 
     async _callProvider(provider, modelEntry, params) {

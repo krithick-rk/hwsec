@@ -1,5 +1,8 @@
 import { ModelRouter } from './modelRouter.js';
 import { TaskTypes } from './taskTypes.js';
+import { DynamicTokenScheduler } from './dynamicTokenScheduler.js';
+import { PreflightEstimator } from './preflightEstimator.js';
+import { TokenBatcher } from './tokenBatcher.js';
 
 /**
  * Role to TaskType mapping for backward compatibility
@@ -15,12 +18,16 @@ const ROLE_TO_TASK = {
     'spec_ingestor': TaskTypes.SPEC_INGESTION,
     'spec_divergence': TaskTypes.SPEC_INGESTION,
     'worker': TaskTypes.VULNERABILITY_CLASSIFICATION,
+    'exploit_writer': TaskTypes.EXPLOIT_GENERATION,
+    'exploit_verifier': TaskTypes.EXPLOIT_VERIFICATION,
+    'poc_generator': TaskTypes.EXPLOIT_GENERATION,
+    'exploitability_triage': TaskTypes.EXPLOIT_TRIAGE,
     'default': TaskTypes.SUMMARY
 };
 
 /**
  * Unified LLM Gateway for HWSEC
- * Consolidates ModelRouter, BudgetController, and LLMClient interfaces.
+ * Consolidates ModelRouter, BudgetController, DynamicTokenScheduler, and LLMClient interfaces.
  */
 export class LLMGateway {
     constructor(config = {}, db = null, role = 'default') {
@@ -28,12 +35,16 @@ export class LLMGateway {
         this.db = db;
         this.role = role;
         this.router = new ModelRouter(this.config, this.db);
+        this.scheduler = new DynamicTokenScheduler(this.config, this.db);
+        this.estimator = this.scheduler.estimator;
+        this.batcher = this.scheduler.batcher;
         this.requestAuditLog = [];
     }
 
     setDb(db) {
         this.db = db;
         this.router.setDb(db);
+        this.scheduler.db = db;
     }
 
     /**
@@ -50,6 +61,57 @@ export class LLMGateway {
         const gw = new LLMGateway(this.config, this.db, role);
         gw.router = this.router; // Share the same router and budget controller
         return gw;
+    }
+
+    /**
+     * Run Two-Pass Pre-Flight token estimation + greedy bin-packing.
+     * @param {Object} opts
+     * @param {Array}  [opts.files]              - Flat array of {filePath, content, metadata} objects
+     * @param {Object} [opts.inventory]          - RepositoryDiscovery inventory ({languages, file_metadata})
+     * @param {string} [opts.modelOrProvider]    - Model name or provider key (defaults to SUMMARY task model)
+     * @param {Object} [opts.batchOptions]       - Overrides for TokenBatcher (maxBatchTokens, etc.)
+     * @param {string} [opts.analysisId]         - Analysis run ID for report labelling
+     * @returns {Promise<Object>} schedulePlan with {batches, report, estimatorSummary, providerRpm, ...}
+     */
+    async planWorkload({ files = null, inventory = null, modelOrProvider = null, batchOptions = {}, analysisId = 'global' } = {}) {
+        const model = modelOrProvider || this.router.routeTask(TaskTypes.SUMMARY);
+        return this.scheduler.plan({ files, inventory, modelOrProvider: model, batchOptions, analysisId });
+    }
+
+    /**
+     * Execute pre-planned batches via rate-limit-aware scheduler.
+     * @param {Object} opts
+     * @param {Array}  opts.batches     - Batch array from planWorkload()
+     * @param {Function} opts.workerFn - async (batch) => any — called per batch
+     * @param {string} [opts.provider] - Provider key for RPM lookup
+     * @param {number} [opts.concurrency] - Max parallel workers (default 1)
+     * @param {Function} [opts.onProgress] - Optional progress callback
+     * @returns {Promise<Array>} Ordered results array
+     */
+    async executeWorkload({ batches, workerFn, provider = 'gemini', concurrency = 1, onProgress = null } = {}) {
+        return this.scheduler.executeBatches({ batches, workerFn, provider, concurrency, onProgress });
+    }
+
+    /**
+     * Convenience: plan then format and log the pre-flight report.
+     * @param {Object} opts  - Same options as planWorkload()
+     * @returns {Promise<{plan: Object, reportText: string}>}
+     */
+    async preflightSchedule(opts = {}) {
+        const plan = await this.planWorkload(opts);
+        const reportText = this.scheduler.formatPreflightReport(plan);
+        return { plan, reportText };
+    }
+
+    /**
+     * Plan & schedule bounded exploit verification for candidate findings.
+     * Selects models across OpenRouter and Gemini providers, estimates tokens & runtime,
+     * enforces safe sandbox parameters, and generates report.
+     * @param {Object} opts
+     * @returns {Object} ExploitSchedulePlan
+     */
+    scheduleExploitVerification(opts = {}) {
+        return this.scheduler.scheduleExploitVerification(opts);
     }
 
     /**
@@ -101,26 +163,32 @@ export class LLMGateway {
         let providerName = modelEntry.provider;
         let provider = this.router.providers[providerName];
 
-        // 3. Provider Availability & Fallback
+        // 3. Provider Availability & Fallback (try all available providers in priority order)
+        const PROVIDER_PRIORITY = ['nvidia', 'gemini', 'openrouter'];
         if (!provider || !provider.isAvailable()) {
-            const fallbackName = providerName === 'nvidia' ? 'gemini' : 'nvidia';
-            const fallbackProvider = this.router.providers[fallbackName];
-            if (fallbackProvider && fallbackProvider.isAvailable()) {
-                fallbackEvents.push({
-                    from: providerName,
-                    to: fallbackName,
-                    reason: 'Primary provider credentials missing or unavailable'
-                });
-                providerName = fallbackName;
-                provider = fallbackProvider;
-                const fallbackModel = this.router.registry.findBestModel({ provider: fallbackName });
-                if (fallbackModel) {
-                    modelEntry = fallbackModel;
+            let found = false;
+            for (const altName of PROVIDER_PRIORITY) {
+                if (altName === providerName) continue;
+                const altProvider = this.router.providers[altName];
+                if (altProvider && altProvider.isAvailable()) {
+                    fallbackEvents.push({
+                        from: providerName,
+                        to: altName,
+                        reason: 'Primary provider credentials missing or unavailable'
+                    });
+                    providerName = altName;
+                    provider = altProvider;
+                    const fallbackModel = this.router.registry.findBestModel({ provider: altName });
+                    if (fallbackModel) modelEntry = fallbackModel;
+                    found = true;
+                    break;
                 }
-            } else {
-                throw new Error(`[LLMGateway] Provider '${providerName}' is not available (no credentials).`);
+            }
+            if (!found) {
+                throw new Error(`[LLMGateway] No available provider found. Tried: ${PROVIDER_PRIORITY.join(', ')}.`);
             }
         }
+
 
         // 4. Invocation with Fallback Recovery
         let result;
@@ -134,30 +202,42 @@ export class LLMGateway {
                 maxTokens: params.maxTokens ?? 4096
             });
         } catch (err) {
-            // Try fallback provider on execution failure if not already tried
-            const altName = providerName === 'nvidia' ? 'gemini' : 'nvidia';
-            const altProvider = this.router.providers[altName];
-            if (fallbackEvents.length === 0 && altProvider && altProvider.isAvailable()) {
-                fallbackEvents.push({
-                    from: providerName,
-                    to: altName,
-                    reason: `Primary provider call failed: ${err.message}`
-                });
-                const altModel = this.router.registry.findBestModel({ provider: altName }) || modelEntry;
-                result = await altProvider.generateChat({
-                    model: altModel.id,
-                    systemPrompt: params.systemPrompt,
-                    userPrompt: params.userPrompt,
-                    jsonSchema: params.jsonSchema,
-                    temperature: params.temperature ?? 0.1,
-                    maxTokens: params.maxTokens ?? 4096
-                });
-                providerName = altName;
-                modelEntry = altModel;
-            } else {
-                throw err;
+            // Try fallback providers on execution failure (in priority order, skipping already-tried)
+            let recovered = false;
+            if (fallbackEvents.length === 0) {
+                for (const altName of PROVIDER_PRIORITY) {
+                    if (altName === providerName) continue;
+                    const altProvider = this.router.providers[altName];
+                    if (altProvider && altProvider.isAvailable()) {
+                        fallbackEvents.push({
+                            from: providerName,
+                            to: altName,
+                            reason: `Primary provider call failed: ${err.message}`
+                        });
+                        const altModel = this.router.registry.findBestModel({ provider: altName }) || modelEntry;
+                        try {
+                            result = await altProvider.generateChat({
+                                model: altModel.id,
+                                systemPrompt: params.systemPrompt,
+                                userPrompt: params.userPrompt,
+                                jsonSchema: params.jsonSchema,
+                                temperature: params.temperature ?? 0.1,
+                                maxTokens: params.maxTokens ?? 4096
+                            });
+                            providerName = altName;
+                            modelEntry = altModel;
+                            recovered = true;
+                            break;
+                        } catch (altErr) {
+                            console.warn(`[LLMGateway] Fallback provider ${altName} also failed: ${altErr.message}`);
+                            // Continue to next provider
+                        }
+                    }
+                }
             }
+            if (!recovered) throw err;
         }
+
 
         const durationMs = Date.now() - startTime;
         const usage = result.usage || { promptTokens: 0, completionTokens: 0, totalTokens: 0 };

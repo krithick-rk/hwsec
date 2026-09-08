@@ -5,6 +5,55 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
+export function getCommonAncestor(filePaths) {
+    if (!filePaths || filePaths.length === 0) return process.cwd();
+    if (filePaths.length === 1) {
+        try {
+            const stats = fs.existsSync(filePaths[0]) ? fs.statSync(filePaths[0]) : null;
+            if (stats && stats.isDirectory()) return path.resolve(filePaths[0]);
+        } catch (_) {}
+        return path.dirname(path.resolve(filePaths[0]));
+    }
+
+    const resolvedPaths = filePaths.map(p => path.resolve(p));
+    const splitPaths = resolvedPaths.map(p => p.split(/[/\\]/).filter(Boolean));
+    const isWindows = process.platform === 'win32';
+    const drivePrefix = isWindows && /^[a-zA-Z]:/.test(resolvedPaths[0]) ? resolvedPaths[0].slice(0, 2) : '';
+
+    const minLength = Math.min(...splitPaths.map(p => p.length));
+    const commonParts = [];
+
+    for (let i = 0; i < minLength; i++) {
+        const part = splitPaths[0][i];
+        if (splitPaths.every(sp => sp[i].toLowerCase() === part.toLowerCase())) {
+            commonParts.push(part);
+        } else {
+            break;
+        }
+    }
+
+    if (commonParts.length === 0) {
+        return path.resolve('.');
+    }
+
+    let commonPath = commonParts.join(path.sep);
+    if (isWindows && drivePrefix) {
+        if (!commonPath.toLowerCase().startsWith(drivePrefix.toLowerCase())) {
+            commonPath = drivePrefix + path.sep + commonPath;
+        }
+    } else if (!isWindows) {
+        commonPath = path.sep + commonPath;
+    }
+
+    try {
+        if (fs.existsSync(commonPath) && !fs.statSync(commonPath).isDirectory()) {
+            commonPath = path.dirname(commonPath);
+        }
+    } catch (_) {}
+
+    return commonPath;
+}
+
 export class JoernTool extends ToolAdapter {
     get name() {
         return "joern";
@@ -112,8 +161,13 @@ export class JoernTool extends ToolAdapter {
         const queryScriptSrc = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([a-zA-Z]:)/, '$1')), 'joern_query.sc');
 
         try {
-            // Step 1: Generate CPG with joern-parse
-            const targetInput = targetFiles.length === 1 ? targetFiles[0] : path.dirname(targetFiles[0]);
+            // Step 1: Generate CPG with joern-parse using root repository or common ancestor
+            const targetDir = params && typeof params === 'object' ? params.targetDir : null;
+            const targetInput = targetDir 
+                ? path.resolve(targetDir) 
+                : (targetFiles.length === 1 && fs.existsSync(targetFiles[0]) && !fs.statSync(targetFiles[0]).isDirectory() 
+                    ? targetFiles[0] 
+                    : getCommonAncestor(targetFiles));
             
             let parseRes;
             if (install.isWsl) {

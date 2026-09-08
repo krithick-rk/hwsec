@@ -107,7 +107,7 @@ export class SymbiYosysTool extends ToolAdapter {
      */
     generateSbyConfig({ targetFiles, topModule, mode = 'bmc', depth = 20, engine = 'smtbmc' }) {
         if (!/^[a-zA-Z_][a-zA-Z0-9_$]*$/.test(topModule)) {
-            throw new Error(`Invalid or potentially malicious top module name: ${topModule}`);
+            throw new Error(`Invalid topModule identifier: ${topModule}`);
         }
         if (!/^[a-zA-Z0-9_]+$/.test(mode)) {
             throw new Error(`Invalid formal mode: ${mode}`);
@@ -120,13 +120,10 @@ export class SymbiYosysTool extends ToolAdapter {
         const safeFullPaths = [];
 
         for (const f of targetFiles) {
-            if (/[\r\n;]/.test(f)) {
-                throw new Error(`Potentially malicious characters detected in formal target filename: ${f}`);
+            if (/[\r\n";]/.test(f)) {
+                throw new Error(`Invalid characters in target file path: ${f}`);
             }
             const base = path.basename(f);
-            if (/[\r\n; "]/.test(base)) {
-                throw new Error(`Potentially malicious characters or spaces in Verilog basename: ${base}`);
-            }
             safeBasenames.push(base);
             safeFullPaths.push(path.resolve(f).replace(/\\/g, '/'));
         }
@@ -138,7 +135,11 @@ export class SymbiYosysTool extends ToolAdapter {
 
         let config = `[options]\nmode ${mode}\ndepth ${depth}\n\n`;
         config += `[engines]\n${engine}\n\n`;
-        config += `[script]\n${readCmd} ${safeBasenames.join(' ')}\nprep -top ${topModule}\n\n`;
+        config += `[script]\n`;
+        for (const base of safeBasenames) {
+            config += `${readCmd} ${base}\n`;
+        }
+        config += `prep -top ${topModule}\n\n`;
         config += `[files]\n`;
         for (const f of safeFullPaths) {
             config += `${f}\n`;

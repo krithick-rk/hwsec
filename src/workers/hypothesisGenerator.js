@@ -38,34 +38,52 @@ export class HypothesisGenerator {
         // Limit hypotheses based on novelty mode
         const maxHypotheses = noveltyMode === 'deep' ? 6 : (noveltyMode === 'minimal' ? 2 : 3);
 
+        // Retrieve focused RAG context for top suspicious targets / findings
+        let focusedContext = "";
+        let ragKnowledge = [];
+        let ragSource = "none";
+
+        if (this.ragEngine) {
+            const queryTarget = suspiciousTargets[0]?.path || deterministicFindings[0]?.source_locations?.[0]?.path || "";
+            const queryFinding = deterministicFindings[0]?.title || deterministicFindings[0]?.description || "";
+            const queryCwe = deterministicFindings[0]?.cwe_id || "";
+            const queryText = `${queryTarget} ${queryFinding} ${queryCwe}`.trim() || "security vulnerability pattern";
+            const lang = queryTarget ? path.extname(queryTarget).slice(1) : null;
+
+            try {
+                const ragRes = typeof this.ragEngine.retrieveSemanticContext === 'function'
+                    ? await this.ragEngine.retrieveSemanticContext({ query: queryText, language: lang, limit: 3 })
+                    : this.ragEngine.retrieveContext({ query: queryText, language: lang, limit: 3 });
+                ragKnowledge = ragRes?.security_knowledge || [];
+                ragSource = ragRes?.source || "in_memory_keyword";
+                focusedContext = `Relevant Security Knowledge (Source: ${ragSource}):\n${JSON.stringify(ragKnowledge, null, 2)}\n`;
+            } catch {
+                const ragRes = this.ragEngine.retrieveContext({ query: queryText, language: lang, limit: 3 });
+                ragKnowledge = ragRes?.security_knowledge || [];
+                ragSource = "in_memory_fallback";
+                focusedContext = `Relevant Security Knowledge (Fallback):\n${JSON.stringify(ragKnowledge, null, 2)}\n`;
+            }
+        }
+
         // Fallback deterministic hypotheses when LLM is unavailable
         const isLlmAvailable = this.modelRouter && typeof this.modelRouter.isAvailable === 'function' && this.modelRouter.isAvailable();
 
         if (!isLlmAvailable) {
-            return deterministicFindings.slice(0, maxHypotheses).map((finding, idx) => ({
-                hypothesis_id: `HYP-${String(idx + 1).padStart(3, '0')}`,
-                cwe_id: finding.title.match(/CWE-\d+/)?.[0] || 'SECURITY-HYPOTHESIS',
-                title: `Hypothesis: ${finding.title}`,
-                claim: `The application may violate security invariants due to: ${finding.description}`,
-                affected_assets: (finding.source_locations || []).map(l => l.path),
-                proposed_test: availableTools[0] || 'static_reproduction',
-                required_artifact: 'execution trace or counterexample',
-                status: 'PLANNED'
-            }));
-        }
-
-        // Retrieve focused RAG context for top suspicious targets
-        let focusedContext = "";
-        if (this.ragEngine && suspiciousTargets.length > 0) {
-            try {
-                const ragRes = typeof this.ragEngine.retrieveSemanticContext === 'function'
-                    ? await this.ragEngine.retrieveSemanticContext({ query: suspiciousTargets[0].path, limit: 2 })
-                    : this.ragEngine.retrieveContext({ query: suspiciousTargets[0].path, limit: 2 });
-                focusedContext = `Relevant Security Knowledge:\n${JSON.stringify(ragRes.security_knowledge, null, 2)}\n`;
-            } catch {
-                const ragRes = this.ragEngine.retrieveContext({ query: suspiciousTargets[0].path, limit: 2 });
-                focusedContext = `Relevant Security Knowledge:\n${JSON.stringify(ragRes.security_knowledge, null, 2)}\n`;
-            }
+            return deterministicFindings.slice(0, maxHypotheses).map((finding, idx) => {
+                const cweId = finding.cwe_id || finding.title?.match(/CWE-\d+/)?.[0] || ragKnowledge[idx]?.id || 'SECURITY-HYPOTHESIS';
+                return {
+                    hypothesis_id: `HYP-${String(idx + 1).padStart(3, '0')}`,
+                    cwe_id: cweId,
+                    title: `Hypothesis: ${finding.title}`,
+                    claim: `The application may violate security invariants due to: ${finding.description}`,
+                    affected_assets: (finding.source_locations || []).map(l => l.path),
+                    proposed_test: availableTools[0] || 'static_reproduction',
+                    required_artifact: 'execution trace or counterexample',
+                    security_knowledge: ragKnowledge.slice(0, 2),
+                    rag_source: ragSource,
+                    status: 'PLANNED'
+                };
+            });
         }
 
         const systemPrompt = `You are the HWSEC Security Hypothesis Generator.

@@ -3,6 +3,7 @@ import path from 'path';
 import { RepositoryDiscovery } from './discovery.js';
 import { AnalysisStatus } from './state.js';
 import { AnalysisBroker } from './broker.js';
+import { CoverageMatrix } from './coverageMatrix.js';
 
 export class Planner {
     /**
@@ -127,10 +128,20 @@ export class Planner {
         executionGraph.push('correlation');
         executionGraph.push('report_generation');
 
-        // 4. Budget calculation
+        // 4. Coverage Matrix Gap Analysis
+        const coverageMatrix = new CoverageMatrix();
+        const activeLanguages = Object.entries(inventory.languages)
+            .filter(([_, files]) => files.length > 0)
+            .map(([lang]) => lang);
+        const coverageGaps = coverageMatrix.identifyGaps(activeLanguages);
+
+        workspace.saveJson('inventory/coverage_matrix.json', coverageMatrix.exportState());
+        workspace.saveJson('inventory/coverage_gaps.json', coverageGaps);
+
+        // 5. Budget calculation
         const budgetEstimate = this.estimateBudget(summary);
 
-        // 5. Build authoritative analysis state (PLANNED)
+        // 6. Build authoritative analysis state (PLANNED)
         const analysisState = {
             schema_version: '2.0.0',
             analysis_id: workspace.analysisId,
@@ -154,6 +165,10 @@ export class Planner {
             tools_unavailable: unavailable.map(u => ({ name: u.name, reason: u.reason })),
             planned_capabilities: plannedCapabilities,
             execution_graph: executionGraph,
+            coverage_matrix: {
+                gaps_count: coverageGaps.length,
+                high_priority_gaps: coverageGaps.filter(g => g.priority === 'HIGH').map(g => `${g.language}: ${g.title}`)
+            },
             budget_estimate: budgetEstimate
         };
 
@@ -238,6 +253,14 @@ ${this.specPath ? `- **Specification Path**: \`${this.specPath}\` (will be inges
 - Hardware/WSL tools require functional environment if Verilog files are present.
 - Unsupported files (${summary.unsupported_count}) will be safely skipped without interrupting pipeline.
 - All hypothesis generation and invariant synthesis remain completely gated until explicit human approval.
+
+---
+
+## 6. Vulnerability Coverage Matrix & Targeted Gaps
+${coverageMatrix.toMarkdown(activeLanguages)}
+
+**Top Identified Gaps**:
+${coverageGaps.slice(0, 8).map(g => `- **[${g.priority}] ${g.title} (${g.language})**: Recommended tools: \`${g.recommendedTools.join(', ') || 'deep_reasoning'}\``).join('\n') || '- No critical gaps identified'}
 `;
 
         workspace.saveMarkdown('plan.md', planMd);

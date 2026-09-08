@@ -1,0 +1,26 @@
+{
+  "durationMs": 11183,
+  "totalTests": 47,
+  "passedTests": 46,
+  "failedTests": 1,
+  "passRate": 97.9,
+  "categoryScores": {
+    "EXECUTION_SECURITY": 10,
+    "FILESYSTEM_SECURITY": 10,
+    "PROCESS_ISOLATION": 10,
+    "EVIDENCE_INTEGRITY": 10,
+    "GRAPH_INTEGRITY": 10,
+    "RAG_INTEGRITY": 0,
+    "LLM_SECURITY": 10,
+    "DATABASE_INTEGRITY": 10,
+    "INCREMENTAL_ANALYSIS": 10,
+    "STATE_MACHINE": 10,
+    "TOOL_INTEGRATION": 10,
+    "RESOURCE_CONTROL": 10
+  },
+  "overallScore": 9.2,
+  "criticalFails": 0,
+  "highFails": 1,
+  "mediumFails": 0,
+  "lowFails": 0
+}

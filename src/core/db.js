@@ -183,6 +183,64 @@ export class Database {
                 metadata TEXT,
                 timestamp TEXT NOT NULL
             );
+
+            CREATE TABLE IF NOT EXISTS exploit_attempts (
+                id TEXT PRIMARY KEY,
+                run_id TEXT NOT NULL,
+                finding_id TEXT NOT NULL,
+                state TEXT NOT NULL,
+                decision TEXT NOT NULL,
+                provider TEXT,
+                model TEXT,
+                allocated_tokens INTEGER DEFAULT 0,
+                used_tokens INTEGER DEFAULT 0,
+                cost_usd REAL DEFAULT 0.0,
+                duration_ms INTEGER DEFAULT 0,
+                sandbox_profile TEXT DEFAULT 'strict',
+                poc_path TEXT,
+                poc_hash TEXT,
+                exit_code INTEGER,
+                reproduced INTEGER DEFAULT 0,
+                evidence_id TEXT,
+                error_message TEXT,
+                created_at TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS proof_records (
+                proof_id TEXT PRIMARY KEY,
+                finding_id TEXT NOT NULL,
+                analysis_id TEXT NOT NULL,
+                target_id TEXT,
+                proof_type TEXT NOT NULL,
+                proof_status TEXT NOT NULL,
+                preflight_estimate TEXT,
+                estimated_tokens INTEGER DEFAULT 0,
+                estimated_runtime INTEGER DEFAULT 0,
+                actual_tokens INTEGER DEFAULT 0,
+                actual_runtime INTEGER DEFAULT 0,
+                generated_artifact TEXT,
+                artifact_hash TEXT,
+                execution_environment TEXT,
+                execution_command TEXT,
+                observable_result TEXT,
+                expected_result TEXT,
+                actual_result TEXT,
+                impact_class TEXT,
+                reproducibility_count INTEGER DEFAULT 0,
+                reproducibility_rate TEXT,
+                reproducibility_attempts INTEGER DEFAULT 0,
+                evidence_ids TEXT,
+                verifier_level TEXT DEFAULT 'E0',
+                failure_reason TEXT,
+                created_at TEXT NOT NULL,
+                completed_at TEXT,
+                FOREIGN KEY (analysis_id) REFERENCES analysis_runs(id),
+                FOREIGN KEY (finding_id) REFERENCES findings(id)
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_proof_finding ON proof_records(finding_id);
+            CREATE INDEX IF NOT EXISTS idx_proof_analysis ON proof_records(analysis_id);
+            CREATE INDEX IF NOT EXISTS idx_proof_status ON proof_records(proof_status);
         `);
     }
 
@@ -415,12 +473,23 @@ export class Database {
     }
 
     recordTokenUsage(entry) {
+        let runId = entry.analysis_id || entry.run_id || 'global';
+        const runExists = this.db.prepare(`SELECT 1 FROM analysis_runs WHERE id = ?`).get(runId);
+        if (!runExists) {
+            const anyRun = this.db.prepare(`SELECT id FROM analysis_runs ORDER BY rowid DESC LIMIT 1`).get();
+            if (anyRun) {
+                runId = anyRun.id;
+            } else {
+                this.db.prepare(`INSERT OR IGNORE INTO projects (id, path, name) VALUES ('global-proj', '.', 'global')`).run();
+                this.db.prepare(`INSERT OR IGNORE INTO analysis_runs (id, project_id, status) VALUES (?, 'global-proj', 'RUNNING')`).run(runId);
+            }
+        }
         const stmt = this.db.prepare(`
             INSERT INTO token_ledger (id, run_id, task_type, model_id, provider, prompt_tokens, completion_tokens, total_tokens, estimated_cost, timestamp)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `);
         stmt.run(
-            entry.id, entry.analysis_id, entry.task_type, entry.model_id, entry.provider,
+            entry.id, runId, entry.task_type, entry.model_id, entry.provider,
             entry.prompt_tokens, entry.completion_tokens, entry.total_tokens, entry.estimated_cost, entry.timestamp
         );
         return entry.id;
@@ -442,12 +511,237 @@ export class Database {
     }
 
     /**
+     * Records a scheduled or executed exploit verification attempt.
+     * @param {Object} data
+     * @returns {string} ID of recorded attempt
+     */
+    recordExploitAttempt(data = {}) {
+        const id = data.id || `EXP-${crypto.randomBytes(6).toString('hex')}`;
+        const stmt = this.db.prepare(`
+            INSERT INTO exploit_attempts (
+                id, run_id, finding_id, state, decision, provider, model,
+                allocated_tokens, used_tokens, cost_usd, duration_ms,
+                sandbox_profile, poc_path, poc_hash, exit_code, reproduced,
+                evidence_id, error_message, created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+        stmt.run(
+            id,
+            data.runId || data.run_id || 'global',
+            data.findingId || data.finding_id || 'UNKNOWN',
+            data.state || 'ATTEMPT_SCHEDULED',
+            data.decision || 'MINIMAL_POC',
+            data.provider || null,
+            data.model || null,
+            Number(data.allocatedTokens || data.allocated_tokens) || 0,
+            Number(data.usedTokens || data.used_tokens) || 0,
+            Number(data.costUsd || data.cost_usd) || 0.0,
+            Number(data.durationMs || data.duration_ms) || 0,
+            data.sandboxProfile || data.sandbox_profile || 'strict',
+            data.pocPath || data.poc_path || null,
+            data.pocHash || data.poc_hash || null,
+            data.exitCode !== undefined ? data.exitCode : null,
+            data.reproduced ? 1 : 0,
+            data.evidenceId || data.evidence_id || null,
+            data.errorMessage || data.error_message || null,
+            new Date().toISOString()
+        );
+        return id;
+    }
+
+    /**
+     * Updates an existing exploit attempt with execution results.
+     * @param {string} id
+     * @param {Object} updates
+     */
+    updateExploitAttempt(id, updates = {}) {
+        const fields = [];
+        const values = [];
+
+        if (updates.state !== undefined) { fields.push('state = ?'); values.push(updates.state); }
+        if (updates.usedTokens !== undefined) { fields.push('used_tokens = ?'); values.push(updates.usedTokens); }
+        if (updates.costUsd !== undefined) { fields.push('cost_usd = ?'); values.push(updates.costUsd); }
+        if (updates.durationMs !== undefined) { fields.push('duration_ms = ?'); values.push(updates.durationMs); }
+        if (updates.pocPath !== undefined) { fields.push('poc_path = ?'); values.push(updates.pocPath); }
+        if (updates.pocHash !== undefined) { fields.push('poc_hash = ?'); values.push(updates.pocHash); }
+        if (updates.exitCode !== undefined) { fields.push('exit_code = ?'); values.push(updates.exitCode); }
+        if (updates.reproduced !== undefined) { fields.push('reproduced = ?'); values.push(updates.reproduced ? 1 : 0); }
+        if (updates.evidenceId !== undefined) { fields.push('evidence_id = ?'); values.push(updates.evidenceId); }
+        if (updates.errorMessage !== undefined) { fields.push('error_message = ?'); values.push(updates.errorMessage); }
+
+        if (fields.length === 0) return;
+        values.push(id);
+        const stmt = this.db.prepare(`UPDATE exploit_attempts SET ${fields.join(', ')} WHERE id = ?`);
+        stmt.run(...values);
+    }
+
+    /**
+     * Retrieves all exploit attempts for a given analysis run or finding.
+     * @param {string} runId
+     * @param {string} [findingId]
+     * @returns {Array<Object>}
+     */
+    getExploitAttempts(runId, findingId = null) {
+        if (findingId) {
+            const stmt = this.db.prepare(`SELECT * FROM exploit_attempts WHERE run_id = ? AND finding_id = ? ORDER BY created_at ASC`);
+            return stmt.all(runId, findingId);
+        }
+        const stmt = this.db.prepare(`SELECT * FROM exploit_attempts WHERE run_id = ? ORDER BY created_at ASC`);
+        return stmt.all(runId);
+    }
+
+    /**
+     * Saves or updates a structured proof record in the database.
+     * @param {Object} data
+     * @returns {string} proof_id
+     */
+    saveProofRecord(data = {}) {
+        const id = data.proof_id || `PROOF-${crypto.randomBytes(6).toString('hex')}`;
+        const stmt = this.db.prepare(`
+            INSERT INTO proof_records (
+                proof_id, finding_id, analysis_id, target_id, proof_type, proof_status,
+                preflight_estimate, estimated_tokens, estimated_runtime, actual_tokens, actual_runtime,
+                generated_artifact, artifact_hash, execution_environment, execution_command,
+                observable_result, expected_result, actual_result, impact_class,
+                reproducibility_count, reproducibility_rate, reproducibility_attempts,
+                evidence_ids, verifier_level, failure_reason, created_at, completed_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(proof_id) DO UPDATE SET
+                proof_status = excluded.proof_status,
+                actual_tokens = excluded.actual_tokens,
+                actual_runtime = excluded.actual_runtime,
+                generated_artifact = excluded.generated_artifact,
+                artifact_hash = excluded.artifact_hash,
+                execution_command = excluded.execution_command,
+                observable_result = excluded.observable_result,
+                expected_result = excluded.expected_result,
+                actual_result = excluded.actual_result,
+                impact_class = excluded.impact_class,
+                reproducibility_count = excluded.reproducibility_count,
+                reproducibility_rate = excluded.reproducibility_rate,
+                reproducibility_attempts = excluded.reproducibility_attempts,
+                evidence_ids = excluded.evidence_ids,
+                verifier_level = excluded.verifier_level,
+                failure_reason = excluded.failure_reason,
+                completed_at = excluded.completed_at
+        `);
+
+        stmt.run(
+            id,
+            data.finding_id || data.findingId || 'UNKNOWN',
+            data.analysis_id || data.analysisId || data.runId || 'global',
+            data.target_id || data.targetId || null,
+            data.proof_type || data.proofType || 'REGRESSION_TEST',
+            data.proof_status || data.proofStatus || 'QUEUED',
+            typeof data.preflight_estimate === 'object' ? JSON.stringify(data.preflight_estimate) : (data.preflight_estimate || null),
+            Number(data.estimated_tokens || data.estimatedTokens) || 0,
+            Number(data.estimated_runtime || data.estimatedRuntime) || 0,
+            Number(data.actual_tokens || data.actualTokens) || 0,
+            Number(data.actual_runtime || data.actualRuntime) || 0,
+            data.generated_artifact || data.generatedArtifact || null,
+            data.artifact_hash || data.artifactHash || null,
+            data.execution_environment || data.executionEnvironment || 'hwsec_isolated_sandbox',
+            data.execution_command || data.executionCommand || null,
+            typeof data.observable_result === 'object' ? JSON.stringify(data.observable_result) : (data.observable_result || null),
+            typeof data.expected_result === 'object' ? JSON.stringify(data.expected_result) : (data.expected_result || null),
+            typeof data.actual_result === 'object' ? JSON.stringify(data.actual_result) : (data.actual_result || null),
+            data.impact_class || data.impactClass || 'INFORMATIONAL_ONLY',
+            Number(data.reproducibility_count || data.reproducibilityCount) || 0,
+            data.reproducibility_rate || data.reproducibilityRate || null,
+            Number(data.reproducibility_attempts || data.reproducibilityAttempts) || 0,
+            Array.isArray(data.evidence_ids) ? JSON.stringify(data.evidence_ids) : (data.evidence_ids || '[]'),
+            data.verifier_level || data.verifierLevel || 'E0',
+            data.failure_reason || data.failureReason || null,
+            data.created_at || new Date().toISOString(),
+            data.completed_at || null
+        );
+        return id;
+    }
+
+    /**
+     * Retrieves a single proof record by ID.
+     * @param {string} proofId
+     * @returns {Object|null}
+     */
+    getProofRecord(proofId) {
+        const stmt = this.db.prepare(`SELECT * FROM proof_records WHERE proof_id = ?`);
+        const row = stmt.get(proofId);
+        if (!row) return null;
+        return this._deserializeProofRecord(row);
+    }
+
+    /**
+     * Retrieves all proof records for an analysis run.
+     * @param {string} analysisId
+     * @returns {Array<Object>}
+     */
+    getProofRecordsForAnalysis(analysisId) {
+        const stmt = this.db.prepare(`SELECT * FROM proof_records WHERE analysis_id = ? ORDER BY created_at ASC`);
+        return stmt.all(analysisId).map(r => this._deserializeProofRecord(r));
+    }
+
+    /**
+     * Retrieves the latest proof record for a specific finding.
+     * @param {string} findingId
+     * @returns {Object|null}
+     */
+    getProofRecordForFinding(findingId) {
+        const stmt = this.db.prepare(`SELECT * FROM proof_records WHERE finding_id = ? ORDER BY created_at DESC LIMIT 1`);
+        const row = stmt.get(findingId);
+        if (!row) return null;
+        return this._deserializeProofRecord(row);
+    }
+
+    /**
+     * Updates fields on an existing proof record.
+     * @param {string} proofId
+     * @param {Object} updates
+     */
+    updateProofRecord(proofId, updates = {}) {
+        const allowedCols = [
+            'proof_status', 'actual_tokens', 'actual_runtime', 'generated_artifact',
+            'artifact_hash', 'execution_command', 'observable_result', 'expected_result',
+            'actual_result', 'impact_class', 'reproducibility_count', 'reproducibility_rate',
+            'reproducibility_attempts', 'evidence_ids', 'verifier_level', 'failure_reason', 'completed_at'
+        ];
+        const fields = [];
+        const values = [];
+
+        for (const [k, v] of Object.entries(updates)) {
+            const snakeKey = k.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+            if (allowedCols.includes(snakeKey)) {
+                fields.push(`${snakeKey} = ?`);
+                values.push(typeof v === 'object' && v !== null ? JSON.stringify(v) : v);
+            }
+        }
+
+        if (fields.length === 0) return;
+        values.push(proofId);
+        const stmt = this.db.prepare(`UPDATE proof_records SET ${fields.join(', ')} WHERE proof_id = ?`);
+        stmt.run(...values);
+    }
+
+    _deserializeProofRecord(row) {
+        if (!row) return null;
+        return {
+            ...row,
+            preflight_estimate: row.preflight_estimate ? JSON.parse(row.preflight_estimate) : null,
+            observable_result: row.observable_result ? JSON.parse(row.observable_result) : null,
+            expected_result: row.expected_result ? JSON.parse(row.expected_result) : null,
+            actual_result: row.actual_result ? JSON.parse(row.actual_result) : null,
+            evidence_ids: row.evidence_ids ? JSON.parse(row.evidence_ids) : []
+        };
+    }
+
+    /**
      * Purges all database records associated with a specific analysis run.
      * @param {string} runId
      */
     deleteAnalysisRun(runId) {
         this.db.exec('BEGIN TRANSACTION;');
         try {
+            this.db.prepare(`DELETE FROM proof_records WHERE analysis_id = ?`).run(runId);
+            this.db.prepare(`DELETE FROM exploit_attempts WHERE run_id = ?`).run(runId);
             this.db.prepare(`DELETE FROM graph_edges WHERE run_id = ?`).run(runId);
             this.db.prepare(`DELETE FROM graph_nodes WHERE run_id = ?`).run(runId);
             this.db.prepare(`DELETE FROM token_ledger WHERE run_id = ?`).run(runId);

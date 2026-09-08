@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Model Capability Registry
  */
 
@@ -67,13 +67,28 @@ const DEFAULT_MODELS = [
 
     // Gemini Fallback Models
     {
-        id: 'gemini-2.5-flash',
+        id: 'gemini-1.5-flash',
         provider: 'gemini',
         contextWindow: 1048576,
         capabilities: {
             reasoning: 0.88,
             coding: 0.86,
             summarization: 0.95,
+            structuredOutput: true,
+            toolUse: true
+        },
+        costTier: 'low',
+        latencyTier: 'fast',
+        enabled: true
+    },
+    {
+        id: 'gemini-2.5-flash',
+        provider: 'gemini',
+        contextWindow: 1048576,
+        capabilities: {
+            reasoning: 0.92,
+            coding: 0.90,
+            summarization: 0.96,
             structuredOutput: true,
             toolUse: true
         },
@@ -94,6 +109,68 @@ const DEFAULT_MODELS = [
         },
         costTier: 'high',
         latencyTier: 'medium',
+        enabled: true
+    },
+
+    // OpenRouter Models
+    {
+        id: 'meta-llama/llama-3.3-70b-instruct',
+        provider: 'openrouter',
+        contextWindow: 128000,
+        capabilities: {
+            reasoning: 0.92,
+            coding: 0.90,
+            summarization: 0.94,
+            structuredOutput: true,
+            toolUse: true
+        },
+        costTier: 'low',
+        latencyTier: 'fast',
+        enabled: true
+    },
+    {
+        id: 'anthropic/claude-3.5-sonnet',
+        provider: 'openrouter',
+        contextWindow: 200000,
+        capabilities: {
+            reasoning: 0.96,
+            coding: 0.95,
+            summarization: 0.97,
+            structuredOutput: true,
+            toolUse: true
+        },
+        costTier: 'high',
+        latencyTier: 'medium',
+        enabled: true
+    },
+    {
+        id: 'google/gemini-2.5-flash',
+        provider: 'openrouter',
+        contextWindow: 1048576,
+        capabilities: {
+            reasoning: 0.90,
+            coding: 0.88,
+            summarization: 0.95,
+            structuredOutput: true,
+            toolUse: true
+        },
+        costTier: 'low',
+        latencyTier: 'fast',
+        enabled: true
+    },
+    {
+        id: 'google/gemini-1.5-flash',
+        provider: 'openrouter',
+        contextWindow: 1048576,
+        capabilities: {
+            reasoning: 0.86,
+            coding: 0.84,
+            summarization: 0.94,
+            structuredOutput: true,
+            toolUse: false
+        },
+        costTier: 'low',
+        latencyTier: 'fast',
         enabled: true
     }
 ];

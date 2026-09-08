@@ -1,0 +1,178 @@
+{
+  "generated": "2026-09-08T05:25:40.028Z",
+  "version": "2.0.0",
+  "component_status": {
+    "cli": {
+      "status": "OPERATIONAL",
+      "file": "src/index.js"
+    },
+    "planner": {
+      "status": "OPERATIONAL",
+      "file": "src/core/planner.js"
+    },
+    "broker": {
+      "status": "OPERATIONAL",
+      "file": "src/core/broker.js"
+    },
+    "coverage_matrix": {
+      "status": "OPERATIONAL",
+      "file": "src/core/coverageMatrix.js",
+      "cwe_families": 14,
+      "languages": 6
+    },
+    "candidate_generator": {
+      "status": "OPERATIONAL",
+      "file": "src/workers/candidateGenerator.js"
+    },
+    "suspicion_engine": {
+      "status": "OPERATIONAL",
+      "file": "src/core/suspicion/engine.js"
+    },
+    "adaptive_escalation": {
+      "status": "OPERATIONAL",
+      "file": "src/core/escalation/adaptiveEscalation.js",
+      "levels": 6
+    },
+    "hypothesis_generator": {
+      "status": "OPERATIONAL",
+      "file": "src/workers/hypothesisGenerator.js",
+      "qdrant_connected": true
+    },
+    "verifier": {
+      "status": "OPERATIONAL",
+      "file": "src/workers/verifier.js",
+      "evidence_levels": 6,
+      "strict_mode": true
+    },
+    "evidence_correlation": {
+      "status": "OPERATIONAL"
+    }
+  },
+  "tool_availability": {
+    "semgrep": {
+      "status": "AVAILABLE"
+    },
+    "joern": {
+      "status": "AVAILABLE",
+      "path": "/home/intern/bin/joern/joern-cli",
+      "env": "WSL"
+    },
+    "yosys": {
+      "status": "AVAILABLE",
+      "path": "E:/Intern/krithick/Downloads/oss-cad-suite/bin/yosys.exe"
+    },
+    "symbiyosys": {
+      "status": "AVAILABLE",
+      "version": "SBY v0.68"
+    },
+    "aflplusplus": {
+      "status": "AVAILABLE"
+    },
+    "verilator": {
+      "status": "AVAILABLE"
+    },
+    "codeql": {
+      "status": "UNAVAILABLE",
+      "reason": "CLI not installed; returns UNAVAILABLE cleanly; no fabrication"
+    },
+    "spike": {
+      "status": "UNAVAILABLE",
+      "reason": "RISC-V simulator not installed; handled gracefully"
+    }
+  },
+  "model_provider_availability": {
+    "nvidia": {
+      "status": "CONFIGURED",
+      "env_var": "NVIDIA_API_KEY",
+      "models": [
+        "meta/llama-3.3-70b-instruct",
+        "nvidia/llama-3.1-nemotron-70b-instruct",
+        "mistralai/codestral-22b-instruct-v0.1",
+        "deepseek-ai/deepseek-r1"
+      ]
+    },
+    "gemini": {
+      "status": "CONFIGURED",
+      "key_pool_size": 2,
+      "env_vars": [
+        "GEMINI_API_KEY",
+        "GEMINI_API_KEY_2"
+      ],
+      "models": [
+        "gemini-2.5-flash",
+        "gemini-1.5-pro"
+      ]
+    },
+    "openrouter": {
+      "status": "CONFIGURED",
+      "env_var": "OPENROUTER_API_KEY",
+      "models": [
+        "meta-llama/llama-3.3-70b-instruct",
+        "anthropic/claude-3.5-sonnet",
+        "google/gemini-flash-1.5"
+      ]
+    },
+    "fallback_chain": [
+      "nvidia",
+      "gemini",
+      "openrouter"
+    ]
+  },
+  "graph_status": {
+    "code_graph": {
+      "status": "OPERATIONAL",
+      "layers": [
+        "CODE",
+        "SECURITY",
+        "EVIDENCE"
+      ]
+    },
+    "joern_backend": {
+      "status": "AVAILABLE"
+    }
+  },
+  "rag_status": {
+    "qdrant": {
+      "status": "CONDITIONAL",
+      "port": 6333,
+      "note": "Available when Docker running; falls back to in-memory keyword store"
+    },
+    "fallback": {
+      "status": "OPERATIONAL",
+      "store": "SecurityKnowledgeStore + ProjectKnowledgeStore",
+      "source": "in_memory_keyword"
+    }
+  },
+  "budget_status": {
+    "persistence": "SQLite token_ledger table",
+    "thresholds": {
+      "prefer_cheap": 0.7,
+      "restrict_novelty": 0.85,
+      "block_optional": 1
+    },
+    "verification_emergency_allowance": true
+  },
+  "benchmark_delta": {
+    "note": "Baseline from previous evaluation run",
+    "overall_precision": 0.781,
+    "overall_recall": 0.224,
+    "overall_f1": 0.348,
+    "total_tp": 863,
+    "total_fp": 242,
+    "total_fn": 2998,
+    "total_tn": 1083
+  },
+  "skipped_datasets": [
+    "c/bigvul/",
+    "c/diversevul/",
+    "java/juliet/"
+  ],
+  "test_suite": {
+    "total_suites": 22,
+    "new_suites_this_session": [
+      "test_architecture_upgrade.js",
+      "test_improved_architecture.js"
+    ],
+    "new_tests_this_session": 24
+  }
+}
