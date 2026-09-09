@@ -245,12 +245,21 @@ export class Database {
     }
 
     saveProject({ id, path: projPath, name }) {
-        const stmt = this.db.prepare(`
+        const resolved = path.resolve(projPath);
+        const existingById = this.db.prepare('SELECT id FROM projects WHERE id = ?').get(id);
+        if (existingById) {
+            this.db.prepare('UPDATE projects SET path = ?, name = ? WHERE id = ?').run(resolved, name, id);
+            return id;
+        }
+        const existingByPath = this.db.prepare('SELECT id FROM projects WHERE path = ?').get(resolved);
+        if (existingByPath) {
+            this.db.prepare('UPDATE projects SET name = ? WHERE path = ?').run(name, resolved);
+            return existingByPath.id;
+        }
+        this.db.prepare(`
             INSERT INTO projects (id, path, name, created_at)
             VALUES (?, ?, ?, ?)
-            ON CONFLICT(path) DO UPDATE SET name = excluded.name
-        `);
-        stmt.run(id, projPath, name, new Date().toISOString());
+        `).run(id, resolved, name, new Date().toISOString());
         return id;
     }
 
@@ -422,6 +431,11 @@ export class Database {
             VALUES (?, 'RUNNING', datetime('now'), datetime('now'))
         `).run(runId);
 
+        const safeTitle = title || id || 'Untitled Finding';
+        const safeType = type || 'UNKNOWN';
+        const safeSeverity = severity || 'MEDIUM';
+        const safeState = verificationState || 'UNVERIFIED';
+
         const stmt = this.db.prepare(`
             INSERT INTO findings (id, run_id, title, type, severity, confidence, verification_state, location, created_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -430,7 +444,7 @@ export class Database {
                 verification_state = excluded.verification_state,
                 confidence = excluded.confidence
         `);
-        stmt.run(id, runId, title, type, severity, confidence, verificationState, location || null, new Date().toISOString());
+        stmt.run(id, runId, safeTitle, safeType, safeSeverity, confidence, safeState, location || null, new Date().toISOString());
         return id;
     }
 

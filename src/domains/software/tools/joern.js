@@ -152,133 +152,219 @@ export class JoernTool extends ToolAdapter {
         }
 
         const toolsDir = path.join(outputDir, 'tools', 'joern');
-        if (!fs.existsSync(toolsDir)) {
-            fs.mkdirSync(toolsDir, { recursive: true });
-        }
+        const cacheDir = path.join(outputDir, '.joern_cache');
+        if (!fs.existsSync(toolsDir)) fs.mkdirSync(toolsDir, { recursive: true });
+        if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
 
-        const cpgPath = path.join(toolsDir, 'cpg.bin');
-        const findingsJsonPath = path.join(toolsDir, 'joern_findings.json');
         const queryScriptSrc = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([a-zA-Z]:)/, '$1')), 'joern_query.sc');
 
-        try {
-            // Step 1: Generate CPG with joern-parse using root repository or common ancestor
-            const targetDir = params && typeof params === 'object' ? params.targetDir : null;
-            const targetInput = targetDir 
-                ? path.resolve(targetDir) 
-                : (targetFiles.length === 1 && fs.existsSync(targetFiles[0]) && !fs.statSync(targetFiles[0]).isDirectory() 
-                    ? targetFiles[0] 
-                    : getCommonAncestor(targetFiles));
-            
-            let parseRes;
-            if (install.isWsl) {
-                const wslInput = toWslPath(targetInput);
-                const wslCpg = toWslPath(cpgPath);
-                parseRes = await runWslCommand(`${install.binDir}/joern-parse`, [wslInput, '--output', wslCpg], { timeout });
-            } else {
-                const parseBin = path.join(install.binDir, 'joern-parse');
-                parseRes = await runCommand(parseBin, [targetInput, '--output', cpgPath], { timeout });
+        // Batching: split large target file lists into chunks of up to 50 files
+        const BATCH_SIZE = 50;
+        const batches = [];
+        if (targetFiles.length <= BATCH_SIZE) {
+            batches.push(targetFiles);
+        } else {
+            for (let i = 0; i < targetFiles.length; i += BATCH_SIZE) {
+                batches.push(targetFiles.slice(i, i + BATCH_SIZE));
             }
-
-            if (parseRes.exitCode !== 0 && !fs.existsSync(cpgPath)) {
-                return {
-                    status: "ERROR",
-                    findings: [],
-                    telemetry: {
-                        stage: "cpg_generation",
-                        error: parseRes.stderr || parseRes.stdout,
-                        durationMs: Date.now() - startTime
-                    }
-                };
-            }
-
-            // Step 2: Execute CPGQL query script
-            let queryRes;
-            if (install.isWsl) {
-                const wslScript = toWslPath(queryScriptSrc);
-                const wslCpg = toWslPath(cpgPath);
-                const wslOut = toWslPath(findingsJsonPath);
-                queryRes = await runWslCommand(`${install.binDir}/joern`, [
-                    '--script', wslScript,
-                    '--param', `cpgPath=${wslCpg}`,
-                    '--param', `outFile=${wslOut}`
-                ], { timeout });
-            } else {
-                const joernBin = path.join(install.binDir, 'joern');
-                queryRes = await runCommand(joernBin, [
-                    '--script', queryScriptSrc,
-                    '--param', `cpgPath=${cpgPath}`,
-                    '--param', `outFile=${findingsJsonPath}`
-                ], { timeout });
-            }
-
-            // Step 3: Parse Findings
-            const rawFindings = fs.existsSync(findingsJsonPath) 
-                ? JSON.parse(fs.readFileSync(findingsJsonPath, 'utf-8'))
-                : [];
-
-            const findings = [];
-            for (const item of rawFindings) {
-                const findingId = `JOERN-${crypto.randomBytes(4).toString('hex')}`;
-                const severity = item.severity === 'CRITICAL' ? Severity.CRITICAL :
-                                 item.severity === 'HIGH' ? Severity.HIGH :
-                                 item.severity === 'MEDIUM' ? Severity.MEDIUM : Severity.LOW;
-
-                // Resolve file path back to repo relative or absolute
-                let locPath = item.file;
-                const matchFile = targetFiles.find(f => f.endsWith(item.file) || path.basename(f) === path.basename(item.file));
-                if (matchFile) locPath = matchFile;
-
-                const evidenceObj = createEvidence({
-                    id: `EV-${crypto.randomBytes(4).toString('hex')}`,
-                    finding_id: findingId,
-                    tool_name: "joern",
-                    evidence_type: item.dataflow_reachable ? "DATAFLOW_TRACE" : "STATIC_AST_MATCH",
-                    description: `Joern CPG Analysis: ${item.title} in method '${item.method}'. Dataflow reachable from input/param: ${item.dataflow_reachable}`,
-                    artifact_path: cpgPath,
-                    raw_evidence: item,
-                    confidence: item.dataflow_reachable ? 0.85 : 0.65
-                });
-
-                const finding = createFinding({
-                    id: findingId,
-                    title: `[${item.cwe_id}] ${item.title}`,
-                    description: `Joern detected dangerous code pattern in ${locPath}:${item.line}.\nMethod: ${item.method}\nCode snippet: \`${item.code}\`\nReachable from function input: ${item.dataflow_reachable}`,
-                    severity,
-                    confidence: item.dataflow_reachable ? 0.85 : 0.65,
-                    source_tool: "joern",
-                    source_locations: [{
-                        path: locPath,
-                        line: item.line || 1,
-                        snippet: item.code || ""
-                    }],
-                    evidence: [evidenceObj],
-                    verification_state: VerificationState.CANDIDATE,
-                    cwe_id: item.cwe_id
-                });
-
-                findings.push(finding);
-            }
-
-            return {
-                status: "SUCCESS",
-                findings,
-                artifacts: [cpgPath, findingsJsonPath],
-                telemetry: {
-                    cpgGenerated: fs.existsSync(cpgPath),
-                    cpgSizeBytes: fs.existsSync(cpgPath) ? fs.statSync(cpgPath).size : 0,
-                    findingsCount: findings.length,
-                    durationMs: Date.now() - startTime
-                }
-            };
-        } catch (err) {
-            return {
-                status: "ERROR",
-                findings: [],
-                telemetry: {
-                    error: err.message,
-                    durationMs: Date.now() - startTime
-                }
-            };
         }
+
+        const allFindings = [];
+        const artifacts = [];
+        let batchesSucceeded = 0;
+        let batchesTimedOut = 0;
+        let batchesFailed = 0;
+        const timedOutFiles = [];
+        const parsedFiles = [];
+
+        for (let bIdx = 0; bIdx < batches.length; bIdx++) {
+            const currentBatch = batches[bIdx];
+            // Compute deterministic batch cache hash
+            const batchHash = crypto.createHash('sha256')
+                .update(currentBatch.map(f => {
+                    try {
+                        const st = fs.statSync(f);
+                        return `${f}:${st.size}:${st.mtimeMs}`;
+                    } catch (_) {
+                        return f;
+                    }
+                }).sort().join('|'))
+                .digest('hex').slice(0, 16);
+
+            const batchCpgPath = path.join(cacheDir, `cpg_batch_${batchHash}.bin`);
+            const batchFindingsJson = path.join(toolsDir, `joern_findings_batch_${bIdx}.json`);
+            let cpgReady = fs.existsSync(batchCpgPath);
+
+            const batchTimeout = Math.min(timeout, Math.max(30000, currentBatch.length * 1500));
+
+            if (!cpgReady) {
+                let stagedBatchDir = null;
+                try {
+                    let targetInput;
+                    if (currentBatch.length === 1 && fs.existsSync(currentBatch[0]) && !fs.statSync(currentBatch[0]).isDirectory()) {
+                        targetInput = currentBatch[0];
+                    } else {
+                        // Stage ONLY the files belonging to this batch into an isolated batch source directory
+                        stagedBatchDir = path.join(cacheDir, `batch_src_${batchHash}`);
+                        fs.mkdirSync(stagedBatchDir, { recursive: true });
+                        for (const f of currentBatch) {
+                            if (fs.existsSync(f)) {
+                                const dest = path.join(stagedBatchDir, path.basename(f));
+                                if (!fs.existsSync(dest)) {
+                                    fs.copyFileSync(f, dest);
+                                }
+                            }
+                        }
+                        targetInput = stagedBatchDir;
+                    }
+
+                    let parseRes;
+                    if (install.isWsl) {
+                        const wslInput = toWslPath(targetInput);
+                        const wslCpg = toWslPath(batchCpgPath);
+                        parseRes = await runWslCommand(`${install.binDir}/joern-parse`, [wslInput, '--output', wslCpg], { timeout: batchTimeout });
+                    } else {
+                        const parseBin = path.join(install.binDir, 'joern-parse');
+                        parseRes = await runCommand(parseBin, [targetInput, '--output', batchCpgPath], { timeout: batchTimeout });
+                    }
+
+                    if (stagedBatchDir && fs.existsSync(stagedBatchDir)) {
+                        fs.rmSync(stagedBatchDir, { recursive: true, force: true });
+                        stagedBatchDir = null;
+                    }
+
+                    if (parseRes.exitCode === 0 && fs.existsSync(batchCpgPath)) {
+                        cpgReady = true;
+                    } else if (parseRes.timedOut) {
+                        batchesTimedOut++;
+                        timedOutFiles.push(...currentBatch);
+                        continue;
+                    } else {
+                        batchesFailed++;
+                        continue;
+                    }
+                } catch (batchErr) {
+                    batchesFailed++;
+                    continue;
+                }
+            }
+
+            if (cpgReady) {
+                artifacts.push(batchCpgPath);
+                parsedFiles.push(...currentBatch);
+                batchesSucceeded++;
+
+                // Execute CPGQL query script
+                try {
+                    let queryRes;
+                    if (install.isWsl) {
+                        const wslScript = toWslPath(queryScriptSrc);
+                        const wslCpg = toWslPath(batchCpgPath);
+                        const wslOut = toWslPath(batchFindingsJson);
+                        queryRes = await runWslCommand(`${install.binDir}/joern`, [
+                            '--script', wslScript,
+                            '--param', `cpgPath=${wslCpg}`,
+                            '--param', `outFile=${wslOut}`
+                        ], { timeout: batchTimeout });
+                    } else {
+                        const joernBin = path.join(install.binDir, 'joern');
+                        queryRes = await runCommand(joernBin, [
+                            '--script', queryScriptSrc,
+                            '--param', `cpgPath=${batchCpgPath}`,
+                            '--param', `outFile=${batchFindingsJson}`
+                        ], { timeout: batchTimeout });
+                    }
+
+                    if (fs.existsSync(batchFindingsJson)) {
+                        artifacts.push(batchFindingsJson);
+                        const rawFindings = JSON.parse(fs.readFileSync(batchFindingsJson, 'utf-8'));
+                        for (const item of rawFindings) {
+                            const findingId = `JOERN-${crypto.randomBytes(4).toString('hex')}`;
+                            const severity = item.severity === 'CRITICAL' ? Severity.CRITICAL :
+                                             item.severity === 'HIGH' ? Severity.HIGH :
+                                             item.severity === 'MEDIUM' ? Severity.MEDIUM : Severity.LOW;
+
+                            let locPath = item.file;
+                            const matchFile = currentBatch.find(f => f.endsWith(item.file) || path.basename(f) === path.basename(item.file));
+                            if (matchFile) locPath = matchFile;
+
+                            const evidenceObj = createEvidence({
+                                id: `EV-${crypto.randomBytes(4).toString('hex')}`,
+                                finding_id: findingId,
+                                tool_name: "joern",
+                                evidence_type: item.dataflow_reachable ? "DATAFLOW_TRACE" : "STATIC_AST_MATCH",
+                                description: `Joern CPG Analysis: ${item.title} in method '${item.method}'. Dataflow reachable from input/param: ${item.dataflow_reachable}`,
+                                artifact_path: batchCpgPath,
+                                raw_evidence: item,
+                                confidence: item.dataflow_reachable ? 0.85 : 0.65
+                            });
+
+                            const finding = createFinding({
+                                id: findingId,
+                                title: `[${item.cwe_id}] ${item.title}`,
+                                description: `Joern detected dangerous code pattern in ${locPath}:${item.line}.\nMethod: ${item.method}\nCode snippet: \`${item.code}\`\nReachable from function input: ${item.dataflow_reachable}`,
+                                severity,
+                                confidence: item.dataflow_reachable ? 0.85 : 0.65,
+                                source_tool: "joern",
+                                source_locations: [{
+                                    path: locPath,
+                                    line: item.line || 1,
+                                    snippet: item.code || ""
+                                }],
+                                evidence: [evidenceObj],
+                                verification_state: VerificationState.CANDIDATE,
+                                cwe_id: item.cwe_id
+                            });
+
+                            allFindings.push(finding);
+                        }
+                    }
+                } catch (_) {}
+            }
+        }
+
+        // Section 5 explicit status tracking: EXECUTED, TIMEOUT, FAILED, UNAVAILABLE, FALLBACK_USED
+        let finalStatus = "SUCCESS";
+        let bepStatus = "EXECUTED";
+        if (batchesTimedOut > 0 && batchesSucceeded === 0) {
+            finalStatus = "TIMEOUT";
+            bepStatus = "TIMEOUT";
+        } else if (batchesTimedOut > 0 && batchesSucceeded > 0) {
+            finalStatus = "PARTIAL_TIMEOUT";
+            bepStatus = "FALLBACK_USED";
+        } else if (batchesFailed > 0 && batchesSucceeded === 0) {
+            finalStatus = "ERROR";
+            bepStatus = "FAILED";
+        }
+
+        let coverageLevel = "FULL_COVERAGE";
+        if (parsedFiles.length === 0 && (batchesFailed > 0 || batchesTimedOut > 0)) {
+            coverageLevel = "FAILED";
+        } else if (parsedFiles.length < targetFiles.length) {
+            coverageLevel = "PARTIAL_COVERAGE";
+        }
+
+        const primaryCpg = artifacts.find(a => a.endsWith('.bin'));
+
+        return {
+            status: finalStatus,
+            findings: allFindings,
+            artifacts,
+            telemetry: {
+                status: finalStatus,
+                bep_status: bepStatus,
+                coverage_level: coverageLevel,
+                cpgGenerated: !!primaryCpg && fs.existsSync(primaryCpg),
+                cpgSizeBytes: primaryCpg && fs.existsSync(primaryCpg) ? fs.statSync(primaryCpg).size : 0,
+                batchesTotal: batches.length,
+                batchesSucceeded,
+                batchesTimedOut,
+                batchesFailed,
+                parsedFilesCount: parsedFiles.length,
+                timedOutFilesCount: timedOutFiles.length,
+                findingsCount: allFindings.length,
+                durationMs: Date.now() - startTime
+            }
+        };
     }
 }

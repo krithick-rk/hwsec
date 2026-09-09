@@ -1,0 +1,4 @@
+[
+  "at org.owasp.benchmark.concolic.ConcolicTargetHarness.evaluate(ConcolicTargetHarness.java:16)",
+  "at org.owasp.benchmark.concolic.ConcolicTargetHarness.main(ConcolicTargetHarness.java:94)"
+]

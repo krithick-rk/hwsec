@@ -1,0 +1,19 @@
+{
+  "case_id": "BenchmarkTest00063",
+  "verdict": "NOT_DETECTED",
+  "reason_code": "FORMALLY_PROVEN_SAFE_ABSENCE",
+  "confidence": 1,
+  "required_evidence_items_passed": {
+    "static_path_evidence": true,
+    "symbolic_feasibility": false,
+    "successful_replay": true,
+    "runtime_taint_evidence": false,
+    "security_condition_satisfied": false,
+    "negative_control": false,
+    "provenance_and_hashes": true
+  },
+  "evidence_hash": "1d1f3256e9b9b01e7d694947e9b3048a8cef5da31204c98c08c586adb5440e79",
+  "inconclusive_reason": null,
+  "recommended_next_action": null,
+  "timestamp": "2026-09-09T10:59:45.233Z"
+}

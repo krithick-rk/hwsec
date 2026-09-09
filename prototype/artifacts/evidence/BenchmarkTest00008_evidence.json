@@ -1,0 +1,77 @@
+{
+  "case_id": "BenchmarkTest00008",
+  "hypothesis": {
+    "hypothesis_id": "HYP-BenchmarkTest00008-CWE-89",
+    "cwe": "CWE-89",
+    "claim": "Attacker-controlled input reaching java.sql.Statement.executeQuery violates sql_statement_syntax_tree_altered == true"
+  },
+  "static": {
+    "has_finding": true,
+    "tools_executed": [
+      "semgrep",
+      "codeql"
+    ],
+    "finding_ids": [
+      "FINDING-BenchmarkTest00008-CWE-89-32cfc0aa",
+      "FINDING-BenchmarkTest00008-CWE-79-2a4226d7",
+      "FINDING-BenchmarkTest00008-CWE-89-codeql-40c8f987"
+    ]
+  },
+  "symbolic": {
+    "status": "SAT",
+    "generated_input": {
+      "parameter": "BenchmarkTest00008",
+      "value": "' OR '1'='1",
+      "type": "HEADER"
+    },
+    "constraints_hash": "16f2a022baa76bc9f58eee84f1bf35cd3fd9e88e96836416106a5ee050d1afe7"
+  },
+  "runtime": {
+    "taint_observed": false,
+    "sink_reached": true,
+    "exit_code": 0,
+    "trace_hash": "6544a9cb84447d8272db7ed5481c34f17d60b1a156e16c7fc10c56fb113296a0"
+  },
+  "differential": {
+    "baseline_observed": {
+      "input_value": "safe_user_id",
+      "sink_called": true,
+      "sink_observed": "java.sql.Statement.executeQuery",
+      "observable_value": "safe_user_id",
+      "security_condition_violated": false,
+      "exit_code": 0
+    },
+    "attack_observed": {
+      "input_value": "' OR '1'='1",
+      "sink_called": true,
+      "sink_observed": "java.sql.Statement.executeQuery",
+      "observable_value": "' OR '1'='1",
+      "security_condition_violated": true,
+      "exit_code": 0
+    },
+    "delta_detected": true,
+    "security_relevant_observable": "SQL_STATEMENT_SYNTAX_ALTERATION"
+  },
+  "security_condition": {
+    "satisfied": true,
+    "rule": "sql_statement_syntax_tree_altered == true",
+    "details": "Observable diverged under attack input: 'SQL_STATEMENT_SYNTAX_ALTERATION' violated rule 'sql_statement_syntax_tree_altered == true'"
+  },
+  "provenance": {
+    "java_version": "OpenJDK 1.8.0_442 (Java 8 target runtime)",
+    "tool_versions": {
+      "node": "v24.20.0",
+      "codeql": "2.20.5",
+      "semgrep": "1.99.0",
+      "jpf": "JPF-Symbc 8.0",
+      "z3": "Z3 4.12.2"
+    },
+    "timestamp": "2026-09-09T10:59:47.302Z",
+    "artifact_hashes": {
+      "source_file_sha256": "dc417359950592592f4dd3072ee0a4b2b460e33f8aeb48d67a3de84ccef212af",
+      "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
+      "concolic_result": null,
+      "taint_result": "4b9ea38603c26ca6ed435e35cc1f7214e577bf5eb7b72f7ef7350c946135f37f"
+    }
+  }
+}

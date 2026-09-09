@@ -1,0 +1,74 @@
+{
+  "case_id": "BenchmarkTest00001",
+  "hypothesis": {
+    "hypothesis_id": "HYP-BenchmarkTest00001-CWE-22",
+    "cwe": "CWE-22",
+    "claim": "Attacker-controlled input reaching java.io.FileInputStream violates canonicalPath.startsWith(baseDir) == false"
+  },
+  "static": {
+    "has_finding": true,
+    "tools_executed": [
+      "semgrep"
+    ],
+    "finding_ids": [
+      "FINDING-BenchmarkTest00001-CWE-22-90ce512d"
+    ]
+  },
+  "symbolic": {
+    "status": "SAT",
+    "generated_input": {
+      "input_vector": "BenchmarkTest00001",
+      "raw_value": "../../etc/passwd",
+      "type": "PATH_TRAVERSAL_PAYLOAD"
+    },
+    "constraints_hash": "8e8b3aee4b3e014bb8e5ec9bd2de142e549555109268fafa822f0a8621a4087b"
+  },
+  "runtime": {
+    "taint_observed": true,
+    "sink_reached": true,
+    "exit_code": 0,
+    "trace_hash": "57ccaeaeebcfcada308efcdd2c1a1250602bfe1e1d0605914234b4daf337c113"
+  },
+  "differential": {
+    "baseline_observed": {
+      "input_value": "safe_file.txt",
+      "sink_called": true,
+      "sink_observed": "java.io.FileInputStream",
+      "observable_value": "/mnt/e/Intern/hwsec/testfiles/safe_file.txt",
+      "security_condition_violated": false,
+      "exit_code": 0
+    },
+    "attack_observed": {
+      "input_value": "../../etc/passwd",
+      "sink_called": true,
+      "sink_observed": "java.io.FileInputStream",
+      "observable_value": "/mnt/e/Intern/hwsec/testfiles/../../etc/passwd",
+      "security_condition_violated": true,
+      "exit_code": 0
+    },
+    "delta_detected": true,
+    "security_relevant_observable": "CANONICAL_PATH_ESCAPE"
+  },
+  "security_condition": {
+    "satisfied": true,
+    "rule": "canonicalPath.startsWith(baseDir) == false",
+    "details": "Observable diverged under attack input: 'CANONICAL_PATH_ESCAPE' violated rule 'canonicalPath.startsWith(baseDir) == false'"
+  },
+  "provenance": {
+    "java_version": "OpenJDK 1.8.0_442 (Java 8 target runtime)",
+    "tool_versions": {
+      "node": "v24.20.0",
+      "codeql": "2.20.5",
+      "semgrep": "1.99.0",
+      "jpf": "JPF-Symbc 8.0",
+      "z3": "Z3 4.12.2"
+    },
+    "timestamp": "2026-09-09T10:59:44.533Z",
+    "artifact_hashes": {
+      "source_file_sha256": "2651fc172122b8cae155f8aee3ea3bda14842c6f8b16a0b1d97371ce9d9e2c2e",
+      "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
+      "concolic_result": "d2509f1a67e9ec7b588c5442631abe210413334df0f8518617f32016d2ea36ea",
+      "taint_result": "09240145e4202030c0d2ea6423cd81e2cf298d1d9407011be9a7d54eeeae51bc"
+    }
+  }
+}

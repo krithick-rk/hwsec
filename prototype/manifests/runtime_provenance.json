@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-09-09T10:58:37.662Z",
+  "representative_cases_executed": 6,
+  "target_jdk": {
+    "binary_path": "/usr/lib/jvm/java-8-openjdk-amd64/bin/java",
+    "version": "openjdk version \"1.8.0_502\"",
+    "verified": true
+  },
+  "cases": [
+    {
+      "case_id": "BenchmarkTest00001",
+      "cwe": "CWE-22",
+      "exit_code": 0,
+      "duration_ms": 373,
+      "status": "SUCCESS"
+    },
+    {
+      "case_id": "BenchmarkTest00006",
+      "cwe": "CWE-78",
+      "exit_code": 0,
+      "duration_ms": 360,
+      "status": "SUCCESS"
+    },
+    {
+      "case_id": "BenchmarkTest00008",
+      "cwe": "CWE-89",
+      "exit_code": 0,
+      "duration_ms": 622,
+      "status": "EXCEPTION_CAPTURED"
+    },
+    {
+      "case_id": "BenchmarkTest00013",
+      "cwe": "CWE-79",
+      "exit_code": 0,
+      "duration_ms": 245,
+      "status": "SUCCESS"
+    },
+    {
+      "case_id": "BenchmarkTest00012",
+      "cwe": "CWE-90",
+      "exit_code": 0,
+      "duration_ms": 339,
+      "status": "EXCEPTION_CAPTURED"
+    },
+    {
+      "case_id": "BenchmarkTest00207",
+      "cwe": "CWE-643",
+      "exit_code": 0,
+      "duration_ms": 319,
+      "status": "SUCCESS"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "case_id": "BenchmarkTest00012",
+  "hypothesis": {
+    "hypothesis_id": "HYP-BenchmarkTest00012-CWE-90",
+    "cwe": "CWE-90",
+    "claim": "Attacker-controlled input reaching javax.naming.directory.DirContext.search violates ldap_filter_structure_altered == true"
+  },
+  "static": {
+    "has_finding": true,
+    "tools_executed": [
+      "semgrep",
+      "codeql"
+    ],
+    "finding_ids": [
+      "FINDING-BenchmarkTest00012-CWE-90-22f921fd",
+      "FINDING-BenchmarkTest00012-CWE-79-codeql-359c57f8",
+      "FINDING-BenchmarkTest00012-CWE-90-codeql-d52f908c"
+    ]
+  },
+  "symbolic": {
+    "status": "SAT",
+    "generated_input": {
+      "parameter": "BenchmarkTest00012",
+      "value": "*(|(objectclass=*))",
+      "type": "HEADER"
+    },
+    "constraints_hash": "fc8649429d45a76735ed942dfc5b28414ab43ed84b1c0e8a37316205b49d2ef5"
+  },
+  "runtime": {
+    "taint_observed": false,
+    "sink_reached": true,
+    "exit_code": 0,
+    "trace_hash": "49d56211441ea409c1abd2caecfdae958369cebf0155d06a8e6b65b3cac8e43a"
+  },
+  "differential": {
+    "baseline_observed": {
+      "input_value": "safe_user",
+      "sink_called": true,
+      "sink_observed": "javax.naming.directory.DirContext.search",
+      "observable_value": "safe_user",
+      "security_condition_violated": false,
+      "exit_code": 0
+    },
+    "attack_observed": {
+      "input_value": "*(|(objectclass=*))",
+      "sink_called": true,
+      "sink_observed": "javax.naming.directory.DirContext.search",
+      "observable_value": "*(|(objectclass=*))",
+      "security_condition_violated": true,
+      "exit_code": 0
+    },
+    "delta_detected": true,
+    "security_relevant_observable": "LDAP_FILTER_MANIPULATION"
+  },
+  "security_condition": {
+    "satisfied": true,
+    "rule": "ldap_filter_structure_altered == true",
+    "details": "Observable diverged under attack input: 'LDAP_FILTER_MANIPULATION' violated rule 'ldap_filter_structure_altered == true'"
+  },
+  "provenance": {
+    "java_version": "OpenJDK 1.8.0_442 (Java 8 target runtime)",
+    "tool_versions": {
+      "node": "v24.20.0",
+      "codeql": "2.20.5",
+      "semgrep": "1.99.0",
+      "jpf": "JPF-Symbc 8.0",
+      "z3": "Z3 4.12.2"
+    },
+    "timestamp": "2026-09-09T10:59:48.461Z",
+    "artifact_hashes": {
+      "source_file_sha256": "6ff3152d36f9f1967cd6866e91f1848690851dbaa450c10e584cce18c22a4c88",
+      "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
+      "concolic_result": null,
+      "taint_result": "815e7024e6c1e22ebdde7e5cbb5dc0a7b4b940e6b9651206c4dcb86c68dc17ad"
+    }
+  }
+}

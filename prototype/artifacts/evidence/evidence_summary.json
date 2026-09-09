@@ -1,0 +1,69 @@
+{
+  "total_cases_analyzed": 7,
+  "detected_count": 3,
+  "not_detected_count": 1,
+  "inconclusive_count": 3,
+  "funnel": {
+    "selected_cases": 7,
+    "static_candidates": 7,
+    "symbolic_targets": 7,
+    "sat_or_replay_verified": 6,
+    "taint_confirmed_flow": 3,
+    "differential_condition_satisfied": 6,
+    "detected_verdicts": 3,
+    "not_detected_verdicts": 1,
+    "inconclusive_verdicts": 3
+  },
+  "cases": [
+    {
+      "case_id": "BenchmarkTest00001",
+      "verdict": "DETECTED",
+      "reason_code": "FULL_EVIDENCE_CONTRACT_SATISFIED",
+      "security_observable": "CANONICAL_PATH_ESCAPE",
+      "delta_detected": true
+    },
+    {
+      "case_id": "BenchmarkTest00063",
+      "verdict": "NOT_DETECTED",
+      "reason_code": "FORMALLY_PROVEN_SAFE_ABSENCE",
+      "security_observable": "CANONICAL_PATH_ESCAPE",
+      "delta_detected": false
+    },
+    {
+      "case_id": "BenchmarkTest00006",
+      "verdict": "DETECTED",
+      "reason_code": "FULL_EVIDENCE_CONTRACT_SATISFIED",
+      "security_observable": "PROCESS_ARG_INJECTION",
+      "delta_detected": true
+    },
+    {
+      "case_id": "BenchmarkTest00008",
+      "verdict": "INCONCLUSIVE",
+      "reason_code": "PARTIAL_EVIDENCE_UNRESOLVED",
+      "security_observable": "SQL_STATEMENT_SYNTAX_ALTERATION",
+      "delta_detected": true
+    },
+    {
+      "case_id": "BenchmarkTest00013",
+      "verdict": "DETECTED",
+      "reason_code": "FULL_EVIDENCE_CONTRACT_SATISFIED",
+      "security_observable": "UNENCODED_XSS_OUTPUT_REFLECTION",
+      "delta_detected": true
+    },
+    {
+      "case_id": "BenchmarkTest00012",
+      "verdict": "INCONCLUSIVE",
+      "reason_code": "PARTIAL_EVIDENCE_UNRESOLVED",
+      "security_observable": "LDAP_FILTER_MANIPULATION",
+      "delta_detected": true
+    },
+    {
+      "case_id": "BenchmarkTest00207",
+      "verdict": "INCONCLUSIVE",
+      "reason_code": "PARTIAL_EVIDENCE_UNRESOLVED",
+      "security_observable": "XPATH_EXPRESSION_ALTERATION",
+      "delta_detected": true
+    }
+  ],
+  "timestamp": "2026-09-09T10:59:49.171Z"
+}

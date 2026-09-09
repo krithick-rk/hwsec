@@ -18,6 +18,8 @@ export class TransitionLedger {
             to_state: params.to_state,
             stage: params.stage,
             reason_code: params.reason_code,
+            inconclusive_reason: params.inconclusive_reason || null,
+            recommended_next_action: params.recommended_next_action || null,
             evidence_refs: params.evidence_refs || [],
             verifier_decision_id: params.verifier_decision_id || null,
             proof_ref: params.proof_ref || null,

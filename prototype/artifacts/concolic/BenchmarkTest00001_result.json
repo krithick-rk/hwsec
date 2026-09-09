@@ -1,0 +1,25 @@
+{
+  "case_id": "BenchmarkTest00001",
+  "target_id": "TARGET-BenchmarkTest00001-b6d21a",
+  "status": "SAT",
+  "solver": "Z3 (SMT / BitVector via JPF-Symbc)",
+  "solver_version": "4.8.x",
+  "generated_input": {
+    "input_vector": "BenchmarkTest00001",
+    "raw_value": "../../etc/passwd",
+    "type": "PATH_TRAVERSAL_PAYLOAD"
+  },
+  "path_trace": [
+    "at org.owasp.benchmark.concolic.ConcolicTargetHarness.evaluate(ConcolicTargetHarness.java:16)",
+    "at org.owasp.benchmark.concolic.ConcolicTargetHarness.main(ConcolicTargetHarness.java:94)"
+  ],
+  "constraints_file": null,
+  "exit_state": 0,
+  "wall_time_ms": 892,
+  "timestamp": "2026-09-09T10:59:07.762Z",
+  "artifact_hashes": {
+    "generated_input": "69457d3c4bad7d7df81bd4654f71409a49ad2728b3604a36bd7d2cae3e92c0e0",
+    "path_trace": "ae2cd08188e6d018ab1a8a2d0ca362fbd3264b7f1b70b7cb50944a399d5d0b3c",
+    "concolic_result": "d833d5dd1aa76ae99575d00ef57c80bd9f05bd631c7f5f2d992ead5cd686f0d9"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SymbolicTarget",
+  "type": "object",
+  "required": [
+    "case_id",
+    "entrypoint",
+    "symbolic_inputs",
+    "source",
+    "sink",
+    "path_hint",
+    "security_condition",
+    "limits"
+  ],
+  "properties": {
+    "case_id": { "type": "string" },
+    "entrypoint": { "type": "string" },
+    "symbolic_inputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source": { "type": "string" },
+    "sink": { "type": "string" },
+    "path_hint": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "security_condition": { "type": "string" },
+    "limits": {
+      "type": "object",
+      "required": ["max_paths", "max_depth", "solver_timeout_ms", "wall_timeout_ms"],
+      "properties": {
+        "max_paths": { "type": "integer" },
+        "max_depth": { "type": "integer" },
+        "solver_timeout_ms": { "type": "integer" },
+        "wall_timeout_ms": { "type": "integer" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

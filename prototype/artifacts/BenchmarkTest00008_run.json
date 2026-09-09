@@ -1,0 +1,32 @@
+{
+  "run_id": "RUN-BenchmarkTest00008-100333d4",
+  "case_id": "BenchmarkTest00008",
+  "cwe": "CWE-89",
+  "expected_label": "VULNERABLE",
+  "target_class": "org.owasp.benchmark.testcode.BenchmarkTest00008",
+  "entrypoint_method": "doPost",
+  "input_vector": {
+    "type": "HEADER",
+    "payload": "safe_val",
+    "payload_sha256": "de5d90dcfecfebe4cb46450c91a2d831b2f201028afc040a786149620c3d0ade"
+  },
+  "execution": {
+    "started_at": "2026-09-09T10:58:35.826Z",
+    "completed_at": "2026-09-09T10:58:36.448Z",
+    "duration_ms": 622,
+    "exit_code": 0,
+    "stdout_sha256": "e9b271739e22f5e3967e392157e57c204c7e0cef6f17faaaa5d5dd1fb25e976f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parsed_harness_result": {
+      "case_id": "BenchmarkTest00008",
+      "status": "EXCEPTION_CAPTURED",
+      "exit_code": 0,
+      "exception_type": "java.lang.ExceptionInInitializerError",
+      "exception_message": ""
+    }
+  },
+  "runtime_provenance": {
+    "java_path": "/usr/lib/jvm/java-8-openjdk-amd64/bin/java",
+    "java_version": "openjdk version \"1.8.0_502\""
+  }
+}

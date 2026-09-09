@@ -1,0 +1,112 @@
+{
+  "bep_version": "1.0.0",
+  "case_id": "BenchmarkTest00006",
+  "verdict": "DETECTED",
+  "reason_code": "FULL_EVIDENCE_CONTRACT_SATISFIED",
+  "evidence_packet": {
+    "case_id": "BenchmarkTest00006",
+    "hypothesis": {
+      "hypothesis_id": "HYP-BenchmarkTest00006-CWE-78",
+      "cwe": "CWE-78",
+      "claim": "Attacker-controlled input reaching java.lang.ProcessBuilder violates process_args.contains_unquoted_shell_metachars == true"
+    },
+    "static": {
+      "has_finding": true,
+      "tools_executed": [
+        "semgrep",
+        "codeql"
+      ],
+      "finding_ids": [
+        "FINDING-BenchmarkTest00006-CWE-78-16af41f1",
+        "FINDING-BenchmarkTest00006-CWE-78-codeql-5e0e83d4"
+      ]
+    },
+    "symbolic": {
+      "status": "SAT",
+      "generated_input": {
+        "parameter": "BenchmarkTest00006",
+        "value": "hello; echo INJECTED_CMD_OUTPUT",
+        "type": "HEADER"
+      },
+      "constraints_hash": "423982bec3f6fb8c952ef5756cb999d1167307b53101e4d3320de6bb0c2dde81"
+    },
+    "runtime": {
+      "taint_observed": true,
+      "sink_reached": true,
+      "exit_code": 0,
+      "trace_hash": "302078cd76805047ea767bb6c1af8ebac58c1b5950a4b011e5378484a8476a6b"
+    },
+    "differential": {
+      "baseline_observed": {
+        "input_value": "safe_arg",
+        "sink_called": true,
+        "sink_observed": "java.lang.ProcessBuilder",
+        "observable_value": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n</head>\n<body>\n",
+        "security_condition_violated": false,
+        "exit_code": 0
+      },
+      "attack_observed": {
+        "input_value": "hello; echo INJECTED_CMD_OUTPUT",
+        "sink_called": true,
+        "sink_observed": "java.lang.ProcessBuilder",
+        "observable_value": "INJECTED_CMD_OUTPUT",
+        "security_condition_violated": true,
+        "exit_code": 0
+      },
+      "delta_detected": true,
+      "security_relevant_observable": "PROCESS_ARG_INJECTION"
+    },
+    "security_condition": {
+      "satisfied": true,
+      "rule": "process_args.contains_unquoted_shell_metachars == true",
+      "details": "Observable diverged under attack input: 'PROCESS_ARG_INJECTION' violated rule 'process_args.contains_unquoted_shell_metachars == true'"
+    },
+    "provenance": {
+      "java_version": "OpenJDK 1.8.0_442 (Java 8 target runtime)",
+      "tool_versions": {
+        "node": "v24.20.0",
+        "codeql": "2.20.5",
+        "semgrep": "1.99.0",
+        "jpf": "JPF-Symbc 8.0",
+        "z3": "Z3 4.12.2"
+      },
+      "timestamp": "2026-09-09T10:59:46.007Z",
+      "artifact_hashes": {
+        "source_file_sha256": "65d9153681970795daebc6f1c862015a1d60d82ddd66c62e5641e275bfddb1ba",
+        "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
+        "concolic_result": null,
+        "taint_result": "8d3db6a1d3cdbb31479223cfe712c3540951f10e6dfe8c764903a20c3d2cdad4"
+      }
+    }
+  },
+  "verdict_decision": {
+    "case_id": "BenchmarkTest00006",
+    "verdict": "DETECTED",
+    "reason_code": "FULL_EVIDENCE_CONTRACT_SATISFIED",
+    "confidence": 1,
+    "required_evidence_items_passed": {
+      "static_path_evidence": true,
+      "symbolic_feasibility": true,
+      "successful_replay": true,
+      "runtime_taint_evidence": true,
+      "security_condition_satisfied": true,
+      "negative_control": true,
+      "provenance_and_hashes": true
+    },
+    "evidence_hash": "6db0b522e80303d24ee282ec66dbc537b4cb06217df3a8ef8978a9d5a0121928",
+    "inconclusive_reason": null,
+    "recommended_next_action": null,
+    "timestamp": "2026-09-09T10:59:46.007Z"
+  },
+  "replay_manifest": {
+    "case_id": "BenchmarkTest00006",
+    "target_class": "org.owasp.benchmark.testcode.BenchmarkTest00006",
+    "method": "doPost",
+    "input_vector_type": "HEADER",
+    "baseline_input": "safe_arg",
+    "attack_input": "hello; echo INJECTED_CMD_OUTPUT",
+    "replay_command": "java -cp <classpath> org.owasp.benchmark.harness.HarnessRunner --case BenchmarkTest00006 --b64input <b64> --type HEADER --method doPost"
+  },
+  "bundle_hash": "9f8fa5e613f5015222d84c96a1d3075dd50bbb543a00ec73db1f733c99c29fc5",
+  "timestamp": "2026-09-09T10:59:46.007Z"
+}

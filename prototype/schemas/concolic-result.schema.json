@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ConcolicResult",
+  "type": "object",
+  "required": [
+    "case_id",
+    "target_id",
+    "status",
+    "solver",
+    "exit_state",
+    "wall_time_ms",
+    "timestamp",
+    "artifact_hashes"
+  ],
+  "properties": {
+    "case_id": { "type": "string" },
+    "target_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["SAT", "UNSAT", "UNKNOWN", "TIMEOUT", "ERROR"]
+    },
+    "solver": { "type": "string" },
+    "solver_version": { "type": "string" },
+    "generated_input": {
+      "type": ["object", "null"],
+      "properties": {
+        "input_vector": { "type": "string" },
+        "raw_value": { "type": "string" },
+        "type": { "type": "string" }
+      }
+    },
+    "path_trace": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "constraints_file": { "type": ["string", "null"] },
+    "exit_state": { "type": "integer" },
+    "wall_time_ms": { "type": "number" },
+    "timestamp": { "type": "string" },
+    "artifact_hashes": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

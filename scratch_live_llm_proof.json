@@ -1,0 +1,53 @@
+[
+  {
+    "test": "Primary Provider",
+    "status": "VERIFIED",
+    "capture": {
+      "provider": "gemini",
+      "actual_model_identifier": "gemini-1.5-pro",
+      "timestamp": "2026-09-09T11:32:10.850Z",
+      "request_trace_id": "N/A",
+      "latency_ms": 6256,
+      "input_tokens": null,
+      "output_tokens": null,
+      "fallback_used": false,
+      "worker": "interpreter (TaskType: classification)",
+      "response_hash": "deb39064e15b2ec49c52e27ca58bbffc783a42fce4202e105cff7269bfdccd25",
+      "response_snippet": "```json\n{\n  \"status\": \"ok\",\n  \"probe\": \"audit_verification\"\n}\n```"
+    }
+  },
+  {
+    "test": "OpenRouter Provider",
+    "status": "VERIFIED",
+    "capture": {
+      "provider": "openrouter",
+      "actual_model_identifier": "meta-llama/llama-3.3-70b-instruct",
+      "timestamp": "2026-09-09T11:32:13.853Z",
+      "request_trace_id": "N/A",
+      "latency_ms": 3003,
+      "input_tokens": null,
+      "output_tokens": null,
+      "fallback_used": false,
+      "worker": "direct_openrouter_test",
+      "response_hash": "34311972fac24f351a206e6b75996ace19d27f652b7dd26dca6c1009e4a09386",
+      "response_snippet": "{\"provider\": \"openrouter\", \"verified\": true}"
+    }
+  },
+  {
+    "test": "Gemini Provider",
+    "status": "VERIFIED",
+    "capture": {
+      "provider": "gemini",
+      "actual_model_identifier": "gemini-2.5-flash",
+      "timestamp": "2026-09-09T11:32:24.783Z",
+      "request_trace_id": "N/A",
+      "latency_ms": 10930,
+      "input_tokens": null,
+      "output_tokens": null,
+      "fallback_used": false,
+      "worker": "direct_gemini_test",
+      "response_hash": "f7bbfddf1f47448d62b3e1346c7e8346c873ea3c3ebbc62aa40b0350524c49c0",
+      "response_snippet": "```json\n{\n  \"provider\": \"gemini\",\n  \"verified\": true\n}\n```"
+    }
+  }
+]

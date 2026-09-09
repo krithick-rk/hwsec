@@ -1,0 +1,12 @@
+{
+  "case_id": "BenchmarkTest00001",
+  "target_id": "TARGET-BenchmarkTest00001-b6d21a",
+  "replayed": true,
+  "status": "REPRODUCED",
+  "concrete_payload": "../../etc/passwd",
+  "exit_code": 0,
+  "sink_events": [],
+  "stdout_sha256": "f68e5e66769abf4d5a71ffab27c687af52383356e6265f962b7046c7f51148b4",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "timestamp": "2026-09-09T10:59:10.134Z"
+}

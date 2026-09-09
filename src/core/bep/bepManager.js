@@ -46,8 +46,11 @@ export class BEPManager {
      */
     loadBundle(bundlePathOrName) {
         let fullPath = path.resolve(bundlePathOrName);
-        if (!fs.existsSync(fullPath)) {
-            fullPath = path.join(this.baseDir, bundlePathOrName);
+        if (!fs.existsSync(fullPath) && fs.existsSync(this.baseDir)) {
+            const matches = fs.readdirSync(this.baseDir).filter(d => d.includes(bundlePathOrName));
+            if (matches.length > 0) {
+                fullPath = path.join(this.baseDir, matches[0]);
+            }
         }
         if (!fs.existsSync(fullPath)) {
             throw new Error(`BEP evidence bundle not found: ${bundlePathOrName}`);

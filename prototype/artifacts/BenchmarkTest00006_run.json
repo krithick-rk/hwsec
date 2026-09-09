@@ -1,0 +1,33 @@
+{
+  "run_id": "RUN-BenchmarkTest00006-0ae18523",
+  "case_id": "BenchmarkTest00006",
+  "cwe": "CWE-78",
+  "expected_label": "VULNERABLE",
+  "target_class": "org.owasp.benchmark.testcode.BenchmarkTest00006",
+  "entrypoint_method": "doPost",
+  "input_vector": {
+    "type": "HEADER",
+    "payload": "safe_cmd",
+    "payload_sha256": "911d0ad6ad6721a436b013c77e8a3de81aa28739813a15ee0b33bc1f3010f5a4"
+  },
+  "execution": {
+    "started_at": "2026-09-09T10:58:35.364Z",
+    "completed_at": "2026-09-09T10:58:35.724Z",
+    "duration_ms": 360,
+    "exit_code": 0,
+    "stdout_sha256": "1068e951bba5a0ee6e6f757ccedcd3f00df6190c18d842c9bf5d45a53fe04f8e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parsed_harness_result": {
+      "case_id": "BenchmarkTest00006",
+      "status": "SUCCESS",
+      "exit_code": 0,
+      "output_length": 315,
+      "output_snippet": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n</head>\n<body>\n<p>\nHere is the standard output of the command:<br>safe_cmd<br><br>Here is the std err of the command (if any):<br>",
+      "sink_events_count": 0
+    }
+  },
+  "runtime_provenance": {
+    "java_path": "/usr/lib/jvm/java-8-openjdk-amd64/bin/java",
+    "java_version": "openjdk version \"1.8.0_502\""
+  }
+}

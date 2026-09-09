@@ -26,6 +26,37 @@ export const CaseClassification = Object.freeze({
     UNKNOWN: 'UNKNOWN'
 });
 
+export const InconclusiveReason = Object.freeze({
+    MISSING_BUILD_CONTEXT: 'MISSING_BUILD_CONTEXT',
+    MISSING_DEPENDENCY: 'MISSING_DEPENDENCY',
+    VALIDATION_TIMEOUT: 'VALIDATION_TIMEOUT',
+    NO_REPRODUCIBLE_PATH: 'NO_REPRODUCIBLE_PATH',
+    AMBIGUOUS_DATAFLOW: 'AMBIGUOUS_DATAFLOW',
+    TOOL_UNAVAILABLE: 'TOOL_UNAVAILABLE',
+    UNSUPPORTED_VULNERABILITY_CLASS: 'UNSUPPORTED_VULNERABILITY_CLASS',
+    SAFETY_GATE_REJECTED: 'SAFETY_GATE_REJECTED',
+    UNRESOLVED_CANDIDATE_NO_DETERMINISTIC_PROOF: 'UNRESOLVED_CANDIDATE_NO_DETERMINISTIC_PROOF'
+});
+
+export const RecommendedNextAction = Object.freeze({
+    [InconclusiveReason.MISSING_BUILD_CONTEXT]: 'SUPPLY_MAVEN_BUILD_METADATA',
+    [InconclusiveReason.MISSING_DEPENDENCY]: 'PROVIDE_LOCAL_JAR_DEPENDENCIES',
+    [InconclusiveReason.VALIDATION_TIMEOUT]: 'INCREASE_SANDBOX_TIMEOUT_BUDGET',
+    [InconclusiveReason.NO_REPRODUCIBLE_PATH]: 'SYNTHESIZE_TAINTED_INPUT_FIXTURE',
+    [InconclusiveReason.AMBIGUOUS_DATAFLOW]: 'EXTRACT_METHOD_LEVEL_CPG_SLICE',
+    [InconclusiveReason.TOOL_UNAVAILABLE]: 'INITIALIZE_TARGET_TOOL_RUNTIME',
+    [InconclusiveReason.UNSUPPORTED_VULNERABILITY_CLASS]: 'IMPLEMENT_CUSTOM_DETERMINISTIC_VALIDATOR',
+    [InconclusiveReason.SAFETY_GATE_REJECTED]: 'REVIEW_SAFETY_BOUNDS_AND_SANDBOX_PERMISSIONS',
+    [InconclusiveReason.UNRESOLVED_CANDIDATE_NO_DETERMINISTIC_PROOF]: 'GENERATE_AND_EXECUTE_DETERMINISTIC_PROOF_HARNESS'
+});
+
+export const NotDetectedThreshold = Object.freeze({
+    MIN_ANALYZERS_EXECUTED: 1,
+    MAX_UNPARSED_FILES: 0,
+    ALLOW_TIMEOUTS: false,
+    DESCRIPTION: 'Clean deterministic analysis with full file coverage and zero qualifying findings'
+});
+
 export function evaluatePrediction(prediction, groundTruthLabel) {
     if (prediction === PredictionState.INCONCLUSIVE) {
         return CaseClassification.INCONCLUSIVE;
@@ -179,6 +210,14 @@ export function createCandidateRecord(params = {}) {
         source_finding_ids: params.source_finding_ids || [],
         hypothesis: params.hypothesis || '',
         suspected_cwe: params.suspected_cwe || 'CWE-000',
+        source_location: params.source_location || null,
+        source_boundary: params.source_boundary || 'unspecified_boundary',
+        dataflow_path: params.dataflow_path || [],
+        dangerous_sink: params.dangerous_sink || 'unspecified_sink',
+        required_preconditions: params.required_preconditions || [],
+        expected_security_impact: params.expected_security_impact || 'unspecified_impact',
+        recommended_validator: params.recommended_validator || 'targeted_sandbox_validator',
+        confidence_metadata: params.confidence_metadata || {},
         evidence_refs: params.evidence_refs || [],
         created_by: params.created_by || 'candidateGenerator',
         created_at: params.created_at || new Date().toISOString()
@@ -193,6 +232,8 @@ export function createTransitionRecord(params = {}) {
         to_state: params.to_state || 'UNVERIFIED',
         stage: params.stage || 'STATIC_ANALYSIS',
         reason_code: params.reason_code || 'INITIAL_SCAN',
+        inconclusive_reason: params.inconclusive_reason || null,
+        recommended_next_action: params.recommended_next_action || null,
         evidence_refs: params.evidence_refs || [],
         verifier_decision_id: params.verifier_decision_id || null,
         proof_ref: params.proof_ref || null,
@@ -216,6 +257,14 @@ export function createVerifierDecisionRecord(params = {}) {
         confidence: params.confidence || 0.8,
         reason_codes: params.reason_codes || [],
         evidence_basis: params.evidence_basis || EvidenceBasis.SUPPORTED_BY_DETERMINISTIC,
+        suspected_cwe: params.suspected_cwe || null,
+        source_boundary: params.source_boundary || null,
+        dataflow_path: params.dataflow_path || null,
+        dangerous_sink: params.dangerous_sink || null,
+        required_preconditions: params.required_preconditions || null,
+        expected_security_impact: params.expected_security_impact || null,
+        recommended_deterministic_validator: params.recommended_deterministic_validator || null,
+        confidence_reasoning_metadata: params.confidence_reasoning_metadata || null,
         output_artifact: params.output_artifact || '',
         output_sha256: params.output_sha256 || '',
         deterministic_validation_refs: params.deterministic_validation_refs || [],
@@ -280,6 +329,8 @@ export function createCaseResultRecord(params = {}) {
         assertion_ids: params.assertion_ids || [],
         evidence_strength: params.evidence_strength || 'E1',
         reproducible: params.reproducible !== undefined ? params.reproducible : false,
-        reclassification_taxonomy: params.reclassification_taxonomy || ReclassificationType.NONE
+        reclassification_taxonomy: params.reclassification_taxonomy || ReclassificationType.NONE,
+        inconclusive_reason: params.inconclusive_reason || null,
+        recommended_next_action: params.recommended_next_action || null
     };
 }

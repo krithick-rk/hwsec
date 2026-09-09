@@ -1,0 +1,19 @@
+{
+  "case_id": "BenchmarkTest00006",
+  "verdict": "DETECTED",
+  "reason_code": "FULL_EVIDENCE_CONTRACT_SATISFIED",
+  "confidence": 1,
+  "required_evidence_items_passed": {
+    "static_path_evidence": true,
+    "symbolic_feasibility": true,
+    "successful_replay": true,
+    "runtime_taint_evidence": true,
+    "security_condition_satisfied": true,
+    "negative_control": true,
+    "provenance_and_hashes": true
+  },
+  "evidence_hash": "6db0b522e80303d24ee282ec66dbc537b4cb06217df3a8ef8978a9d5a0121928",
+  "inconclusive_reason": null,
+  "recommended_next_action": null,
+  "timestamp": "2026-09-09T10:59:46.007Z"
+}

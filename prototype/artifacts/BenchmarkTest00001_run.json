@@ -1,0 +1,33 @@
+{
+  "run_id": "RUN-BenchmarkTest00001-77ba97df",
+  "case_id": "BenchmarkTest00001",
+  "cwe": "CWE-22",
+  "expected_label": "VULNERABLE",
+  "target_class": "org.owasp.benchmark.testcode.BenchmarkTest00001",
+  "entrypoint_method": "doPost",
+  "input_vector": {
+    "type": "COOKIE",
+    "payload": "../../etc/passwd",
+    "payload_sha256": "3754d6cb3a38e1185e5b382d5f3ef3f118af75bf4bf0254d1fdb8437f51423e0"
+  },
+  "execution": {
+    "started_at": "2026-09-09T10:59:09.813Z",
+    "completed_at": "2026-09-09T10:59:10.133Z",
+    "duration_ms": 320,
+    "exit_code": 0,
+    "stdout_sha256": "f68e5e66769abf4d5a71ffab27c687af52383356e6265f962b7046c7f51148b4",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parsed_harness_result": {
+      "case_id": "BenchmarkTest00001",
+      "status": "SUCCESS",
+      "exit_code": 0,
+      "output_length": 163,
+      "output_snippet": "Problem getting FileInputStream: &#x2f;mnt&#x2f;e&#x2f;Intern&#x2f;hwsec&#x2f;testfiles&#x2f;..&#x2f;..&#x2f;etc&#x2f;passwd &#x28;No such file or directory&#x29;\n",
+      "sink_events_count": 0
+    }
+  },
+  "runtime_provenance": {
+    "java_path": "/usr/lib/jvm/java-8-openjdk-amd64/bin/java",
+    "java_version": "openjdk version \"1.8.0_502\""
+  }
+}

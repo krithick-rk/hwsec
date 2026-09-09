@@ -1,0 +1,79 @@
+{
+  "case_id": "BenchmarkTest00207",
+  "hypothesis": {
+    "hypothesis_id": "HYP-BenchmarkTest00207-CWE-643",
+    "cwe": "CWE-643",
+    "claim": "Attacker-controlled input reaching javax.xml.xpath.XPath.evaluate violates xpath_expression_structure_altered == true"
+  },
+  "static": {
+    "has_finding": true,
+    "tools_executed": [
+      "semgrep",
+      "codeql"
+    ],
+    "finding_ids": [
+      "FINDING-BenchmarkTest00207-CWE-22-1e98ef04",
+      "FINDING-BenchmarkTest00207-CWE-79-35972cb4",
+      "FINDING-BenchmarkTest00207-CWE-643-c0904747",
+      "FINDING-BenchmarkTest00207-CWE-79-codeql-9fd97e9f",
+      "FINDING-BenchmarkTest00207-CWE-643-codeql-929b69bf"
+    ]
+  },
+  "symbolic": {
+    "status": "SAT",
+    "generated_input": {
+      "parameter": "BenchmarkTest00207",
+      "value": "' or ''='",
+      "type": "HEADER"
+    },
+    "constraints_hash": "183bae056ea0c9f4ee14af6ca9ce625262eb54a982c6b1819b4cbdf42ec627f9"
+  },
+  "runtime": {
+    "taint_observed": false,
+    "sink_reached": true,
+    "exit_code": 0,
+    "trace_hash": "471186a85924ae89017d2100f5b124a55eaa23706344f247c4deab5ae178ac45"
+  },
+  "differential": {
+    "baseline_observed": {
+      "input_value": "safe_empl_id",
+      "sink_called": true,
+      "sink_observed": "javax.xml.xpath.XPath.evaluate",
+      "observable_value": "safe_empl_id",
+      "security_condition_violated": false,
+      "exit_code": 0
+    },
+    "attack_observed": {
+      "input_value": "' or ''='",
+      "sink_called": true,
+      "sink_observed": "javax.xml.xpath.XPath.evaluate",
+      "observable_value": "' or ''='",
+      "security_condition_violated": true,
+      "exit_code": 0
+    },
+    "delta_detected": true,
+    "security_relevant_observable": "XPATH_EXPRESSION_ALTERATION"
+  },
+  "security_condition": {
+    "satisfied": true,
+    "rule": "xpath_expression_structure_altered == true",
+    "details": "Observable diverged under attack input: 'XPATH_EXPRESSION_ALTERATION' violated rule 'xpath_expression_structure_altered == true'"
+  },
+  "provenance": {
+    "java_version": "OpenJDK 1.8.0_442 (Java 8 target runtime)",
+    "tool_versions": {
+      "node": "v24.20.0",
+      "codeql": "2.20.5",
+      "semgrep": "1.99.0",
+      "jpf": "JPF-Symbc 8.0",
+      "z3": "Z3 4.12.2"
+    },
+    "timestamp": "2026-09-09T10:59:49.169Z",
+    "artifact_hashes": {
+      "source_file_sha256": "443867d47a1c3c1b4abe1f539660b51915db6ec3b507f4bf58a40ede3c48727c",
+      "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
+      "concolic_result": null,
+      "taint_result": "810214aba30897f58982ceea1687711b0a68482917adb75d08599842163caee4"
+    }
+  }
+}

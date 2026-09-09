@@ -1147,13 +1147,15 @@ const benchmarkCmd = program.command('benchmark')
 
 benchmarkCmd.command('run')
   .description('Run a reproducible benchmark and emit an evidence package')
-  .option('-b, --benchmark <id>', 'ID of the benchmark to run (e.g., owasp-java)')
+  .option('-b, --benchmark <id>', 'ID of the benchmark to run (e.g., owasp-benchmark)')
   .option('-c, --config <mode>', 'Run mode configuration (e.g., full)', 'full')
   .option('-e, --evidence-out <path>', 'Base output directory for the evidence package', 'quality-benchmark/evidence/runs')
+  .option('-r, --resume <path>', 'Resume from existing evidence bundle (reusing raw findings)')
+  .option('-m, --max-cases <number>', 'Maximum candidate cases to validate in pilot mode')
   .action(async (options) => {
     try {
         const runner = new BenchmarkRunner('config.json', options.evidenceOut);
-        await runner.runBenchmark(options.benchmark, options.config);
+        await runner.runBenchmark(options.benchmark, options.config, options);
     } catch (e) {
         console.error(`[-] Benchmark run failed: ${e.message}`);
         process.exit(1);

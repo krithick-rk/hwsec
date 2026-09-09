@@ -1,0 +1,62 @@
+{
+  "total_cases_analyzed": 7,
+  "cases": [
+    {
+      "case_id": "BenchmarkTest00001",
+      "source_observed": "HttpServletRequest.getCookies",
+      "sink_observed": "java.io.FileInputStream.<init>",
+      "sink_tainted": true,
+      "instrumentation_status": "ACTIVE",
+      "execution_time_ms": 209
+    },
+    {
+      "case_id": "BenchmarkTest00063",
+      "source_observed": "HttpServletRequest.getCookies",
+      "sink_observed": "java.io.FileInputStream.<init>",
+      "sink_tainted": false,
+      "instrumentation_status": "ACTIVE",
+      "execution_time_ms": 203
+    },
+    {
+      "case_id": "BenchmarkTest00006",
+      "source_observed": "HttpServletRequest.getParameter",
+      "sink_observed": "java.io.FileInputStream.<init>",
+      "sink_tainted": true,
+      "instrumentation_status": "ACTIVE",
+      "execution_time_ms": 234
+    },
+    {
+      "case_id": "BenchmarkTest00008",
+      "source_observed": "HttpServletRequest.getParameter",
+      "sink_observed": "javax.servlet.http.HttpServletResponse.getWriter",
+      "sink_tainted": false,
+      "instrumentation_status": "ACTIVE",
+      "execution_time_ms": 439
+    },
+    {
+      "case_id": "BenchmarkTest00013",
+      "source_observed": "HttpServletRequest.getParameter",
+      "sink_observed": "javax.servlet.http.HttpServletResponse.getWriter",
+      "sink_tainted": true,
+      "instrumentation_status": "ACTIVE",
+      "execution_time_ms": 88
+    },
+    {
+      "case_id": "BenchmarkTest00012",
+      "source_observed": "HttpServletRequest.getParameter",
+      "sink_observed": "java.io.FileInputStream.<init>",
+      "sink_tainted": false,
+      "instrumentation_status": "ACTIVE",
+      "execution_time_ms": 193
+    },
+    {
+      "case_id": "BenchmarkTest00207",
+      "source_observed": "HttpServletRequest.getParameter",
+      "sink_observed": "javax.servlet.http.HttpServletResponse.getWriter",
+      "sink_tainted": false,
+      "instrumentation_status": "ACTIVE",
+      "execution_time_ms": 194
+    }
+  ],
+  "timestamp": "2026-09-09T10:59:22.937Z"
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EvidencePacket",
+  "type": "object",
+  "required": [
+    "case_id",
+    "hypothesis",
+    "static",
+    "symbolic",
+    "runtime",
+    "differential",
+    "security_condition",
+    "provenance"
+  ],
+  "properties": {
+    "case_id": { "type": "string" },
+    "hypothesis": {
+      "type": "object",
+      "required": ["hypothesis_id", "cwe", "claim"],
+      "properties": {
+        "hypothesis_id": { "type": "string" },
+        "cwe": { "type": "string" },
+        "claim": { "type": "string" }
+      }
+    },
+    "static": {
+      "type": "object",
+      "required": ["has_finding", "tools_executed"],
+      "properties": {
+        "has_finding": { "type": "boolean" },
+        "tools_executed": { "type": "array", "items": { "type": "string" } },
+        "finding_ids": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "symbolic": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "type": "string", "enum": ["SAT", "UNSAT", "UNKNOWN", "NOT_RUN"] },
+        "generated_input": { "type": ["object", "null"] },
+        "constraints_hash": { "type": ["string", "null"] }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": ["taint_observed", "sink_reached"],
+      "properties": {
+        "taint_observed": { "type": "boolean" },
+        "sink_reached": { "type": "boolean" },
+        "exit_code": { "type": "integer" },
+        "trace_hash": { "type": "string" }
+      }
+    },
+    "differential": {
+      "type": "object",
+      "required": ["baseline_observed", "attack_observed", "delta_detected"],
+      "properties": {
+        "baseline_observed": { "type": "object" },
+        "attack_observed": { "type": "object" },
+        "delta_detected": { "type": "boolean" },
+        "security_relevant_observable": { "type": "string" }
+      }
+    },
+    "security_condition": {
+      "type": "object",
+      "required": ["satisfied", "rule"],
+      "properties": {
+        "satisfied": { "type": "boolean" },
+        "rule": { "type": "string" },
+        "details": { "type": "string" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["java_version", "tool_versions", "timestamp", "artifact_hashes"],
+      "properties": {
+        "java_version": { "type": "string" },
+        "tool_versions": { "type": "object" },
+        "timestamp": { "type": "string" },
+        "artifact_hashes": { "type": "object" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

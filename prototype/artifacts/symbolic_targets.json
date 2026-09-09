@@ -1,0 +1,702 @@
+[
+  {
+    "case_id": "BenchmarkTest00001",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00001.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00001"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00001\")",
+    "sink": "java.io.FileInputStream",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00001.java:72"
+    ],
+    "security_condition": "canonicalPath.startsWith(baseDir) == false",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00002",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00002.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00002"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00002\")",
+    "sink": "java.io.FileOutputStream",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00002.java:73"
+    ],
+    "security_condition": "canonicalPath.startsWith(baseDir) == false",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00063",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00063.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00063"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00063\")",
+    "sink": "java.io.File",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00063.java:78"
+    ],
+    "security_condition": "canonicalPath.startsWith(baseDir) == false",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00064",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00064.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00064"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00064\")",
+    "sink": "java.io.File",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00064.java:79"
+    ],
+    "security_condition": "canonicalPath.startsWith(baseDir) == false",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00006",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00006.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00006"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00006\")",
+    "sink": "java.lang.ProcessBuilder",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00006.java:64"
+    ],
+    "security_condition": "commandTokens.length > 1 || containsShellMetachars(command)",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00051",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00051.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00051"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00051\")",
+    "sink": "java.lang.Runtime.exec",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00051.java:60"
+    ],
+    "security_condition": "commandTokens.length > 1 || containsShellMetachars(command)",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00008",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00008.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00008"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00008\")",
+    "sink": "java.sql.Statement.executeQuery",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00008.java:58"
+    ],
+    "security_condition": "sqlAst.hasInjectedClauses == true || querySemanticsAltered == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00008",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00008.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00008"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00008\")",
+    "sink": "java.sql.Statement.executeQuery",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00008.java:63"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00018",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00018.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00018"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00018\")",
+    "sink": "java.sql.Statement.executeUpdate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00018.java:59"
+    ],
+    "security_condition": "sqlAst.hasInjectedClauses == true || querySemanticsAltered == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00018",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00018.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00018"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00018\")",
+    "sink": "java.sql.Statement.executeUpdate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00018.java:63"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00052",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00052.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00052"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00052\")",
+    "sink": "java.sql.PreparedStatement",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00052.java:59"
+    ],
+    "security_condition": "sqlAst.hasInjectedClauses == true || querySemanticsAltered == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00052",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00052.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00052"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00052\")",
+    "sink": "java.sql.PreparedStatement",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00052.java:63"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00104",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00104.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00104"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00104\")",
+    "sink": "java.sql.PreparedStatement",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00104.java:85"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00013",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00013.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00013"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00013\")",
+    "sink": "javax.servlet.http.HttpServletResponse.getWriter",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00013.java:56"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00014",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00014.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00014"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00014\")",
+    "sink": "javax.servlet.http.HttpServletResponse.getWriter",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00014.java:56"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00147",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00147.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00147"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00147\")",
+    "sink": "javax.servlet.http.HttpServletResponse.getWriter",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00147.java:65"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00151",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00151.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00151"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00151\")",
+    "sink": "javax.servlet.http.HttpServletResponse.getWriter",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00151.java:65"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00012",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00012.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00012"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00012\")",
+    "sink": "javax.naming.directory.DirContext.search",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00012.java:68"
+    ],
+    "security_condition": "filterStructureModified == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00012",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00012.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00012"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00012\")",
+    "sink": "javax.naming.directory.DirContext.search",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00012.java:99"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00021",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00021.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00021"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00021\")",
+    "sink": "javax.naming.directory.DirContext.search",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00021.java:58"
+    ],
+    "security_condition": "filterStructureModified == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00021",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00021.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00021"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00021\")",
+    "sink": "javax.naming.directory.DirContext.search",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00021.java:89"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00138",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00138.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00138"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00138\")",
+    "sink": "javax.naming.directory.DirContext.search",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00138.java:72"
+    ],
+    "security_condition": "filterStructureModified == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00139",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00139.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00139"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00139\")",
+    "sink": "javax.naming.directory.DirContext.search",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00139.java:87"
+    ],
+    "security_condition": "filterStructureModified == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00207",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00207.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00207"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00207\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00207.java:62"
+    ],
+    "security_condition": "canonicalPath.startsWith(baseDir) == false",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00207",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00207.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00207"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00207\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00207.java:77"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00207",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00207.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00207"
+    ],
+    "source": "HttpServletRequest.getHeader(\"BenchmarkTest00207\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00207.java:75"
+    ],
+    "security_condition": "xpathSyntaxModified == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00442",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00442.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00442"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00442\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00442.java:55"
+    ],
+    "security_condition": "canonicalPath.startsWith(baseDir) == false",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00442",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00442.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00442"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00442\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00442.java:70"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00442",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00442.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00442"
+    ],
+    "source": "HttpServletRequest.getParameter(\"BenchmarkTest00442\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00442.java:68"
+    ],
+    "security_condition": "xpathSyntaxModified == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00116",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00116.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00116"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00116\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:76"
+    ],
+    "security_condition": "canonicalPath.startsWith(baseDir) == false",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00116",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00116.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00116"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00116\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:94"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00116",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00116.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00116"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00116\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:91"
+    ],
+    "security_condition": "xpathSyntaxModified == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00117",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00117.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00117"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00117\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00117.java:75"
+    ],
+    "security_condition": "canonicalPath.startsWith(baseDir) == false",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00117",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00117.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00117"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00117\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00117.java:93"
+    ],
+    "security_condition": "unescapedHtmlRender == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  },
+  {
+    "case_id": "BenchmarkTest00117",
+    "entrypoint": "org.owasp.benchmark.testcode.BenchmarkTest00117.doPost",
+    "symbolic_inputs": [
+      "BenchmarkTest00117"
+    ],
+    "source": "HttpServletRequest.getCookies(\"BenchmarkTest00117\")",
+    "sink": "javax.xml.xpath.XPath.evaluate",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00117.java:90"
+    ],
+    "security_condition": "xpathSyntaxModified == true",
+    "limits": {
+      "max_paths": 100,
+      "max_depth": 20,
+      "solver_timeout_ms": 10000,
+      "wall_timeout_ms": 30000
+    }
+  }
+]

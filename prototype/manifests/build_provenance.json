@@ -1,0 +1,24 @@
+{
+  "build_id": "BUILD-6af71a64",
+  "started_at": "2026-09-09T10:58:29.011Z",
+  "completed_at": "2026-09-09T10:58:33.702Z",
+  "exit_code": 0,
+  "environment": {
+    "target_jdk": {
+      "path": "/usr/lib/jvm/java-8-openjdk-amd64",
+      "version": "openjdk version \"1.8.0_502\""
+    },
+    "maven_toolchain": {
+      "java_home": "/usr/lib/jvm/java-21-openjdk-amd64",
+      "version": "\u001b[1mApache Maven 3.9.12\u001b[m"
+    },
+    "repository_revision": "20cbf3d11123347e47ed89541e6942836def53f7"
+  },
+  "build_command": "export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64; cd /home/intern/hwsec-workspace/BenchmarkJava && mvn compile dependency:build-classpath -Dspotless.check.skip=true -Dspotless.apply.skip=true -Dmdep.outputFile=target/dependency-classpath.txt",
+  "artifact_hashes": {
+    "pom.xml": "8f89c554d5e6448f4bac65701b553b66a1668e8e2b3dc300b1259943b945a8ac  /home/intern/hwsec-workspace/BenchmarkJava/pom.xml",
+    "dependency-classpath.txt": "94ba4d3cbc8307c1b32d9eee5a2cf151be59eb0c31db70491ec3f920128ba051  /home/intern/hwsec-workspace/BenchmarkJava/target/dependency-classpath.txt",
+    "HarnessRunner.class": "a9de0c9aaf98d7e3264340e8b864f6ff707f316019dc01617c9f85854021feb9  /home/intern/hwsec-workspace/BenchmarkJava/target/classes/org/owasp/benchmark/harness/HarnessRunner.class"
+  },
+  "status": "SUCCESS"
+}

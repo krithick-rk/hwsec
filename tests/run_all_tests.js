@@ -28,7 +28,9 @@ const testFiles = [
     'test_preflight_scheduler.js',
     'test_exploit_preflight.js',
     'test_controlled_proof_verifier.js',
-    'test_bep_evidence.js'
+    'test_bep_evidence.js',
+    'test_anti_leakage.js',
+    'test_evidence_pipeline.js'
 ];
 
 console.log('=====================================================');

@@ -1,0 +1,23 @@
+{
+  "total_cases_analyzed": 24,
+  "total_findings": 50,
+  "analyzers": {
+    "semgrep": {
+      "status": "SUCCESS",
+      "findings_count": 33
+    },
+    "codeql": {
+      "status": "AVAILABLE",
+      "version": "2.26.4",
+      "jdk": "Java 21 (OpenJDK 21.0.12)",
+      "ram_mb": 8192,
+      "threads": 2,
+      "findings_count": 17
+    }
+  },
+  "artifact": {
+    "path": "prototype/artifacts/findings.json",
+    "sha256": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01"
+  },
+  "timestamp": "2026-09-09T10:59:05.859Z"
+}

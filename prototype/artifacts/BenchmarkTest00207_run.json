@@ -1,0 +1,33 @@
+{
+  "run_id": "RUN-BenchmarkTest00207-ccbb4b60",
+  "case_id": "BenchmarkTest00207",
+  "cwe": "CWE-643",
+  "expected_label": "VULNERABLE",
+  "target_class": "org.owasp.benchmark.testcode.BenchmarkTest00207",
+  "entrypoint_method": "doPost",
+  "input_vector": {
+    "type": "HEADER",
+    "payload": "safe_val",
+    "payload_sha256": "de5d90dcfecfebe4cb46450c91a2d831b2f201028afc040a786149620c3d0ade"
+  },
+  "execution": {
+    "started_at": "2026-09-09T10:58:37.342Z",
+    "completed_at": "2026-09-09T10:58:37.661Z",
+    "duration_ms": 319,
+    "exit_code": 0,
+    "stdout_sha256": "a90624099959139f9084538764f4b66b246584dcf9efdd7bc3368d7af7dfcd2c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parsed_harness_result": {
+      "case_id": "BenchmarkTest00207",
+      "status": "SUCCESS",
+      "exit_code": 0,
+      "output_length": 30,
+      "output_snippet": "Your query results are: <br/>\n",
+      "sink_events_count": 0
+    }
+  },
+  "runtime_provenance": {
+    "java_path": "/usr/lib/jvm/java-8-openjdk-amd64/bin/java",
+    "java_version": "openjdk version \"1.8.0_502\""
+  }
+}

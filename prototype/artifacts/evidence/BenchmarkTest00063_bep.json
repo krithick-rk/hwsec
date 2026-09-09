@@ -1,0 +1,106 @@
+{
+  "bep_version": "1.0.0",
+  "case_id": "BenchmarkTest00063",
+  "verdict": "NOT_DETECTED",
+  "reason_code": "FORMALLY_PROVEN_SAFE_ABSENCE",
+  "evidence_packet": {
+    "case_id": "BenchmarkTest00063",
+    "hypothesis": {
+      "hypothesis_id": "HYP-BenchmarkTest00063-CWE-22",
+      "cwe": "CWE-22",
+      "claim": "Attacker-controlled input reaching java.io.File violates canonicalPath.startsWith(baseDir) == false"
+    },
+    "static": {
+      "has_finding": true,
+      "tools_executed": [
+        "semgrep"
+      ],
+      "finding_ids": [
+        "FINDING-BenchmarkTest00063-CWE-22-51790b9d"
+      ]
+    },
+    "symbolic": {
+      "status": "UNSAT",
+      "generated_input": null,
+      "constraints_hash": null
+    },
+    "runtime": {
+      "taint_observed": false,
+      "sink_reached": true,
+      "exit_code": 0,
+      "trace_hash": "225e769b71de78ee2e1fdc77b6f4325db7796fac93b3e1cf1f142fa8690720be"
+    },
+    "differential": {
+      "baseline_observed": {
+        "input_value": "safe_file.txt",
+        "sink_called": true,
+        "sink_observed": "java.io.File",
+        "observable_value": "/mnt/e/Intern/hwsec/testfiles/This_should_always_happen",
+        "security_condition_violated": false,
+        "exit_code": 0
+      },
+      "attack_observed": {
+        "input_value": "../../etc/passwd",
+        "sink_called": true,
+        "sink_observed": "java.io.File",
+        "observable_value": "/mnt/e/Intern/hwsec/testfiles/This_should_always_happen",
+        "security_condition_violated": false,
+        "exit_code": 0
+      },
+      "delta_detected": false,
+      "security_relevant_observable": "CANONICAL_PATH_ESCAPE"
+    },
+    "security_condition": {
+      "satisfied": false,
+      "rule": "canonicalPath.startsWith(baseDir) == false",
+      "details": "No security-violating divergence detected. Invariant preserved."
+    },
+    "provenance": {
+      "java_version": "OpenJDK 1.8.0_442 (Java 8 target runtime)",
+      "tool_versions": {
+        "node": "v24.20.0",
+        "codeql": "2.20.5",
+        "semgrep": "1.99.0",
+        "jpf": "JPF-Symbc 8.0",
+        "z3": "Z3 4.12.2"
+      },
+      "timestamp": "2026-09-09T10:59:45.233Z",
+      "artifact_hashes": {
+        "source_file_sha256": "f87bb31219078f0726e1e0d6576f4e011f962772a20e40beb9e735c2c523a525",
+        "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
+        "concolic_result": "98e2209379e07db8cd4cfb9b3178c8e9e0d6c02554f5efaffd2995ca42b6b85e",
+        "taint_result": "b39577be3fb4dfc237b036f4b9a0210dc95920f6ae2a9cb40762a1085934508f"
+      }
+    }
+  },
+  "verdict_decision": {
+    "case_id": "BenchmarkTest00063",
+    "verdict": "NOT_DETECTED",
+    "reason_code": "FORMALLY_PROVEN_SAFE_ABSENCE",
+    "confidence": 1,
+    "required_evidence_items_passed": {
+      "static_path_evidence": true,
+      "symbolic_feasibility": false,
+      "successful_replay": true,
+      "runtime_taint_evidence": false,
+      "security_condition_satisfied": false,
+      "negative_control": false,
+      "provenance_and_hashes": true
+    },
+    "evidence_hash": "1d1f3256e9b9b01e7d694947e9b3048a8cef5da31204c98c08c586adb5440e79",
+    "inconclusive_reason": null,
+    "recommended_next_action": null,
+    "timestamp": "2026-09-09T10:59:45.233Z"
+  },
+  "replay_manifest": {
+    "case_id": "BenchmarkTest00063",
+    "target_class": "org.owasp.benchmark.testcode.BenchmarkTest00063",
+    "method": "doPost",
+    "input_vector_type": "COOKIE",
+    "baseline_input": "safe_file.txt",
+    "attack_input": "../../etc/passwd",
+    "replay_command": "java -cp <classpath> org.owasp.benchmark.harness.HarnessRunner --case BenchmarkTest00063 --b64input <b64> --type COOKIE --method doPost"
+  },
+  "bundle_hash": "d5b13165060992ea0384a57dfde8d6f08378ffaf1c5f9bedb68829cefad8a87c",
+  "timestamp": "2026-09-09T10:59:45.234Z"
+}

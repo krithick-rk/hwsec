@@ -1,0 +1,19 @@
+{
+  "case_id": "BenchmarkTest00008",
+  "verdict": "INCONCLUSIVE",
+  "reason_code": "PARTIAL_EVIDENCE_UNRESOLVED",
+  "confidence": 0.5,
+  "required_evidence_items_passed": {
+    "static_path_evidence": true,
+    "symbolic_feasibility": true,
+    "successful_replay": true,
+    "runtime_taint_evidence": false,
+    "security_condition_satisfied": true,
+    "negative_control": true,
+    "provenance_and_hashes": true
+  },
+  "evidence_hash": "5949a988a27875da28ad303ac087e8959df3beda70c92c0690fbe5846cc11541",
+  "inconclusive_reason": "Missing affirmative proof for: runtime_taint_evidence",
+  "recommended_next_action": "Inspect solver constraints and dynamic instrumentation",
+  "timestamp": "2026-09-09T10:59:47.302Z"
+}

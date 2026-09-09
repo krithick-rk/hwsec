@@ -4,14 +4,13 @@
  */
 
 export const AblationConfig = Object.freeze({
-    A: { id: 'A', name: 'Semgrep Only', semgrep: true, joern: false, candGen: false, graph: false, rag: false, hypothesis: false, verifier: false, proof: false },
-    B: { id: 'B', name: 'Semgrep + Joern', semgrep: true, joern: true, candGen: false, graph: false, rag: false, hypothesis: false, verifier: false, proof: false },
-    C: { id: 'C', name: 'B + Candidate Generator', semgrep: true, joern: true, candGen: true, graph: false, rag: false, hypothesis: false, verifier: false, proof: false },
-    D: { id: 'D', name: 'C + CodeGraph', semgrep: true, joern: true, candGen: true, graph: true, rag: false, hypothesis: false, verifier: false, proof: false },
-    E: { id: 'E', name: 'D + Qdrant/RAG', semgrep: true, joern: true, candGen: true, graph: true, rag: true, hypothesis: false, verifier: false, proof: false },
-    F: { id: 'F', name: 'E + Hypothesis/Invariant', semgrep: true, joern: true, candGen: true, graph: true, rag: true, hypothesis: true, verifier: false, proof: false },
-    G: { id: 'G', name: 'Full HWSEC', semgrep: true, joern: true, candGen: true, graph: true, rag: true, hypothesis: true, verifier: true, proof: true },
-    H: { id: 'H', name: 'Full HWSEC - LLM Verifier', semgrep: true, joern: true, candGen: true, graph: true, rag: true, hypothesis: true, verifier: false, proof: true }
+    A: { id: 'A', name: 'Semgrep Only', semgrep: true, joern: false, candGen: false, evidencePlan: false, javaValidation: false, proof: false, full: false },
+    B: { id: 'B', name: 'Semgrep + Joern', semgrep: true, joern: true, candGen: false, evidencePlan: false, javaValidation: false, proof: false, full: false },
+    C: { id: 'C', name: 'B + Candidate Generator', semgrep: true, joern: true, candGen: true, evidencePlan: false, javaValidation: false, proof: false, full: false },
+    D: { id: 'D', name: 'C + Structured Evidence Plan', semgrep: true, joern: true, candGen: true, evidencePlan: true, javaValidation: false, proof: false, full: false },
+    E: { id: 'E', name: 'D + Java/Maven Validation Profile', semgrep: true, joern: true, candGen: true, evidencePlan: true, javaValidation: true, proof: false, full: false },
+    F: { id: 'F', name: 'E + Controlled Proof Validation', semgrep: true, joern: true, candGen: true, evidencePlan: true, javaValidation: true, proof: true, full: false },
+    G: { id: 'G', name: 'Full HWSEC (All Stages Active)', semgrep: true, joern: true, candGen: true, evidencePlan: true, javaValidation: true, proof: true, full: true }
 });
 
 export class AblationSuite {
@@ -30,30 +29,38 @@ export class AblationSuite {
     }
 
     computeMetrics(caseResults) {
-        let tp = 0, fp = 0, fn = 0, tn = 0, unknown = 0;
+        let tp = 0, fp = 0, fn = 0, tn = 0, inconclusive = 0;
+        let detected = 0, not_detected = 0, inconclusive_pred = 0;
+
         for (const cr of caseResults || []) {
             const cls = cr.classification;
+            const pred = cr.prediction;
             if (cls === 'TP') tp++;
             else if (cls === 'FP') fp++;
             else if (cls === 'FN') fn++;
             else if (cls === 'TN') tn++;
-            else unknown++;
+            else inconclusive++;
+
+            if (pred === 'DETECTED') detected++;
+            else if (pred === 'NOT_DETECTED') not_detected++;
+            else inconclusive_pred++;
         }
 
+        const totalCases = (caseResults || []).length;
         const precision = (tp + fp) > 0 ? tp / (tp + fp) : 0;
         const recall = (tp + fn) > 0 ? tp / (tp + fn) : 0;
         const f1 = (precision + recall) > 0 ? (2 * precision * recall) / (precision + recall) : 0;
-        const fpr = (fp + tn) > 0 ? fp / (fp + tn) : 0;
-        const fnr = (fn + tp) > 0 ? fn / (fn + tp) : 0;
+        const detected_coverage = totalCases > 0 ? detected / totalCases : 0;
+        const inconclusive_coverage = totalCases > 0 ? inconclusive_pred / totalCases : 0;
 
         return {
-            tp, fp, fn, tn, unknown,
-            total_cases: (caseResults || []).length,
+            tp, fp, fn, tn, inconclusive,
+            total_cases: totalCases,
             precision,
             recall,
             f1,
-            false_positive_rate: fpr,
-            false_negative_rate: fnr
+            detected_coverage,
+            inconclusive_coverage
         };
     }
 

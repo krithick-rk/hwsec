@@ -1,0 +1,74 @@
+{
+  "case_id": "BenchmarkTest00013",
+  "hypothesis": {
+    "hypothesis_id": "HYP-BenchmarkTest00013-CWE-79",
+    "cwe": "CWE-79",
+    "claim": "Attacker-controlled input reaching javax.servlet.http.HttpServletResponse.getWriter violates response_body_contains_unescaped_input == true"
+  },
+  "static": {
+    "has_finding": true,
+    "tools_executed": [
+      "codeql"
+    ],
+    "finding_ids": [
+      "FINDING-BenchmarkTest00013-CWE-79-codeql-819b4d4e"
+    ]
+  },
+  "symbolic": {
+    "status": "SAT",
+    "generated_input": {
+      "parameter": "BenchmarkTest00013",
+      "value": "<script>alert(1)</script>",
+      "type": "HEADER"
+    },
+    "constraints_hash": "e93ae07a4b18ad273ec26d7380c4a9c1758e6db3c90343332a510f00c72122b2"
+  },
+  "runtime": {
+    "taint_observed": true,
+    "sink_reached": true,
+    "exit_code": 0,
+    "trace_hash": "07e15efc3f5ed969c736f1d82de73a4dee7fb15aa9086134441fca0a912ff862"
+  },
+  "differential": {
+    "baseline_observed": {
+      "input_value": "safe_content",
+      "sink_called": true,
+      "sink_observed": "javax.servlet.http.HttpServletResponse.getWriter",
+      "observable_value": "safe_content",
+      "security_condition_violated": false,
+      "exit_code": 0
+    },
+    "attack_observed": {
+      "input_value": "<script>alert(1)</script>",
+      "sink_called": true,
+      "sink_observed": "javax.servlet.http.HttpServletResponse.getWriter",
+      "observable_value": "<script>alert(1)</script>",
+      "security_condition_violated": true,
+      "exit_code": 0
+    },
+    "delta_detected": true,
+    "security_relevant_observable": "UNENCODED_XSS_OUTPUT_REFLECTION"
+  },
+  "security_condition": {
+    "satisfied": true,
+    "rule": "response_body_contains_unescaped_input == true",
+    "details": "Observable diverged under attack input: 'UNENCODED_XSS_OUTPUT_REFLECTION' violated rule 'response_body_contains_unescaped_input == true'"
+  },
+  "provenance": {
+    "java_version": "OpenJDK 1.8.0_442 (Java 8 target runtime)",
+    "tool_versions": {
+      "node": "v24.20.0",
+      "codeql": "2.20.5",
+      "semgrep": "1.99.0",
+      "jpf": "JPF-Symbc 8.0",
+      "z3": "Z3 4.12.2"
+    },
+    "timestamp": "2026-09-09T10:59:47.787Z",
+    "artifact_hashes": {
+      "source_file_sha256": "0d68ffd2195199d952c118465fed93cfbeddae76522a7ccdc58739badaf126bc",
+      "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
+      "concolic_result": null,
+      "taint_result": "7edda44a7c232e518acfb7a921b8334a53a248674aa5ab0e1637213bbb8afe86"
+    }
+  }
+}

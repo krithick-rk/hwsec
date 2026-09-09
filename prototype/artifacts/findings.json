@@ -1,0 +1,1252 @@
+[
+  {
+    "finding_id": "FINDING-BenchmarkTest00001-CWE-22-90ce512d",
+    "case_id": "BenchmarkTest00001",
+    "cwe": "CWE-22",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00001.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00001.java",
+        "line": 72,
+        "column": 19
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": "new java.io.FileInputStream(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00001.java:72"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-PATH-TRAVERSAL",
+    "timestamp": "2026-09-09T10:58:48.835Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00002-CWE-22-5ebb9b3a",
+    "case_id": "BenchmarkTest00002",
+    "cwe": "CWE-22",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00002.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00002.java",
+        "line": 73,
+        "column": 19
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": "new java.io.FileOutputStream(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00002.java:73"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-PATH-TRAVERSAL",
+    "timestamp": "2026-09-09T10:58:49.574Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00063-CWE-22-51790b9d",
+    "case_id": "BenchmarkTest00063",
+    "cwe": "CWE-22",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00063.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00063.java",
+        "line": 78,
+        "column": 19
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": "new java.io.FileInputStream(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00063.java:78"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-PATH-TRAVERSAL",
+    "timestamp": "2026-09-09T10:58:50.260Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00064-CWE-22-065c38ce",
+    "case_id": "BenchmarkTest00064",
+    "cwe": "CWE-22",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00064.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00064.java",
+        "line": 79,
+        "column": 19
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": "new java.io.FileOutputStream(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00064.java:79"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-PATH-TRAVERSAL",
+    "timestamp": "2026-09-09T10:58:51.060Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00006-CWE-78-16af41f1",
+    "case_id": "BenchmarkTest00006",
+    "cwe": "CWE-78",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java",
+        "line": 64,
+        "column": 29
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": "new ProcessBuilder(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00006.java:64"
+    ],
+    "severity": "CRITICAL",
+    "confidence": 0.9,
+    "rule_id": "JAVA-COMMAND-INJECTION",
+    "timestamp": "2026-09-09T10:58:51.752Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00006-CWE-78-codeql-5e0e83d4",
+    "case_id": "BenchmarkTest00006",
+    "cwe": "CWE-78",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java",
+        "line": 66,
+        "column": 20
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "This command line depends on a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00006.java:66"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/command-line-injection",
+    "timestamp": "2026-09-09T10:58:52.421Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00051-CWE-78-46c25e60",
+    "case_id": "BenchmarkTest00051",
+    "cwe": "CWE-78",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00051.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00051.java",
+        "line": 60,
+        "column": 29
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "new ProcessBuilder(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00051.java:60"
+    ],
+    "severity": "CRITICAL",
+    "confidence": 0.9,
+    "rule_id": "JAVA-COMMAND-INJECTION",
+    "timestamp": "2026-09-09T10:58:53.102Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00008-CWE-89-32cfc0aa",
+    "case_id": "BenchmarkTest00008",
+    "cwe": "CWE-89",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.java",
+        "line": 58,
+        "column": 46
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".executeQuery(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00008.java:58"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-SQL-INJECTION",
+    "timestamp": "2026-09-09T10:58:54.470Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00008-CWE-79-2a4226d7",
+    "case_id": "BenchmarkTest00008",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.java",
+        "line": 63,
+        "column": 25
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00008.java:63"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:58:54.470Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00008-CWE-89-codeql-40c8f987",
+    "case_id": "BenchmarkTest00008",
+    "cwe": "CWE-89",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00008.java",
+        "line": 57,
+        "column": 75
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "This query depends on a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00008.java:57"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/sql-injection",
+    "timestamp": "2026-09-09T10:58:55.145Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00018-CWE-89-aeacc7ce",
+    "case_id": "BenchmarkTest00018",
+    "cwe": "CWE-89",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.java",
+        "line": 59,
+        "column": 34
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".executeUpdate(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00018.java:59"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-SQL-INJECTION",
+    "timestamp": "2026-09-09T10:58:55.146Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00018-CWE-79-7a677a1c",
+    "case_id": "BenchmarkTest00018",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.java",
+        "line": 63,
+        "column": 25
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00018.java:63"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:58:55.146Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00018-CWE-89-codeql-966865e8",
+    "case_id": "BenchmarkTest00018",
+    "cwe": "CWE-89",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00018.java",
+        "line": 59,
+        "column": 49
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "This query depends on a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00018.java:59"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/sql-injection",
+    "timestamp": "2026-09-09T10:58:55.841Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00052-CWE-89-b9bbbaf9",
+    "case_id": "BenchmarkTest00052",
+    "cwe": "CWE-89",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00052.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00052.java",
+        "line": 59,
+        "column": 46
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": ".executeQuery(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00052.java:59"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-SQL-INJECTION",
+    "timestamp": "2026-09-09T10:58:55.842Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00052-CWE-79-418fc100",
+    "case_id": "BenchmarkTest00052",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00052.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00052.java",
+        "line": 63,
+        "column": 25
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00052.java:63"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:58:55.842Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00104-CWE-79-b6b87610",
+    "case_id": "BenchmarkTest00104",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00104.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00104.java",
+        "line": 85,
+        "column": 25
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00104.java:85"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:58:56.537Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00013-CWE-79-codeql-819b4d4e",
+    "case_id": "BenchmarkTest00013",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00013.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00013.java",
+        "line": 56,
+        "column": 58
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00013.java:56"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:58:57.929Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00014-CWE-79-codeql-7c575eb4",
+    "case_id": "BenchmarkTest00014",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00014.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00014.java",
+        "line": 56,
+        "column": 37
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00014.java:56"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:58:58.613Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00147-CWE-79-codeql-5a708cae",
+    "case_id": "BenchmarkTest00147",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00147.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00147.java",
+        "line": 65,
+        "column": 71
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00147.java:65"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:58:59.306Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00151-CWE-79-codeql-8a94a87d",
+    "case_id": "BenchmarkTest00151",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00151.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00151.java",
+        "line": 65,
+        "column": 37
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00151.java:65"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:58:59.990Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00012-CWE-90-22f921fd",
+    "case_id": "BenchmarkTest00012",
+    "cwe": "CWE-90",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java",
+        "line": 68,
+        "column": 24
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".search(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00012.java:68"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-LDAP-INJECTION",
+    "timestamp": "2026-09-09T10:58:59.991Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00012-CWE-79-codeql-359c57f8",
+    "case_id": "BenchmarkTest00012",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java",
+        "line": 99,
+        "column": 33
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00012.java:99"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:59:00.672Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00012-CWE-90-codeql-d52f908c",
+    "case_id": "BenchmarkTest00012",
+    "cwe": "CWE-90",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java",
+        "line": 68,
+        "column": 38
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "This LDAP query depends on a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00012.java:68"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/ldap-injection",
+    "timestamp": "2026-09-09T10:59:00.673Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00021-CWE-90-c625995d",
+    "case_id": "BenchmarkTest00021",
+    "cwe": "CWE-90",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java",
+        "line": 58,
+        "column": 24
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": ".search(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00021.java:58"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-LDAP-INJECTION",
+    "timestamp": "2026-09-09T10:59:00.673Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00021-CWE-79-codeql-bbf885ec",
+    "case_id": "BenchmarkTest00021",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java",
+        "line": 89,
+        "column": 33
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00021.java:89"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:59:01.346Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00021-CWE-90-codeql-adc3deb7",
+    "case_id": "BenchmarkTest00021",
+    "cwe": "CWE-90",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java",
+        "line": 58,
+        "column": 38
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "This LDAP query depends on a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00021.java:58"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/ldap-injection",
+    "timestamp": "2026-09-09T10:59:01.347Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00138-CWE-90-41f49bbb",
+    "case_id": "BenchmarkTest00138",
+    "cwe": "CWE-90",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00138.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00138.java",
+        "line": 72,
+        "column": 24
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".search(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00138.java:72"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-LDAP-INJECTION",
+    "timestamp": "2026-09-09T10:59:01.347Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00139-CWE-90-28db8b3c",
+    "case_id": "BenchmarkTest00139",
+    "cwe": "CWE-90",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00139.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00139.java",
+        "line": 87,
+        "column": 24
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".search(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00139.java:87"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-LDAP-INJECTION",
+    "timestamp": "2026-09-09T10:59:02.025Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00207-CWE-22-1e98ef04",
+    "case_id": "BenchmarkTest00207",
+    "cwe": "CWE-22",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+        "line": 62,
+        "column": 21
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": "new java.io.FileInputStream(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00207.java:62"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-PATH-TRAVERSAL",
+    "timestamp": "2026-09-09T10:59:02.698Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00207-CWE-79-35972cb4",
+    "case_id": "BenchmarkTest00207",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+        "line": 77,
+        "column": 21
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00207.java:77"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:59:02.698Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00207-CWE-643-c0904747",
+    "case_id": "BenchmarkTest00207",
+    "cwe": "CWE-643",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+        "line": 75,
+        "column": 31
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getHeader",
+    "sink": ".evaluate(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00207.java:75"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-XPATH-INJECTION",
+    "timestamp": "2026-09-09T10:59:02.698Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00207-CWE-79-codeql-9fd97e9f",
+    "case_id": "BenchmarkTest00207",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+        "line": 84,
+        "column": 29
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00207.java:84"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:59:03.388Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00207-CWE-643-codeql-929b69bf",
+    "case_id": "BenchmarkTest00207",
+    "cwe": "CWE-643",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java",
+        "line": 75,
+        "column": 41
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "XPath expression depends on a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00207.java:75"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xml/xpath-injection",
+    "timestamp": "2026-09-09T10:59:03.388Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00442-CWE-22-96a3a84e",
+    "case_id": "BenchmarkTest00442",
+    "cwe": "CWE-22",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+        "line": 55,
+        "column": 21
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "new java.io.FileInputStream(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00442.java:55"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-PATH-TRAVERSAL",
+    "timestamp": "2026-09-09T10:59:03.388Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00442-CWE-79-cdceb487",
+    "case_id": "BenchmarkTest00442",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+        "line": 70,
+        "column": 21
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00442.java:70"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:59:03.388Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00442-CWE-643-ebe27f84",
+    "case_id": "BenchmarkTest00442",
+    "cwe": "CWE-643",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+        "line": 68,
+        "column": 31
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": ".evaluate(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00442.java:68"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-XPATH-INJECTION",
+    "timestamp": "2026-09-09T10:59:03.388Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00442-CWE-79-codeql-a647b3d5",
+    "case_id": "BenchmarkTest00442",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+        "line": 77,
+        "column": 29
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00442.java:77"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:59:04.283Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00442-CWE-643-codeql-0cfcf691",
+    "case_id": "BenchmarkTest00442",
+    "cwe": "CWE-643",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java",
+        "line": 68,
+        "column": 41
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "XPath expression depends on a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00442.java:68"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xml/xpath-injection",
+    "timestamp": "2026-09-09T10:59:04.283Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00116-CWE-22-ab63529f",
+    "case_id": "BenchmarkTest00116",
+    "cwe": "CWE-22",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+        "line": 76,
+        "column": 21
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": "new java.io.FileInputStream(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:76"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-PATH-TRAVERSAL",
+    "timestamp": "2026-09-09T10:59:04.284Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00116-CWE-79-ec986595",
+    "case_id": "BenchmarkTest00116",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+        "line": 94,
+        "column": 21
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:94"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:59:04.284Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00116-CWE-79-9840b777",
+    "case_id": "BenchmarkTest00116",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+        "line": 98,
+        "column": 25
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:98"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:59:04.284Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00116-CWE-643-55df25c8",
+    "case_id": "BenchmarkTest00116",
+    "cwe": "CWE-643",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+        "line": 91,
+        "column": 31
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".compile(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:91"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-XPATH-INJECTION",
+    "timestamp": "2026-09-09T10:59:04.284Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00116-CWE-643-e7622857",
+    "case_id": "BenchmarkTest00116",
+    "cwe": "CWE-643",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+        "line": 92,
+        "column": 37
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".evaluate(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:92"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-XPATH-INJECTION",
+    "timestamp": "2026-09-09T10:59:04.284Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00116-CWE-79-codeql-36aeeb65",
+    "case_id": "BenchmarkTest00116",
+    "cwe": "CWE-79",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+        "line": 105,
+        "column": 29
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "Cross-site scripting vulnerability due to a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:105"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xss",
+    "timestamp": "2026-09-09T10:59:05.134Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00116-CWE-643-codeql-f2ea3b33",
+    "case_id": "BenchmarkTest00116",
+    "cwe": "CWE-643",
+    "analyzer": "codeql",
+    "analyzer_version": "2.26.4",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00116.java",
+        "line": 91,
+        "column": 40
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getParameter",
+    "sink": "XPath expression depends on a [user-provided value](1).",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00116.java:91"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.9,
+    "rule_id": "java/xml/xpath-injection",
+    "timestamp": "2026-09-09T10:59:05.134Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00117-CWE-22-866507a7",
+    "case_id": "BenchmarkTest00117",
+    "cwe": "CWE-22",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+        "line": 75,
+        "column": 21
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": "new java.io.FileInputStream(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00117.java:75"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-PATH-TRAVERSAL",
+    "timestamp": "2026-09-09T10:59:05.135Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00117-CWE-79-2f25d6a5",
+    "case_id": "BenchmarkTest00117",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+        "line": 93,
+        "column": 21
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00117.java:93"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:59:05.135Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00117-CWE-79-9ffff749",
+    "case_id": "BenchmarkTest00117",
+    "cwe": "CWE-79",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+        "line": 97,
+        "column": 25
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".getWriter().println(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00117.java:97"
+    ],
+    "severity": "MEDIUM",
+    "confidence": 0.8,
+    "rule_id": "JAVA-XSS",
+    "timestamp": "2026-09-09T10:59:05.135Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00117-CWE-643-8dfa5a43",
+    "case_id": "BenchmarkTest00117",
+    "cwe": "CWE-643",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+        "line": 90,
+        "column": 31
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".compile(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00117.java:90"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-XPATH-INJECTION",
+    "timestamp": "2026-09-09T10:59:05.135Z"
+  },
+  {
+    "finding_id": "FINDING-BenchmarkTest00117-CWE-643-79845bee",
+    "case_id": "BenchmarkTest00117",
+    "cwe": "CWE-643",
+    "analyzer": "semgrep",
+    "analyzer_version": "1.0.0-pattern",
+    "source_file": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+    "source_locations": [
+      {
+        "path": "src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00117.java",
+        "line": 91,
+        "column": 37
+      }
+    ],
+    "source_boundary": "HttpServletRequest.getCookies",
+    "sink": ".evaluate(",
+    "path_hint": [
+      "doPost",
+      "BenchmarkTest00117.java:91"
+    ],
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "rule_id": "JAVA-XPATH-INJECTION",
+    "timestamp": "2026-09-09T10:59:05.135Z"
+  }
+]

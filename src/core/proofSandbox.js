@@ -213,7 +213,7 @@ export class ProofSandbox {
      * @param {Object} [options]
      * @returns {{ exitCode: number|null, stdout: string, stderr: string, timedOut: boolean, durationMs: number, toolVersion?: string, unavailable?: boolean, failure_reason?: string }}
      */
-    executeJava(commandString, options = {}) {
+    executeJava(commandOrArgs, options = {}) {
         const avail = this.checkJavaAvailability();
         if (!avail.available) {
             return {
@@ -230,6 +230,18 @@ export class ProofSandbox {
 
         const cwd = options.cwd || this.createIsolatedWorkspace();
         const timeout = options.timeout || this.defaultTimeoutMs;
+
+        // Structured arguments or command line string
+        let commandString = '';
+        let cmdArgs = [];
+        if (Array.isArray(commandOrArgs)) {
+            cmdArgs = commandOrArgs;
+            commandString = commandOrArgs.map(a => /\s/.test(a) ? `"${a.replace(/"/g, '\\"')}"` : a).join(' ');
+        } else {
+            commandString = String(commandOrArgs);
+            cmdArgs = ['bash', '-c', commandString];
+        }
+
         this.validateCommandSafety(commandString);
 
         if (avail.runtimeType === 'host') {
@@ -247,7 +259,7 @@ export class ProofSandbox {
                 '-v', `${normCwd}:/workspace:rw`,
                 '-w', '/workspace',
                 'hwsec-java-sandbox',
-                'bash', '-c', commandString
+                ...(Array.isArray(commandOrArgs) ? commandOrArgs : ['bash', '-c', commandString])
             ];
             const startTime = Date.now();
             let timedOut = false;

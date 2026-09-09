@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EvidenceVerdict",
+  "type": "object",
+  "required": [
+    "case_id",
+    "verdict",
+    "reason_code",
+    "required_evidence_items_passed",
+    "evidence_hash",
+    "timestamp"
+  ],
+  "properties": {
+    "case_id": { "type": "string" },
+    "verdict": {
+      "type": "string",
+      "enum": ["DETECTED", "NOT_DETECTED", "INCONCLUSIVE"]
+    },
+    "reason_code": { "type": "string" },
+    "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "required_evidence_items_passed": {
+      "type": "object",
+      "required": [
+        "static_path_evidence",
+        "symbolic_feasibility",
+        "successful_replay",
+        "runtime_taint_evidence",
+        "security_condition_satisfied",
+        "negative_control",
+        "provenance_and_hashes"
+      ],
+      "properties": {
+        "static_path_evidence": { "type": "boolean" },
+        "symbolic_feasibility": { "type": "boolean" },
+        "successful_replay": { "type": "boolean" },
+        "runtime_taint_evidence": { "type": "boolean" },
+        "security_condition_satisfied": { "type": "boolean" },
+        "negative_control": { "type": "boolean" },
+        "provenance_and_hashes": { "type": "boolean" }
+      }
+    },
+    "evidence_hash": { "type": "string" },
+    "inconclusive_reason": { "type": ["string", "null"] },
+    "recommended_next_action": { "type": ["string", "null"] },
+    "timestamp": { "type": "string" }
+  },
+  "additionalProperties": false
+}

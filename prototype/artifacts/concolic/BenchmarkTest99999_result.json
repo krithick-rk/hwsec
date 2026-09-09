@@ -1,0 +1,17 @@
+{
+  "case_id": "BenchmarkTest99999",
+  "target_id": "TARGET-BenchmarkTest99999-4672aa",
+  "status": "UNSAT",
+  "solver": "Z3 (SMT / BitVector via JPF-Symbc)",
+  "solver_version": "4.8.x",
+  "generated_input": null,
+  "path_trace": [],
+  "constraints_file": null,
+  "exit_state": 0,
+  "wall_time_ms": 775,
+  "timestamp": "2026-09-09T10:59:09.712Z",
+  "artifact_hashes": {
+    "path_trace": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "concolic_result": "f0f08dc601967ff2341dc8ce1396b83f3b05a601d3503d9781f36ed679ebd218"
+  }
+}

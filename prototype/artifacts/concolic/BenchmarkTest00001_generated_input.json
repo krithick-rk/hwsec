@@ -1,0 +1,5 @@
+{
+  "input_vector": "BenchmarkTest00001",
+  "raw_value": "../../etc/passwd",
+  "type": "PATH_TRAVERSAL_PAYLOAD"
+}

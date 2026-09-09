@@ -381,7 +381,10 @@ export class LayeredVerifier {
         }
 
         if (this.codeGraph && typeof this.codeGraph.findAttackPaths === 'function') {
-            const attackPaths = this.codeGraph.findAttackPaths();
+            if (!this._cachedAttackPaths) {
+                this._cachedAttackPaths = this.codeGraph.findAttackPaths() || [];
+            }
+            const attackPaths = this._cachedAttackPaths;
             if (attackPaths.length === 0) return false;
 
             const locations = (finding.source_locations || []).map(l => (typeof l === 'string' ? l : l.path || '')).filter(Boolean);

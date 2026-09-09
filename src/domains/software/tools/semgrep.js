@@ -215,29 +215,33 @@ export class SemgrepTool extends ToolAdapter {
                 parsedJson = { results: [] };
             }
 
-            const findings = (parsedJson.results || []).map(r => createFinding({
-                id: `SEMGREP-${crypto.randomBytes(4).toString('hex')}`,
-                title: r.check_id || 'Semgrep Rule Violation',
-                description: r.extra?.message || 'Pattern match found by Semgrep',
-                severity: this._mapSeverity(r.extra?.severity),
-                source_tool: this.name,
-                source_locations: [{
-                    path: r.path,
-                    startLine: r.start?.line || 1,
-                    endLine: r.end?.line || 1,
-                    startColumn: r.start?.col || 1,
-                    endColumn: r.end?.col || 1,
-                    symbol: null
-                }],
-                evidence: [{
-                    id: crypto.randomBytes(4).toString('hex'),
-                    tool_name: this.name,
-                    artifact_path: telemetryPath,
-                    description: `Semgrep matched check ${r.check_id}`,
-                    metadata: { rule_id: r.check_id, lines: r.extra?.lines }
-                }],
-                verification_state: "PROPOSED"
-            }));
+            const findings = (parsedJson.results || []).map(r => {
+                const cweMatch = r.extra?.metadata?.cwe ? (Array.isArray(r.extra.metadata.cwe) ? r.extra.metadata.cwe[0] : r.extra.metadata.cwe) : (r.check_id?.match(/CWE-\d+/i)?.[0] || null);
+                return createFinding({
+                    id: `SEMGREP-${crypto.randomBytes(4).toString('hex')}`,
+                    title: r.check_id || 'Semgrep Rule Violation',
+                    description: r.extra?.message || 'Pattern match found by Semgrep',
+                    severity: this._mapSeverity(r.extra?.severity),
+                    source_tool: this.name,
+                    cwe_id: cweMatch ? cweMatch.toUpperCase() : null,
+                    source_locations: [{
+                        path: r.path,
+                        startLine: r.start?.line || 1,
+                        endLine: r.end?.line || 1,
+                        startColumn: r.start?.col || 1,
+                        endColumn: r.end?.col || 1,
+                        symbol: null
+                    }],
+                    evidence: [{
+                        id: crypto.randomBytes(4).toString('hex'),
+                        tool_name: this.name,
+                        artifact_path: telemetryPath,
+                        description: `Semgrep matched check ${r.check_id}`,
+                        metadata: { rule_id: r.check_id, lines: r.extra?.lines, cwe: cweMatch }
+                    }],
+                    verification_state: "PROPOSED"
+                });
+            });
 
             return {
                 status: telemetry.exitCode === 0 ? "SUCCESS" : "COMPLETED_WITH_FAILURES",
@@ -282,6 +286,7 @@ export class SemgrepTool extends ToolAdapter {
                                 description: `${pattern.desc} Line ${lineNum}: \`${line.trim()}\``,
                                 severity: pattern.severity,
                                 source_tool: this.name,
+                                cwe_id: pattern.cwe,
                                 source_locations: [{
                                     path: filePath,
                                     startLine: lineNum,

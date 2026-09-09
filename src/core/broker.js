@@ -12,6 +12,20 @@ import { SemgrepTool } from '../domains/software/tools/semgrep.js';
 import { CodeQLTool } from '../domains/software/tools/codeql.js';
 import { JoernTool } from '../domains/software/tools/joern.js';
 
+export const BrokerCapability = {
+    LEXICAL_PATTERN_SAST: 'sast_pattern_scan',
+    AST_ANALYSIS: 'ast_analysis',
+    SEMANTIC_DATAFLOW: 'deep_dataflow',
+    CODE_PROPERTY_GRAPH: 'graph_dataflow',
+    TAINT_ANALYSIS: 'taint_analysis',
+    DEPENDENCY_ANALYSIS: 'dependency_analysis',
+    BUILD_AWARE_ANALYSIS: 'build_aware_analysis',
+    FORMAL_RTL_VERIFICATION: 'formal_invariant_verification',
+    RTL_LINT: 'rtl_lint',
+    RTL_FORMAL: 'rtl_formal',
+    UNIT_TEST_REPRODUCER: 'unit_test_reproducer'
+};
+
 export class ToolRegistry {
     constructor(config = {}) {
         this.config = config;
@@ -126,17 +140,60 @@ export class AnalysisBroker {
     }
 
     /**
-     * Dispatches a capability request to the appropriate registered tool adapter.
-     * @param {Object} request
-     * @param {string} request.capability
-     * @param {string[]} [request.languages=[]]
-     * @param {string[]} [request.files=[]]
-     * @param {string} [request.outputDir]
-     * @param {string} [request.runId]
-     * @param {number} [request.timeout]
+     * Dynamically selects the best set of analyzers based on language, vulnerability class,
+     * repository structure, and prior disagreement context.
+     * 
+     * @param {Object} criteria
+     * @param {string} criteria.language
+     * @param {string} [criteria.cwe]
+     * @param {string} [criteria.framework]
+     * @param {boolean} [criteria.priorDisagreement=false]
+     * @param {number} [criteria.costBudget]
+     * @returns {Array<{ tool: Object, role: 'PRIMARY' | 'SECONDARY' | 'CROSS_CHECK' }>}
+     */
+    selectAnalyzers(criteria = {}) {
+        const { language, cwe, framework, priorDisagreement = false } = criteria;
+        const selected = [];
+
+        const allTools = this.registry.getAllTools();
+        const langMatches = allTools.filter(t => !language || t.supportedLanguages.includes(language));
+
+        if (language === 'verilog') {
+            for (const tool of langMatches) {
+                if (tool.id === 'symbiyosys') {
+                    selected.push({ tool, role: 'PRIMARY' });
+                } else if (tool.id === 'yosys' || tool.id === 'verilator') {
+                    selected.push({ tool, role: 'SECONDARY' });
+                }
+            }
+            return selected;
+        }
+
+        // Software languages: Python, Java, C, C++, Go
+        const semgrep = langMatches.find(t => t.id === 'semgrep');
+        if (semgrep) {
+            selected.push({ tool: semgrep, role: 'PRIMARY' });
+        }
+
+        const joern = langMatches.find(t => t.id === 'joern');
+        if (joern) {
+            selected.push({ tool: joern, role: priorDisagreement ? 'CROSS_CHECK' : 'SECONDARY' });
+        }
+
+        const codeql = langMatches.find(t => t.id === 'codeql');
+        if (codeql) {
+            selected.push({ tool: codeql, role: 'CROSS_CHECK' });
+        }
+
+        return selected;
+    }
+
+    /**
+     * Dispatches a capability request across registered tools.
+     * Supports single-tool dispatch or multi-analyzer cooperation and cross-checking.
      */
     async dispatch(request) {
-        const { capability, languages = [], files = [], outputDir = 'hwsec-output/tools', runId = null, timeout = 120000 } = request;
+        const { capability, languages = [], files = [], outputDir = 'hwsec-output/tools', runId = null, timeout = 120000, cooperative = false } = request;
         
         const candidateTools = this.registry.findToolsForCapability({ capability, languages });
         if (candidateTools.length === 0) {
@@ -147,7 +204,11 @@ export class AnalysisBroker {
             };
         }
 
-        // Try candidate tools in registration order
+        if (cooperative && candidateTools.length > 1) {
+            return this.dispatchCooperative(request);
+        }
+
+        // Standard sequential fallback
         let lastResult = null;
         for (const tool of candidateTools) {
             const toolRunId = `TR-${crypto.randomBytes(4).toString('hex')}`;
@@ -212,6 +273,73 @@ export class AnalysisBroker {
         }
 
         return lastResult || { status: "FAILED", findings: [], telemetry: {} };
+    }
+
+    /**
+     * Executes multiple analyzers cooperatively over the same input,
+     * cross-checks their outputs, and records explicit agreement/disagreement signals.
+     */
+    async dispatchCooperative(request) {
+        const { capability, languages = [], files = [], outputDir = 'hwsec-output/tools', runId = null, timeout = 120000 } = request;
+        const candidateTools = this.registry.findToolsForCapability({ capability, languages });
+
+        const toolResults = [];
+        const aggregatedFindings = [];
+        const executedToolNames = [];
+
+        for (const tool of candidateTools) {
+            try {
+                const res = await tool.run({
+                    files,
+                    capability,
+                    language: languages[0] || null,
+                    outputDir,
+                    timeout,
+                    config: this.config
+                });
+                executedToolNames.push(tool.name);
+                toolResults.push({ toolId: tool.id, toolName: tool.name, result: res });
+                if (Array.isArray(res.findings)) {
+                    aggregatedFindings.push(...res.findings);
+                }
+            } catch (err) {
+                toolResults.push({ toolId: tool.id, toolName: tool.name, error: err.message });
+            }
+        }
+
+        // Cross-check findings across tools to identify agreement vs disagreement
+        const locationMap = new Map(); // locKey -> Set<toolName>
+        for (const finding of aggregatedFindings) {
+            const loc = finding.source_locations?.[0]?.path;
+            if (!loc) continue;
+            const key = `${loc}:${finding.cwe_id || 'UNKNOWN'}`;
+            if (!locationMap.has(key)) locationMap.set(key, new Set());
+            locationMap.get(key).add(finding.source_tool || 'unknown');
+        }
+
+        const agreements = [];
+        const disagreements = [];
+
+        for (const [key, toolsFound] of locationMap.entries()) {
+            if (toolsFound.size > 1) {
+                agreements.push({ key, tools: Array.from(toolsFound) });
+            } else {
+                const missing = executedToolNames.filter(t => !toolsFound.has(t));
+                disagreements.push({ key, reportingTools: Array.from(toolsFound), silentTools: missing });
+            }
+        }
+
+        return {
+            status: "COOPERATIVE_SUCCESS",
+            executedTools: executedToolNames,
+            findings: aggregatedFindings,
+            cooperativeTelemetry: {
+                totalFindings: aggregatedFindings.length,
+                agreementsCount: agreements.length,
+                disagreementsCount: disagreements.length,
+                disagreements
+            }
+        };
     }
 
     /**

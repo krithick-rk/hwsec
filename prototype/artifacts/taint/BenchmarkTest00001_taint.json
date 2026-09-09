@@ -1,0 +1,21 @@
+{
+  "case_id": "BenchmarkTest00001",
+  "source_observed": "HttpServletRequest.getCookies",
+  "sink_observed": "java.io.FileInputStream.<init>",
+  "sink_tainted": true,
+  "runtime_path": [
+    "org.owasp.benchmark.testcode.BenchmarkTest00001.doPost",
+    "java.io.FileInputStream.<init>:TAINT_PROPAGATED",
+    "HttpServletResponse.getWriter:TAINT_PROPAGATED"
+  ],
+  "exit_code": 0,
+  "timeout": false,
+  "instrumentation_status": "ACTIVE",
+  "execution_time_ms": 209,
+  "timestamp": "2026-09-09T10:59:20.173Z",
+  "artifact_hashes": {
+    "taint_result": "57ccaeaeebcfcada308efcdd2c1a1250602bfe1e1d0605914234b4daf337c113",
+    "stdout_sha256": "81c8376dca8e87e40bd3f7f1afe4c4c2328fc831c1854d0322b2227d78717162",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
