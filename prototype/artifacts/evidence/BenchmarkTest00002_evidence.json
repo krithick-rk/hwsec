@@ -1,0 +1,70 @@
+{
+  "case_id": "BenchmarkTest00002",
+  "hypothesis": {
+    "hypothesis_id": "HYP-BenchmarkTest00002-CWE-22",
+    "cwe": "CWE-22",
+    "claim": "Attacker-controlled input reaching java.io.FileOutputStream violates canonicalPath.startsWith(baseDir) == false"
+  },
+  "static": {
+    "has_finding": true,
+    "tools_executed": [
+      "semgrep"
+    ],
+    "finding_ids": [
+      "FINDING-BenchmarkTest00002-CWE-22-5ebb9b3a"
+    ]
+  },
+  "symbolic": {
+    "status": "UNKNOWN",
+    "generated_input": null,
+    "constraints_hash": null
+  },
+  "runtime": {
+    "taint_observed": false,
+    "sink_reached": false,
+    "exit_code": 0,
+    "trace_hash": null
+  },
+  "differential": {
+    "baseline_observed": {
+      "input_value": "safe_file.txt",
+      "sink_called": true,
+      "sink_observed": "java.io.FileOutputStream",
+      "observable_value": "Now ready to write to file: &#x2f;mnt&#x2f;e&#x2f;Intern&#x2f;hwsec&#x2f;testfiles&#x2f;safe_file.txt\n",
+      "security_condition_violated": false,
+      "exit_code": 0
+    },
+    "attack_observed": {
+      "input_value": "../../etc/passwd",
+      "sink_called": true,
+      "sink_observed": "java.io.FileOutputStream",
+      "observable_value": "",
+      "security_condition_violated": false,
+      "exit_code": 0
+    },
+    "delta_detected": false,
+    "security_relevant_observable": "CANONICAL_PATH_ESCAPE"
+  },
+  "security_condition": {
+    "satisfied": false,
+    "rule": "canonicalPath.startsWith(baseDir) == false",
+    "details": "No security-violating divergence detected. Invariant preserved."
+  },
+  "provenance": {
+    "java_version": "OpenJDK 1.8.0_442 (Java 8 target runtime)",
+    "tool_versions": {
+      "node": "v24.20.0",
+      "codeql": "2.20.5",
+      "semgrep": "1.99.0",
+      "jpf": "JPF-Symbc 8.0",
+      "z3": "Z3 4.12.2"
+    },
+    "timestamp": "2026-09-10T04:53:52.255Z",
+    "artifact_hashes": {
+      "source_file_sha256": "0e62d301a59393678519120ccc9a1c8b48e55ac179dab919153ea957a4064767",
+      "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
+      "concolic_result": null,
+      "taint_result": null
+    }
+  }
+}

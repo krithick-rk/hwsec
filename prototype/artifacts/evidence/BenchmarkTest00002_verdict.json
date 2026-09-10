@@ -1,0 +1,19 @@
+{
+  "case_id": "BenchmarkTest00002",
+  "verdict": "INCONCLUSIVE",
+  "reason_code": "INCONCLUSIVE_INCOMPLETE_PROOF",
+  "confidence": 0.5,
+  "required_evidence_items_passed": {
+    "static_path_evidence": true,
+    "symbolic_feasibility": false,
+    "successful_replay": true,
+    "runtime_taint_evidence": false,
+    "security_condition_satisfied": false,
+    "negative_control": false,
+    "provenance_and_hashes": true
+  },
+  "evidence_hash": "3c0fd9318c378db6514aeea2e68687b4a20ebc7c352cda12dc92631a0aceb40a",
+  "inconclusive_reason": "Symbolic constraint solver returned UNKNOWN status",
+  "recommended_next_action": "Perform manual audit or increase execution timeout",
+  "timestamp": "2026-09-10T04:53:52.256Z"
+}

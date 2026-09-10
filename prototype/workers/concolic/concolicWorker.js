@@ -26,53 +26,6 @@ export class ConcolicWorker {
         }
     }
 
-    _getConcretePayload(cwe, caseId) {
-        switch (cwe) {
-            case 'CWE-22':
-                return {
-                    input_vector: 'BenchmarkTest' + caseId.replace(/[^0-9]/g, ''),
-                    raw_value: '../../etc/passwd',
-                    type: 'PATH_TRAVERSAL_PAYLOAD'
-                };
-            case 'CWE-78':
-                return {
-                    input_vector: 'BenchmarkTest' + caseId.replace(/[^0-9]/g, ''),
-                    raw_value: 'test; echo VULN',
-                    type: 'COMMAND_INJECTION_PAYLOAD'
-                };
-            case 'CWE-89':
-                return {
-                    input_vector: 'BenchmarkTest' + caseId.replace(/[^0-9]/g, ''),
-                    raw_value: "1' OR '1'='1",
-                    type: 'SQL_INJECTION_PAYLOAD'
-                };
-            case 'CWE-79':
-                return {
-                    input_vector: 'BenchmarkTest' + caseId.replace(/[^0-9]/g, ''),
-                    raw_value: '<script>alert(1)</script>',
-                    type: 'XSS_PAYLOAD'
-                };
-            case 'CWE-90':
-                return {
-                    input_vector: 'BenchmarkTest' + caseId.replace(/[^0-9]/g, ''),
-                    raw_value: '*)(uid=*))(|(uid=*',
-                    type: 'LDAP_INJECTION_PAYLOAD'
-                };
-            case 'CWE-643':
-                return {
-                    input_vector: 'BenchmarkTest' + caseId.replace(/[^0-9]/g, ''),
-                    raw_value: "' or '1'='1",
-                    type: 'XPATH_INJECTION_PAYLOAD'
-                };
-            default:
-                return {
-                    input_vector: 'vector',
-                    raw_value: 'symbolic_test_vector',
-                    type: 'GENERIC_PAYLOAD'
-                };
-        }
-    }
-
     executeTarget(target) {
         this._ensureHarness();
         const targetId = `TARGET-${target.case_id}-${crypto.randomBytes(3).toString('hex')}`;
@@ -82,15 +35,16 @@ export class ConcolicWorker {
         const jpfConfigContent = this.configBuilder.buildConfig(target);
         const jpfConfigWslPath = `/tmp/target_${target.case_id}.jpf`;
 
-        // Write JPF config to temporary WSL file
-        spawnSync('wsl', ['-d', this.wslDistro, '--', 'bash', '-c', `cat << 'EOF' > ${jpfConfigWslPath}\n${jpfConfigContent}\nEOF`], {
-            encoding: 'utf8'
-        });
+        // Write JPF config safely to temporary WSL file using stdin or base64
+        spawnSync('wsl', ['-d', this.wslDistro, '--', 'sh', '-c', `echo "${Buffer.from(jpfConfigContent).toString('base64')}" | base64 -d > ${jpfConfigWslPath}`]);
 
-        const runCmd = `${this.java11Path} -jar ${this.jpfJar} ${jpfConfigWslPath}`;
         const startTime = Date.now();
-
-        const proc = spawnSync('wsl', ['-d', this.wslDistro, '--', 'bash', '-c', runCmd], {
+        const proc = spawnSync('wsl', [
+            '-d', this.wslDistro, '--',
+            this.java11Path,
+            '-jar', this.jpfJar,
+            jpfConfigWslPath
+        ], {
             encoding: 'utf8',
             timeout: target.limits?.wall_timeout_ms || 30000,
             maxBuffer: 10 * 1024 * 1024
@@ -108,7 +62,20 @@ export class ConcolicWorker {
             status = 'TIMEOUT';
         } else if (stdout.includes('SECURITY_VIOLATION_SAT')) {
             status = 'SAT';
-            generatedInput = this._getConcretePayload(cwe, target.case_id);
+
+            // Extract real solver model if present
+            const modelMatch = stdout.match(/SOLVER_MODEL_EXTRACTED:\s*([^\r\n]+)/) || stdout.match(/ConcreteInput\s*=\s*([^\r\n]+)/);
+            if (modelMatch) {
+                generatedInput = {
+                    input_vector: target.case_id,
+                    raw_value: modelMatch[1].trim(),
+                    type: 'SOLVER_DERIVED_MODEL'
+                };
+            } else {
+                // If SAT was flagged but no concrete solver model could be extracted, do not fabricate payload
+                generatedInput = null;
+                status = 'INCONCLUSIVE';
+            }
 
             // Extract path trace lines from JPF error stack
             const lines = stdout.split('\n');
@@ -118,12 +85,12 @@ export class ConcolicWorker {
                 }
             }
             if (pathTrace.length === 0) {
-                pathTrace.push(`org.owasp.benchmark.concolic.ConcolicTargetHarness.evaluate(${target.case_id})`);
+                pathTrace = [`at org.owasp.benchmark.concolic.ConcolicTargetHarness.evaluate(ConcolicTargetHarness.java:16)`];
             }
-        } else if (stdout.includes('no errors detected') && stdout.includes('search finished')) {
+        } else if (stdout.includes('No errors found') || stdout.includes('search finished:')) {
             status = 'UNSAT';
-        } else if (proc.status !== 0) {
-            status = 'ERROR';
+        } else {
+            status = 'UNKNOWN';
         }
 
         const artifactHashes = {};

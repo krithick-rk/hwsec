@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import crypto from 'crypto';
+import { toWslPath } from './execUtils.js';
 
 /**
  * ProofSandbox
@@ -117,6 +118,7 @@ export class ProofSandbox {
             env.HTTP_PROXY = 'http://127.0.0.1:0';
             env.HTTPS_PROXY = 'http://127.0.0.1:0';
             env.NO_PROXY = 'localhost,127.0.0.1';
+            env.JAVA_TOOL_OPTIONS = '-DsocksProxyHost=127.0.0.1 -DsocksProxyPort=1 -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=1';
         }
 
         // Apply custom variables
@@ -192,7 +194,19 @@ export class ProofSandbox {
             }
         } catch (e) {}
 
-        // 2. Check docker hwsec-java-sandbox
+        // 2. Check WSL javac on Windows
+        if (process.platform === 'win32') {
+            try {
+                const wslCheck = spawnSync('wsl', ['javac', '-version'], { timeout: 5000 });
+                if (wslCheck.status === 0 || (wslCheck.stderr && wslCheck.stderr.toString().includes('javac'))) {
+                    const ver = (wslCheck.stdout || wslCheck.stderr || '').toString().trim();
+                    this._javaAvailability = { available: true, runtimeType: 'wsl', version: ver };
+                    return this._javaAvailability;
+                }
+            } catch (e) {}
+        }
+
+        // 3. Check docker hwsec-java-sandbox
         try {
             const dCheck = spawnSync('docker', ['run', '--rm', 'hwsec-java-sandbox', 'javac', '-version'], { timeout: 6000 });
             if (dCheck.status === 0 || (dCheck.stdout && dCheck.stdout.toString().includes('javac'))) {
@@ -202,14 +216,14 @@ export class ProofSandbox {
             }
         } catch (e) {}
 
-        this._javaAvailability = { available: false, reason: 'Java/Maven validation environment unavailable on host and docker' };
+        this._javaAvailability = { available: false, reason: 'Java/Maven validation environment unavailable on host, WSL, and docker' };
         return this._javaAvailability;
     }
 
     /**
-     * Executes a Java or Maven command inside the isolated sandbox, using host or container runtime.
+     * Executes a Java or Maven command inside the isolated sandbox, using host, WSL, or container runtime.
      * Enforces credential stripping, network restrictions, timeout bounding, and output capture.
-     * @param {string} commandString 
+     * @param {string|Array<string>} commandOrArgs 
      * @param {Object} [options]
      * @returns {{ exitCode: number|null, stdout: string, stderr: string, timedOut: boolean, durationMs: number, toolVersion?: string, unavailable?: boolean, failure_reason?: string }}
      */
@@ -250,6 +264,40 @@ export class ProofSandbox {
             const res = this.execute(shell, args, { cwd, timeout, env: options.env });
             res.toolVersion = avail.version;
             return res;
+        } else if (avail.runtimeType === 'wsl') {
+            const wslCwd = toWslPath(cwd);
+            const startTime = Date.now();
+            let timedOut = false;
+            const env = this.buildSanitizedEnv(options.env || {});
+            const envVarsToPass = [];
+            for (const [k, v] of Object.entries(env)) {
+                if (k.startsWith('HWSEC_') || k.startsWith('JAVA_') || k.toLowerCase().includes('proxy') || k === 'NODE_ENV') {
+                    envVarsToPass.push(`${k}=${v}`);
+                }
+            }
+            const wslArgs = ['--cd', wslCwd, 'env', ...envVarsToPass, ...cmdArgs];
+            const res = spawnSync('wsl', wslArgs, {
+                cwd,
+                timeout,
+                env,
+                maxBuffer: this.maxBufferBytes
+            });
+            const durationMs = Date.now() - startTime;
+            if (res.error && res.error.code === 'ETIMEDOUT') {
+                timedOut = true;
+            }
+            const stdout = (res.stdout || Buffer.alloc(0)).toString('utf-8', 0, this.maxBufferBytes);
+            const stderr = (res.stderr || Buffer.alloc(0)).toString('utf-8', 0, this.maxBufferBytes);
+            return {
+                command: commandString,
+                cwd,
+                exitCode: res.status,
+                stdout,
+                stderr,
+                timedOut,
+                durationMs,
+                toolVersion: avail.version
+            };
         } else {
             // Docker containerized execution
             const normCwd = path.resolve(cwd).replace(/\\/g, '/');

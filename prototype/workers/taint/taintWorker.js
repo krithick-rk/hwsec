@@ -17,11 +17,22 @@ export class TaintWorker {
         this._ensureHarness();
     }
 
+    _getClasspath() {
+        if (this._cachedClasspath) return this._cachedClasspath;
+        try {
+            const cpProc = spawnSync('wsl', ['-d', this.wslDistro, '--', 'cat', `${this.benchmarkRoot}/target/dependency-classpath.txt`], { encoding: 'utf8' });
+            const depCp = (cpProc.stdout || '').trim();
+            this._cachedClasspath = `${this.servletJar}:${this.benchmarkRoot}/target/classes:${depCp}`;
+            return this._cachedClasspath;
+        } catch (_) {
+            return `${this.servletJar}:${this.benchmarkRoot}/target/classes`;
+        }
+    }
+
     _ensureHarness() {
-        const checkCmd = `test -f ${this.benchmarkRoot}/target/classes/org/owasp/benchmark/harness/TaintHarnessRunner.class && echo "EXISTS" || echo "MISSING"`;
-        const res = spawnSync('wsl', ['-d', this.wslDistro, '--', 'bash', '-c', checkCmd], { encoding: 'utf8' });
-        if (!res.stdout.includes('EXISTS')) {
-            spawnSync('wsl', ['-d', this.wslDistro, '--', 'bash', '/mnt/e/Intern/hwsec/prototype/build/ensure_harnesses.sh'], { encoding: 'utf8' });
+        const check = spawnSync('wsl', ['-d', this.wslDistro, '--', 'test', '-f', `${this.benchmarkRoot}/target/classes/org/owasp/benchmark/harness/TaintHarnessRunner.class`]);
+        if (check.status !== 0) {
+            spawnSync('wsl', ['-d', this.wslDistro, '--', '/mnt/e/Intern/hwsec/prototype/build/ensure_harnesses.sh'], { encoding: 'utf8' });
         }
     }
 
@@ -35,11 +46,19 @@ export class TaintWorker {
         const inputType = options.inputType || caseObj.input_vector_type || 'PARAMETER';
         const method = options.method || caseObj.entrypoint_method || 'doPost';
         const inputValue = options.inputValue || 'taint_probe';
-
-        const runCmd = `${this.java8Path} -cp "${this.servletJar}:${this.benchmarkRoot}/target/classes:$(cat ${this.benchmarkRoot}/target/dependency-classpath.txt)" org.owasp.benchmark.harness.TaintHarnessRunner --case ${caseId} --input "${inputValue}" --type ${inputType} --method ${method}`;
+        const classpath = this._getClasspath();
 
         const startTime = Date.now();
-        const proc = spawnSync('wsl', ['-d', this.wslDistro, '--', 'bash', '-c', runCmd], {
+        const proc = spawnSync('wsl', [
+            '-d', this.wslDistro, '--',
+            this.java8Path,
+            '-cp', classpath,
+            'org.owasp.benchmark.harness.TaintHarnessRunner',
+            '--case', String(caseId),
+            '--input', String(inputValue),
+            '--type', String(inputType),
+            '--method', String(method)
+        ], {
             encoding: 'utf8',
             timeout: options.timeoutMs || 30000,
             maxBuffer: 10 * 1024 * 1024

@@ -8,7 +8,7 @@
     "hypothesis": {
       "hypothesis_id": "HYP-BenchmarkTest00001-CWE-22",
       "cwe": "CWE-22",
-      "claim": "Attacker-controlled input reaching java.io.FileInputStream violates canonicalPath.startsWith(baseDir) == false"
+      "claim": "Attacker-controlled input reaching java.io.File violates canonicalPath.startsWith(baseDir) == false"
     },
     "static": {
       "has_finding": true,
@@ -32,7 +32,7 @@
       "taint_observed": true,
       "sink_reached": true,
       "exit_code": 0,
-      "trace_hash": "57ccaeaeebcfcada308efcdd2c1a1250602bfe1e1d0605914234b4daf337c113"
+      "trace_hash": "13ec3fcbc75ccc0a58775c27834f199a8f75dead69fb807170f560788d45240d"
     },
     "differential": {
       "baseline_observed": {
@@ -68,12 +68,11 @@
         "jpf": "JPF-Symbc 8.0",
         "z3": "Z3 4.12.2"
       },
-      "timestamp": "2026-09-09T10:59:44.533Z",
+      "timestamp": "2026-09-10T04:54:06.444Z",
       "artifact_hashes": {
-        "source_file_sha256": "2651fc172122b8cae155f8aee3ea3bda14842c6f8b16a0b1d97371ce9d9e2c2e",
         "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
         "concolic_result": "d2509f1a67e9ec7b588c5442631abe210413334df0f8518617f32016d2ea36ea",
-        "taint_result": "09240145e4202030c0d2ea6423cd81e2cf298d1d9407011be9a7d54eeeae51bc"
+        "taint_result": "fd16d23b078b010166db3724c0d1535e4b88c023504efd764a95ee5614e6dca5"
       }
     }
   },
@@ -91,20 +90,20 @@
       "negative_control": true,
       "provenance_and_hashes": true
     },
-    "evidence_hash": "f851b45389fc43632e7c5f772af27221906c13a28aec937fb6ed31f251b1705c",
+    "evidence_hash": "3d42c23483c259c749b3dd1ec086e41630913d79eac4f2d77a87fcc843cafe8c",
     "inconclusive_reason": null,
     "recommended_next_action": null,
-    "timestamp": "2026-09-09T10:59:44.535Z"
+    "timestamp": "2026-09-10T04:54:06.445Z"
   },
   "replay_manifest": {
     "case_id": "BenchmarkTest00001",
     "target_class": "org.owasp.benchmark.testcode.BenchmarkTest00001",
     "method": "doPost",
-    "input_vector_type": "COOKIE",
+    "input_vector_type": "HEADER",
     "baseline_input": "safe_file.txt",
     "attack_input": "../../etc/passwd",
-    "replay_command": "java -cp <classpath> org.owasp.benchmark.harness.HarnessRunner --case BenchmarkTest00001 --b64input <b64> --type COOKIE --method doPost"
+    "replay_command": "java -cp <classpath> org.owasp.benchmark.harness.HarnessRunner --case BenchmarkTest00001 --b64input <b64> --type HEADER --method doPost"
   },
-  "bundle_hash": "5068613752e44d6c03e2b038aeab08546302195de4c71f1318c18374544b2f0d",
-  "timestamp": "2026-09-09T10:59:44.536Z"
+  "bundle_hash": "afb534d3bce119c4c66068b0e4b853c3aee86d45d8e1514705939914c6e9d54f",
+  "timestamp": "2026-09-10T04:54:06.445Z"
 }

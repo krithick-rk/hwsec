@@ -30,7 +30,15 @@ const testFiles = [
     'test_controlled_proof_verifier.js',
     'test_bep_evidence.js',
     'test_anti_leakage.js',
-    'test_evidence_pipeline.js'
+    'test_evidence_pipeline.js',
+    'test_p0_security_hardening.js',
+    'test_p1_evidence_dag.js',
+    'test_p2_hypothesis_inventory.js',
+    'test_p3_witness_search.js',
+    'test_p4_causal_controls.js',
+    'test_p5_constraint_refinement.js',
+    'test_p6_observation_provider.js',
+    'test_p7_operational_modes.js'
 ];
 
 console.log('=====================================================');

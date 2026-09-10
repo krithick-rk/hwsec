@@ -47,29 +47,21 @@ export class BEPPackager {
             concolicData = JSON.parse(fs.readFileSync(concolicResPath, 'utf8'));
         }
 
-        // Fallback to safe default for known test cases if concolic was not pre-run
-        let symbolicStatus = concolicData?.status || (caseObj.expected_label === 'VULNERABLE' ? 'SAT' : 'UNSAT');
+        // Pure evidence state without ground truth leakage
+        let symbolicStatus = concolicData?.status || 'UNKNOWN';
         if (options.forceSymbolicStatus) symbolicStatus = options.forceSymbolicStatus;
 
         let generatedInput = concolicData?.generated_input || null;
-        if (!generatedInput && symbolicStatus === 'SAT') {
-            const defaultAttacks = {
-                'CWE-22': '../../etc/passwd',
-                'CWE-78': 'hello; echo INJECTED_CMD_OUTPUT',
-                'CWE-89': "' OR '1'='1",
-                'CWE-79': '<script>alert(1)</script>',
-                'CWE-90': '*(|(objectclass=*))',
-                'CWE-643': "' or ''='"
-            };
+        if (options.attackInput) {
             generatedInput = {
                 parameter: caseObj.input_param_name,
-                value: defaultAttacks[caseObj.cwe] || 'attack_probe',
+                value: options.attackInput,
                 type: caseObj.input_vector_type
             };
         }
 
         const constraintsHash = concolicData?.artifact_hashes?.constraints || 
-            (symbolicStatus === 'SAT' ? crypto.createHash('sha256').update(`${caseId}_constraints`).digest('hex') : null);
+            (concolicData ? crypto.createHash('sha256').update(`${caseId}_constraints`).digest('hex') : null);
 
         // 3. Dynamic Taint Result
         const taintResPath = path.join(this.artifactsDir, 'taint', `${caseId}_taint.json`);
@@ -78,9 +70,9 @@ export class BEPPackager {
             taintData = JSON.parse(fs.readFileSync(taintResPath, 'utf8'));
         }
 
-        const taintObserved = taintData ? Boolean(taintData.sink_tainted) : (caseObj.expected_label === 'VULNERABLE');
-        const sinkReached = taintData ? Boolean(taintData.sink_observed && taintData.sink_observed !== 'NONE') : true;
-        const traceHash = taintData?.artifact_hashes?.taint_result || crypto.createHash('sha256').update(`${caseId}_trace`).digest('hex');
+        const taintObserved = taintData ? Boolean(taintData.sink_tainted) : false;
+        const sinkReached = taintData ? Boolean(taintData.sink_observed && taintData.sink_observed !== 'NONE') : false;
+        const traceHash = taintData?.artifact_hashes?.taint_result || (taintData ? crypto.createHash('sha256').update(`${caseId}_trace`).digest('hex') : null);
 
         // 4. Differential Validation
         const diffRes = this.differentialValidator.validateDifferential(caseId, {

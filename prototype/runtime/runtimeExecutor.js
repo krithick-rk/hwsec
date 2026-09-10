@@ -99,7 +99,6 @@ export class RuntimeExecutor {
             run_id: `RUN-${caseId}-${crypto.randomBytes(4).toString('hex')}`,
             case_id: caseId,
             cwe: caseMeta.cwe,
-            expected_label: caseMeta.expected_label,
             target_class: caseMeta.target_class,
             entrypoint_method: method,
             input_vector: {

@@ -13,6 +13,18 @@ import { CodeQLTool } from '../domains/software/tools/codeql.js';
 import { JoernTool } from '../domains/software/tools/joern.js';
 
 export const BrokerCapability = {
+    // Section 20: 9 Core Broker Capabilities
+    DISCOVERY: 'DISCOVERY',
+    SLICE: 'SLICE',
+    HYPOTHESIS: 'HYPOTHESIS',
+    WITNESS_SEARCH: 'WITNESS_SEARCH',
+    CONSTRAINT_REFINEMENT: 'CONSTRAINT_REFINEMENT',
+    RUNTIME_OBSERVATION: 'RUNTIME_OBSERVATION',
+    CONTROL_EXECUTION: 'CONTROL_EXECUTION',
+    EVIDENCE_ASSEMBLY: 'EVIDENCE_ASSEMBLY',
+    VERDICT_REDUCTION: 'VERDICT_REDUCTION',
+
+    // Tool & domain capabilities
     LEXICAL_PATTERN_SAST: 'sast_pattern_scan',
     AST_ANALYSIS: 'ast_analysis',
     SEMANTIC_DATAFLOW: 'deep_dataflow',
