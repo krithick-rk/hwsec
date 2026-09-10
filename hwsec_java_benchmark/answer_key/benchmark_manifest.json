@@ -1,0 +1,113 @@
+{
+  "benchmark_version": "1.0-java",
+  "cases": [
+    {
+      "case_id": "CASE-E01",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-78 OS Command Injection",
+      "primary_entry_point": "POST /api/diagnostic/ping",
+      "source_to_sink": "PingRequest.getHost() -> ProcessBuilder(\"sh\", \"-c\", \"ping \" + host)",
+      "exploit_witness": "POST /api/diagnostic/ping with body {\"host\":\"127.0.0.1; touch /tmp/hwsec_e01_java_marker\"}",
+      "expected_security_effect": "Marker file /tmp/hwsec_e01_java_marker is created",
+      "negative_control": "POST /api/diagnostic/ping with body {\"host\":\"127.0.0.1\"}",
+      "fixed_solution_path": "solutions/easy/CASE-E01-command-injection-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    },
+    {
+      "case_id": "CASE-E02",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-89 SQL Injection",
+      "primary_entry_point": "GET /api/users/search?username=",
+      "source_to_sink": "@RequestParam username -> jdbc.queryForList(\"SELECT ... WHERE username = '\" + username + \"'\")",
+      "exploit_witness": "GET /api/users/search?username=' OR '1'='1",
+      "expected_security_effect": "Returns all users instead of one",
+      "negative_control": "GET /api/users/search?username=alice",
+      "fixed_solution_path": "solutions/easy/CASE-E02-sql-injection-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    },
+    {
+      "case_id": "CASE-E03",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-22 Path Traversal",
+      "primary_entry_point": "GET /api/files/download?filename=",
+      "source_to_sink": "@RequestParam filename -> Paths.get(BASE_DIR).resolve(filename) -> Files.readString()",
+      "exploit_witness": "GET /api/files/download?filename=../../../../etc/hostname",
+      "expected_security_effect": "Reads /etc/hostname",
+      "negative_control": "GET /api/files/download?filename=hello.txt",
+      "fixed_solution_path": "solutions/easy/CASE-E03-path-traversal-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    },
+    {
+      "case_id": "CASE-M01",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-79 XSS (Stored)",
+      "primary_entry_point": "POST /api/messages -> GET /api/messages/{id}",
+      "source_to_sink": "@RequestBody content -> db.put(id, content) -> db.get(id) -> String return",
+      "exploit_witness": "POST <img src=x onerror=alert(1)> -> GET /api/messages/1",
+      "expected_security_effect": "Unescaped HTML returned in response",
+      "negative_control": "POST hello -> GET /api/messages/1",
+      "fixed_solution_path": "solutions/medium/CASE-M01-xss-stored-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    },
+    {
+      "case_id": "CASE-M02",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-90 LDAP Injection",
+      "primary_entry_point": "GET /api/auth/lookup?username=",
+      "source_to_sink": "@RequestParam username -> \"(cn=\" + username + \")\" -> executeLdapSearch()",
+      "exploit_witness": "GET /api/auth/lookup?username=*)(|(cn=*)",
+      "expected_security_effect": "Lookup succeeds for non-existent user",
+      "negative_control": "GET /api/auth/lookup?username=nonexistent",
+      "fixed_solution_path": "solutions/medium/CASE-M02-ldap-injection-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    },
+    {
+      "case_id": "CASE-M03",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-643 XPath Injection",
+      "primary_entry_point": "GET /api/xml/search?username=",
+      "source_to_sink": "@RequestParam username -> xpath.compile(\"/users/user[name='\" + username + \"']/role/text()\")",
+      "exploit_witness": "GET /api/xml/search?username=' or '1'='1",
+      "expected_security_effect": "Returns admin role without exact username match",
+      "negative_control": "GET /api/xml/search?username=nonexistent",
+      "fixed_solution_path": "solutions/medium/CASE-M03-xpath-injection-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    },
+    {
+      "case_id": "CASE-H01",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-94 Code Injection (SpEL)",
+      "primary_entry_point": "POST /api/rules/evaluate",
+      "source_to_sink": "@RequestBody expression -> parser.parseExpression(expression) -> exp.getValue(StandardEvaluationContext)",
+      "exploit_witness": "POST body {\"expression\":\"T(java.lang.Runtime).getRuntime().exec('touch /tmp/hwsec_h01_java_marker')\"}",
+      "expected_security_effect": "Arbitrary code execution creating a marker file",
+      "negative_control": "POST body {\"expression\":\"#user\"}",
+      "fixed_solution_path": "solutions/hard/CASE-H01-spel-injection-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    },
+    {
+      "case_id": "CASE-H02",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-89 SQL Injection (HQL)",
+      "primary_entry_point": "GET /api/products/search?name=",
+      "source_to_sink": "@RequestParam name -> entityManager.createQuery(\"... WHERE p.name = '\" + name + \"'\")",
+      "exploit_witness": "GET /api/products/search?name=' or '1'='1",
+      "expected_security_effect": "Returns all products",
+      "negative_control": "GET /api/products/search?name=Laptop",
+      "fixed_solution_path": "solutions/hard/CASE-H02-hql-injection-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    },
+    {
+      "case_id": "CASE-H03",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-611 XXE",
+      "primary_entry_point": "POST /api/xml/parse",
+      "source_to_sink": "@RequestBody xmlContent -> DocumentBuilderFactory.newDefaultInstance().parse(xmlContent)",
+      "exploit_witness": "POST XML with DOCTYPE entity referencing file:///tmp/secret",
+      "expected_security_effect": "Reads local file contents into response",
+      "negative_control": "POST clean XML <foo>bar</foo>",
+      "fixed_solution_path": "solutions/hard/CASE-H03-xxe-FIXED",
+      "expected_hwsec_classification": "DETECTED"
+    }
+  ]
+}

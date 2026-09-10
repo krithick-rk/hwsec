@@ -3,7 +3,7 @@
   "hypothesis": {
     "hypothesis_id": "HYP-BenchmarkTest00001-CWE-22",
     "cwe": "CWE-22",
-    "claim": "Attacker-controlled input reaching java.io.File violates canonicalPath.startsWith(baseDir) == false"
+    "claim": "Attacker-controlled input reaching java.io.FileInputStream violates canonicalPath.startsWith(baseDir) == false"
   },
   "static": {
     "has_finding": true,
@@ -27,7 +27,7 @@
     "taint_observed": true,
     "sink_reached": true,
     "exit_code": 0,
-    "trace_hash": "13ec3fcbc75ccc0a58775c27834f199a8f75dead69fb807170f560788d45240d"
+    "trace_hash": "2ec261d0c9db73f1817c2dad3346f111f0fa5b59b48255b2bc903b7c21b2b396"
   },
   "differential": {
     "baseline_observed": {
@@ -63,11 +63,12 @@
       "jpf": "JPF-Symbc 8.0",
       "z3": "Z3 4.12.2"
     },
-    "timestamp": "2026-09-10T04:54:06.444Z",
+    "timestamp": "2026-09-10T08:39:24.232Z",
     "artifact_hashes": {
+      "source_file_sha256": "2651fc172122b8cae155f8aee3ea3bda14842c6f8b16a0b1d97371ce9d9e2c2e",
       "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
       "concolic_result": "d2509f1a67e9ec7b588c5442631abe210413334df0f8518617f32016d2ea36ea",
-      "taint_result": "fd16d23b078b010166db3724c0d1535e4b88c023504efd764a95ee5614e6dca5"
+      "taint_result": "98d9c4c0758cbb702a109f51d8ee28f59ea7b064b11579fe827399807e84f37b"
     }
   }
 }

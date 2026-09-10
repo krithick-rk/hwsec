@@ -43,12 +43,19 @@ export class CodeQLTool extends ToolAdapter {
 
         // 2. Probe WSL binary if on Windows
         if (process.platform === 'win32') {
-            try {
-                const wslRes = await runWslCommand('codeql', ['version', '--format=json'], { timeout: 8000 });
-                if (wslRes.exitCode === 0) {
-                    return { installed: true, version: 'CodeQL CLI (WSL)', isWsl: true, cmd: 'codeql' };
-                }
-            } catch {}
+            const wslCandidates = [
+                configured,
+                '/home/intern/tools/codeql/codeql',
+                'codeql'
+            ];
+            for (const cand of wslCandidates) {
+                try {
+                    const wslRes = await runWslCommand(cand, ['version', '--format=json'], { timeout: 8000 });
+                    if (wslRes.exitCode === 0) {
+                        return { installed: true, version: 'CodeQL CLI (WSL)', isWsl: true, cmd: cand };
+                    }
+                } catch {}
+            }
         }
 
         return { installed: false, error: 'CodeQL CLI not detected in system PATH or WSL' };
@@ -271,11 +278,13 @@ export class CodeQLTool extends ToolAdapter {
                     check.isWsl ? toWslPath(dbDir) : dbDir,
                     `--language=${primaryLang}`,
                     `--source-root=${check.isWsl ? toWslPath(sourceRoot) : sourceRoot}`,
+                    '--ram=8192',
+                    '--threads=2',
                     '--overwrite'
                 ];
 
                 const createRes = check.isWsl
-                    ? await runWslCommand('codeql', createArgs, { timeout })
+                    ? await runWslCommand(check.cmd, createArgs, { timeout })
                     : await runCommand(check.cmd, createArgs, { timeout });
 
                 if (createRes.exitCode !== 0) {
@@ -297,12 +306,14 @@ export class CodeQLTool extends ToolAdapter {
             const analyzeArgs = [
                 'database', 'analyze',
                 check.isWsl ? toWslPath(dbDir) : dbDir,
+                '--ram=8192',
+                '--threads=2',
                 '--format=sarif-latest',
                 `--output=${check.isWsl ? toWslPath(sarifPath) : sarifPath}`
             ];
 
             const analyzeRes = check.isWsl
-                ? await runWslCommand('codeql', analyzeArgs, { timeout })
+                ? await runWslCommand(check.cmd, analyzeArgs, { timeout })
                 : await runCommand(check.cmd, analyzeArgs, { timeout });
 
             if (analyzeRes.exitCode !== 0 && !fs.existsSync(sarifPath)) {

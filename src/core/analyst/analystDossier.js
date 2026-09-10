@@ -32,7 +32,8 @@ export class AnalystDossier {
             q3_analyzers_and_disagreement: {
                 signals: hyp.discovery_signals || [],
                 analyzers_count: (hyp.discovery_signals || []).length,
-                priority_consensus: hyp.priority || 0.5
+                priority_consensus: hyp.priority || 0.5,
+                model_team_narrative: hyp.model_team_narrative || hyp.coordination_summary || null
             },
             q4_evidence_attempted: Object.keys(ob).filter(k => ob[k] === true),
             q5_concrete_inputs_tried: v.witness_input ? [v.witness_input] : [],
@@ -62,6 +63,10 @@ export class AnalystDossier {
     }
 
     static renderMarkdown(summary) {
+        const modelTeamSection = summary.q3_analyzers_and_disagreement.model_team_narrative
+            ? `\n- **Model Team Coordination**: \`${summary.q3_analyzers_and_disagreement.model_team_narrative}\``
+            : '';
+
         return `
 # HWSEC Security Operations Case Dossier
 
@@ -73,9 +78,9 @@ export class AnalystDossier {
 - **Entry Point**: \`${JSON.stringify(summary.q2_attack_surface_and_entry_point.entry_point)}\`
 - **Status**: ${summary.q2_attack_surface_and_entry_point.resolved ? '✅ RESOLVED' : '⚠️ UNRESOLVED'}
 
-## 3. Analyzer Discovery & Consensus
+## 3. Analyzer Discovery & Model Team Consensus
 - Analyzers: ${(summary.q3_analyzers_and_disagreement.signals || []).map(s => `${s.analyzer} (${s.rule_id})`).join(', ') || 'None'}
-- Priority Score: **${summary.q3_analyzers_and_disagreement.priority_consensus}**
+- Priority Score: **${summary.q3_analyzers_and_disagreement.priority_consensus}**${modelTeamSection}
 
 ## 4. Operational Verdict & Evidence
 - **Verdict**: **\`${summary.q10_verdict_decision.verdict}\`** (\`${summary.q10_verdict_decision.reason_code}\`)

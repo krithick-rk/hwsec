@@ -49,8 +49,8 @@ export const ExecutionTransport = {
  * @returns {Promise<Object>}
  */
 export async function runWslCommand(command, args = [], options = {}) {
-    // Invoke wsl directly with argument array
-    const wslArgs = [command, ...args];
+    const defaultLinuxPath = '/home/intern/tools/jdk-26/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin';
+    const wslArgs = ['-e', 'env', `PATH=${defaultLinuxPath}`, command, ...args];
     return runCommand('wsl', wslArgs, {
         ...options,
         shell: false

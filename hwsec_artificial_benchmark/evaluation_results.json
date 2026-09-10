@@ -1,0 +1,214 @@
+{
+  "timestamp": "2026-09-10T11:27:38.954Z",
+  "benchmark_version": "1.0",
+  "tools_verified": {
+    "semgrep": {
+      "installed": true,
+      "version": "1.176.1 (WSL)",
+      "isWsl": true,
+      "cmd": "semgrep"
+    },
+    "entry_point_inventory": {
+      "status": "ACTIVE",
+      "discovered": 33
+    },
+    "evidence_authority": {
+      "status": "ACTIVE",
+      "version": "2.0-bep"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "CASE-E01",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-78 OS Command Injection",
+      "primary_entry_point": "POST /api/diagnostic/ping",
+      "entry_point_resolved": true,
+      "sast_findings_count": 4,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "d346c54552f166efb91bea5cc61a9b9a125b375a55ea35e3f277a93c31f32c5c",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-E02",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-89 SQL Injection",
+      "primary_entry_point": "GET /api/users/search?username=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 4,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "6b2be5b2431989c106ccfd430d1604f2743a8f72a207139260a71e7cceca8128",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-E03",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-22 Path Traversal",
+      "primary_entry_point": "GET /api/files/download?filename=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 1,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "3376eb15d680cb309ddd4125e0ae7742a6ddc5fab9c39f2425025e658bfb3852",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-M01",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-79 Cross-Site Scripting (Reflected)",
+      "primary_entry_point": "GET /search?q=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 1,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "29ca05d3519b497892dca29f29a8b19cf609fa666de659bc5c8d09729e7c6989",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-M02",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-89 SQL Injection",
+      "primary_entry_point": "GET /api/users/search?pattern=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 2,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "5514763fbca39198f9b4eb28fc07cebd8cd396ea40066f01f4c47953387295b6",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-M03",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-78 OS Command Injection",
+      "primary_entry_point": "POST /api/diagnostic/run (tool=ping)",
+      "entry_point_resolved": true,
+      "sast_findings_count": 2,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "47dd07d4ac7fe0aded2b1542687ab887108a1081be1eb252551d16984c0ac852",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-H01",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-22 Path Traversal",
+      "primary_entry_point": "GET /api/files/download?filename=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 1,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "50da85d156b797883f7792682ded69e09640883995ca0a926c1d07417c21003d",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-H02",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-90 LDAP Injection",
+      "primary_entry_point": "POST /api/auth/login",
+      "entry_point_resolved": true,
+      "sast_findings_count": 1,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "cae8e37abafbb49642bb837be47a7965efcf00dc5dcf012e8c0e5ba7c2f9b3ba",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-H03",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-643 XPath Injection",
+      "primary_entry_point": "GET /api/user/search?username=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 1,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "8a4155b15d2067057439398eeea3fdffb0b71c2082eb2f09fa048a3d055a00ca",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    }
+  ],
+  "metrics": {
+    "total_vulnerable_cases": 9,
+    "total_solution_cases": 9,
+    "true_positives": 9,
+    "false_negatives": 0,
+    "true_negatives": 9,
+    "false_positives": 0,
+    "precision": 1,
+    "recall": 1,
+    "f1_score": 1,
+    "accuracy": 1
+  }
+}

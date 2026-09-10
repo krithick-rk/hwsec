@@ -1,0 +1,1 @@
+[{"rule_id":"joern/cwe-78/system","cwe_id":"CWE-78","title":"OS command execution sink (system)","severity":"CRITICAL","file":"","line":9,"method":"handle_cli_request","code":"os.system(cmd)","dataflow_reachable":true}]

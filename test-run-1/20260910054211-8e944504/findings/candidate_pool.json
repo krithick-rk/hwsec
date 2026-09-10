@@ -1,0 +1,267 @@
+[
+  {
+    "id": "SEMGREP-c2d0a1a9",
+    "source": "deterministic_tool",
+    "sourceTool": "semgrep",
+    "title": "[CWE-78] Potential Command / Code Injection",
+    "cwe": "CWE-78",
+    "severity": "CRITICAL",
+    "confidence": 0.6,
+    "sourceLocations": [
+      {
+        "path": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+        "startLine": 9,
+        "endLine": 9,
+        "line": 9,
+        "startColumn": 1,
+        "endColumn": 24,
+        "symbol": null
+      }
+    ],
+    "evidence": [
+      {
+        "id": "5732cbaa",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "test-run-1\\20260910054211-8e944504\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Pattern matched: Potential Command / Code Injection at E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+        "raw_evidence": {
+          "line": "res = os.system(cmd)",
+          "cwe": "CWE-78"
+        },
+        "timestamp": "2026-09-10T05:42:17.039Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "dataflowReachable": false,
+    "escalationLevel": "BASELINE",
+    "rawFinding": {
+      "schema_version": "2.0.0",
+      "id": "SEMGREP-c2d0a1a9",
+      "run_id": null,
+      "status": "OPEN",
+      "type": "SECURITY_FINDING",
+      "title": "[CWE-78] Potential Command / Code Injection",
+      "description": "Execution of dynamic shell command or evaluated code. Line 9: `res = os.system(cmd)`",
+      "severity": "CRITICAL",
+      "confidence": 0.6,
+      "source_locations": [
+        {
+          "path": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+          "startLine": 9,
+          "endLine": 9,
+          "line": 9,
+          "startColumn": 1,
+          "endColumn": 24,
+          "symbol": null
+        }
+      ],
+      "affected_assets": [],
+      "security_property": null,
+      "cwe_id": "CWE-78",
+      "evidence_ids": [
+        "5732cbaa"
+      ],
+      "supporting_evidence": [
+        {
+          "id": "5732cbaa",
+          "run_id": null,
+          "tool": "semgrep",
+          "tool_run_id": null,
+          "evidence_type": "GENERIC_EVIDENCE",
+          "invocation": null,
+          "artifact_path": "test-run-1\\20260910054211-8e944504\\tools\\semgrep_telemetry.json",
+          "artifact_hash": null,
+          "observation": "Pattern matched: Potential Command / Code Injection at E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+          "raw_evidence": {
+            "line": "res = os.system(cmd)",
+            "cwe": "CWE-78"
+          },
+          "timestamp": "2026-09-10T05:42:17.039Z",
+          "validity_status": "VALID"
+        }
+      ],
+      "contradicting_evidence": [],
+      "exploitability": "UNKNOWN",
+      "exploit_state": "NOT_ATTEMPTED",
+      "exploit_evidence": null,
+      "proof_id": null,
+      "proof_status": "NOT_ELIGIBLE",
+      "proof_record": null,
+      "impact": "UNKNOWN",
+      "verification_state": "PROPOSED",
+      "provenance": {
+        "tool": "semgrep",
+        "created_at": "2026-09-10T05:42:17.039Z"
+      },
+      "source_tool": "semgrep",
+      "rtl_location": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+      "evidence": [
+        {
+          "id": "5732cbaa",
+          "run_id": null,
+          "tool": "semgrep",
+          "tool_run_id": null,
+          "evidence_type": "GENERIC_EVIDENCE",
+          "invocation": null,
+          "artifact_path": "test-run-1\\20260910054211-8e944504\\tools\\semgrep_telemetry.json",
+          "artifact_hash": null,
+          "observation": "Pattern matched: Potential Command / Code Injection at E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+          "raw_evidence": {
+            "line": "res = os.system(cmd)",
+            "cwe": "CWE-78"
+          },
+          "timestamp": "2026-09-10T05:42:17.039Z",
+          "validity_status": "VALID"
+        }
+      ]
+    }
+  },
+  {
+    "id": "JOERN-34762eea",
+    "source": "deterministic_tool",
+    "sourceTool": "joern",
+    "title": "[CWE-78] OS command execution sink (system)",
+    "cwe": "CWE-78",
+    "severity": "CRITICAL",
+    "confidence": 0.85,
+    "sourceLocations": [
+      {
+        "path": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+        "startLine": 9,
+        "endLine": 9,
+        "line": 9,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "evidence": [
+      {
+        "id": "EV-76d6c46c",
+        "run_id": null,
+        "tool": "joern",
+        "tool_run_id": null,
+        "evidence_type": "DATAFLOW_TRACE",
+        "invocation": null,
+        "artifact_path": "test-run-1\\20260910054211-8e944504\\tools\\.joern_cache\\cpg_batch_c9dd1c656d77561c.bin",
+        "artifact_hash": null,
+        "observation": "Joern CPG Analysis: OS command execution sink (system) in method 'handle_cli_request'. Dataflow reachable from input/param: true",
+        "raw_evidence": {
+          "rule_id": "joern/cwe-78/system",
+          "cwe_id": "CWE-78",
+          "title": "OS command execution sink (system)",
+          "severity": "CRITICAL",
+          "file": "",
+          "line": 9,
+          "method": "handle_cli_request",
+          "code": "os.system(cmd)",
+          "dataflow_reachable": true
+        },
+        "timestamp": "2026-09-10T05:42:30.445Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "dataflowReachable": false,
+    "escalationLevel": "BASELINE",
+    "rawFinding": {
+      "schema_version": "2.0.0",
+      "id": "JOERN-34762eea",
+      "run_id": null,
+      "status": "OPEN",
+      "type": "SECURITY_FINDING",
+      "title": "[CWE-78] OS command execution sink (system)",
+      "description": "Joern detected dangerous code pattern in E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9.\nMethod: handle_cli_request\nCode snippet: `os.system(cmd)`\nReachable from function input: true",
+      "severity": "CRITICAL",
+      "confidence": 0.85,
+      "source_locations": [
+        {
+          "path": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+          "startLine": 9,
+          "endLine": 9,
+          "line": 9,
+          "startColumn": 1,
+          "endColumn": 1,
+          "symbol": null
+        }
+      ],
+      "affected_assets": [],
+      "security_property": null,
+      "cwe_id": "CWE-78",
+      "evidence_ids": [
+        "EV-76d6c46c"
+      ],
+      "supporting_evidence": [
+        {
+          "id": "EV-76d6c46c",
+          "run_id": null,
+          "tool": "joern",
+          "tool_run_id": null,
+          "evidence_type": "DATAFLOW_TRACE",
+          "invocation": null,
+          "artifact_path": "test-run-1\\20260910054211-8e944504\\tools\\.joern_cache\\cpg_batch_c9dd1c656d77561c.bin",
+          "artifact_hash": null,
+          "observation": "Joern CPG Analysis: OS command execution sink (system) in method 'handle_cli_request'. Dataflow reachable from input/param: true",
+          "raw_evidence": {
+            "rule_id": "joern/cwe-78/system",
+            "cwe_id": "CWE-78",
+            "title": "OS command execution sink (system)",
+            "severity": "CRITICAL",
+            "file": "",
+            "line": 9,
+            "method": "handle_cli_request",
+            "code": "os.system(cmd)",
+            "dataflow_reachable": true
+          },
+          "timestamp": "2026-09-10T05:42:30.445Z",
+          "validity_status": "VALID"
+        }
+      ],
+      "contradicting_evidence": [],
+      "exploitability": "UNKNOWN",
+      "exploit_state": "NOT_ATTEMPTED",
+      "exploit_evidence": null,
+      "proof_id": null,
+      "proof_status": "NOT_ELIGIBLE",
+      "proof_record": null,
+      "impact": "UNKNOWN",
+      "verification_state": "CANDIDATE",
+      "provenance": {
+        "tool": "joern",
+        "created_at": "2026-09-10T05:42:30.445Z"
+      },
+      "source_tool": "joern",
+      "rtl_location": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+      "evidence": [
+        {
+          "id": "EV-76d6c46c",
+          "run_id": null,
+          "tool": "joern",
+          "tool_run_id": null,
+          "evidence_type": "DATAFLOW_TRACE",
+          "invocation": null,
+          "artifact_path": "test-run-1\\20260910054211-8e944504\\tools\\.joern_cache\\cpg_batch_c9dd1c656d77561c.bin",
+          "artifact_hash": null,
+          "observation": "Joern CPG Analysis: OS command execution sink (system) in method 'handle_cli_request'. Dataflow reachable from input/param: true",
+          "raw_evidence": {
+            "rule_id": "joern/cwe-78/system",
+            "cwe_id": "CWE-78",
+            "title": "OS command execution sink (system)",
+            "severity": "CRITICAL",
+            "file": "",
+            "line": 9,
+            "method": "handle_cli_request",
+            "code": "os.system(cmd)",
+            "dataflow_reachable": true
+          },
+          "timestamp": "2026-09-10T05:42:30.445Z",
+          "validity_status": "VALID"
+        }
+      ]
+    }
+  }
+]

@@ -12,6 +12,17 @@ import { SemgrepTool } from '../domains/software/tools/semgrep.js';
 import { CodeQLTool } from '../domains/software/tools/codeql.js';
 import { JoernTool } from '../domains/software/tools/joern.js';
 
+// Section 20 Core Capability Providers
+import { WitnessSearchEngine } from './witness/witnessSearch.js';
+import { ConstraintRefinementProvider } from './refinement/constraintRefinementProvider.js';
+import { DirectSinkObservationProvider } from './observation/runtimeObservationProvider.js';
+import { CausalControlEngine } from './controls/causalControls.js';
+import { EvidenceDag, EvidenceAuthority, EvidenceNodeType, EvidenceEdgeRelation, canonicalHash } from './bep/evidenceDag.js';
+import { VulnerabilityHypothesis } from './hypothesis/vulnerabilityHypothesis.js';
+import { EntryPointInventory } from './inventory/entryPointInventory.js';
+import { defaultSecurityRegistry } from './oracles/securityConditionRegistry.js';
+import { RepositoryDiscovery } from './discovery.js';
+
 export const BrokerCapability = {
     // Section 20: 9 Core Broker Capabilities
     DISCOVERY: 'DISCOVERY',
@@ -201,12 +212,328 @@ export class AnalysisBroker {
     }
 
     /**
-     * Dispatches a capability request across registered tools.
+     * Section 20 Capability: DISCOVERY
+     */
+    async executeDiscovery(request = {}) {
+        const targetDir = request.targetDir || request.files?.[0] || process.cwd();
+        const inventoryScanner = new EntryPointInventory();
+        const entryPoints = inventoryScanner.discover(targetDir);
+        const repoDiscovery = new RepositoryDiscovery(this.config);
+        const { inventory, summary } = repoDiscovery.discover(targetDir);
+        return {
+            status: 'SUCCESS',
+            capability: BrokerCapability.DISCOVERY,
+            entryPoints,
+            inventory,
+            summary,
+            provenance: {
+                timestamp: new Date().toISOString(),
+                targetDir
+            }
+        };
+    }
+
+    /**
+     * Section 20 Capability: SLICE
+     */
+    async executeSlice(request = {}) {
+        const { targetFile, targetLine, candidatePath = [] } = request;
+        const sliceData = {
+            targetFile: targetFile || candidatePath[0] || 'unknown',
+            targetLine: targetLine || 1,
+            candidatePath,
+            slice_sha256: canonicalHash({ targetFile, targetLine, candidatePath })
+        };
+        return {
+            status: 'SUCCESS',
+            capability: BrokerCapability.SLICE,
+            slice: sliceData,
+            provenance: {
+                timestamp: new Date().toISOString()
+            }
+        };
+    }
+
+    /**
+     * Section 20 Capability: HYPOTHESIS
+     */
+    async executeHypothesis(request = {}) {
+        const { findings = [], targetDir = process.cwd(), runId = `RUN-${Date.now()}`, repositoryId = 'default_repo' } = request;
+        const inventoryScanner = new EntryPointInventory();
+        const entryPoints = inventoryScanner.discover(targetDir);
+        const hypotheses = [];
+
+        for (const finding of findings) {
+            const hyp = VulnerabilityHypothesis.fromFinding(finding, { run_id: runId, repository_id: repositoryId });
+            const resolvedEp = inventoryScanner.resolveForHypothesis(hyp);
+            hyp.setEntryPoint(resolvedEp);
+            hypotheses.push(hyp);
+        }
+
+        return {
+            status: 'SUCCESS',
+            capability: BrokerCapability.HYPOTHESIS,
+            hypotheses,
+            entryPoints,
+            provenance: {
+                timestamp: new Date().toISOString(),
+                runId
+            }
+        };
+    }
+
+    /**
+     * Section 20 Capability: WITNESS_SEARCH
+     */
+    async executeWitnessSearch(request = {}) {
+        const { hypothesis, executor, mode = 'STANDARD', options = {} } = request;
+        if (!hypothesis || typeof executor !== 'function') {
+            throw new Error('[AnalysisBroker WITNESS_SEARCH] hypothesis and executor function are required');
+        }
+
+        const modeBudgets = {
+            FAST: { maxExecutions: 5, timeoutMs: 5000 },
+            STANDARD: { maxExecutions: 25, timeoutMs: 20000 },
+            DEEP: { maxExecutions: 50, timeoutMs: 60000 },
+            FORENSIC: { maxExecutions: 100, timeoutMs: 120000 }
+        };
+
+        const budget = modeBudgets[mode.toUpperCase()] || modeBudgets.STANDARD;
+        const searchEngine = new WitnessSearchEngine({
+            maxExecutions: options.maxExecutions || budget.maxExecutions,
+            timeoutMs: options.timeoutMs || budget.timeoutMs,
+            securityRegistry: options.securityRegistry || defaultSecurityRegistry
+        });
+
+        const result = await searchEngine.searchWitness(hypothesis, executor, options);
+        return {
+            status: result.status,
+            capability: BrokerCapability.WITNESS_SEARCH,
+            witness_input: result.witness_input,
+            oracle_result: result.oracle_result,
+            execution_result: result.execution_result,
+            search_metrics: result.search_metrics,
+            search_log: result.search_log,
+            provenance: {
+                timestamp: new Date().toISOString(),
+                mode,
+                hypothesis_id: hypothesis.id
+            }
+        };
+    }
+
+    /**
+     * Section 20 Capability: CONSTRAINT_REFINEMENT
+     */
+    async executeConstraintRefinement(request = {}) {
+        const { slice = {}, hypothesis = {}, constraints = [], options = {} } = request;
+        const provider = new ConstraintRefinementProvider(options);
+        const result = await provider.solve(slice, hypothesis, constraints, options);
+        return {
+            status: result.status,
+            capability: BrokerCapability.CONSTRAINT_REFINEMENT,
+            model_artifact: result.model_artifact,
+            concrete_input: result.concrete_input,
+            duration_ms: result.duration_ms,
+            provenance: result.provenance
+        };
+    }
+
+    /**
+     * Section 20 Capability: RUNTIME_OBSERVATION
+     */
+    async executeRuntimeObservation(request = {}) {
+        const { target, input, executor, options = {} } = request;
+        if (!input || typeof executor !== 'function') {
+            throw new Error('[AnalysisBroker RUNTIME_OBSERVATION] input and executor function are required');
+        }
+        const provider = options.provider || new DirectSinkObservationProvider(options);
+        const result = await provider.observe(target || {}, input, executor, options);
+        return {
+            status: 'SUCCESS',
+            capability: BrokerCapability.RUNTIME_OBSERVATION,
+            observationRecord: result,
+            sink_observed: result.sink_observed,
+            sink_tainted: result.sink_tainted,
+            provenance: result.provenance
+        };
+    }
+
+    /**
+     * Section 20 Capability: CONTROL_EXECUTION
+     */
+    async executeControlExecution(request = {}) {
+        const { controlType = 'NEGATIVE_INPUT', hypothesis, attackInput, benignInput, patchedTarget, executor, options = {} } = request;
+        if (!hypothesis || !attackInput || typeof executor !== 'function') {
+            throw new Error('[AnalysisBroker CONTROL_EXECUTION] hypothesis, attackInput, and executor are required');
+        }
+        const engine = new CausalControlEngine(options);
+        let result;
+        if (controlType === 'PATCH_DIFFERENTIAL' && patchedTarget) {
+            result = await engine.executePatchDifferentialControl(hypothesis, attackInput, { file: hypothesis.targetFile || hypothesis.candidate_path?.[0] }, patchedTarget, executor);
+        } else {
+            result = await engine.executeNegativeInputControl(hypothesis, attackInput, benignInput || { parameter: hypothesis.source || 'param', value: 'benign_safe_input_123' }, executor);
+        }
+        return {
+            status: result.passed ? 'CONTROL_PASSED' : 'CONTROL_FAILED',
+            capability: BrokerCapability.CONTROL_EXECUTION,
+            controlResult: result,
+            passed: result.passed,
+            delta: result.delta,
+            provenance: result.provenance
+        };
+    }
+
+    /**
+     * Section 20 Capability: EVIDENCE_ASSEMBLY
+     */
+    async executeEvidenceAssembly(request = {}) {
+        const {
+            runId = `RUN-${Date.now()}`,
+            hypothesis,
+            entryPoint,
+            witness,
+            oracleResult,
+            solverModel,
+            observation,
+            controlResult,
+            patchResult,
+            provenanceManifest
+        } = request;
+
+        if (!hypothesis) {
+            throw new Error('[AnalysisBroker EVIDENCE_ASSEMBLY] hypothesis is required');
+        }
+
+        const dag = new EvidenceDag({ run_id: runId });
+        const hypNode = dag.addNode(EvidenceNodeType.HYPOTHESIS, hypothesis.toJSON ? hypothesis.toJSON() : hypothesis, hypothesis.id);
+
+        if (entryPoint) {
+            const epNode = dag.addNode(EvidenceNodeType.ENTRY_POINT, entryPoint, entryPoint.id || `EP-${entryPoint.type}`);
+            dag.addEdge(hypNode.id, epNode.id, EvidenceEdgeRelation.SUPPORTS);
+        }
+
+        if (witness) {
+            const wNode = dag.addNode(EvidenceNodeType.WITNESS_INPUT, witness, `WITNESS-${canonicalHash(witness).substring(0, 10)}`);
+            dag.addEdge(hypNode.id, wNode.id, EvidenceEdgeRelation.SUPPORTS);
+
+            if (observation) {
+                const obsNode = dag.addNode(EvidenceNodeType.RUNTIME_TRACE, observation, `OBS-${canonicalHash(observation).substring(0, 10)}`);
+                dag.addEdge(wNode.id, obsNode.id, EvidenceEdgeRelation.OBSERVED_IN);
+
+                if (observation.sink_observed) {
+                    const sinkNode = dag.addNode(EvidenceNodeType.SINK_EVENT, { sink: observation.sink_observed, value: observation.value_at_sink }, `SINK-${canonicalHash(observation.sink_observed).substring(0, 10)}`);
+                    dag.addEdge(obsNode.id, sinkNode.id, EvidenceEdgeRelation.OBSERVED_IN);
+                }
+            }
+        }
+
+        if (solverModel) {
+            const smNode = dag.addNode(EvidenceNodeType.SOLVER_MODEL, solverModel, `MODEL-${canonicalHash(solverModel).substring(0, 10)}`);
+            dag.addEdge(hypNode.id, smNode.id, EvidenceEdgeRelation.SUPPORTS);
+        }
+
+        if (controlResult) {
+            const cNode = dag.addNode(EvidenceNodeType.NEGATIVE_CONTROL, controlResult, `CTRL-${canonicalHash(controlResult).substring(0, 10)}`);
+            dag.addEdge(hypNode.id, cNode.id, controlResult.passed ? EvidenceEdgeRelation.SUPPORTS : EvidenceEdgeRelation.REFUTES);
+        }
+
+        if (patchResult) {
+            const pNode = dag.addNode(EvidenceNodeType.PATCH_RESULT, patchResult, `PATCH-${canonicalHash(patchResult).substring(0, 10)}`);
+            dag.addEdge(hypNode.id, pNode.id, EvidenceEdgeRelation.SUPPORTS);
+        }
+
+        if (oracleResult) {
+            const oNode = dag.addNode(EvidenceNodeType.SECURITY_ORACLE_RESULT, oracleResult, `ORACLE-${canonicalHash(oracleResult).substring(0, 10)}`);
+            dag.addEdge(hypNode.id, oNode.id, oracleResult.condition_satisfied ? EvidenceEdgeRelation.SUPPORTS : EvidenceEdgeRelation.REFUTES);
+        }
+
+        const provData = {
+            created_at: new Date().toISOString(),
+            broker_version: '2.0.0',
+            verified: true,
+            ...(provenanceManifest || {})
+        };
+        const provNode = dag.addNode(
+            EvidenceNodeType.PROVENANCE_MANIFEST,
+            provData,
+            `PROV-${runId}`
+        );
+        dag.addEdge(hypNode.id, provNode.id, EvidenceEdgeRelation.SAME_ENVIRONMENT_AS);
+
+        return {
+            status: 'SUCCESS',
+            capability: BrokerCapability.EVIDENCE_ASSEMBLY,
+            dag,
+            dagHash: dag.getRootHash(),
+            provenance: {
+                timestamp: new Date().toISOString(),
+                runId
+            }
+        };
+    }
+
+    /**
+     * Section 20 Capability: VERDICT_REDUCTION
+     */
+    async executeVerdictReduction(request = {}) {
+        const { dag, hypothesisId, options = {} } = request;
+        if (!dag) {
+            throw new Error('[AnalysisBroker VERDICT_REDUCTION] dag is required');
+        }
+        const reduction = EvidenceAuthority.reduce(dag, hypothesisId, options);
+        return {
+            status: 'SUCCESS',
+            capability: BrokerCapability.VERDICT_REDUCTION,
+            reduction,
+            verdict: reduction.verdict,
+            reason: reduction.reason_code || reduction.reason,
+            details: reduction.details,
+            provenance: {
+                timestamp: new Date().toISOString(),
+                hypothesisId
+            }
+        };
+    }
+
+    /**
+     * Dispatches a capability request across registered tools or core operational providers.
      * Supports single-tool dispatch or multi-analyzer cooperation and cross-checking.
      */
     async dispatch(request) {
         const { capability, languages = [], files = [], outputDir = 'hwsec-output/tools', runId = null, timeout = 120000, cooperative = false } = request;
         
+        // Check for Core Broker Operational Capabilities (Section 20)
+        switch (capability) {
+            case BrokerCapability.DISCOVERY:
+            case 'discovery':
+                return this.executeDiscovery(request);
+            case BrokerCapability.SLICE:
+            case 'slice':
+                return this.executeSlice(request);
+            case BrokerCapability.HYPOTHESIS:
+            case 'hypothesis':
+                return this.executeHypothesis(request);
+            case BrokerCapability.WITNESS_SEARCH:
+            case 'witness_search':
+                return this.executeWitnessSearch(request);
+            case BrokerCapability.CONSTRAINT_REFINEMENT:
+            case 'constraint_refinement':
+                return this.executeConstraintRefinement(request);
+            case BrokerCapability.RUNTIME_OBSERVATION:
+            case 'runtime_observation':
+                return this.executeRuntimeObservation(request);
+            case BrokerCapability.CONTROL_EXECUTION:
+            case 'control_execution':
+                return this.executeControlExecution(request);
+            case BrokerCapability.EVIDENCE_ASSEMBLY:
+            case 'evidence_assembly':
+                return this.executeEvidenceAssembly(request);
+            case BrokerCapability.VERDICT_REDUCTION:
+            case 'verdict_reduction':
+                return this.executeVerdictReduction(request);
+        }
+
         const candidateTools = this.registry.findToolsForCapability({ capability, languages });
         if (candidateTools.length === 0) {
             return {

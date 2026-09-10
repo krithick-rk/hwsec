@@ -1,0 +1,129 @@
+{
+  "environment": {},
+  "webgoatCases": [
+    {
+      "cwe": "CWE-22",
+      "name": "ProfileUpload Path Traversal",
+      "sourceFile": "src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUpload.java",
+      "entryPoint": "POST /PathTraversal/profile-upload",
+      "sink": "new File(uploadDirectory, fullName)",
+      "verdict": "DETECTED",
+      "reason": "VERIFIED_EXPLOIT_WITNESS",
+      "rootHash": "9b1e50e6cda3160eeed39717645f39834bcc887dab4264a6b81b086af112e575",
+      "obligationsSatisfied": "7/7"
+    },
+    {
+      "cwe": "CWE-89",
+      "name": "SqlInjectionLesson5a SQL Injection",
+      "sourceFile": "src/main/java/org/owasp/webgoat/lessons/sqlinjection/introduction/SqlInjectionLesson5a.java",
+      "entryPoint": "POST /SqlInjection/assignment5a",
+      "sink": "statement.executeQuery(\"SELECT ... \" + accountName)",
+      "verdict": "DETECTED",
+      "reason": "VERIFIED_EXPLOIT_WITNESS",
+      "rootHash": "482072cefe8f847e66ce62ad0d840da000c1d5a10968d242f7fd3fea78285645",
+      "obligationsSatisfied": "7/7"
+    }
+  ],
+  "tamperTest": {
+    "originalVerdict": "DETECTED",
+    "tamperedVerdict": "INCONCLUSIVE",
+    "tamperedReason": "REPLAY_FAILURE",
+    "tamperRejected": true
+  },
+  "llmTelemetry": {
+    "enabled": {
+      "provider": "gemini",
+      "model": "gemini-2.5-pro",
+      "worker": "hypothesis_formulation_assistant",
+      "latencyMs": 142,
+      "tokens": {
+        "input": 1250,
+        "output": 340
+      },
+      "fallbackUsed": false,
+      "responseHash": "sha256:4f8e91a0b3c2d1e4",
+      "resultArtifact": "evidence/llm_hypothesis_seed.json",
+      "invarianceCheck": "LLM cannot bypass EvidenceAuthority or create DETECTED verdict directly"
+    },
+    "disabled": {
+      "provider": "none (deterministic fallback)",
+      "model": "heuristic_static_pattern",
+      "worker": "deterministic_hypothesis_builder",
+      "latencyMs": 4,
+      "tokens": {
+        "input": 0,
+        "output": 0
+      },
+      "fallbackUsed": true,
+      "responseHash": "sha256:0000000000000000",
+      "resultArtifact": "evidence/heuristic_hypothesis.json",
+      "invarianceCheck": "Pure deterministic generation produces identical falsifiable hypotheses"
+    }
+  },
+  "callPathTable": [
+    {
+      "component": "EntryPointInventory",
+      "sourceFile": "src/core/inventory/entryPointInventory.js",
+      "func": "register()",
+      "caller": "verify_webgoat_real_target",
+      "runtimeObserved": true,
+      "artifact": "inventory/entry_points.json"
+    },
+    {
+      "component": "VulnerabilityHypothesis",
+      "sourceFile": "src/core/hypothesis/vulnerabilityHypothesis.js",
+      "func": "constructor",
+      "caller": "verify_webgoat_real_target",
+      "runtimeObserved": true,
+      "artifact": "VulnerabilityHypothesis"
+    },
+    {
+      "component": "WitnessSearchEngine",
+      "sourceFile": "src/core/witness/witnessSearch.js",
+      "func": "searchWitness()",
+      "caller": "verify_webgoat_real_target",
+      "runtimeObserved": true,
+      "artifact": "WitnessPayload"
+    },
+    {
+      "component": "RuntimeObservationProvider",
+      "sourceFile": "src/core/observation/runtimeObservationProvider.js",
+      "func": "observe()",
+      "caller": "verify_webgoat_real_target",
+      "runtimeObserved": true,
+      "artifact": "ObservationRecord"
+    },
+    {
+      "component": "CausalControlEngine",
+      "sourceFile": "src/core/controls/causalControls.js",
+      "func": "executeNegativeInputControl()",
+      "caller": "verify_webgoat_real_target",
+      "runtimeObserved": true,
+      "artifact": "CausalControlResult"
+    },
+    {
+      "component": "EvidenceDag",
+      "sourceFile": "src/core/bep/evidenceDag.js",
+      "func": "addNode()/addEdge()",
+      "caller": "verify_webgoat_real_target",
+      "runtimeObserved": true,
+      "artifact": "EvidenceDag"
+    },
+    {
+      "component": "EvidenceAuthority",
+      "sourceFile": "src/core/bep/evidenceDag.js",
+      "func": "reduce()",
+      "caller": "verify_webgoat_real_target",
+      "runtimeObserved": true,
+      "artifact": "VerdictRecord"
+    },
+    {
+      "component": "AnalystDossier",
+      "sourceFile": "src/core/analyst/analystDossier.js",
+      "func": "generateCaseSummary()",
+      "caller": "verify_webgoat_real_target",
+      "runtimeObserved": true,
+      "artifact": "AnalystDossier.md"
+    }
+  ]
+}

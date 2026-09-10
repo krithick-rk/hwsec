@@ -1,0 +1,25 @@
+{
+  "root_dir": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture",
+  "languages": {
+    "python": [
+      "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py"
+    ],
+    "java": [],
+    "c": [],
+    "cpp": [],
+    "go": [],
+    "verilog": []
+  },
+  "file_metadata": {
+    "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py": {
+      "relativePath": "vulnerable_service.py",
+      "language": "python",
+      "loc": 12,
+      "size": 368
+    }
+  },
+  "unsupported": [],
+  "manifests": [],
+  "total_files": 1,
+  "total_loc": 12
+}

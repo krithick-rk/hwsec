@@ -1,0 +1,185 @@
+{
+  "benchmark_version": "1.0",
+  "generated": "2025-01-15",
+  "cases": [
+    {
+      "case_id": "CASE-E01",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-78 OS Command Injection",
+      "primary_entry_point": "POST /api/diagnostic/ping",
+      "vulnerable_files": [
+        "app.py"
+      ],
+      "source_to_sink": "request.json['host'] -> subprocess.run(shell=True, f'ping ... {host}')",
+      "exploit_witness": "POST /api/diagnostic/ping with body {\"host\": \"127.0.0.1; touch /tmp/hwsec_e01_marker\"}",
+      "expected_security_effect": "Marker file /tmp/hwsec_e01_marker is created via shell injection",
+      "negative_control": "POST /api/diagnostic/ping with body {\"host\": \"127.0.0.1\"} — no marker created",
+      "fixed_solution_path": "solutions/easy/CASE-E01-command-injection-FIXED",
+      "regression_test_command": "cd solutions/easy/CASE-E01-command-injection-FIXED && python -m pytest test_app.py::test_regression_injection_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "Requires Linux with /bin/sh; ping optional",
+      "approximate_runtime": "< 5 seconds"
+    },
+    {
+      "case_id": "CASE-E02",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-89 SQL Injection",
+      "primary_entry_point": "GET /api/users/search?username=",
+      "vulnerable_files": [
+        "app.py"
+      ],
+      "source_to_sink": "request.args['username'] -> string concatenation into SQL SELECT",
+      "exploit_witness": "GET /api/users/search?username=' OR '1'='1",
+      "expected_security_effect": "All user records returned instead of single match",
+      "negative_control": "GET /api/users/search?username=alice — single result returned",
+      "fixed_solution_path": "solutions/easy/CASE-E02-sql-injection-FIXED",
+      "regression_test_command": "cd solutions/easy/CASE-E02-sql-injection-FIXED && python -m pytest test_app.py::test_regression_injection_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "Uses in-memory SQLite; DB initialized at module load",
+      "approximate_runtime": "< 3 seconds"
+    },
+    {
+      "case_id": "CASE-E03",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-22 Path Traversal",
+      "primary_entry_point": "GET /api/files/download?filename=",
+      "vulnerable_files": [
+        "app.py"
+      ],
+      "source_to_sink": "request.args['filename'] -> os.path.join(BASE_DIR, filename) -> open()",
+      "exploit_witness": "GET /api/files/download?filename=../../../../etc/hostname",
+      "expected_security_effect": "Contents of /etc/hostname returned (file outside files directory)",
+      "negative_control": "GET /api/files/download?filename=hello.txt — normal file returned",
+      "fixed_solution_path": "solutions/easy/CASE-E03-path-traversal-FIXED",
+      "regression_test_command": "cd solutions/easy/CASE-E03-path-traversal-FIXED && python -m pytest test_app.py::test_regression_traversal_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "Requires /etc/hostname to exist (standard on Linux)",
+      "approximate_runtime": "< 3 seconds"
+    },
+    {
+      "case_id": "CASE-M01",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-79 Cross-Site Scripting (Reflected)",
+      "primary_entry_point": "GET /search?q=",
+      "vulnerable_files": [
+        "app.py",
+        "services/search_service.py",
+        "templates/search.html"
+      ],
+      "source_to_sink": "request.args['q'] -> SearchService._sanitize() (incomplete) -> render_template(query | safe)",
+      "exploit_witness": "GET /search?q=<img src=x onerror=alert(1)>",
+      "expected_security_effect": "Unescaped HTML reflected in response body",
+      "negative_control": "GET /api/products/1 — JSON response, no HTML rendering",
+      "fixed_solution_path": "solutions/medium/CASE-M01-xss-reflection-FIXED",
+      "regression_test_command": "cd solutions/medium/CASE-M01-xss-reflection-FIXED && python -m pytest test_app.py::test_regression_xss_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "XSS demonstrated via response inspection, not browser execution",
+      "approximate_runtime": "< 3 seconds"
+    },
+    {
+      "case_id": "CASE-M02",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-89 SQL Injection",
+      "primary_entry_point": "GET /api/users/search?pattern=",
+      "vulnerable_files": [
+        "app.py",
+        "services/user_service.py",
+        "repositories/user_repository.py"
+      ],
+      "source_to_sink": "request.args['pattern'] -> UserService.find_users_by_pattern() -> UserRepository.search_users() (string concat in SQL LIKE)",
+      "exploit_witness": "GET /api/users/search?pattern=' UNION SELECT id, username, email, role, department FROM users-- ",
+      "expected_security_effect": "All user records returned via UNION injection",
+      "negative_control": "GET /api/users/by_role/user — parameterized query, safe",
+      "fixed_solution_path": "solutions/medium/CASE-M02-sql-injection-indirect-FIXED",
+      "regression_test_command": "cd solutions/medium/CASE-M02-sql-injection-indirect-FIXED && python -m pytest test_app.py::test_regression_injection_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "In-memory SQLite; requires source/data-flow reasoning through 3 files",
+      "approximate_runtime": "< 3 seconds"
+    },
+    {
+      "case_id": "CASE-M03",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-78 OS Command Injection",
+      "primary_entry_point": "POST /api/diagnostic/run (tool=ping)",
+      "vulnerable_files": [
+        "app.py",
+        "services/diagnostic_service.py"
+      ],
+      "source_to_sink": "request.json['target'] -> DiagnosticService._run_ping() -> subprocess.run(shell=True, f'ping ... {target}')",
+      "exploit_witness": "POST /api/diagnostic/run with {\"target\": \"127.0.0.1; touch /tmp/hwsec_m03_marker\", \"tool\": \"ping\"}",
+      "expected_security_effect": "Marker file created via shell injection on ping tool path",
+      "negative_control": "POST /api/diagnostic/run with tool=traceroute — uses argument list, no injection",
+      "fixed_solution_path": "solutions/medium/CASE-M03-command-injection-conditional-FIXED",
+      "regression_test_command": "cd solutions/medium/CASE-M03-command-injection-conditional-FIXED && python -m pytest test_app.py::test_regression_injection_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "Conditional vulnerability; only ping tool is vulnerable",
+      "approximate_runtime": "< 5 seconds"
+    },
+    {
+      "case_id": "CASE-H01",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-22 Path Traversal",
+      "primary_entry_point": "GET /api/files/download?filename=",
+      "vulnerable_files": [
+        "app.py",
+        "services/file_service.py",
+        "adapters/storage_adapter.py",
+        "utils/path_utils.py",
+        "config.py"
+      ],
+      "source_to_sink": "request.args['filename'] -> FileService.read_file() -> StorageAdapter.read() -> PathUtils.join_path() (no validation) -> open()",
+      "exploit_witness": "GET /api/files/download?filename=../../../../etc/hostname",
+      "expected_security_effect": "File outside storage directory returned via download endpoint",
+      "negative_control": "GET /api/files/preview?filename=../../../../etc/hostname — uses join_path_safe(), returns 403",
+      "fixed_solution_path": "solutions/hard/CASE-H01-path-traversal-layered-FIXED",
+      "regression_test_command": "cd solutions/hard/CASE-H01-path-traversal-layered-FIXED && python -m pytest test_app.py::test_regression_traversal_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "Requires tracing through 4 layers; false-positive trap at /api/files/preview",
+      "approximate_runtime": "< 5 seconds"
+    },
+    {
+      "case_id": "CASE-H02",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-90 LDAP Injection",
+      "primary_entry_point": "POST /api/auth/login",
+      "vulnerable_files": [
+        "app.py",
+        "services/auth_service.py",
+        "services/ldap_service.py",
+        "repositories/ldap_repository.py",
+        "config.py"
+      ],
+      "source_to_sink": "request.json['username'] -> AuthService.authenticate() -> f'(&(cn={username})(userPassword={password}))' -> LDAPService.search() -> MockLDAPRepository.search()",
+      "exploit_witness": "POST /api/auth/login with {\"username\": \"admin)(|(userPassword=*\", \"password\": \"anything\"}",
+      "expected_security_effect": "Authentication bypassed; login succeeds with wrong password",
+      "negative_control": "GET /api/auth/verify/1 — uses employeeNumber filter, no user input in filter structure",
+      "fixed_solution_path": "solutions/hard/CASE-H02-ldap-injection-FIXED",
+      "regression_test_command": "cd solutions/hard/CASE-H02-ldap-injection-FIXED && python -m pytest test_app.py::test_regression_injection_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "Uses mock LDAP (not real server); requires understanding LDAP filter semantics",
+      "approximate_runtime": "< 3 seconds"
+    },
+    {
+      "case_id": "CASE-H03",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-643 XPath Injection",
+      "primary_entry_point": "GET /api/user/search?username=",
+      "vulnerable_files": [
+        "app.py",
+        "services/user_service.py",
+        "repositories/xml_repository.py",
+        "query/query_builder.py",
+        "config.py"
+      ],
+      "source_to_sink": "request.args['username'] -> UserService.find_user() -> QueryBuilder.build_username_query() -> f\"//user[name='{username}']\" -> XMLRepository.find_single() -> root.xpath()",
+      "exploit_witness": "GET /api/user/search?username=' or '1'='1",
+      "expected_security_effect": "First user record returned without exact match (injected boolean OR)",
+      "negative_control": "GET /api/user/by_id/1 — uses int-typed parameter, safe from injection",
+      "fixed_solution_path": "solutions/hard/CASE-H03-xpath-injection-FIXED",
+      "regression_test_command": "cd solutions/hard/CASE-H03-xpath-injection-FIXED && python -m pytest test_app.py::test_regression_injection_blocked -v",
+      "expected_hwsec_classification": "DETECTED",
+      "known_limitations": "Requires lxml; false-positive trap at /api/user/by_id (string XPath but int input)",
+      "approximate_runtime": "< 3 seconds"
+    }
+  ]
+}

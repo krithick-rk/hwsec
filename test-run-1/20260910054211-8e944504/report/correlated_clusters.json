@@ -1,0 +1,18 @@
+[
+  {
+    "cluster_id": "CLUSTER-05d3dd",
+    "location": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+    "evidence_count": 2,
+    "finding_ids": [
+      "SEMGREP-c2d0a1a9",
+      "JOERN-34762eea"
+    ],
+    "titles": [
+      "[CWE-78] Potential Command / Code Injection",
+      "[CWE-78] OS command execution sink (system)"
+    ],
+    "severity": "CRITICAL",
+    "relationship": "STRUCTURAL_JOIN",
+    "confidence": 0.8
+  }
+]

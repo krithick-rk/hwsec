@@ -3,6 +3,8 @@ import { TaskTypes } from './taskTypes.js';
 import { DynamicTokenScheduler } from './dynamicTokenScheduler.js';
 import { PreflightEstimator } from './preflightEstimator.js';
 import { TokenBatcher } from './tokenBatcher.js';
+import { DebateCoordinator } from './debateCoordinator.js';
+import { TaskRouter } from './taskRouter.js';
 
 /**
  * Role to TaskType mapping for backward compatibility
@@ -27,7 +29,7 @@ const ROLE_TO_TASK = {
 
 /**
  * Unified LLM Gateway for HWSEC
- * Consolidates ModelRouter, BudgetController, DynamicTokenScheduler, and LLMClient interfaces.
+ * Consolidates ModelRouter, ProviderPool, DebateCoordinator, BudgetController, DynamicTokenScheduler, and LLMClient interfaces.
  */
 export class LLMGateway {
     constructor(config = {}, db = null, role = 'default') {
@@ -35,10 +37,30 @@ export class LLMGateway {
         this.db = db;
         this.role = role;
         this.router = new ModelRouter(this.config, this.db);
+        this.providerPool = this.router.providerPool;
+        this.taskRouter = this.router.taskRouter;
+        this.debateCoordinator = new DebateCoordinator({
+            providerPool: this.providerPool,
+            taskRouter: this.taskRouter
+        });
         this.scheduler = new DynamicTokenScheduler(this.config, this.db);
         this.estimator = this.scheduler.estimator;
         this.batcher = this.scheduler.batcher;
         this.requestAuditLog = [];
+    }
+
+    /**
+     * Executes bounded multi-model hypothesis coordination (Scout -> Critic -> Deep Reasoner).
+     */
+    async coordinateHypothesis(params) {
+        return this.debateCoordinator.coordinateHypothesis(params);
+    }
+
+    /**
+     * Retrieves sanitized provider health & circuit-breaker status.
+     */
+    getPoolStatus() {
+        return this.providerPool.getPoolStatus();
     }
 
     setDb(db) {

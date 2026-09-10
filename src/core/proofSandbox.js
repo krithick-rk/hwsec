@@ -102,8 +102,10 @@ export class ProofSandbox {
             'GH_TOKEN'
         ];
 
-        for (const k of sensitiveKeys) {
-            delete env[k];
+        for (const k of Object.keys(env)) {
+            if (/API_KEY|SECRET|TOKEN|PASSWORD|AUTH|CREDENTIAL/i.test(k) || sensitiveKeys.includes(k)) {
+                delete env[k];
+            }
         }
 
         // Set isolation & safety variables

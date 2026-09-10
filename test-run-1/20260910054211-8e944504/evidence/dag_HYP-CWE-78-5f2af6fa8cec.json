@@ -1,0 +1,101 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260910054211-8e944504",
+  "created_at": "2026-09-10T05:42:30.690Z",
+  "dag_hash": "04687c069e2e501ae8b65b687e245d0017377105c79fae4244f143ea9e872f82",
+  "nodes": [
+    {
+      "id": "HYP-CWE-78-5f2af6fa8cec",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-78-5f2af6fa8cec",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260910054211-8e944504",
+        "cwe": "CWE-78",
+        "security_condition": "CommandInjectionOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9"
+        ],
+        "entry_point": {
+          "status": "UNRESOLVED",
+          "reason": "No application HTTP/CLI/service entry point resolves to target path [E]",
+          "requires_synthetic_scope": true
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "joern",
+            "rule_id": "[CWE-78] OS command execution sink (system)",
+            "file": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+            "line": 9,
+            "confidence": 0.85
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": true,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-10T05:42:30.668Z",
+          "origin_finding_id": "JOERN-34762eea",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "569add58b8b0acd35474109d4433d2fb39f33bfeb3bb69f593e0b7e66abec843",
+      "created_at": "2026-09-10T05:42:30.691Z"
+    },
+    {
+      "id": "EP-undefined",
+      "type": "entry_point",
+      "data": {
+        "status": "UNRESOLVED",
+        "reason": "No application HTTP/CLI/service entry point resolves to target path [E]",
+        "requires_synthetic_scope": true
+      },
+      "content_hash": "e64c7774ad30b1901a0b2fedc4113a684b2cdb482a07a86fd2b16167cadd06b3",
+      "created_at": "2026-09-10T05:42:30.691Z"
+    },
+    {
+      "id": "PROV-20260910054211-8e944504",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-10T05:42:30.690Z",
+        "broker_version": "2.0.0",
+        "mode": "STANDARD",
+        "analysis_id": "20260910054211-8e944504"
+      },
+      "content_hash": "492a362ae063d1fc6749fefeae0cc125aed10c0318033cb1c89ef4d0e4b3b683",
+      "created_at": "2026-09-10T05:42:30.691Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-78-5f2af6fa8cec",
+      "target_id": "EP-undefined",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "c1646561b1abc476391579cf58a47ee8fd29a7942ab988670995366d1c06427a"
+    },
+    {
+      "source_id": "HYP-CWE-78-5f2af6fa8cec",
+      "target_id": "PROV-20260910054211-8e944504",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "e58de0e56525ecb7b617dbef90fd58b5afe161268fcb2f7cb654792697a62aeb"
+    }
+  ]
+}

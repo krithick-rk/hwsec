@@ -1,0 +1,16 @@
+{
+  "total_files": 1,
+  "total_loc": 12,
+  "languages": {
+    "python": {
+      "file_count": 1,
+      "loc_estimate": 12,
+      "sample_files": [
+        "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py"
+      ]
+    }
+  },
+  "manifests": [],
+  "unsupported_count": 0,
+  "likely_attack_surfaces": []
+}

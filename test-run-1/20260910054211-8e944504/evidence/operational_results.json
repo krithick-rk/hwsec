@@ -1,0 +1,16 @@
+[
+  {
+    "hypothesis_id": "HYP-CWE-78-5f2af6fa8cec",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "ENTRYPOINT_UNRESOLVED",
+    "dag_hash": "1d5e2031369beb23fcf7343e1c811180a9b6d3802c1efb4c9b1f83b9bf8bf434",
+    "dossier_path": "evidence/dossier_HYP-CWE-78-5f2af6fa8cec.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-78-5f2af6fa8cec",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "ENTRYPOINT_UNRESOLVED",
+    "dag_hash": "04687c069e2e501ae8b65b687e245d0017377105c79fae4244f143ea9e872f82",
+    "dossier_path": "evidence/dossier_HYP-CWE-78-5f2af6fa8cec.md"
+  }
+]

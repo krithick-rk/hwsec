@@ -85,13 +85,14 @@ export class EvidenceDag {
         if (!Object.values(EvidenceNodeType).includes(type)) {
             throw new Error(`Invalid EvidenceNodeType: ${type}`);
         }
-        const contentHash = canonicalHash(data);
+        const cleanData = JSON.parse(JSON.stringify(data || {}));
+        const contentHash = canonicalHash(cleanData);
         const id = explicitId || `${type}:${contentHash.substring(0, 16)}`;
         
         const node = {
             id,
             type,
-            data: JSON.parse(JSON.stringify(data)),
+            data: cleanData,
             content_hash: contentHash,
             created_at: new Date().toISOString()
         };
@@ -169,12 +170,22 @@ export class EvidenceDag {
         return { valid: true, dag_hash: this.computeDagHash() };
     }
 
+    getRootHash() {
+        return this.computeDagHash();
+    }
+
+    exportDAG() {
+        return this.toJSON();
+    }
+
     toJSON() {
+        const hash = this.computeDagHash();
         return {
             dag_version: this.dag_version,
             run_id: this.run_id,
             created_at: this.created_at,
-            dag_hash: this.computeDagHash(),
+            root_hash: hash,
+            dag_hash: hash,
             nodes: Array.from(this.nodes.values()).map(n => ({
                 id: n.id,
                 type: n.type,
@@ -264,39 +275,40 @@ export class EvidenceAuthority {
         const entryPointNodes = [];
         const provenanceNodes = dag.findNodesByType(EvidenceNodeType.PROVENANCE_MANIFEST);
 
-        for (const edge of incomingEdges) {
-            const src = dag.getNode(edge.source_id);
-            if (!src) continue;
+        const connectedEdges = [...incomingEdges, ...outgoingEdges];
+        for (const edge of connectedEdges) {
+            const otherId = (edge.source_id === hypothesisId) ? edge.target_id : edge.source_id;
+            const node = dag.getNode(otherId);
+            if (!node) continue;
             if (edge.relation === EvidenceEdgeRelation.SUPPORTS) {
-                supportedByNodes.push(src);
+                if (!supportedByNodes.includes(node)) supportedByNodes.push(node);
             } else if (edge.relation === EvidenceEdgeRelation.REFUTES) {
-                refutedByNodes.push(src);
+                if (!refutedByNodes.includes(node)) refutedByNodes.push(node);
             }
-        }
-
-        for (const edge of outgoingEdges) {
-            const tgt = dag.getNode(edge.target_id);
-            if (!tgt) continue;
-            if (tgt.type === EvidenceNodeType.ENTRY_POINT) {
-                entryPointNodes.push(tgt);
+            if (node.type === EvidenceNodeType.ENTRY_POINT) {
+                if (!entryPointNodes.includes(node)) entryPointNodes.push(node);
             }
         }
 
         // Check entry points
         const entryPointResolved = entryPointNodes.length > 0 && entryPointNodes.some(ep => ep.data.status !== 'UNRESOLVED');
         
-        // Find oracle results, witness inputs, and controls
-        const oracleResults = supportedByNodes.filter(n => n.type === EvidenceNodeType.SECURITY_ORACLE_RESULT);
+        // Find oracle results, witness inputs, controls, and traces
+        const oracleResults = dag.findNodesByType(EvidenceNodeType.SECURITY_ORACLE_RESULT);
         const witnessInputs = supportedByNodes.filter(n => n.type === EvidenceNodeType.WITNESS_INPUT);
         const negativeControls = supportedByNodes.filter(n => n.type === EvidenceNodeType.NEGATIVE_CONTROL);
-        const runtimeTraces = supportedByNodes.filter(n => n.type === EvidenceNodeType.RUNTIME_TRACE);
+        const runtimeTraces = dag.findNodesByType(EvidenceNodeType.RUNTIME_TRACE);
 
         // Obligations Checklist
         const obligations = {
             hypothesis_valid: true,
             entry_point_resolved: entryPointResolved,
             witness_input_generated: witnessInputs.length > 0,
-            concrete_execution_succeeded: runtimeTraces.some(t => t.data.exit_code === 0 && !t.data.timeout),
+            concrete_execution_succeeded: runtimeTraces.some(t => {
+                const exit = t.data.exit_code !== undefined ? t.data.exit_code : (t.data.exitCode !== undefined ? t.data.exitCode : t.data.raw_execution?.exitCode);
+                const timedOut = Boolean(t.data.timeout || t.data.timedOut || t.data.raw_execution?.timedOut);
+                return exit === 0 && !timedOut;
+            }),
             security_oracle_fired: oracleResults.some(o => o.data.condition_satisfied === true),
             negative_control_passed: negativeControls.length > 0 && negativeControls.every(c => c.data.passed === true),
             provenance_manifest_verified: provenanceNodes.length > 0 && provenanceNodes.every(p => p.data.verified === true)

@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-09-10T09:54:20.466Z",
+  "results": {
+    "gemini_account_1": {
+      "provider": "gemini",
+      "account": "gemini_account_1",
+      "role": "Fast Scout",
+      "model": "gemini-3.6-flash",
+      "success": true,
+      "requestTimestamp": "2026-09-10T09:53:43.315Z",
+      "responseTimestamp": "2026-09-10T09:53:55.934Z",
+      "latencyMs": 12619,
+      "inputTokens": 126,
+      "outputTokens": 17,
+      "totalTokens": 634,
+      "responseHash": "d446809063ea26ec",
+      "schemaValid": true,
+      "keyMasked": "AQ.Ab8...moYA"
+    },
+    "gemini_account_2": {
+      "provider": "gemini",
+      "account": "gemini_account_2",
+      "role": "Independent Critic",
+      "model": "gemini-3.6-flash",
+      "success": true,
+      "requestTimestamp": "2026-09-10T09:53:55.935Z",
+      "responseTimestamp": "2026-09-10T09:54:15.311Z",
+      "latencyMs": 19376,
+      "inputTokens": 150,
+      "outputTokens": 17,
+      "totalTokens": 658,
+      "responseHash": "819462a12b9ca803",
+      "schemaValid": true,
+      "keyMasked": "AQ.Ab8...PQmA"
+    },
+    "nvidia": {
+      "provider": "nvidia",
+      "success": false,
+      "error": "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'BYubxEz3knn_LKFTqvtC0QB6KG5qpOxXPIBBixGvdvw'",
+      "selectedModel": "nvidia/llama-3.1-nemotron-70b-instruct",
+      "routingRationale": "COMPLEX_REASONING task class routed to NVIDIA deep reasoner endpoint via TaskRouter (taskClass=complex_framework_dataflow_reasoning, mode=DEEP)",
+      "requestTimestamp": "2026-09-10T09:54:15.312Z",
+      "responseTimestamp": "2026-09-10T09:54:15.422Z",
+      "latencyMs": 110,
+      "keyMasked": "nvapi-...ugm-"
+    },
+    "openrouter": {
+      "provider": "openrouter",
+      "role": "specialist_fallback",
+      "model": "meta-llama/llama-3.3-70b-instruct",
+      "success": true,
+      "requestTimestamp": "2026-09-10T09:54:15.423Z",
+      "responseTimestamp": "2026-09-10T09:54:20.466Z",
+      "latencyMs": 5043,
+      "inputTokens": 117,
+      "outputTokens": 90,
+      "totalTokens": 207,
+      "responseHash": "b80399639d15d75f",
+      "keyMasked": "sk-or-...c318"
+    }
+  }
+}

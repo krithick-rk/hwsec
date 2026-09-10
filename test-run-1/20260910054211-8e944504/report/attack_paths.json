@@ -1,0 +1,17 @@
+[
+  {
+    "path_id": "AP-c95183",
+    "title": "Multi-Evidence Attack Cluster at E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+    "evidence_strength": "E2",
+    "cluster_ref": "CLUSTER-05d3dd",
+    "description": "2 independent evidence sources converge on E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9. Severity escalated to CRITICAL. Manual review recommended.",
+    "affected_location": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9"
+  },
+  {
+    "path_id": "SEMGREP-c2d0a1a9",
+    "title": "[CWE-78] Potential Command / Code Injection",
+    "evidence_strength": "E5",
+    "description": "Potential command injection vulnerability in vulnerable_service.py at line 9, allowing an attacker to execute arbitrary system commands.",
+    "affected_location": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9"
+  }
+]

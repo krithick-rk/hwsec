@@ -8,8 +8,8 @@ import { loadConfig } from './core/config.js';
 import { Workspace } from './core/workspace.js';
 import { Planner } from './core/planner.js';
 import { Database } from './core/db.js';
-import { AnalysisStatus, assertTransition } from './core/state.js';
-import { AnalysisBroker } from './core/broker.js';
+import { AnalysisStatus, assertTransition, OperatingMode, SemanticLifecycleState } from './core/state.js';
+import { AnalysisBroker, BrokerCapability } from './core/broker.js';
 import { ModelRouter } from './core/llm/modelRouter.js';
 import { LLMGateway } from './core/llm/gateway.js';
 import { SuspicionEngine } from './core/suspicion/engine.js';
@@ -29,6 +29,18 @@ import { AblationSuite } from './core/bep/ablationSuite.js';
 import { DossierGenerator } from './core/bep/dossierGenerator.js';
 import { TransitionLedger } from './core/bep/transitionLedger.js';
 import { BenchmarkRunner } from './core/bep/benchmarkRunner.js';
+
+// Section 20 & P0-P7 Core Operational Modules
+import { EntryPointInventory } from './core/inventory/entryPointInventory.js';
+import { VulnerabilityHypothesis } from './core/hypothesis/vulnerabilityHypothesis.js';
+import { WitnessSearchEngine } from './core/witness/witnessSearch.js';
+import { DirectSinkObservationProvider } from './core/observation/runtimeObservationProvider.js';
+import { CausalControlEngine } from './core/controls/causalControls.js';
+import { ConstraintRefinementProvider } from './core/refinement/constraintRefinementProvider.js';
+import { EvidenceDag, EvidenceAuthority, EvidenceNodeType, EvidenceEdgeRelation, canonicalHash } from './core/bep/evidenceDag.js';
+import { AnalystDossier } from './core/analyst/analystDossier.js';
+import { defaultSecurityRegistry } from './core/oracles/securityConditionRegistry.js';
+import { ProofSandbox } from './core/proofSandbox.js';
 
 const program = new Command();
 
@@ -67,11 +79,18 @@ program.command('analyze')
         const plan = await planner.plan(workspace);
         const analysis = workspace.loadJson('analysis.json') || {};
         analysis.proof_mode = (options.proof || 'standard').toLowerCase();
+        
+        // Discover and cache Entry Points in repository (Section 7)
+        const epInventory = new EntryPointInventory();
+        const entryPoints = epInventory.discover(directory);
+        workspace.saveJson('inventory/entry_points.json', entryPoints);
+        analysis.entry_points_count = entryPoints.length;
         workspace.saveJson('analysis.json', analysis);
 
         console.log(`\n[+] Planning complete! Analysis ID: ${workspace.analysisId}`);
         console.log(`    Files detected:    ${plan.inventory.total_files}`);
         console.log(`    Estimated LOC:     ${plan.inventory.total_loc}`);
+        console.log(`    Entry points:      ${entryPoints.length}`);
         console.log(`    Tools detected:    ${plan.tools_detected.join(', ') || 'None'}`);
         console.log(`    Planned pipeline:  ${plan.execution_graph.join(' -> ')}`);
         console.log(`\n> [!IMPORTANT]`);
@@ -91,8 +110,10 @@ program.command('proceed')
   .description('Execute an approved analysis plan')
   .argument('<analysis-id>', 'ID of the planned analysis to approve and run')
   .option('-c, --config <path>', 'Path to config file', 'config.json')
+  .option('-m, --mode <mode>', 'Operational mode (fast, standard, deep, forensic)', 'standard')
   .option('-p, --proof <mode>', 'Proof-of-impact validation mode (off, minimal, standard, deep)')
   .option('-o, --output-dir <path>', 'Base output directory', 'hwsec-output')
+  .option('--legacy-verifier', 'Run legacy verifier in parallel', false)
   .action(async (analysisId, options) => {
     console.log(`[*] Validating approval for analysis ID: ${analysisId}...`);
 
@@ -135,7 +156,7 @@ program.command('proceed')
             budgetConsumed: 0.0
         });
 
-        // Initialize Broker & LLM Gateway
+        // Initialize Broker & Operational Subsystems
         const broker = new AnalysisBroker(config, null, db);
         const llmGateway = new LLMGateway(config, db);
         const modelRouter = llmGateway.router;
@@ -255,7 +276,7 @@ program.command('proceed')
         }
 
         // Software SAST (Semgrep)
-        const softwareLangs = ['python', 'java', 'c', 'cpp', 'go'];
+        const softwareLangs = ['python', 'java', 'c', 'cpp', 'go', 'javascript'];
         const softwareFiles = allFiles.filter(f => softwareLangs.includes(f.language)).map(f => f.path);
         if (softwareFiles.length > 0 && (plannedCaps.includes('sast_pattern_scan') || plannedCaps.length === 0)) {
             console.log(`  -> Running Software SAST Pattern Analysis (Semgrep)...`);
@@ -353,7 +374,6 @@ program.command('proceed')
         workspace.saveJson('findings/candidate_pool.json', candidatePool);
         console.log(`[+] Candidate pool established with ${candidatePool.length} candidate(s).`);
 
-        // Ingest novel boundary & disagreement candidates into raw findings for downstream verification
         for (const cand of candidatePool) {
             if (cand.source !== 'deterministic_tool') {
                 const escalatedFinding = createFinding({
@@ -372,38 +392,211 @@ program.command('proceed')
             }
         }
 
-        // 4. Hypothesis & Invariant Engine (Execution Phase)
-        let hypotheses = [];
-        if (analysis.novelty_mode !== 'off') {
-            console.log(`[*] [Reasoning Phase] Formulating security hypotheses (Mode: ${analysis.novelty_mode})...`);
-            const hypGen = new HypothesisGenerator(modelRouter, ragEngine);
-            hypotheses = await hypGen.generateHypotheses({
-                deterministicFindings: allRawFindings,
-                suspiciousTargets: ranking.prioritizedTargets,
-                availableTools: executedTools,
-                analysisId,
-                noveltyMode: analysis.novelty_mode
-            });
+        // 3c. Entry Point Inventory (Section 7)
+        console.log(`[*] [Entry Point Phase] Scanning repository for active entry points...`);
+        const epInventory = new EntryPointInventory();
+        const entryPoints = epInventory.discover(analysis.target_dir);
+        workspace.saveJson('inventory/entry_points.json', entryPoints);
+        console.log(`[+] Discovered ${entryPoints.length} active entry point(s) in repository.`);
 
-            for (const h of hypotheses) {
-                db.saveHypothesis({
-                    id: h.hypothesis_id,
-                    runId: analysisId,
-                    claim: h.claim,
-                    status: 'PLANNED',
-                    proposedTest: h.proposed_test
-                });
-                codeGraph.addNode(h.hypothesis_id, NodeTypes.HYPOTHESIS, h.title, { claim: h.claim });
-            }
-            workspace.saveJson('hypotheses/hypotheses.json', hypotheses);
-            console.log(`[+] Generated ${hypotheses.length} grounded security hypothesis(es).`);
+        // 4. Formulate Vulnerability Hypotheses (Section 5)
+        console.log(`[*] [Hypothesis Phase] Formulating falsifiable VulnerabilityHypotheses...`);
+        const operationalHypotheses = [];
+
+        for (const finding of allRawFindings) {
+            const hyp = VulnerabilityHypothesis.fromFinding({
+                id: finding.id,
+                cwe: finding.cwe_id || finding.type || 'CWE-OTHER',
+                source: finding.taint_source || finding.source || 'USER_INPUT',
+                sink: finding.taint_sink || finding.sink || `${finding.source_locations?.[0]?.path || finding.rtl_location || 'unknown'}:${finding.source_locations?.[0]?.line || 1}`,
+                file: finding.source_locations?.[0]?.path || finding.rtl_location,
+                line: finding.source_locations?.[0]?.line || 1,
+                analyzer: finding.source_tool || finding.analyzer || 'static_scan',
+                rule_id: finding.rule_id || finding.title || 'rule_match',
+                confidence: finding.confidence || 0.5,
+                attack_surface: 'CLI_OR_HTTP'
+            }, { run_id: analysisId, repository_id: projectId });
+
+            const resolvedEp = epInventory.resolveForHypothesis(hyp);
+            hyp.setEntryPoint(resolvedEp);
+            operationalHypotheses.push(hyp);
+
+            db.saveHypothesis({
+                id: hyp.id,
+                runId: analysisId,
+                claim: `${hyp.cwe} at ${hyp.sink}`,
+                status: 'PLANNED',
+                proposedTest: hyp.security_condition
+            });
+            codeGraph.addNode(hyp.id, NodeTypes.HYPOTHESIS, hyp.id, { cwe: hyp.cwe, sink: hyp.sink });
         }
 
-        // 5. Layered Verification Engine
-        console.log(`[*] [Verification Phase] Running Layered Technical Verifier...`);
-        const verificationResult = await verifier.verify(hypotheses, allRawFindings, {});
-        const verifiedFindings = verificationResult.verifiedFindings;
-        const candidateFindings = verificationResult.candidateFindings;
+        workspace.saveJson('hypotheses/hypotheses.json', operationalHypotheses.map(h => h.toJSON()));
+        console.log(`[+] Formulated ${operationalHypotheses.length} VulnerabilityHypothesis core work unit(s).`);
+
+        // 5. Evidence-Driven Operational Pipeline via AnalysisBroker (Sections 8-15)
+        const opMode = (options.mode || analysis.proof_mode || 'standard').toUpperCase();
+        console.log(`[*] [Operational Evidence Phase] Executing witness search & causal controls (Mode: ${opMode})...`);
+
+        const operationalResults = [];
+        const verifiedFindings = [];
+        const candidateFindings = [];
+        const inconclusiveFindings = [];
+        const sandbox = new ProofSandbox({ baseDir: path.join(workspace.outputDir, 'sandbox') });
+
+        for (const hyp of operationalHypotheses) {
+            const stripLineNumber = (pathStr) => {
+                if (!pathStr) return '';
+                const s = String(pathStr);
+                const lastColon = s.lastIndexOf(':');
+                if (lastColon > 1) {
+                    const potentialLine = s.slice(lastColon + 1);
+                    if (/^\d+$/.test(potentialLine)) {
+                        return s.slice(0, lastColon);
+                    }
+                }
+                return s;
+            };
+            const targetRel = stripLineNumber(hyp.candidate_path?.[0]) || hyp.entry_point?.file;
+            const absTarget = targetRel ? (path.isAbsolute(targetRel) ? targetRel : path.resolve(analysis.target_dir, targetRel)) : null;
+
+            // Define real execution runner for witness search
+            const executor = async (probe) => {
+                if (!absTarget || !fs.existsSync(absTarget)) {
+                    return { stdout: '', stderr: 'Target file not found', exitCode: 1, sink_observed: null };
+                }
+                const ext = path.extname(absTarget).toLowerCase();
+                let cmd = process.execPath;
+                let args = [absTarget, String(probe.value)];
+                if (ext === '.py') {
+                    cmd = process.platform === 'win32' ? 'py' : 'python3';
+                    args = [absTarget, String(probe.value)];
+                } else if (ext === '.java') {
+                    cmd = 'java';
+                    args = [absTarget, String(probe.value)];
+                }
+
+                const res = sandbox.execute(cmd, args, { cwd: analysis.target_dir, timeout: 5000 });
+                const stdout = res.stdout || '';
+                const stderr = res.stderr || '';
+                return {
+                    stdout,
+                    stderr,
+                    exitCode: res.exitCode,
+                    timedOut: res.timedOut,
+                    parsed_result: {
+                        sink_observed: stdout.includes('[APP_EXEC]') || stdout.includes('EXEC') ? 'exec' : null,
+                        value_at_sink: probe.value
+                    }
+                };
+            };
+
+            // 5a. Broker-Dispatched Witness Search
+            const searchRes = await broker.dispatch({
+                capability: BrokerCapability.WITNESS_SEARCH,
+                hypothesis: hyp,
+                executor,
+                mode: opMode
+            });
+
+            let obsRecord = null;
+            let ctrlRecord = null;
+
+            if (searchRes.status === 'WITNESS_FOUND' && searchRes.witness_input) {
+                console.log(`    [+] Concrete Witness FOUND: "${searchRes.witness_input.value}"`);
+
+                // 5b. Runtime Observation via Broker
+                const obsRes = await broker.dispatch({
+                    capability: BrokerCapability.RUNTIME_OBSERVATION,
+                    target: { file: absTarget },
+                    input: searchRes.witness_input,
+                    executor
+                });
+                obsRecord = obsRes.observationRecord;
+
+                // 5c. Causal Negative Control via Broker
+                const ctrlRes = await broker.dispatch({
+                    capability: BrokerCapability.CONTROL_EXECUTION,
+                    controlType: 'NEGATIVE_INPUT',
+                    hypothesis: hyp,
+                    attackInput: searchRes.witness_input,
+                    benignInput: { parameter: hyp.source, value: 'benign_safe_input_123' },
+                    executor
+                });
+                ctrlRecord = ctrlRes.controlResult;
+            }
+
+            // 5d. Evidence Assembly via Broker
+            const asmRes = await broker.dispatch({
+                capability: BrokerCapability.EVIDENCE_ASSEMBLY,
+                runId: analysisId,
+                hypothesis: hyp,
+                entryPoint: hyp.entry_point,
+                witness: searchRes.witness_input,
+                oracleResult: searchRes.oracle_result,
+                observation: obsRecord,
+                controlResult: ctrlRecord,
+                provenanceManifest: {
+                    created_at: new Date().toISOString(),
+                    broker_version: '2.0.0',
+                    mode: opMode,
+                    analysis_id: analysisId,
+                    verified: true
+                }
+            });
+
+            // 5e. Verdict Reduction via EvidenceAuthority
+            const redRes = await broker.dispatch({
+                capability: BrokerCapability.VERDICT_REDUCTION,
+                dag: asmRes.dag,
+                hypothesisId: hyp.id
+            });
+
+            const reduction = redRes.reduction;
+            const dossier = AnalystDossier.generateCaseSummary(hyp, asmRes.dag, reduction);
+
+            // Persist DAG and Analyst Dossier
+            workspace.saveJson(`evidence/dag_${hyp.id}.json`, asmRes.dag.exportDAG());
+            workspace.saveJson(`evidence/dossier_${hyp.id}.json`, dossier);
+            workspace.saveMarkdown(`evidence/dossier_${hyp.id}.md`, dossier.markdown_dossier);
+
+            console.log(`    [+] Reduction Verdict: ${reduction.verdict} (${reduction.reason_code || reduction.reason}) | Root Hash: ${asmRes.dagHash.slice(0, 16)}...`);
+
+            const findingMatch = allRawFindings.find(f => f.id === hyp.provenance?.origin_finding_id) || {
+                id: hyp.id,
+                title: `${hyp.cwe} Security Finding`,
+                cwe_id: hyp.cwe,
+                severity: 'HIGH',
+                confidence: 0.9,
+                source_locations: [{ path: absTarget, line: 1 }]
+            };
+
+            findingMatch.evidence_dag_hash = asmRes.dagHash;
+            findingMatch.operational_verdict = reduction.verdict;
+            findingMatch.reason_code = reduction.reason_code;
+
+            if (reduction.verdict === 'DETECTED') {
+                findingMatch.verification_state = VerificationState.VERIFIED;
+                findingMatch.verification_level = 'E5';
+                findingMatch.confidence = 0.95;
+                verifiedFindings.push(findingMatch);
+            } else if (reduction.verdict === 'NOT_DETECTED') {
+                findingMatch.verification_state = VerificationState.REFUTED;
+                candidateFindings.push(findingMatch);
+            } else {
+                findingMatch.verification_state = VerificationState.CANDIDATE;
+                inconclusiveFindings.push(findingMatch);
+                candidateFindings.push(findingMatch);
+            }
+
+            operationalResults.push({
+                hypothesis_id: hyp.id,
+                verdict: reduction.verdict,
+                reason_code: reduction.reason_code,
+                dag_hash: asmRes.dagHash,
+                dossier_path: `evidence/dossier_${hyp.id}.md`
+            });
+        }
 
         // Update database with final verified/candidate states
         for (const f of [...verifiedFindings, ...candidateFindings]) {
@@ -421,129 +614,18 @@ program.command('proceed')
 
         workspace.saveJson('findings/verified_findings.json', verifiedFindings);
         workspace.saveJson('findings/candidate_findings.json', candidateFindings);
-        workspace.saveJson('verification/summaries.json', verificationResult.verificationSummaries);
-        console.log(`[+] Verification complete: ${verifiedFindings.length} VERIFIED, ${candidateFindings.length} CANDIDATE.`);
+        workspace.saveJson('evidence/operational_results.json', operationalResults);
 
-        // 5b. Controlled Proof-of-Impact Validation Engine
-        const proofMode = (options.proof || analysis.proof_mode || 'standard').toLowerCase();
-        let executedProofRecords = [];
-        let unreproducedFindings = [];
-        let notEligibleFindings = [];
-        let deferredFindings = [];
-
-        if (proofMode !== 'off') {
-            console.log(`[*] [Proof Validation Phase] Scheduling & running Controlled Proof-of-Impact (Mode: ${proofMode.toUpperCase()})...`);
-            const { ControlledProofVerifier } = await import('./workers/proofVerifier.js');
-            const { ProofMemoryStore } = await import('./core/knowledge/proofMemory.js');
-            const { ProofStatus } = await import('./core/schema.js');
-
-            const proofVerifier = new ControlledProofVerifier(config, db, llmGateway, {
-                sandboxDir: path.join(workspace.outputDir, 'sandbox')
-            });
-            const proofMemory = new ProofMemoryStore(db, config);
-
-            // Schedule candidate findings via DynamicTokenScheduler
-            const proofSchedule = llmGateway.scheduler.scheduleProofValidation({
-                findings: candidateFindings,
-                exploitMode: proofMode,
-                analysisId
-            });
-
-            console.log(`  -> Proof Triage: ${proofSchedule.eligibleFindings} eligible, ${proofSchedule.skippedFindings.length} skipped`);
-
-            for (const skipped of proofSchedule.skippedFindings) {
-                if (skipped.decision === 'DEFER') {
-                    deferredFindings.push(skipped);
-                } else {
-                    notEligibleFindings.push(skipped);
-                }
-            }
-
-            const repetitions = proofMode === 'deep' ? 3 : 1;
-            for (const attempt of proofSchedule.scheduledAttempts) {
-                const targetFinding = candidateFindings.find(f => f.id === attempt.findingId);
-                if (!targetFinding) continue;
-
-                console.log(`  -> Generating & executing proof for ${targetFinding.id} (${targetFinding.title})...`);
-                try {
-                    const generated = await proofVerifier.generateProof(targetFinding, analysis.target_dir, attempt);
-                    const execution = await proofVerifier.executeProof(generated.proofRecord, analysis.target_dir, repetitions);
-                    executedProofRecords.push(execution.proofRecord);
-
-                    if (execution.reproduced && execution.evidence) {
-                        targetFinding.evidence = targetFinding.evidence || [];
-                        targetFinding.evidence.push(execution.evidence);
-                        targetFinding.proof_id = execution.proofRecord.proof_id;
-                        targetFinding.proof_status = execution.proofRecord.proof_status;
-                        targetFinding.proof_record = execution.proofRecord;
-
-                        // Re-evaluate through LayeredVerifier to promote
-                        const evalResult = verifier.verifySingleFinding(targetFinding);
-                        if (evalResult.status === VerificationState.VERIFIED) {
-                            targetFinding.verification_state = VerificationState.VERIFIED;
-                            targetFinding.verification_level = evalResult.level;
-                            targetFinding.confidence = evalResult.confidence;
-                            targetFinding.description += `\n\n[Controlled Proof-of-Impact]: Reproduced ${execution.reproducibilityRate} (${execution.proofRecord.impact_class}).`;
-
-                            const candIdx = candidateFindings.findIndex(c => c.id === targetFinding.id);
-                            if (candIdx >= 0) candidateFindings.splice(candIdx, 1);
-                            verifiedFindings.push(targetFinding);
-                            console.log(`    [+] Finding ${targetFinding.id} PROMOTED to ${evalResult.level} VERIFIED via proof execution!`);
-                        }
-                    } else {
-                        targetFinding.proof_status = ProofStatus.FAILED_TO_REPRODUCE;
-                        targetFinding.proof_record = execution.proofRecord;
-                        unreproducedFindings.push({
-                            findingId: targetFinding.id,
-                            title: targetFinding.title,
-                            reason: execution.proofRecord.failure_reason
-                        });
-                        console.log(`    [-] Finding ${targetFinding.id} failed to reproduce: ${execution.proofRecord.failure_reason}`);
-                    }
-
-                    // Record outcome in persistent proof memory
-                    await proofMemory.recordOutcome({
-                        cwe: targetFinding.cwe_id || 'CWE-UNKNOWN',
-                        domain: attempt.domain,
-                        language: attempt.language,
-                        proof_type: generated.proofRecord.proof_type,
-                        tool_chain: attempt.budget?.allowed_tools || [],
-                        success: execution.reproduced,
-                        reproducibility_rate: execution.reproducibilityRate,
-                        runtime_seconds: execution.proofRecord.actual_runtime,
-                        tokens_used: execution.proofRecord.actual_tokens,
-                        impact_class: execution.proofRecord.impact_class,
-                        run_id: analysisId
-                    });
-                } catch (err) {
-                    console.error(`    [!] Error during proof validation of ${targetFinding.id}: ${err.message}`);
-                }
-            }
-
-            workspace.saveJson('verification/proof_records.json', executedProofRecords);
-            console.log(`[+] Proof validation complete: ${executedProofRecords.filter(p => p.proof_status === 'REPRODUCED').length} reproduced.`);
+        // Optional Legacy Verifier Cross-Check
+        if (options.legacyVerifier) {
+            console.log(`[*] [Legacy Verifier] Running secondary layered verifier for legacy comparison...`);
+            await verifier.verify(operationalHypotheses, allRawFindings, {});
         }
-
-        // Update database and workspace with final verified/candidate states after proof phase
-        for (const f of [...verifiedFindings, ...candidateFindings]) {
-            db.saveFinding({
-                id: f.id,
-                runId: analysisId,
-                title: f.title,
-                type: f.cwe_id || 'SECURITY_FINDING',
-                severity: f.severity || 'MEDIUM',
-                confidence: f.confidence || 0.5,
-                verificationState: f.verification_state,
-                location: f.source_locations?.[0]?.path || f.rtl_location || null
-            });
-        }
-        workspace.saveJson('findings/verified_findings.json', verifiedFindings);
-        workspace.saveJson('findings/candidate_findings.json', candidateFindings);
 
         // 6. Evidence Correlation & Graph
         console.log(`[*] [Correlation Phase] Building evidence graph and attack paths...`);
         const correlator = new EvidenceCorrelationEngine(llmGateway);
-        const correlationRes = await correlator.correlate([...verifiedFindings, ...candidateFindings], hypotheses, {});
+        const correlationRes = await correlator.correlate([...verifiedFindings, ...candidateFindings], operationalHypotheses, {});
         codeGraph.syncToDatabase(db, analysisId);
 
         workspace.saveJson('report/evidence_graph.json', correlationRes.graph);
@@ -551,91 +633,58 @@ program.command('proceed')
         workspace.saveJson('report/attack_paths.json', correlationRes.attackPaths);
 
         // 7. Generate Final Human-Readable Security Report
-        const allFindings = [...verifiedFindings, ...candidateFindings];
+        const detectedCount = operationalResults.filter(r => r.verdict === 'DETECTED').length;
+        const notDetectedCount = operationalResults.filter(r => r.verdict === 'NOT_DETECTED').length;
+        const inconclusiveCount = operationalResults.filter(r => r.verdict === 'INCONCLUSIVE').length;
+
         const finalReportMd = `# HWSEC Security Analysis Final Report
 
 **Analysis ID**: \`${analysisId}\`  
 **Target Repository**: \`${analysis.target_dir}\`  
-**Novelty Mode**: \`${analysis.novelty_mode.toUpperCase()}\`  
-**Proof Mode**: \`${proofMode.toUpperCase()}\`  
+**Operational Mode**: \`${opMode}\`  
 **Completion Date**: ${new Date().toISOString()}  
 
 ---
 
-## Executive Summary
-- **Total Files Scanned**: ${analysis.inventory.total_files}
-- **Verified Findings (E3+)**: ${verifiedFindings.length}
-- **Candidate Findings (E1-E2)**: ${candidateFindings.length}
-- **Proof-of-Impact Verified**: ${executedProofRecords.filter(p => p.proof_status === 'REPRODUCED').length}
-- **Correlated Clusters**: ${correlationRes.correlatedClusters.length}
-- **Synthesized Attack Paths**: ${correlationRes.attackPaths.length}
-- **Tokens Consumed**: ${modelRouter.budgetController.totalTokensConsumed}
-- **Total LLM Cost**: $${modelRouter.budgetController.totalCostUsd} USD
+## Executive Operational Verdict Summary
+- **Total Files Scanned**: ${analysis.inventory?.total_files || allFiles.length}
+- **Discovered Entry Points**: ${entryPoints.length}
+- **Vulnerability Hypotheses**: ${operationalHypotheses.length}
+- **DETECTED (Verified Exploit Witness)**: ${detectedCount}
+- **NOT_DETECTED (Bounded Explicit Refutation)**: ${notDetectedCount}
+- **INCONCLUSIVE (Fail-Closed Diagnostic)**: ${inconclusiveCount}
 
 ---
 
-## 1. Verified Findings (High-Confidence Concrete Evidence)
+## 1. Verified Detections (Replayable Evidence DAGs)
 ${verifiedFindings.length > 0 
     ? verifiedFindings.map((f, i) => `### [${f.severity}] ${f.title}
-- **Finding**: \`${f.id}\`
-- **Severity**: \`${f.severity}\`
-- **Confidence**: \`${(f.confidence * 100).toFixed(0)}%\`
-- **Verification Level**: \`${f.verification_level || 'E3'}\`
-- **Proof Status**: \`${f.proof_status || (f.verification_state === 'VERIFIED' ? 'REPRODUCED' : 'NOT_ELIGIBLE')}\`
-- **Proof Type**: \`${f.proof_record?.proof_type || 'N/A'}\`
-- **Reproducibility**: \`${f.proof_record?.reproducibility_rate || '1/1'}\`
-- **Security Impact**: \`${f.proof_record?.impact_class || f.impact || 'SECURITY_PROPERTY_VIOLATION'}\`
-- **Evidence**: \`${f.evidence?.map(e => e.id || e.artifact_path).join(', ') || 'N/A'}\`
-- **Artifact**: \`${f.proof_record?.generated_artifact ? path.basename(f.proof_record.generated_artifact) : 'N/A'}\`
-- **Artifact SHA-256**: \`${f.proof_record?.artifact_hash || 'N/A'}\`
-- **Execution Environment**: \`${f.proof_record?.execution_environment || 'hwsec_isolated_sandbox'}\`
-- **Description**: ${f.description}
+- **Finding ID**: \`${f.id}\`
+- **CWE**: \`${f.cwe_id || 'N/A'}\`
+- **Operational Verdict**: \`DETECTED\` (\`${f.reason_code || 'VERIFIED_EXPLOIT_WITNESS'}\`)
+- **Evidence DAG Hash**: \`${f.evidence_dag_hash || 'N/A'}\`
+- **Location**: \`${f.source_locations?.[0]?.path || f.rtl_location || 'N/A'}\`
+- **Analyst Dossier**: \`evidence/dossier_${f.id}.md\`
 `).join('\n')
-    : '_No verified findings identified with dynamic reproducing evidence._'}
+    : '_No verified exploit witnesses confirmed within declared scope._'}
 
 ---
 
-## 2. Candidate Findings (Static Tool Observations)
-${candidateFindings.length > 0
-    ? candidateFindings.map((f, i) => `### [${f.severity}] ${f.title}\n- **ID**: \`${f.id}\`\n- **Verification State**: \`${f.verification_state}\`\n- **Location**: \`${f.source_locations?.[0]?.path || f.rtl_location || 'Unknown'}\`\n- **Description**: ${f.description}\n`).join('\n')
-    : '_No unverified candidate findings._'}
+## 2. Hypotheses & Operational Cases
+${operationalResults.length > 0
+    ? operationalResults.map(r => `- **Case ${r.hypothesis_id}**: \`${r.verdict}\` (${r.reason_code}) | DAG: \`${r.dag_hash.slice(0, 16)}...\` | [Dossier](${r.dossier_path})`).join('\n')
+    : '_No operational hypotheses formulated._'}
 
 ---
 
-## 3. Unreproduced Findings
-${unreproducedFindings.length > 0
-    ? unreproducedFindings.map(u => `- **${u.findingId}**: ${u.title}\n  - Reason: ${u.reason}`).join('\n')
-    : '_No candidate findings failed proof reproduction._'}
+## 3. Discovered Entry Points
+${entryPoints.length > 0
+    ? entryPoints.map(ep => `- **${ep.id}**: \`${ep.type}\` (${ep.framework || 'Direct'}) at \`${ep.file}\` (${ep.route || ep.method || 'CLI'})`).join('\n')
+    : '_No active HTTP/CLI entry points detected._'}
 
 ---
 
-## 4. Not Eligible for Proof Testing
-${notEligibleFindings.length > 0
-    ? notEligibleFindings.map(n => `- **${n.findingId}**: ${n.reason} (${n.description})`).join('\n')
-    : '_No candidate findings excluded from proof testing._'}
-
----
-
-## 5. Deferred by Budget
-${deferredFindings.length > 0
-    ? deferredFindings.map(d => `- **${d.findingId}**: ${d.reason} (${d.description})`).join('\n')
-    : '_No candidate findings deferred due to budget ceilings._'}
-
----
-
-## 6. Evidence Clusters & Attack Paths
-${correlationRes.attackPaths.length > 0
-    ? correlationRes.attackPaths.map(p => `### ${p.title}\n- **Evidence Strength**: ${p.evidence_strength}\n- ${p.description}\n`).join('\n')
-    : '_No multi-stage attack paths identified._'}
-
----
-
-## 7. Verification Methodology & Grounding
-All findings in this report strictly adhere to technical artifact grounding. Pure string/substring matches and unsupported LLM assertions were rejected or held at Candidate (E1) level according to HWSEC Verification Policy.
-
----
-
-## 8. Vulnerability Coverage Matrix
+## 4. Vulnerability Coverage Matrix
 ${coverageMatrix.toMarkdown(Object.keys(filesByLang))}
 `;
 
@@ -649,8 +698,9 @@ ${coverageMatrix.toMarkdown(Object.keys(filesByLang))}
         analysis.results = {
             verified_count: verifiedFindings.length,
             candidate_count: candidateFindings.length,
-            tokens_consumed: modelRouter.budgetController.totalTokensConsumed,
-            cost_usd: modelRouter.budgetController.totalCostUsd
+            detected_count: detectedCount,
+            not_detected_count: notDetectedCount,
+            inconclusive_count: inconclusiveCount
         };
         workspace.saveJson('analysis.json', analysis);
 
@@ -662,21 +712,23 @@ ${coverageMatrix.toMarkdown(Object.keys(filesByLang))}
 **Execution Started**: \`true\`  
 **Completed At**: ${analysis.completed_at}  
 
-### Summary Results
+### Operational Results
+- **DETECTED**: ${detectedCount}
+- **NOT_DETECTED**: ${notDetectedCount}
+- **INCONCLUSIVE**: ${inconclusiveCount}
 - **Verified Findings**: ${verifiedFindings.length}
 - **Candidate Findings**: ${candidateFindings.length}
-- **Tokens Consumed**: ${analysis.results.tokens_consumed}
-- **Budget Remaining**: $${(analysis.budget_estimate?.max_budget_usd - analysis.results.cost_usd).toFixed(4)} USD
 
 > [!TIP]
 > View final security report at: \`hwsec-output/${analysisId}/report/final.md\`
 `;
         workspace.saveMarkdown('status.md', statusMd);
-        db.updateAnalysisRunStatus(analysisId, AnalysisStatus.COMPLETED, modelRouter.budgetController.totalCostUsd);
+        db.updateAnalysisRunStatus(analysisId, AnalysisStatus.COMPLETED, 0.0);
 
         console.log(`\n[+] Analysis execution COMPLETED successfully!`);
-        console.log(`    Verified findings:  ${verifiedFindings.length}`);
-        console.log(`    Candidate findings: ${candidateFindings.length}`);
+        console.log(`    DETECTED:           ${detectedCount}`);
+        console.log(`    NOT_DETECTED:       ${notDetectedCount}`);
+        console.log(`    INCONCLUSIVE:       ${inconclusiveCount}`);
         console.log(`    Final report saved: ${path.join(workspace.outputDir, 'report/final.md')}\n`);
 
     } catch (e) {
@@ -815,14 +867,73 @@ program.command('verify')
         console.log(`Verification State: ${found.verification_state}`);
         console.log(`Confidence:         ${(found.confidence * 100).toFixed(0)}%`);
         console.log(`Location:           ${found.source_locations?.[0]?.path || found.rtl_location || 'N/A'}`);
+        if (found.operational_verdict) {
+            console.log(`Operational Verdict:${found.operational_verdict}`);
+        }
+        if (found.reason_code) {
+            console.log(`Verdict Reason:     ${found.reason_code}`);
+        }
+        if (found.evidence_dag_hash) {
+            console.log(`Evidence DAG Hash:  ${found.evidence_dag_hash}`);
+        }
         console.log(`Evidence Count:     ${(found.evidence || []).length}`);
         for (const ev of (found.evidence || [])) {
             console.log(`  - Tool: ${ev.tool_name || ev.tool} | Path: ${ev.artifact_path || 'None'}`);
             console.log(`    Observation: ${ev.description || ev.observation}`);
         }
+
+        // Check if an analyst dossier exists for this finding
+        if (foundWs) {
+            const dossierPath = path.join(options.outputDir, foundWs, 'evidence', `dossier_${findingId}.md`);
+            if (fs.existsSync(dossierPath)) {
+                console.log(`\n--- Analyst Case Dossier ---`);
+                console.log(fs.readFileSync(dossierPath, 'utf-8'));
+            }
+        }
         console.log();
     } catch (e) {
         console.error(`[-] Verification lookup failed: ${e.message}`);
+    }
+  });
+
+// ==========================================
+// Command: dossier
+// ==========================================
+program.command('dossier')
+  .description('Display the 10-question Analyst Dossier for an operational case')
+  .argument('<analysis-id>', 'ID of the analysis')
+  .argument('[case-id]', 'Specific Hypothesis or Finding ID (optional)')
+  .option('-o, --output-dir <path>', 'Base output directory', 'hwsec-output')
+  .action((analysisId, caseId, options) => {
+    try {
+        const workspace = Workspace.load(options.outputDir, analysisId);
+        const evidenceDir = path.join(workspace.outputDir, 'evidence');
+        if (!fs.existsSync(evidenceDir)) {
+            console.error(`[-] No evidence directory found for analysis ${analysisId}`);
+            return;
+        }
+
+        const files = fs.readdirSync(evidenceDir).filter(f => f.startsWith('dossier_') && f.endsWith('.md'));
+        if (files.length === 0) {
+            console.log(`[*] No dossiers generated yet for analysis ${analysisId}`);
+            return;
+        }
+
+        if (caseId) {
+            const targetFile = files.find(f => f.includes(caseId));
+            if (targetFile) {
+                console.log(fs.readFileSync(path.join(evidenceDir, targetFile), 'utf-8'));
+            } else {
+                console.error(`[-] Dossier for case '${caseId}' not found.`);
+            }
+        } else {
+            for (const file of files) {
+                console.log(fs.readFileSync(path.join(evidenceDir, file), 'utf-8'));
+                console.log('\n------------------------------------------------------------\n');
+            }
+        }
+    } catch (e) {
+        console.error(`[-] Failed to retrieve dossier: ${e.message}`);
     }
   });
 

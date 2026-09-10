@@ -5,9 +5,9 @@
     "capture": {
       "provider": "gemini",
       "actual_model_identifier": "gemini-1.5-pro",
-      "timestamp": "2026-09-09T11:32:10.850Z",
+      "timestamp": "2026-09-10T09:00:20.744Z",
       "request_trace_id": "N/A",
-      "latency_ms": 6256,
+      "latency_ms": 8529,
       "input_tokens": null,
       "output_tokens": null,
       "fallback_used": false,
@@ -22,9 +22,9 @@
     "capture": {
       "provider": "openrouter",
       "actual_model_identifier": "meta-llama/llama-3.3-70b-instruct",
-      "timestamp": "2026-09-09T11:32:13.853Z",
+      "timestamp": "2026-09-10T09:00:38.044Z",
       "request_trace_id": "N/A",
-      "latency_ms": 3003,
+      "latency_ms": 17300,
       "input_tokens": null,
       "output_tokens": null,
       "fallback_used": false,
@@ -39,15 +39,15 @@
     "capture": {
       "provider": "gemini",
       "actual_model_identifier": "gemini-2.5-flash",
-      "timestamp": "2026-09-09T11:32:24.783Z",
+      "timestamp": "2026-09-10T09:00:49.748Z",
       "request_trace_id": "N/A",
-      "latency_ms": 10930,
+      "latency_ms": 11704,
       "input_tokens": null,
       "output_tokens": null,
       "fallback_used": false,
       "worker": "direct_gemini_test",
-      "response_hash": "f7bbfddf1f47448d62b3e1346c7e8346c873ea3c3ebbc62aa40b0350524c49c0",
-      "response_snippet": "```json\n{\n  \"provider\": \"gemini\",\n  \"verified\": true\n}\n```"
+      "response_hash": "d74c7e2b993c92992c1008ccd9000d6ac23f779375ecef98a46ee297104bf418",
+      "response_snippet": "```json\n{\"provider\": \"gemini\", \"verified\": true}\n```"
     }
   }
 ]

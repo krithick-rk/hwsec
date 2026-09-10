@@ -1,0 +1,56 @@
+{
+  "case_id": "HYP-CWE-78-5f2af6fa8cec",
+  "run_id": "20260910054211-8e944504",
+  "verdict": "INCONCLUSIVE",
+  "summary": {
+    "q1_suspected_vulnerability": "CWE-78: CommandInjectionOracle",
+    "q2_attack_surface_and_entry_point": {
+      "attack_surface": "CLI_OR_HTTP",
+      "entry_point": {
+        "status": "UNRESOLVED",
+        "reason": "No application HTTP/CLI/service entry point resolves to target path [E]",
+        "requires_synthetic_scope": true
+      },
+      "resolved": false
+    },
+    "q3_analyzers_and_disagreement": {
+      "signals": [
+        {
+          "analyzer": "joern",
+          "rule_id": "[CWE-78] OS command execution sink (system)",
+          "file": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+          "line": 9,
+          "confidence": 0.85
+        }
+      ],
+      "analyzers_count": 1,
+      "priority_consensus": 0.5
+    },
+    "q4_evidence_attempted": [
+      "hypothesis_valid"
+    ],
+    "q5_concrete_inputs_tried": [],
+    "q6_application_executed_attack_path": false,
+    "q7_security_effect_observed": false,
+    "q8_controls_status": {
+      "negative_control_passed": false,
+      "provenance_verified": false
+    },
+    "q9_replayable": false,
+    "q10_verdict_decision": {
+      "verdict": "INCONCLUSIVE",
+      "reason_code": "ENTRYPOINT_UNRESOLVED",
+      "reasons": [
+        "ENTRYPOINT_UNRESOLVED",
+        "SEARCH_BUDGET_EXHAUSTED",
+        "REPLAY_FAILURE",
+        "ORACLE_NOT_TRIGGERED",
+        "CONTROL_INVALID",
+        "ENVIRONMENT_MISMATCH"
+      ],
+      "dag_hash": "04687c069e2e501ae8b65b687e245d0017377105c79fae4244f143ea9e872f82"
+    },
+    "next_action_recommendation": "Investigate missing evidence: ENTRYPOINT_UNRESOLVED. Manually verify entry point or provide custom driver harness."
+  },
+  "markdown_dossier": "# HWSEC Security Operations Case Dossier\n\n## 1. Suspected Vulnerability\n**CWE-78: CommandInjectionOracle**\n\n## 2. Attack Surface & Entry Point\n- **Attack Surface**: `CLI_OR_HTTP`\n- **Entry Point**: `{\"status\":\"UNRESOLVED\",\"reason\":\"No application HTTP/CLI/service entry point resolves to target path [E]\",\"requires_synthetic_scope\":true}`\n- **Status**: ⚠️ UNRESOLVED\n\n## 3. Analyzer Discovery & Consensus\n- Analyzers: joern ([CWE-78] OS command execution sink (system))\n- Priority Score: **0.5**\n\n## 4. Operational Verdict & Evidence\n- **Verdict**: **`INCONCLUSIVE`** (`ENTRYPOINT_UNRESOLVED`)\n- **Security Effect Observed**: ❌ NO\n- **Negative Control Passed**: ❌ NO\n- **Replayable Witness**: ❌ NO\n\n## 5. Analyst Recommendation\n> Investigate missing evidence: ENTRYPOINT_UNRESOLVED. Manually verify entry point or provide custom driver harness."
+}

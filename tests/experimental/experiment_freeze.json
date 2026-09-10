@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-09-10T09:32:00Z",
+  "hwsec_commit": "41bce6f269af195dd0753beb275f6f8cc20102d3",
+  "hwsec_git_status": "clean (production code frozen; only tests/experimental added)",
+  "node_version": "v24.20.0",
+  "npm_version": "11.19.0",
+  "java_version": "openjdk version '21.0.12.1' 2026-08-18 LTS",
+  "python_version": "Python 3.14.4 (WSL Ubuntu)",
+  "wsl_version": "2.7.13.0",
+  "codeql_version": "NOT_INSTALLED (static findings supplied via SARIF/JSON ingest)",
+  "webgoat_repo": "E:/Intern/WebGoat-Clean",
+  "webgoat_commit": "d5f869c0061a1e25abc70b795cd900a72b4bad1f",
+  "webgoat_version": "v2023.7 (Java 17 target, runs cleanly on OpenJDK 21 without source/pom modification)"
+}

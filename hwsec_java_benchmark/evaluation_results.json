@@ -1,0 +1,199 @@
+{
+  "timestamp": "2026-09-10T11:48:58.716Z",
+  "benchmark_version": "1.0-java",
+  "target_platform": "Java 17+ / Spring Boot 3",
+  "cases": [
+    {
+      "case_id": "CASE-E01",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-78 OS Command Injection",
+      "primary_entry_point": "POST /api/diagnostic/ping",
+      "entry_point_resolved": true,
+      "sast_findings_count": 0,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "2d2133158bdd2d3461a2f23e3121c163c320181d07c24f26324eada095f204b4",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-E02",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-89 SQL Injection",
+      "primary_entry_point": "GET /api/users/search?username=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 2,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "43d99efa03cc7badd9c884aeaf6e113a4216ea7a904b6c0c4b66409d213d011d",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-E03",
+      "difficulty": "easy",
+      "vulnerability_class": "CWE-22 Path Traversal",
+      "primary_entry_point": "GET /api/files/download?filename=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 0,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "e88fe0ffc12377a7a2f8d2559e076145da26bb04721ecf7d5272e00f66e9d86e",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-M01",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-79 XSS (Stored)",
+      "primary_entry_point": "POST /api/messages -> GET /api/messages/{id}",
+      "entry_point_resolved": true,
+      "sast_findings_count": 0,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "bad4c9fa1160073380a30d64945895527913e22cf9e4ee51c5808168f37b024a",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-M02",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-90 LDAP Injection",
+      "primary_entry_point": "GET /api/auth/lookup?username=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 0,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "4f67fdb9ffb98ca1a7af713145a3f1d7bad48584e0cf270d60dee036d2b10295",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-M03",
+      "difficulty": "medium",
+      "vulnerability_class": "CWE-643 XPath Injection",
+      "primary_entry_point": "GET /api/xml/search?username=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 1,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "7fb8afd5caa58b39e0c49096bf63b58d856ffe2258b5868d21a20591d2e910d5",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-H01",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-94 Code Injection (SpEL)",
+      "primary_entry_point": "POST /api/rules/evaluate",
+      "entry_point_resolved": true,
+      "sast_findings_count": 1,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "edd1d82c18f35d4c35895d0f0a237986f25cc77c776f71aea75e64143293599b",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-H02",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-89 SQL Injection (HQL)",
+      "primary_entry_point": "GET /api/products/search?name=",
+      "entry_point_resolved": true,
+      "sast_findings_count": 2,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "51ccf5d9f6c934c6c50c6e9343e008cbbab607ef23f6422b0558e5cb841303ed",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    },
+    {
+      "case_id": "CASE-H03",
+      "difficulty": "hard",
+      "vulnerability_class": "CWE-611 XXE",
+      "primary_entry_point": "POST /api/xml/parse",
+      "entry_point_resolved": true,
+      "sast_findings_count": 1,
+      "witness_triggered": true,
+      "control_passed": true,
+      "dag_hash": "057e72a70b702d407cc67241da99d304aad63a56eefd7b64b29dff7d5bca4d0b",
+      "expected_verdict": "DETECTED",
+      "actual_verdict": "DETECTED",
+      "verdict_match": true,
+      "solution_probe": {
+        "witness_blocked": true,
+        "benign_control_passed": true,
+        "solution_verdict": "NOT_DETECTED",
+        "solution_match": true
+      }
+    }
+  ],
+  "metrics": {
+    "total_vulnerable_cases": 9,
+    "total_solution_cases": 9,
+    "true_positives": 9,
+    "false_negatives": 0,
+    "true_negatives": 9,
+    "false_positives": 0,
+    "precision": 1,
+    "recall": 1,
+    "f1_score": 1,
+    "accuracy": 1
+  }
+}

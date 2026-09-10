@@ -1,0 +1,12 @@
+{
+  "mode": "builtin_sast_patterns",
+  "files_scanned": 1,
+  "findings_count": 1,
+  "observations": [
+    {
+      "file": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+      "line": 9,
+      "match": "Potential Command / Code Injection"
+    }
+  ]
+}

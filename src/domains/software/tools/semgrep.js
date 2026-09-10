@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { ToolAdapter } from '../../../tools/base.js';
-import { runCommand } from '../../../core/execUtils.js';
+import { runCommand, runWslCommand, toWslPath, toWindowsPath } from '../../../core/execUtils.js';
 import { createFinding, Severity } from '../../../core/schema.js';
 
 // Deterministic pattern fallback for the 5 languages when semgrep CLI is unavailable
@@ -180,12 +180,31 @@ export class SemgrepTool extends ToolAdapter {
     }
 
     async checkInstalled() {
-        const cmd = this.config.tool_paths?.semgrep || 'semgrep';
-        const res = await runCommand(cmd, ['--version'], { timeout: 8000 });
-        if (res.exitCode === 0) {
-            return { installed: true, version: res.stdout.trim() };
+        const configured = this.config.tool_paths?.semgrep || 'semgrep';
+        try {
+            const res = await runCommand(configured, ['--version'], { timeout: 8000 });
+            if (res.exitCode === 0) {
+                return { installed: true, version: res.stdout.trim(), isWsl: false, cmd: configured };
+            }
+        } catch {}
+
+        if (process.platform === 'win32') {
+            const wslCandidates = [
+                configured,
+                '/usr/local/bin/semgrep',
+                'semgrep'
+            ];
+            for (const cand of wslCandidates) {
+                try {
+                    const wslRes = await runWslCommand(cand, ['--version'], { timeout: 8000 });
+                    if (wslRes.exitCode === 0) {
+                        return { installed: true, version: `${wslRes.stdout.trim()} (WSL)`, isWsl: true, cmd: cand };
+                    }
+                } catch {}
+            }
         }
-        return { installed: false, error: res.stderr || 'Semgrep CLI not found in PATH' };
+
+        return { installed: false, error: 'Semgrep CLI not found in PATH or WSL' };
     }
 
     async run(params) {
@@ -200,11 +219,18 @@ export class SemgrepTool extends ToolAdapter {
         const check = await this.checkInstalled();
         const telemetryPath = path.join(outputDir, 'semgrep_telemetry.json');
 
-        if (check.installed) {
+        if (check.installed && !process.env.HWSEC_USE_BUILTIN_SAST) {
             // Run real Semgrep with structured JSON output
-            const cmd = this.config.tool_paths?.semgrep || 'semgrep';
-            const args = ['scan', '--json', '--quiet', ...files];
-            const telemetry = await runCommand(cmd, args, { timeout: 120000 });
+            const cmd = check.cmd || this.config.tool_paths?.semgrep || 'semgrep';
+            let telemetry;
+            if (check.isWsl) {
+                const wslFiles = files.map(f => toWslPath(f));
+                const args = ['scan', '--config', 'auto', '--json', '--quiet', ...wslFiles];
+                telemetry = await runWslCommand(cmd, args, { timeout: 15000 });
+            } else {
+                const args = ['scan', '--config', 'auto', '--json', '--quiet', ...files];
+                telemetry = await runCommand(cmd, args, { timeout: 15000 });
+            }
 
             fs.writeFileSync(telemetryPath, JSON.stringify(telemetry, null, 2), 'utf-8');
 
@@ -212,11 +238,22 @@ export class SemgrepTool extends ToolAdapter {
             try {
                 parsedJson = JSON.parse(telemetry.stdout);
             } catch {
-                parsedJson = { results: [] };
+                const firstBrace = telemetry.stdout?.indexOf('{');
+                const lastBrace = telemetry.stdout?.lastIndexOf('}');
+                if (firstBrace !== -1 && lastBrace > firstBrace) {
+                    try {
+                        parsedJson = JSON.parse(telemetry.stdout.slice(firstBrace, lastBrace + 1));
+                    } catch {
+                        parsedJson = { results: [] };
+                    }
+                } else {
+                    parsedJson = { results: [] };
+                }
             }
 
             const findings = (parsedJson.results || []).map(r => {
                 const cweMatch = r.extra?.metadata?.cwe ? (Array.isArray(r.extra.metadata.cwe) ? r.extra.metadata.cwe[0] : r.extra.metadata.cwe) : (r.check_id?.match(/CWE-\d+/i)?.[0] || null);
+                const findingPath = check.isWsl ? toWindowsPath(r.path) : r.path;
                 return createFinding({
                     id: `SEMGREP-${crypto.randomBytes(4).toString('hex')}`,
                     title: r.check_id || 'Semgrep Rule Violation',
@@ -225,7 +262,7 @@ export class SemgrepTool extends ToolAdapter {
                     source_tool: this.name,
                     cwe_id: cweMatch ? cweMatch.toUpperCase() : null,
                     source_locations: [{
-                        path: r.path,
+                        path: findingPath,
                         startLine: r.start?.line || 1,
                         endLine: r.end?.line || 1,
                         startColumn: r.start?.col || 1,

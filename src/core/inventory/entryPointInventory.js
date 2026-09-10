@@ -188,6 +188,17 @@ export class EntryPointInventory {
     }
 
     /**
+     * Registers a known entry point directly into the inventory.
+     * @param {Object} fields 
+     * @returns {Object} Created EntryPoint
+     */
+    register(fields) {
+        const ep = this._createEntryPoint(fields);
+        this.cache.set(ep.id, ep);
+        return ep;
+    }
+
+    /**
      * Resolves an entry point for a given hypothesis.
      * @param {Object} hypothesis 
      * @returns {Object} Resolved EntryPoint or Unresolved placeholder
@@ -197,10 +208,29 @@ export class EntryPointInventory {
             return { status: 'UNRESOLVED', reason: 'Null hypothesis provided' };
         }
 
+        const stripLineNumber = (pathStr) => {
+            if (!pathStr) return '';
+            const s = String(pathStr);
+            const lastColon = s.lastIndexOf(':');
+            if (lastColon > 1) {
+                const potentialLine = s.slice(lastColon + 1);
+                if (/^\d+$/.test(potentialLine)) {
+                    return s.slice(0, lastColon);
+                }
+            }
+            return s;
+        };
+
         // Check if candidate path or source matches any cached entry point
-        const candidateFiles = (hypothesis.candidate_path || []).map(p => p.split(':')[0]);
+        const candidateFiles = (hypothesis.candidate_path || []).map(p => stripLineNumber(p).replace(/\\/g, '/'));
         for (const ep of this.cache.values()) {
-            if (candidateFiles.includes(ep.file)) {
+            const epNorm = (ep.file || '').replace(/\\/g, '/');
+            const epBase = path.basename(epNorm).toLowerCase();
+            const isMatch = candidateFiles.some(cf => {
+                const cfBase = path.basename(cf).toLowerCase();
+                return cf === epNorm || cf.endsWith('/' + epNorm) || epNorm.endsWith('/' + cf) || (cfBase.length > 0 && cfBase === epBase);
+            });
+            if (isMatch) {
                 return { ...ep, status: 'RESOLVED', resolution_type: 'DIRECT_FILE_MATCH' };
             }
         }

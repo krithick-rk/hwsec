@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<directory>
+    <user id="1">
+        <name>admin</name>
+        <email>admin@example.com</email>
+        <role>admin</role>
+        <department>IT</department>
+    </user>
+    <user id="2">
+        <name>alice</name>
+        <email>alice@example.com</email>
+        <role>user</role>
+        <department>Engineering</department>
+    </user>
+    <user id="3">
+        <name>bob</name>
+        <email>bob@example.com</email>
+        <role>user</role>
+        <department>Marketing</department>
+    </user>
+    <user id="4">
+        <name>charlie</name>
+        <email>charlie@example.com</email>
+        <role>manager</role>
+        <department>Engineering</department>
+    </user>
+</directory>

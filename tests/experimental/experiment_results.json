@@ -1,0 +1,418 @@
+{
+  "experimentTimestamp": "2026-09-10T10:04:23.032Z",
+  "webgoatTarget": "WebGoat v2023.7 (Clean, Untouched)",
+  "configRuns": [
+    {
+      "configId": "CONFIG_A",
+      "configName": "Configuration A — LLM OFF (Deterministic Baseline)",
+      "totalWallClockMs": 233,
+      "totalLlmLatencyMs": 0,
+      "totalDeterministicMs": 233,
+      "modelCallsCount": 0,
+      "totalTokens": 0,
+      "casesEvaluated": [
+        {
+          "caseId": "CASE-1-SQLI",
+          "caseName": "WebGoat SqlInjectionLesson5a (CWE-89)",
+          "cwe": "CWE-89",
+          "wallClockMs": 110,
+          "llmLatencyMs": 0,
+          "deterministicMs": 110,
+          "modelCalls": 0,
+          "tokens": 0,
+          "entryPointResolved": true,
+          "witnessFound": true,
+          "controlPassed": true,
+          "verdict": "DETECTED",
+          "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+          "dagHash": "5012c7d7454a4c9c63d3d163ac4755c55413203cf6c12a8cfb224c413f2cfb03",
+          "scoutSummary": null,
+          "criticSummary": null,
+          "reasonerSummary": null
+        },
+        {
+          "caseId": "CASE-2-TRAVERSAL",
+          "caseName": "WebGoat ProfileUpload (CWE-22)",
+          "cwe": "CWE-22",
+          "wallClockMs": 55,
+          "llmLatencyMs": 0,
+          "deterministicMs": 55,
+          "modelCalls": 0,
+          "tokens": 0,
+          "entryPointResolved": true,
+          "witnessFound": true,
+          "controlPassed": true,
+          "verdict": "DETECTED",
+          "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+          "dagHash": "e366e4d02379e71095f36fdce7a1064f8ad8960a55611f3e0f09e5f4bec1a17e",
+          "scoutSummary": null,
+          "criticSummary": null,
+          "reasonerSummary": null
+        },
+        {
+          "caseId": "CASE-3-NEGATIVE-CONTROL",
+          "caseName": "WebGoat ProfileUploadFix (Sanitized Negative Control)",
+          "cwe": "CWE-22",
+          "wallClockMs": 68,
+          "llmLatencyMs": 0,
+          "deterministicMs": 68,
+          "modelCalls": 0,
+          "tokens": 0,
+          "entryPointResolved": true,
+          "witnessFound": false,
+          "controlPassed": true,
+          "verdict": "INCONCLUSIVE",
+          "reasonCode": "SEARCH_BUDGET_EXHAUSTED",
+          "dagHash": "2fd7322c328ccfaf552b5be7313504a0f23818129147af44631cca949967631a",
+          "scoutSummary": null,
+          "criticSummary": null,
+          "reasonerSummary": null
+        }
+      ]
+    },
+    {
+      "configId": "CONFIG_B",
+      "configName": "Configuration B — Gemini Scout Only (Fast Scout)",
+      "totalWallClockMs": 34550,
+      "totalLlmLatencyMs": 34369,
+      "totalDeterministicMs": 181,
+      "modelCallsCount": 3,
+      "totalTokens": 2254,
+      "casesEvaluated": [
+        {
+          "caseId": "CASE-1-SQLI",
+          "caseName": "WebGoat SqlInjectionLesson5a (CWE-89)",
+          "cwe": "CWE-89",
+          "wallClockMs": 19122,
+          "llmLatencyMs": 19058,
+          "deterministicMs": 64,
+          "modelCalls": 1,
+          "tokens": 749,
+          "entryPointResolved": true,
+          "witnessFound": true,
+          "controlPassed": true,
+          "verdict": "DETECTED",
+          "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+          "dagHash": "807b151c4fd6d71845922b7f05bd02d0dfccac1d9dcd8b7cf6fcf94eb73567be",
+          "scoutSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "04f476cdb83926fe",
+            "latencyMs": 19058
+          },
+          "criticSummary": null,
+          "reasonerSummary": null
+        },
+        {
+          "caseId": "CASE-2-TRAVERSAL",
+          "caseName": "WebGoat ProfileUpload (CWE-22)",
+          "cwe": "CWE-22",
+          "wallClockMs": 9889,
+          "llmLatencyMs": 9831,
+          "deterministicMs": 58,
+          "modelCalls": 1,
+          "tokens": 795,
+          "entryPointResolved": true,
+          "witnessFound": true,
+          "controlPassed": true,
+          "verdict": "DETECTED",
+          "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+          "dagHash": "714a92f62821b536a81cb9d49634e4662d3bbe776d35fe82d740b93ec6bc5374",
+          "scoutSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "13098f6d9c072b2e",
+            "latencyMs": 9831
+          },
+          "criticSummary": null,
+          "reasonerSummary": null
+        },
+        {
+          "caseId": "CASE-3-NEGATIVE-CONTROL",
+          "caseName": "WebGoat ProfileUploadFix (Sanitized Negative Control)",
+          "cwe": "CWE-22",
+          "wallClockMs": 5539,
+          "llmLatencyMs": 5480,
+          "deterministicMs": 59,
+          "modelCalls": 1,
+          "tokens": 710,
+          "entryPointResolved": true,
+          "witnessFound": false,
+          "controlPassed": true,
+          "verdict": "INCONCLUSIVE",
+          "reasonCode": "SEARCH_BUDGET_EXHAUSTED",
+          "dagHash": "2ed75296bd535867ea2046d71ba82cee90e81fd1033aa16c0f9e1d4d85acdfbc",
+          "scoutSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "17fff678ff1c9c59",
+            "latencyMs": 5480
+          },
+          "criticSummary": null,
+          "reasonerSummary": null
+        }
+      ]
+    },
+    {
+      "configId": "CONFIG_C",
+      "configName": "Configuration C — Gemini Scout + Critic",
+      "totalWallClockMs": 56056,
+      "totalLlmLatencyMs": 55877,
+      "totalDeterministicMs": 179,
+      "modelCallsCount": 6,
+      "totalTokens": 4500,
+      "casesEvaluated": [
+        {
+          "caseId": "CASE-1-SQLI",
+          "caseName": "WebGoat SqlInjectionLesson5a (CWE-89)",
+          "cwe": "CWE-89",
+          "wallClockMs": 23488,
+          "llmLatencyMs": 23437,
+          "deterministicMs": 51,
+          "modelCalls": 2,
+          "tokens": 1491,
+          "entryPointResolved": true,
+          "witnessFound": true,
+          "controlPassed": true,
+          "verdict": "DETECTED",
+          "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+          "dagHash": "b239fa08b4170b583baff02de667b0f80ac33fef7622d201e82fd4830ace2bba",
+          "scoutSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "f77e0cf69a5cdd7b",
+            "latencyMs": 11958
+          },
+          "criticSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "96e480227cda3ab6",
+            "latencyMs": 11479
+          },
+          "reasonerSummary": null
+        },
+        {
+          "caseId": "CASE-2-TRAVERSAL",
+          "caseName": "WebGoat ProfileUpload (CWE-22)",
+          "cwe": "CWE-22",
+          "wallClockMs": 22273,
+          "llmLatencyMs": 22211,
+          "deterministicMs": 62,
+          "modelCalls": 2,
+          "tokens": 1583,
+          "entryPointResolved": true,
+          "witnessFound": true,
+          "controlPassed": true,
+          "verdict": "DETECTED",
+          "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+          "dagHash": "4cc446eb2f0970b97ccc9ba17f3a93c5368794a065dac05e90468a7bf1397ccd",
+          "scoutSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "3d52799bd95d47ce",
+            "latencyMs": 12399
+          },
+          "criticSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "d1688bd79be4457c",
+            "latencyMs": 9812
+          },
+          "reasonerSummary": null
+        },
+        {
+          "caseId": "CASE-3-NEGATIVE-CONTROL",
+          "caseName": "WebGoat ProfileUploadFix (Sanitized Negative Control)",
+          "cwe": "CWE-22",
+          "wallClockMs": 10295,
+          "llmLatencyMs": 10229,
+          "deterministicMs": 66,
+          "modelCalls": 2,
+          "tokens": 1426,
+          "entryPointResolved": true,
+          "witnessFound": false,
+          "controlPassed": true,
+          "verdict": "INCONCLUSIVE",
+          "reasonCode": "SEARCH_BUDGET_EXHAUSTED",
+          "dagHash": "4a333bf2674987d45761255488d3f00fc2d81a5d779c28d6fe9916c0d6fdd181",
+          "scoutSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "f92d719c710cb4fd",
+            "latencyMs": 5315
+          },
+          "criticSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "065a809c1f8d2112",
+            "latencyMs": 4914
+          },
+          "reasonerSummary": null
+        }
+      ]
+    },
+    {
+      "configId": "CONFIG_D",
+      "configName": "Configuration D — Full Adaptive Team (Scout + Critic + NVIDIA/OpenRouter)",
+      "totalWallClockMs": 96004,
+      "totalLlmLatencyMs": 95823,
+      "totalDeterministicMs": 179,
+      "modelCallsCount": 12,
+      "totalTokens": 5094,
+      "casesEvaluated": [
+        {
+          "caseId": "CASE-1-SQLI",
+          "caseName": "WebGoat SqlInjectionLesson5a (CWE-89)",
+          "cwe": "CWE-89",
+          "wallClockMs": 30652,
+          "llmLatencyMs": 30594,
+          "deterministicMs": 57,
+          "modelCalls": 4,
+          "tokens": 2184,
+          "entryPointResolved": true,
+          "witnessFound": true,
+          "controlPassed": true,
+          "verdict": "DETECTED",
+          "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+          "dagHash": "92ac941928195bea1779e8ab130620d3293f80bb7b25ca4b4363d5363d67763c",
+          "scoutSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "cbb2d001a088bb8e",
+            "latencyMs": 8573
+          },
+          "criticSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "4e4ffa2758d4dbee",
+            "latencyMs": 10158
+          },
+          "reasonerSummary": {
+            "primaryError": "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'BYubxEz3knn_LKFTqvtC0QB6KG5qpOxXPIBBixGvdvw'",
+            "fallbackModel": "meta-llama/llama-3.3-70b-instruct",
+            "fallbackLatencyMs": 11719,
+            "fallbackHash": "d94017b7efe02c18"
+          }
+        },
+        {
+          "caseId": "CASE-2-TRAVERSAL",
+          "caseName": "WebGoat ProfileUpload (CWE-22)",
+          "cwe": "CWE-22",
+          "wallClockMs": 48400,
+          "llmLatencyMs": 48344,
+          "deterministicMs": 56,
+          "modelCalls": 4,
+          "tokens": 1574,
+          "entryPointResolved": true,
+          "witnessFound": true,
+          "controlPassed": true,
+          "verdict": "DETECTED",
+          "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+          "dagHash": "8ac7a956160ba60e5d1e2d1820db97d5b800960193fab28416c78f2f20e41964",
+          "scoutSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "3479cb618d96e6bc",
+            "latencyMs": 11036
+          },
+          "criticSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "f012a47e5ca5f26f",
+            "latencyMs": 7193
+          },
+          "reasonerSummary": {
+            "primaryError": "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'BYubxEz3knn_LKFTqvtC0QB6KG5qpOxXPIBBixGvdvw'"
+          }
+        },
+        {
+          "caseId": "CASE-3-NEGATIVE-CONTROL",
+          "caseName": "WebGoat ProfileUploadFix (Sanitized Negative Control)",
+          "cwe": "CWE-22",
+          "wallClockMs": 16951,
+          "llmLatencyMs": 16885,
+          "deterministicMs": 66,
+          "modelCalls": 4,
+          "tokens": 1336,
+          "entryPointResolved": true,
+          "witnessFound": false,
+          "controlPassed": true,
+          "verdict": "INCONCLUSIVE",
+          "reasonCode": "SEARCH_BUDGET_EXHAUSTED",
+          "dagHash": "ac1c3c13f7afd063f2c5c1b68e27f5e670604b843a074146f68c34e6f93825a5",
+          "scoutSummary": {
+            "latencyMs": 400
+          },
+          "criticSummary": {
+            "model": "gemini-3.6-flash",
+            "hash": "c52577f5e416cd5a",
+            "latencyMs": 5263
+          },
+          "reasonerSummary": {
+            "primaryError": "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'BYubxEz3knn_LKFTqvtC0QB6KG5qpOxXPIBBixGvdvw'",
+            "fallbackModel": "meta-llama/llama-3.3-70b-instruct",
+            "fallbackLatencyMs": 11109,
+            "fallbackHash": "6be11b21c98d024e"
+          }
+        }
+      ]
+    }
+  ],
+  "disagreementTest": {
+    "scout": {
+      "latencyMs": 328
+    },
+    "critic": {
+      "model": "gemini-3.6-flash",
+      "latencyMs": 5665,
+      "hash": "db3c43366583cfde"
+    },
+    "consensus": {
+      "decision": "DISAGREEMENT",
+      "hasMaterialDisagreement": true,
+      "disagreements": [
+        {
+          "field": "sink",
+          "critique": "Path normalization and prefix check neutralizes traversal attack path",
+          "severity": "MATERIAL"
+        }
+      ],
+      "materialDisagreements": [
+        {
+          "field": "sink",
+          "critique": "Path normalization and prefix check neutralizes traversal attack path",
+          "severity": "MATERIAL"
+        }
+      ],
+      "materialFields": [
+        "sink"
+      ],
+      "unsupportedAssumptions": [
+        "Direct unvalidated string reaches file open"
+      ],
+      "missingEvidence": [
+        "Validation check bypass proof"
+      ],
+      "summary": "Material disagreement on: sink",
+      "evaluatedAt": "2026-09-10T10:07:35.869Z"
+    },
+    "escalation": {
+      "primaryNvidiaFailed": true,
+      "primaryError": "Function '9b96341b-9791-4db9-a00d-4e43aa192a39': Not found for account 'BYubxEz3knn_LKFTqvtC0QB6KG5qpOxXPIBBixGvdvw'",
+      "fallbackOpenRouterSuccess": true,
+      "fallbackModel": "meta-llama/llama-3.3-70b-instruct",
+      "fallbackLatencyMs": 26485,
+      "planSnippet": "Here is a structured investigation plan in JSON format:\n\n```json\n{\n  \"InvestigationPlan\": {\n    \"CaseID\": \"HWSEC-001\",\n    \"Disagreement\": {\n      \"Claim1\": {\n        \"Claimant\": \"Scout\",\n        \"Claim\": \"CWE-22: Improper Limitation of a Pathname to"
+    }
+  },
+  "verdictInjectionTests": [
+    {
+      "attackName": "Attack 1: LLM says DETECTED while runtime trace is missing/failed",
+      "llmClaim": "DETECTED",
+      "authorityVerdict": "INCONCLUSIVE",
+      "reasonCode": "ENTRYPOINT_UNRESOLVED",
+      "neutralized": true
+    },
+    {
+      "attackName": "Attack 2: LLM says NOT_DETECTED while concrete witness & oracle succeeded",
+      "llmClaim": "NOT_DETECTED",
+      "authorityVerdict": "DETECTED",
+      "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+      "neutralized": true
+    },
+    {
+      "attackName": "Attack 3: LLM says INCONCLUSIVE while full evidence obligations are satisfied",
+      "llmClaim": "INCONCLUSIVE",
+      "authorityVerdict": "DETECTED",
+      "reasonCode": "VERIFIED_EXPLOIT_WITNESS",
+      "neutralized": true
+    }
+  ]
+}

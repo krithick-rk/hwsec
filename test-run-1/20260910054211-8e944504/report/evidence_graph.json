@@ -1,0 +1,40 @@
+{
+  "nodes": [
+    {
+      "id": "SEMGREP-c2d0a1a9",
+      "type": "Finding",
+      "label": "[CWE-78] Potential Command / Code Injection",
+      "severity": "CRITICAL",
+      "location": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+      "source_tool": "semgrep"
+    },
+    {
+      "id": "JOERN-34762eea",
+      "type": "Finding",
+      "label": "[CWE-78] OS command execution sink (system)",
+      "severity": "CRITICAL",
+      "location": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+      "source_tool": "joern"
+    },
+    {
+      "id": "CLUSTER-05d3dd",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py:9",
+      "confidence": 0.8
+    }
+  ],
+  "edges": [
+    {
+      "from": "SEMGREP-c2d0a1a9",
+      "to": "CLUSTER-05d3dd",
+      "relationship": "STRUCTURAL_JOIN",
+      "weight": 0.8
+    },
+    {
+      "from": "JOERN-34762eea",
+      "to": "CLUSTER-05d3dd",
+      "relationship": "STRUCTURAL_JOIN",
+      "weight": 0.8
+    }
+  ]
+}

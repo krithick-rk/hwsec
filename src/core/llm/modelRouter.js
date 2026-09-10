@@ -3,6 +3,8 @@ import { BudgetController } from './budgetController.js';
 import { NvidiaProvider } from './nvidiaProvider.js';
 import { GeminiProvider } from './geminiProvider.js';
 import { OpenRouterProvider } from './openRouterProvider.js';
+import { ProviderPool } from './providerPool.js';
+import { TaskRouter } from './taskRouter.js';
 import { TaskTypes, TASK_PROFILES } from './taskTypes.js';
 
 
@@ -15,11 +17,13 @@ export class ModelRouter {
         this.config = config || {};
         this.registry = new ModelRegistry(this.config);
         this.budgetController = new BudgetController(this.config, db);
+        this.providerPool = new ProviderPool(this.config);
+        this.taskRouter = new TaskRouter(this.providerPool, this.config);
 
         this.providers = {
-            nvidia: new NvidiaProvider(this.config),
-            gemini: new GeminiProvider(this.config),
-            openrouter: new OpenRouterProvider(this.config)
+            nvidia: this.providerPool.getEndpoint('nvidia')?.provider || new NvidiaProvider(this.config),
+            gemini: this.providerPool.getEndpoint('gemini_account_1')?.provider || new GeminiProvider(this.config),
+            openrouter: this.providerPool.getEndpoint('openrouter')?.provider || new OpenRouterProvider(this.config)
         };
     }
 

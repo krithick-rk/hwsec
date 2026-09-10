@@ -1,0 +1,60 @@
+{
+  "ranked": [
+    {
+      "path": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+      "suspicion_score": 0.54,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 2,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ],
+  "prioritizedTargets": [
+    {
+      "path": "E:\\Intern\\hwsec\\hwsec-cli-e2e-fixture\\vulnerable_service.py",
+      "suspicion_score": 0.54,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 2,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ]
+}

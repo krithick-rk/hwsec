@@ -64,7 +64,7 @@
         "jpf": "JPF-Symbc 8.0",
         "z3": "Z3 4.12.2"
       },
-      "timestamp": "2026-09-10T04:53:52.255Z",
+      "timestamp": "2026-09-10T08:39:23.293Z",
       "artifact_hashes": {
         "source_file_sha256": "0e62d301a59393678519120ccc9a1c8b48e55ac179dab919153ea957a4064767",
         "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
@@ -87,10 +87,10 @@
       "negative_control": false,
       "provenance_and_hashes": true
     },
-    "evidence_hash": "3c0fd9318c378db6514aeea2e68687b4a20ebc7c352cda12dc92631a0aceb40a",
+    "evidence_hash": "237285f3a53617ab72ca52db4313e876ee3a5dcad515e644dbfd5a21ca0f43e8",
     "inconclusive_reason": "Symbolic constraint solver returned UNKNOWN status",
     "recommended_next_action": "Perform manual audit or increase execution timeout",
-    "timestamp": "2026-09-10T04:53:52.256Z"
+    "timestamp": "2026-09-10T08:39:23.295Z"
   },
   "replay_manifest": {
     "case_id": "BenchmarkTest00002",
@@ -101,6 +101,6 @@
     "attack_input": "../../etc/passwd",
     "replay_command": "java -cp <classpath> org.owasp.benchmark.harness.HarnessRunner --case BenchmarkTest00002 --b64input <b64> --type COOKIE --method doPost"
   },
-  "bundle_hash": "40444dd894888a33d331825a1cf65ad7342f445938b756f3b17ef74296bc40c2",
-  "timestamp": "2026-09-10T04:53:52.257Z"
+  "bundle_hash": "3dff303ca0d8842de3be44601ea5a79489750ef504ffe238e8e8905da96255f3",
+  "timestamp": "2026-09-10T08:39:23.296Z"
 }

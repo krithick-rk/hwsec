@@ -1,0 +1,11 @@
+[
+  {
+    "id": "EP-7f47aa81b5d3",
+    "status": "RESOLVED",
+    "type": "CLI_MAIN",
+    "framework": "PythonStandard",
+    "file": "vulnerable_service.py",
+    "target_identifier": "vulnerable_service.py#__main__",
+    "discovered_at": "2026-09-10T05:42:30.573Z"
+  }
+]
