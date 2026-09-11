@@ -2,55 +2,70 @@
 
 **HWSEC** is an enterprise-grade hybrid hardware/software security analysis and proof-of-impact validation platform. It unifies deterministic static analysis, formal verification, symbolic reasoning, and LLM-assisted vulnerability discovery across mixed-domain codebases containing both software (C, C++, Python, Java, Go) and hardware description languages (Verilog, SystemVerilog).
 
----
-
-## Authoritative Documentation
-
-Detailed technical documentation is organized into four authoritative documents:
-
-1. **[requirements.md](file:///e:/Intern/hwsec/requirements.md)**: Definitive installation, operating environments, software matrix, tool statuses, credential setup, and resource requirements.
-2. **[implementation.md](file:///e:/Intern/hwsec/implementation.md)**: Deep architectural specification, data flow, state machine, tool brokers, database schemas, RAG vector memory, LLM gateway, and E0–E5 verification ladder.
-3. **[walkthrough.md](file:///e:/Intern/hwsec/walkthrough.md)**: Practical engineer walkthrough, mixed repository examples, execution lifecycles, database traces, debugging guide, and terminology glossary.
-4. **[DECISIONS.md](file:///e:/Intern/hwsec/DECISIONS.md)**: Architectural Decision Records (ADR-001 through ADR-010) documenting design decisions, multi-provider gateway failover, and proof sandbox sandboxing.
+**Core principle**: LLMs are hypothesis generators, not verdict authorities. Only concrete, executable technical counterexamples — witness inputs that trigger a security oracle plus a passing causal negative control — can promote a finding to `DETECTED`.
 
 ---
 
-## Quick Start Guide
+## Documentation
 
-### 1. Clone & Install Dependencies
+| Document | Description |
+|---|---|
+| [docs/getting-started.md](docs/getting-started.md) | Installation, configuration, and first analysis walkthrough |
+| [docs/architecture.md](docs/architecture.md) | Evidence pipeline, E0–E5 ladder, LLM gateway, security guardrails |
+| [docs/cli-reference.md](docs/cli-reference.md) | All CLI commands with options and examples |
+| [docs/configuration.md](docs/configuration.md) | Full `config.json` and `.env` reference |
+| [docs/benchmarks.md](docs/benchmarks.md) | Benchmark suites, CWE coverage, re-running evaluations |
+| [requirements.md](requirements.md) | Detailed prerequisites, tool matrix, and installation guide |
+| [implementation.md](implementation.md) | Deep architectural specification and data flow |
+| [walkthrough.md](walkthrough.md) | Mixed-repository execution examples and debugging guide |
+| [DECISIONS.md](DECISIONS.md) | Architectural Decision Records (ADR-001 through ADR-010) |
+
+---
+
+## Quick Start
+
+### 1. Clone & Install
+
 ```bash
 git clone https://github.com/krithick-rk/hwsec.git
 cd hwsec
 npm install
 ```
 
-### 2. Configure Environment
+### 2. Configure
+
 ```bash
 cp .env.example .env
 cp config.example.json config.json
-# Edit .env to add your API credentials (NVIDIA, Gemini, and/or OpenRouter)
+# Edit .env — add at least one LLM API key
 ```
 
-### 3. Start Optional Vector Memory Daemon (Docker)
+**Minimum**: one of `GEMINI_API_KEY`, `NVIDIA_API_KEY`, or `OPENROUTER_API_KEY`.
+
+For hardware verification (Verilog/Yosys/Verilator), also set:
+```bash
+# In .env:
+OSS_CAD_SUITE=/path/to/oss-cad-suite
+```
+
+### 3. Start Optional Vector Memory (Docker)
+
 ```bash
 docker run -d --name hwsec-qdrant -p 6333:6333 -p 6334:6334 qdrant/qdrant
 ```
 
-### 4. Verify System & Run Regression Tests
-```bash
-# Run the master regression suite (25 test suites, 100% pass)
-npm test
+### 4. Verify & Run Tests
 
-# Run the full adversarial security audit suite (50 security invariants)
-node audit/runners/main-runner.js --profile full
+```bash
+npm test                          # 25 test suites
+node audit/runners/main-runner.js --profile full   # 50 adversarial security invariants
 ```
 
 ---
 
 ## Basic Usage
 
-### Step 1: Discover and Plan Analysis (Non-Destructive)
-`analyze` scans target files, detects languages, selects matching analyzers, estimates token budgets, and generates `plan.md`. **Execution is strictly blocked until approval.**
+### Step 1: Plan (Non-Destructive)
 
 ```bash
 node src/index.js analyze ./example-project --proof standard
@@ -61,55 +76,89 @@ Review the generated plan:
 cat hwsec-output/<analysis-id>/plan.md
 ```
 
-### Step 2: Approve and Execute Analysis
-`proceed` validates the human approval boundary, executes deterministic tools, runs formal verification, queries the LLM gateway, and verifies findings through ephemeral sandbox proof execution.
+### Step 2: Approve and Execute
 
 ```bash
-node src/index.js proceed <analysis-id> --proof standard
+node src/index.js proceed <analysis-id> --mode standard
 ```
 
-View the final audit report:
+### Step 3: View Results
+
 ```bash
+# Final report
 cat hwsec-output/<analysis-id>/report/final.md
+
+# Structured findings
+node src/index.js findings <analysis-id>
+
+# Analyst dossier for a specific case
+node src/index.js dossier <analysis-id>
 ```
 
-### Step 3: Inspect Proof Status & Cryptographic Provenance
+---
+
+## Security Guardrails
+
+| Guardrail | Description |
+|---|---|
+| **Human Approval Gate** | `hwsec analyze` generates a plan — execution blocked until `hwsec proceed` is explicitly called |
+| **Zero Self-Certification** | LLM output classified as E0 (unverified) — cannot self-promote to `DETECTED` |
+| **Anti-Exploit Principle** | Proof sandbox refuses to generate shellcode, remote shells, or persistence mechanisms |
+| **Credential Stripping** | Sandbox strips all `*KEY*`, `*TOKEN*`, `*SECRET*`, `*AUTH*`, `*PASS*` env vars from child processes |
+| **Network Neutralization** | Proxy vars redirected to `http://127.0.0.1:0`; cloud endpoints blocked |
+| **DAG Tamper Detection** | Evidence DAG nodes are content-addressed (SHA-256); tampering forces `INCONCLUSIVE` |
+
+---
+
+## Benchmark Suites
+
+Four curated ground-truth benchmark suites are included:
+
+| Suite | Languages | Cases | Purpose |
+|---|---|---|---|
+| `hwsec_verilog_benchmark/` | Verilog, SystemVerilog | 12 | RTL hardware security (CWE-269, CWE-1231, CWE-1234, etc.) |
+| `hwsec_c_benchmark/` | C | 12 | Memory safety (heap overflow, format string, UAF) |
+| `hwsec_java_benchmark/` | Java | 12 | Software security (injection, deserialization, path traversal) |
+| `hwsec_artificial_benchmark/` | Multi-domain | — | Pipeline regression and evidence DAG validation |
+
+Re-run any benchmark:
 ```bash
-node src/index.js proof-status PROOF-<proof-id>
+node tests/experimental/evaluate_verilog_benchmark.mjs
+node tests/experimental/evaluate_c_benchmark.mjs
+node tests/experimental/evaluate_java_benchmark.mjs
 ```
 
 ---
 
-## Core Security Guardrails
-
-- **Human Approval Gate**: Analysis plans require explicit human approval via `hwsec proceed` before executing expensive tools or invoking LLMs.
-- **Anti-Exploit Principle**: The proof validation engine only generates minimal unit regression tests and formal assertions. It strictly refuses to synthesize weaponized exploits, shellcode, or persistence mechanisms.
-- **Isolated Ephemeral Sandbox**: All dynamic test reproductions execute in an isolated workspace with credentials stripped, network access neutralized (`http://127.0.0.1:0`), and external cloud destinations blocked.
-- **Zero Self-Certification**: LLM output is treated as untrusted hypothesis. Only concrete executed technical counterexamples (AddressSanitizer crashes, formal BMC traces, reproducible assertion failures) can promote findings to Verified status.
-
----
-
-## Repository Structure Overview
+## Repository Structure
 
 ```
-HWSEC/
-├── src/                    # Production codebase (core framework, domain adapters, workers)
-├── tests/                  # Centralized test suite (25 suites, fixtures, demos, helpers)
-├── audit/                  # Adversarial security validation engine (50 security invariants)
-├── scripts/                # Benchmark evaluation and ground truth metrics
-├── manifests/              # Benchmark ground-truth datasets and manifests
-├── quality-benchmark/      # Hardware and software multi-language benchmark repos
-├── requirements.md         # Prerequisites, tool requirements, and installation
-├── implementation.md       # Technical architecture and implementation guide
-├── walkthrough.md          # Step-by-step practical guide for engineers
-├── DECISIONS.md            # Architectural Decision Records (ADRs)
-├── IMPLEMENTATION_STATUS.md# Component status tracking
-├── .env.example            # Environment variable template with placeholders
-├── config.example.json     # Configuration file template
-└── package.json            # Node.js project manifest and test scripts
+hwsec/
+├── src/                         # Production source (core framework, domain adapters, workers)
+│   ├── core/                    # Evidence DAG, LLM gateway, broker, hypothesis, state machine
+│   ├── domains/                 # Hardware and software tool adapters
+│   └── workers/                 # Verifier, correlator, hypothesis generator, proof verifier
+├── tests/                       # Centralized test suite (25 suites + fixtures)
+├── audit/                       # Adversarial security validation engine (50 security invariants)
+├── docs/                        # Engineering documentation
+├── scripts/                     # Benchmark evaluation and preflight scripts
+├── manifests/                   # Benchmark ground-truth datasets
+├── hwsec_verilog_benchmark/     # Verilog RTL security benchmark suite
+├── hwsec_c_benchmark/           # C memory-safety benchmark suite
+├── hwsec_java_benchmark/        # Java security benchmark suite
+├── hwsec_artificial_benchmark/  # Algorithmic/behavioral benchmark suite
+├── example-project/             # Sample target repository for demonstrations
+├── prototype/                   # Java-based early prototype (reference only)
+├── requirements.md              # Prerequisites and installation guide
+├── implementation.md            # Deep technical architecture specification
+├── walkthrough.md               # Engineer walkthrough with execution traces
+├── DECISIONS.md                 # Architectural Decision Records (ADR-001 to ADR-010)
+├── .env.example                 # Environment variable template
+└── config.example.json          # Configuration file template
 ```
 
 ---
 
 ## License
-ISC License. See [LICENSE](file:///e:/Intern/hwsec/LICENSE) for details.
+
+ISC License. See [LICENSE](LICENSE) for details.

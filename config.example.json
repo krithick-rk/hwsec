@@ -1,21 +1,58 @@
 {
-    "llm_providers": {
-        "default": {
-            "provider": "gemini",
-            "api_key": "YOUR_GEMINI_API_KEY",
-            "model": "gemini-2.5-flash"
-        }
+  "llm_providers": {
+    "default": {
+      "provider": "gemini",
+      "api_key": "${GEMINI_API_KEY}",
+      "model": "gemini-2.5-flash"
     },
-    "model_routing": {
-        "planner":  { "model": "gemini-2.5-pro" },
-        "worker":   { "model": "gemini-2.5-flash" },
-        "verifier": { "model": "gemini-2.5-pro" }
+    "nvidia": {
+      "api_key": "${NVIDIA_API_KEY}",
+      "base_url": "https://integrate.api.nvidia.com/v1",
+      "model": "meta/llama-3.3-70b-instruct"
     },
-    "tool_paths": {
-        "verilator": "/path/to/oss-cad-suite/bin/verilator",
-        "yosys":     "/path/to/oss-cad-suite/bin/yosys"
+    "gemini": {
+      "api_key": "${GEMINI_API_KEY}",
+      "model": "gemini-2.5-flash"
     },
-    "token_budgets": {
-        "max_cost_usd": 10.0
+    "openrouter": {
+      "api_key": "${OPENROUTER_API_KEY}",
+      "model": "meta-llama/llama-3.3-70b-instruct"
     }
+  },
+  "models": {
+    "fast":     { "provider": "gemini",     "model": "gemini-2.5-flash" },
+    "reasoning":{ "provider": "nvidia",     "model": "deepseek-ai/deepseek-r1" },
+    "verifier": { "provider": "gemini",     "model": "gemini-2.5-pro" },
+    "exploit_writer":   { "provider": "openrouter", "model": "meta-llama/llama-3.3-70b-instruct" },
+    "exploit_verifier": { "provider": "gemini",     "model": "gemini-2.5-flash" }
+  },
+  "tool_paths": {
+    "verilator": "${OSS_CAD_SUITE}/bin/verilator",
+    "yosys":     "${OSS_CAD_SUITE}/bin/yosys",
+    "sby":       "${OSS_CAD_SUITE}/bin/sby",
+    "joern":     "${JOERN_HOME}/joern-cli",
+    "codeql":    "codeql",
+    "spike":     "spike"
+  },
+  "qdrant": {
+    "url":     "http://localhost:6333",
+    "enabled": false
+  },
+  "token_budgets": {
+    "max_cost_usd": 10.0,
+    "rate_limits": {
+      "gemini":     30,
+      "openrouter": 20,
+      "nvidia":     5
+    }
+  },
+  "exploit_verifier": {
+    "enabled":             true,
+    "max_attempts":        3,
+    "max_runtime_seconds": 120,
+    "max_tokens":          16000,
+    "network":             "none",
+    "sandbox":             "strict",
+    "allow_poc_execution": true
+  }
 }

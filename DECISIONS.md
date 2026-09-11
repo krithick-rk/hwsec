@@ -115,8 +115,8 @@ Generated: 2026-09-08T10:55:11+05:30
 **Context**: LLM execution and verification requires disciplined token budgeting, prioritization, and rate limit compliance.
 
 **Decision**: Implement `preflightEstimator.js` and `dynamicTokenScheduler.js`:
-- OpenRouter API key (`sk-or-v1-018...`) provisioned for code/proof writing at 20 RPM.
-- Gemini API key (`AQ.Ab8RN6...`) provisioned for pre-flight triage and verification pool at 30 RPM.
+- OpenRouter API key (`[REDACTED — set OPENROUTER_API_KEY in .env]`) provisioned for code/proof writing at 20 RPM.
+- Gemini API key (`[REDACTED — set GEMINI_API_KEY in .env]`) provisioned for pre-flight triage and verification pool at 30 RPM.
 - Dynamic token allocation divides budgets into `reasoning_tokens`, `artifact_generation_tokens`, and `validation_tokens`.
 - Candidates prioritized by severity, reachability, confidence, and reproducibility feasibility; low-priority candidates marked `DEFER` or `SKIP` when token/time budget is exhausted.
 

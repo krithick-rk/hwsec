@@ -39,7 +39,9 @@ export async function runSuite() {
     // 1. Verilator Tool Adapter Command Construction Test
     try {
         const verilator = new VerilatorTool({
-            tool_paths: { verilator: 'E:/Intern/krithick/Downloads/oss-cad-suite/bin/verilator' }
+            tool_paths: { verilator: process.env.OSS_CAD_SUITE
+                ? `${process.env.OSS_CAD_SUITE}/bin/verilator`
+                : '/usr/bin/verilator' }
         });
         const maliciousFile = path.join(tempDir, 'test&echo HWSEC_COMMAND_INJECTION_TEST.v');
         const cmdObj = verilator._buildCommand(['--lint-only', '-Wall', maliciousFile]);
@@ -79,7 +81,9 @@ export async function runSuite() {
     // 2. Yosys Tool Adapter Script Injection Test
     try {
         const yosys = new YosysTool({
-            tool_paths: { yosys: 'E:/Intern/krithick/Downloads/oss-cad-suite/bin/yosys.exe' }
+            tool_paths: { yosys: process.env.OSS_CAD_SUITE
+                ? `${process.env.OSS_CAD_SUITE}/bin/yosys`
+                : '/usr/bin/yosys' }
         });
         const maliciousFile = path.join(tempDir, 'test" ; echo INJECTED ;.v');
         let scriptSafe = false;

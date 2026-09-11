@@ -1,5 +1,6 @@
 node_modules/
 hwsec-output/
+hwsec-cli-test-output/
 dummy_rtl/
 docx_content.txt
 read_docx.mjs
@@ -13,12 +14,15 @@ test_unrelated/
 config.json
 
 # One-off test scripts and scratch files
+scratch_*.mjs
+scratch_*.json
 test_phase6.js
 test_run.bat
 test.c
 verify.sc
 run_joern.sh
 test_empty_dir/
+testfiles_operational_gate/
 
 # Temporary and extraction artifacts
 temp.zip
@@ -30,6 +34,23 @@ hwsec-live-audit-run/
 workspace/
 *.db
 *.log
+
+# JVM crash logs (generated during development/testing with Java tools)
+hs_err_pid*.log
+replay_pid*.log
+
+# Machine-local architecture/status snapshots (developer-only)
+architecture_status.json
+
+# Experimental telemetry artifacts (contain partial API key hints)
+tests/experimental/provider_telemetry.json
+tests/experimental/experiment_results.json
+tests/experimental/experiment_freeze.json
+
+# Python cache
+tests/experimental/__pycache__/
+**/__pycache__/
+*.pyc
 
 # Vulnerability benchmark datasets and evidence runs (large local archives)
 quality-benchmark/c/

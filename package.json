@@ -1,22 +1,39 @@
 {
   "name": "hwsec",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "Multi-language evidence-driven security analysis framework for hardware (Verilog/SystemVerilog) and software (C, Python, Java, Go) codebases",
   "main": "src/index.js",
   "bin": {
     "hwsec": "./src/index.js"
   },
   "scripts": {
-    "test": "node tests/run_all_tests.js"
+    "test": "node tests/run_all_tests.js",
+    "audit": "node audit/runners/main-runner.js --profile full",
+    "benchmark:c": "node tests/experimental/evaluate_c_benchmark.mjs",
+    "benchmark:java": "node tests/experimental/evaluate_java_benchmark.mjs",
+    "benchmark:verilog": "node tests/experimental/evaluate_verilog_benchmark.mjs",
+    "preflight": "bash scripts/preflight_check.sh"
+  },
+  "keywords": [
+    "security",
+    "hardware-security",
+    "vulnerability-detection",
+    "static-analysis",
+    "formal-verification",
+    "verilog",
+    "cwe",
+    "evidence-driven"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krithick-rk/hwsec.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/krithick-rk/hwsec/issues"
   },
