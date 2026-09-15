@@ -20,7 +20,9 @@ export class WitnessSearchEngine {
      * @returns {Array<string>} Seed values
      */
     generateDeterministicSeeds(cwe, vectorType = 'PARAMETER') {
-        const normCwe = String(cwe).toUpperCase().trim();
+        const raw = String(cwe || '').toUpperCase().trim();
+        const match = raw.match(/\bCWE-\d+\b/);
+        const normCwe = match ? match[0] : raw;
         const seedBank = {
             'CWE-22': [
                 '../../../../etc/passwd',

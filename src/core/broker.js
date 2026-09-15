@@ -22,6 +22,8 @@ import { VulnerabilityHypothesis } from './hypothesis/vulnerabilityHypothesis.js
 import { EntryPointInventory } from './inventory/entryPointInventory.js';
 import { defaultSecurityRegistry } from './oracles/securityConditionRegistry.js';
 import { RepositoryDiscovery } from './discovery.js';
+import { PovGenerator } from './pov/povGenerator.js';
+import { PovVerifier } from './pov/povVerifier.js';
 
 export const BrokerCapability = {
     // Section 20: 9 Core Broker Capabilities
@@ -34,6 +36,8 @@ export const BrokerCapability = {
     CONTROL_EXECUTION: 'CONTROL_EXECUTION',
     EVIDENCE_ASSEMBLY: 'EVIDENCE_ASSEMBLY',
     VERDICT_REDUCTION: 'VERDICT_REDUCTION',
+    POV_GENERATION: 'POV_GENERATION',
+    POV_VERIFICATION: 'POV_VERIFICATION',
 
     // Tool & domain capabilities
     LEXICAL_PATTERN_SAST: 'sast_pattern_scan',
@@ -497,6 +501,65 @@ export class AnalysisBroker {
     }
 
     /**
+     * Section 20 & Section 6 Capability: POV_GENERATION
+     */
+    async executePovGeneration(request = {}) {
+        const { hypothesis, witnessInput, negativeControl = null, targetDir = process.cwd(), outputDir = 'hwsec-output/pov', options = {} } = request;
+        if (!hypothesis) {
+            throw new Error('[AnalysisBroker POV_GENERATION] hypothesis is required');
+        }
+        const generator = new PovGenerator(this.config);
+        const pov = await generator.generatePoV({
+            hypothesis,
+            witnessInput,
+            negativeControl,
+            targetDir,
+            outputDir,
+            options
+        });
+        return {
+            status: 'SUCCESS',
+            capability: BrokerCapability.POV_GENERATION,
+            pov,
+            pov_id: pov.pov_id,
+            bundle_path: pov.bundle_path,
+            bundle_hash: pov.bundle_hash,
+            provenance: {
+                timestamp: new Date().toISOString(),
+                hypothesis_id: hypothesis.id
+            }
+        };
+    }
+
+    /**
+     * Section 20 & Section 10 Capability: POV_VERIFICATION
+     */
+    async executePovVerification(request = {}) {
+        const { povBundleDir, targetDirOverride = null, isFixedTarget = false, options = {} } = request;
+        if (!povBundleDir) {
+            throw new Error('[AnalysisBroker POV_VERIFICATION] povBundleDir is required');
+        }
+        const verifier = new PovVerifier(options);
+        const result = await verifier.verifyPoV(povBundleDir, {
+            targetDirOverride,
+            isFixedTarget,
+            ...options
+        });
+        return {
+            status: result.verified ? 'SUCCESS' : 'FAILED',
+            capability: BrokerCapability.POV_VERIFICATION,
+            verified: result.verified,
+            pov_status: result.povStatus,
+            reason_code: result.reasonCode,
+            replay_log: result.replayLog,
+            provenance: {
+                timestamp: new Date().toISOString(),
+                bundle: povBundleDir
+            }
+        };
+    }
+
+    /**
      * Dispatches a capability request across registered tools or core operational providers.
      * Supports single-tool dispatch or multi-analyzer cooperation and cross-checking.
      */
@@ -532,6 +595,12 @@ export class AnalysisBroker {
             case BrokerCapability.VERDICT_REDUCTION:
             case 'verdict_reduction':
                 return this.executeVerdictReduction(request);
+            case BrokerCapability.POV_GENERATION:
+            case 'pov_generation':
+                return this.executePovGeneration(request);
+            case BrokerCapability.POV_VERIFICATION:
+            case 'pov_verification':
+                return this.executePovVerification(request);
         }
 
         const candidateTools = this.registry.findToolsForCapability({ capability, languages });

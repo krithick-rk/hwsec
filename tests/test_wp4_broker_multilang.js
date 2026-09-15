@@ -1,4 +1,4 @@
-﻿import assert from 'assert';
+import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
 import { ToolRegistry, AnalysisBroker } from '../src/core/broker.js';
@@ -44,6 +44,7 @@ fs.writeFileSync(javaFile, 'import java.io.*;\npublic class Test { void load(Inp
 const goFile = path.join(tempDir, 'auth.go');
 fs.writeFileSync(goFile, 'package main\nconst API_KEY = "my_secret_token_12345"\n', 'utf-8');
 
+process.env.HWSEC_USE_BUILTIN_SAST = '1';
 const semgrep = new SemgrepTool({});
 const result = await semgrep.run({
     files: [cFile, pyFile, javaFile, goFile],

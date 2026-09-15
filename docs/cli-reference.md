@@ -31,6 +31,8 @@ node src/index.js analyze ./my-project --proof deep --novelty standard
 | `-n, --novelty <mode>` | `standard` | Novelty exploration mode: `off`, `minimal`, `standard`, `deep` |
 | `-p, --proof <mode>` | `standard` | Proof-of-impact mode: `off`, `minimal`, `standard`, `deep` |
 | `-o, --output-dir <path>` | `hwsec-output` | Base output directory |
+| `--generate-pov` | `false` | Enable reproducible Proof-of-Vulnerability (PoV) artifact generation |
+| `--pov-mode <mode>` | `on-detected` | PoV policy: `disabled`, `on-detected`, `always-eligible`, `manual` |
 
 **Output**: Analysis ID, file counts, detected tools, planned pipeline, path to `plan.md`.
 
@@ -52,6 +54,8 @@ node src/index.js proceed ANALYSIS-20260911-a1b2c3 --mode deep
 | `-p, --proof <mode>` | — | Override proof mode from analyze phase |
 | `-o, --output-dir <path>` | `hwsec-output` | Base output directory |
 | `--legacy-verifier` | `false` | Run legacy layered verifier in parallel for comparison |
+| `--generate-pov` | `false` | Enable reproducible Proof-of-Vulnerability (PoV) artifact generation |
+| `--pov-mode <mode>` | `on-detected` | PoV policy: `disabled`, `on-detected`, `always-eligible`, `manual` |
 
 **Output**: DETECTED / NOT_DETECTED / INCONCLUSIVE verdict summary, final report at `hwsec-output/<id>/report/final.md`.
 
@@ -254,6 +258,28 @@ Generate an analyst dossier for a specific benchmark test case.
 ### `hwsec benchmark summarize <run-id>`
 
 Display aggregate metrics (TP, FP, TN, FN, Precision, Recall, F1) from a completed run.
+
+---
+
+## `hwsec verify-pov <pov-path>`
+
+Independently replay and verify an existing Proof-of-Vulnerability (PoV) artifact bundle inside the safe ProofSandbox.
+
+```bash
+# Replay against local target
+node src/index.js verify-pov hwsec-output/pov/POV-PYTHON-1234abcd
+
+# Replay against fixed target to verify remediation (regression mode)
+node src/index.js verify-pov hwsec-output/pov/POV-PYTHON-1234abcd --fixed --target-override ./target_fixed
+```
+
+| Option | Default | Description |
+|---|---|---|
+| `-t, --target-override <path>` | — | Path to override target repository or binary |
+| `--fixed` | `false` | Verify against fixed target (regression check where exploit effect must be blocked) |
+| `--timeout <ms>` | `25000` | Execution timeout in milliseconds |
+
+**Output**: Replay execution metrics, security effect evaluation, negative control result, and final PoV status (`VERIFIED`, `FAILED`, `POV_BLOCKED_BY_FIX`).
 
 ---
 

@@ -38,7 +38,12 @@ const testFiles = [
     'test_p4_causal_controls.js',
     'test_p5_constraint_refinement.js',
     'test_p6_observation_provider.js',
-    'test_p7_operational_modes.js'
+    'test_p7_operational_modes.js',
+    'test_pov_unit.js',
+    'test_pov_cross_domain.js',
+    'test_pov_adversarial.js',
+    'test_execution_capability.js',
+    'test_target06_uncertainty_regression.js'
 ];
 
 console.log('=====================================================');

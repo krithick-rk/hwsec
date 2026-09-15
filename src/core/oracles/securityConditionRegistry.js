@@ -35,7 +35,12 @@ export class SecurityConditionRegistry {
     getOracle(cwe) {
         if (!cwe) return null;
         const key = String(cwe).toUpperCase().trim();
-        return this.oracles.get(key) || null;
+        if (this.oracles.has(key)) return this.oracles.get(key);
+        const match = key.match(/\bCWE-\d+\b/);
+        if (match && this.oracles.has(match[0])) {
+            return this.oracles.get(match[0]);
+        }
+        return null;
     }
 
     listSupportedCWEs() {

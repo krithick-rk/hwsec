@@ -32,7 +32,7 @@
       "taint_observed": true,
       "sink_reached": true,
       "exit_code": 0,
-      "trace_hash": "2ec261d0c9db73f1817c2dad3346f111f0fa5b59b48255b2bc903b7c21b2b396"
+      "trace_hash": "180f52420dd6f3aa3568d5e0598fb6d496bb161e90a5cfc9c1707a91202b3041"
     },
     "differential": {
       "baseline_observed": {
@@ -68,12 +68,12 @@
         "jpf": "JPF-Symbc 8.0",
         "z3": "Z3 4.12.2"
       },
-      "timestamp": "2026-09-10T08:39:24.232Z",
+      "timestamp": "2026-09-15T09:11:43.677Z",
       "artifact_hashes": {
         "source_file_sha256": "2651fc172122b8cae155f8aee3ea3bda14842c6f8b16a0b1d97371ce9d9e2c2e",
         "static_findings": "9ed5147cd5af6701fa68ee3df2a07782551412b1f580cccb240ef1d0c638ab01",
         "concolic_result": "d2509f1a67e9ec7b588c5442631abe210413334df0f8518617f32016d2ea36ea",
-        "taint_result": "98d9c4c0758cbb702a109f51d8ee28f59ea7b064b11579fe827399807e84f37b"
+        "taint_result": "2a965b8afb0bbcd1e8d3f638f0dc86a6c7d9e981711d860a3dca6ce23f109d10"
       }
     }
   },
@@ -91,10 +91,10 @@
       "negative_control": true,
       "provenance_and_hashes": true
     },
-    "evidence_hash": "2d24fb119349a8e7ec6a49eda9f8584a49eabd61a201eb1da4533f750cf27f47",
+    "evidence_hash": "c89f47e1f7e4c22a9da8b90a10294bcb5fb113e455716f57d3032206907bdf87",
     "inconclusive_reason": null,
     "recommended_next_action": null,
-    "timestamp": "2026-09-10T08:39:24.233Z"
+    "timestamp": "2026-09-15T09:11:43.678Z"
   },
   "replay_manifest": {
     "case_id": "BenchmarkTest00001",
@@ -105,6 +105,6 @@
     "attack_input": "../../etc/passwd",
     "replay_command": "java -cp <classpath> org.owasp.benchmark.harness.HarnessRunner --case BenchmarkTest00001 --b64input <b64> --type COOKIE --method doPost"
   },
-  "bundle_hash": "0e23ab5d14ebcade6dafe114df9bf7951c709796d0e37c1c4b05f0f928643b56",
-  "timestamp": "2026-09-10T08:39:24.233Z"
+  "bundle_hash": "6c1cfd17e285f2dbf02e332b31c7daacf734a4bccf43cb27343ce4e4df882cfc",
+  "timestamp": "2026-09-15T09:11:43.679Z"
 }

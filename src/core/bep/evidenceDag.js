@@ -19,7 +19,10 @@ export const EvidenceNodeType = {
     SECURITY_ORACLE_RESULT: 'security_oracle_result',
     NEGATIVE_CONTROL: 'negative_control',
     PATCH_RESULT: 'patch_result',
-    PROVENANCE_MANIFEST: 'provenance_manifest'
+    PROVENANCE_MANIFEST: 'provenance_manifest',
+    POV_ARTIFACT: 'pov_artifact',
+    POV_REPLAY: 'pov_replay',
+    POV_VERIFICATION: 'pov_verification'
 };
 
 export const EvidenceEdgeRelation = {
@@ -168,6 +171,60 @@ export class EvidenceDag {
             }
         }
         return { valid: true, dag_hash: this.computeDagHash() };
+    }
+
+    /**
+     * Attaches typed PoV evidence nodes to a hypothesis in the DAG.
+     * @param {string} hypothesisId
+     * @param {Object} pov ProofOfVulnerability or raw PoV record
+     * @param {Object} [replayLog] Optional replay verification log
+     * @returns {{ artifactNode: Object, replayNode: Object|null, verificationNode: Object|null }}
+     */
+    attachPoV(hypothesisId, pov, replayLog = null) {
+        if (!this.nodes.has(hypothesisId)) {
+            throw new Error(`Hypothesis node ${hypothesisId} not found in DAG.`);
+        }
+
+        const povData = typeof pov.toJSON === 'function' ? pov.toJSON() : pov;
+        const artifactNode = this.addNode(EvidenceNodeType.POV_ARTIFACT, {
+            pov_id: povData.pov_id,
+            bundle_path: povData.bundle_path,
+            bundle_hash: povData.bundle_hash,
+            status: povData.status,
+            reproduction_command: povData.reproduction?.command,
+            vulnerability_class: povData.vulnerability_class
+        });
+        this.addEdge(hypothesisId, artifactNode.id, EvidenceEdgeRelation.SUPPORTS);
+
+        let replayNode = null;
+        let verificationNode = null;
+
+        if (replayLog) {
+            replayNode = this.addNode(EvidenceNodeType.POV_REPLAY, {
+                pov_id: povData.pov_id,
+                execution: replayLog.execution,
+                exit_code: replayLog.execution?.exit_code,
+                duration_ms: replayLog.execution?.duration_ms,
+                timestamp: replayLog.timestamp
+            });
+            this.addEdge(artifactNode.id, replayNode.id, EvidenceEdgeRelation.DERIVED_FROM);
+
+            verificationNode = this.addNode(EvidenceNodeType.POV_VERIFICATION, {
+                pov_id: povData.pov_id,
+                verified: replayLog.verified,
+                pov_status: replayLog.pov_status,
+                reason_code: replayLog.reason_code,
+                security_effect_occurred: replayLog.observations?.security_effect_occurred,
+                negative_control_passed: replayLog.observations?.negative_control_passed
+            });
+            this.addEdge(
+                hypothesisId,
+                verificationNode.id,
+                replayLog.verified ? EvidenceEdgeRelation.SUPPORTS : EvidenceEdgeRelation.REFUTES
+            );
+        }
+
+        return { artifactNode, replayNode, verificationNode };
     }
 
     getRootHash() {

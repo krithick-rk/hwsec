@@ -41,6 +41,7 @@ import { EvidenceDag, EvidenceAuthority, EvidenceNodeType, EvidenceEdgeRelation,
 import { AnalystDossier } from './core/analyst/analystDossier.js';
 import { defaultSecurityRegistry } from './core/oracles/securityConditionRegistry.js';
 import { ProofSandbox } from './core/proofSandbox.js';
+import { PovStatus, PovMode } from './core/pov/povTypes.js';
 
 const program = new Command();
 
@@ -60,6 +61,8 @@ program.command('analyze')
   .option('-n, --novelty <mode>', 'Novelty mode (off, minimal, standard, deep)', 'standard')
   .option('-p, --proof <mode>', 'Proof-of-impact validation mode (off, minimal, standard, deep)', 'standard')
   .option('-o, --output-dir <path>', 'Base output directory', 'hwsec-output')
+  .option('--generate-pov', 'Generate and verify reproducible Proof-of-Vulnerability (PoV) artifacts when evidence is sufficient', false)
+  .option('--pov-mode <mode>', 'PoV generation policy (disabled, on-detected, always-eligible, manual)', 'on-detected')
   .action(async (directory, options) => {
     console.log(`[*] Discovering and planning analysis for: ${directory}`);
     console.log(`[*] Novelty mode: ${options.novelty.toUpperCase()} | Proof mode: ${options.proof.toUpperCase()}`);
@@ -79,6 +82,8 @@ program.command('analyze')
         const plan = await planner.plan(workspace);
         const analysis = workspace.loadJson('analysis.json') || {};
         analysis.proof_mode = (options.proof || 'standard').toLowerCase();
+        analysis.pov_mode = options.generatePov ? 'on-detected' : (options.povMode || process.env.POV_MODE || 'on-detected').toLowerCase();
+        analysis.generate_pov = Boolean(options.generatePov);
         
         // Discover and cache Entry Points in repository (Section 7)
         const epInventory = new EntryPointInventory();
@@ -114,6 +119,8 @@ program.command('proceed')
   .option('-p, --proof <mode>', 'Proof-of-impact validation mode (off, minimal, standard, deep)')
   .option('-o, --output-dir <path>', 'Base output directory', 'hwsec-output')
   .option('--legacy-verifier', 'Run legacy verifier in parallel', false)
+  .option('--generate-pov', 'Generate and verify reproducible Proof-of-Vulnerability (PoV) artifacts when evidence is sufficient', false)
+  .option('--pov-mode <mode>', 'PoV generation policy (disabled, on-detected, always-eligible, manual)')
   .action(async (analysisId, options) => {
     console.log(`[*] Validating approval for analysis ID: ${analysisId}...`);
 
@@ -468,17 +475,69 @@ program.command('proceed')
                 const ext = path.extname(absTarget).toLowerCase();
                 let cmd = process.execPath;
                 let args = [absTarget, String(probe.value)];
+                let execRes;
+
                 if (ext === '.py') {
                     cmd = process.platform === 'win32' ? 'py' : 'python3';
                     args = [absTarget, String(probe.value)];
+                    execRes = sandbox.execute(cmd, args, { cwd: analysis.target_dir, timeout: 5000 });
                 } else if (ext === '.java') {
                     cmd = 'java';
                     args = [absTarget, String(probe.value)];
+                    execRes = sandbox.execute(cmd, args, { cwd: analysis.target_dir, timeout: 5000 });
+                } else if (ext === '.c') {
+                    const { ExecutionCapabilityManager, ExecutionCapability, BackendType } = await import('./core/execution/executionCapability.js');
+                    const execMgr = new ExecutionCapabilityManager();
+                    const selected = execMgr.select(ExecutionCapability.C_COMPILER, { cwd: analysis.target_dir });
+                    if (selected.backend !== BackendType.UNAVAILABLE) {
+                        const binPath = path.join(analysis.target_dir, 'target_bin');
+                        execMgr.execute([selected.executable || 'gcc', '-O0', absTarget, '-o', binPath], {
+                            backend: selected.backend,
+                            cwd: analysis.target_dir,
+                            timeout: 10000
+                        });
+                        if (fs.existsSync(binPath)) {
+                            execRes = execMgr.execute([binPath, String(probe.value)], {
+                                backend: selected.backend,
+                                cwd: analysis.target_dir,
+                                timeout: 5000
+                            });
+                        }
+                    }
+                    if (!execRes) {
+                        execRes = { stdout: '', stderr: 'C compilation failed or unavailable', exit_code: 1, timed_out: false };
+                    }
+                } else if (ext === '.v' || ext === '.sv') {
+                    const { ExecutionCapabilityManager, ExecutionCapability, BackendType } = await import('./core/execution/executionCapability.js');
+                    const execMgr = new ExecutionCapabilityManager();
+                    const selected = execMgr.select(ExecutionCapability.VERILOG_SIMULATOR, { cwd: analysis.target_dir });
+                    if (selected.backend !== BackendType.UNAVAILABLE) {
+                        const simPath = path.join(analysis.target_dir, 'target_sim');
+                        execMgr.execute([selected.executable || 'iverilog', '-g2012', '-o', simPath, absTarget], {
+                            backend: selected.backend,
+                            cwd: analysis.target_dir,
+                            timeout: 10000
+                        });
+                        if (fs.existsSync(simPath)) {
+                            const vvpCmd = selected.backend === BackendType.WSL ? 'vvp' : 'vvp.exe';
+                            execRes = execMgr.execute([vvpCmd, simPath], {
+                                backend: selected.backend,
+                                cwd: analysis.target_dir,
+                                timeout: 5000
+                            });
+                        }
+                    }
+                    if (!execRes) {
+                        execRes = { stdout: '', stderr: 'Verilog simulation failed or unavailable', exit_code: 1, timed_out: false };
+                    }
+                } else {
+                    execRes = sandbox.execute(cmd, args, { cwd: analysis.target_dir, timeout: 5000 });
                 }
 
-                const res = sandbox.execute(cmd, args, { cwd: analysis.target_dir, timeout: 5000 });
-                const stdout = res.stdout || '';
-                const stderr = res.stderr || '';
+                const stdout = execRes.stdout || '';
+                const stderr = execRes.stderr || '';
+                const exitCode = execRes.exit_code !== undefined ? execRes.exit_code : execRes.exitCode;
+                const timedOut = !!execRes.timed_out || !!execRes.timedOut;
                 return {
                     stdout,
                     stderr,
@@ -553,7 +612,55 @@ program.command('proceed')
             });
 
             const reduction = redRes.reduction;
-            const dossier = AnalystDossier.generateCaseSummary(hyp, asmRes.dag, reduction);
+
+            // 5f. Proof-of-Vulnerability (PoV) Generation & Independent Replay (Sections 3, 10, 16)
+            let povArtifact = null;
+            let povReplayLog = null;
+            const effectivePovMode = (options.povMode || analysis.pov_mode || process.env.POV_MODE || 'on-detected').toLowerCase();
+            const shouldGeneratePov = effectivePovMode !== 'disabled' && (
+                effectivePovMode === 'always-eligible' ||
+                (effectivePovMode === 'on-detected' && reduction.verdict === 'DETECTED') ||
+                (options.generatePov && reduction.verdict === 'DETECTED')
+            );
+
+            if (shouldGeneratePov && searchRes.witness_input) {
+                try {
+                    console.log(`    [*] [PoV Generation] Synthesizing domain-aware PoV artifact for ${hyp.id}...`);
+                    const povDir = path.join(workspace.outputDir, 'pov');
+                    const povRes = await broker.dispatch({
+                        capability: BrokerCapability.POV_GENERATION,
+                        hypothesis: hyp,
+                        witnessInput: searchRes.witness_input,
+                        negativeControl: ctrlRecord,
+                        targetDir: analysis.target_dir,
+                        outputDir: povDir
+                    });
+
+                    povArtifact = povRes.pov;
+
+                    if (povArtifact && povArtifact.status !== PovStatus.UNSAFE_TO_GENERATE) {
+                        console.log(`    [*] [PoV Replay] Executing independent sandbox replay for ${povArtifact.pov_id}...`);
+                        const verRes = await broker.dispatch({
+                            capability: BrokerCapability.POV_VERIFICATION,
+                            povBundleDir: povArtifact.bundle_path,
+                            targetDirOverride: analysis.target_dir
+                        });
+                        povReplayLog = verRes.replay_log;
+                        povArtifact.status = verRes.pov_status;
+
+                        // Section 13: Attach typed PoV nodes to Evidence DAG
+                        asmRes.dag.attachPoV(hyp.id, povArtifact, povReplayLog);
+                        console.log(`    [+] PoV Status: ${verRes.pov_status} (Verified: ${verRes.verified}) | Bundle: ${povArtifact.bundle_path}`);
+                    } else if (povArtifact?.status === PovStatus.UNSAFE_TO_GENERATE) {
+                        console.warn(`    [!] PoV Generation blocked by safety policy (UNSAFE_TO_GENERATE)`);
+                    }
+                } catch (povErr) {
+                    console.warn(`    [-] PoV generation/replay error: ${povErr.message}`);
+                    // Section 3: If PoV generation fails but vulnerability is proven, do NOT downgrade DETECTED
+                }
+            }
+
+            const dossier = AnalystDossier.generateCaseSummary(hyp, asmRes.dag, reduction, povArtifact, povReplayLog);
 
             // Persist DAG and Analyst Dossier
             workspace.saveJson(`evidence/dag_${hyp.id}.json`, asmRes.dag.exportDAG());
@@ -1574,6 +1681,115 @@ benchmarkCmd.command('summarize')
         console.log(`============================================================\n`);
     } catch (e) {
         console.error(`[-] Summarize failed: ${e.message}`);
+        process.exit(1);
+    }
+  });
+
+// ==========================================
+// Command: verify-pov (Section 15)
+// ==========================================
+program.command('verify-pov')
+  .description('Independently replay and verify an existing PoV bundle')
+  .argument('<pov-path>', 'Path to PoV bundle directory or metadata.json')
+  .option('-t, --target-override <path>', 'Path to override target repository or binary (e.g. for fixed-target regression)')
+  .option('--fixed', 'Verify against fixed target (regression check where exploit effect must be blocked)', false)
+  .option('--timeout <ms>', 'Execution timeout in ms', 25000)
+  .action(async (povPath, options) => {
+    console.log(`[*] Independently replaying PoV bundle from: ${povPath}...`);
+    try {
+        let bundleDir = path.resolve(povPath);
+        if (fs.existsSync(bundleDir) && fs.statSync(bundleDir).isFile() && path.basename(bundleDir) === 'metadata.json') {
+            bundleDir = path.dirname(bundleDir);
+        }
+
+        const broker = new AnalysisBroker();
+        const res = await broker.dispatch({
+            capability: BrokerCapability.POV_VERIFICATION,
+            povBundleDir: bundleDir,
+            targetDirOverride: options.targetOverride ? path.resolve(options.targetOverride) : null,
+            isFixedTarget: Boolean(options.fixed),
+            options: { timeoutMs: parseInt(options.timeout, 10) || 25000 }
+        });
+
+        console.log(`\n============================================================`);
+        console.log(`    HWSEC PROOF-OF-VULNERABILITY INDEPENDENT REPLAY        `);
+        console.log(`============================================================`);
+        console.log(`  PoV Status:       ${res.pov_status}`);
+        console.log(`  Verification:     ${res.verified ? 'VERIFIED (PASS)' : 'FAILED / UNVERIFIED'}`);
+        console.log(`  Reason Code:      ${res.reason_code}`);
+        console.log(`  Target Mode:      ${options.fixed ? 'FIXED (Regression Check)' : 'VULNERABLE'}`);
+        console.log(`  Exit Code:        ${res.replay_log?.execution?.exit_code ?? 'N/A'}`);
+        console.log(`  Duration:         ${res.replay_log?.execution?.duration_ms ?? 0}ms`);
+        console.log(`  Security Effect:  ${res.replay_log?.observations?.security_effect_occurred ? 'OBSERVED' : 'NOT OBSERVED'}`);
+        console.log(`  Negative Control: ${res.replay_log?.observations?.negative_control_passed ? 'PASS' : 'FAIL'}`);
+        console.log(`============================================================\n`);
+
+        if (!res.verified) {
+            process.exit(1);
+        }
+    } catch (e) {
+        console.error(`[-] PoV verification failed: ${e.message}`);
+        process.exit(1);
+    }
+  });
+
+// ==========================================
+// Command: doctor (Execution & Toolchain Diagnostics)
+// ==========================================
+program.command('doctor')
+  .description('Diagnose environment, installed tools, and execution capability backends')
+  .option('--execution', 'Output machine-readable execution capability inventory across host, WSL, and containers', false)
+  .option('--json', 'Format output as JSON', false)
+  .action(async (options) => {
+    try {
+        const { ExecutionCapabilityManager, ExecutionCapability, BackendType } = await import('./core/execution/executionCapability.js');
+        const execMgr = new ExecutionCapabilityManager();
+
+        const caps = [
+            ExecutionCapability.C_COMPILER,
+            ExecutionCapability.CXX_COMPILER,
+            ExecutionCapability.VERILOG_SIMULATOR,
+            ExecutionCapability.VERILOG_SYNTHESIS,
+            ExecutionCapability.FORMAL_VERIFIER,
+            ExecutionCapability.PYTHON_RUNTIME,
+            ExecutionCapability.JAVA_RUNTIME
+        ];
+
+        const inventory = {};
+        for (const cap of caps) {
+            const discovered = execMgr.discover(cap);
+            const selected = execMgr.select(cap);
+            inventory[cap] = {
+                selected_backend: selected.backend,
+                selected_executable: selected.executable,
+                version: selected.version,
+                available_backends: discovered
+            };
+        }
+
+        if (options.json || options.execution) {
+            console.log(JSON.stringify({
+                host_platform: process.platform,
+                host_arch: process.arch,
+                node_version: process.version,
+                resolution_order: ['project-local', 'native', 'wsl', 'container'],
+                capabilities: inventory
+            }, null, 2));
+        } else {
+            console.log(`\n============================================================`);
+            console.log(`    HWSEC EXECUTION CAPABILITY INVENTORY & DOCTOR          `);
+            console.log(`============================================================`);
+            for (const [cap, data] of Object.entries(inventory)) {
+                console.log(`\n* Capability: ${cap.toUpperCase()}`);
+                console.log(`  Selected Backend: ${data.selected_backend}`);
+                console.log(`  Executable:       ${data.selected_executable || 'none'}`);
+                console.log(`  Version:          ${data.version || 'none'}`);
+                console.log(`  Available:        ${data.available_backends.map(b => `${b.backend} (${b.executable || b.image})`).join(', ') || 'none'}`);
+            }
+            console.log(`\n============================================================\n`);
+        }
+    } catch (e) {
+        console.error(`[-] Doctor diagnostic failed: ${e.message}`);
         process.exit(1);
     }
   });

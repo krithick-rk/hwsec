@@ -370,3 +370,46 @@ To ensure safe automated execution of arbitrary codebases:
 - **Reproducibility Rate**: The ratio of successful test runs to total attempts (e.g. 3/3) required before marking a dynamic proof as verified.
 - **SVA (SystemVerilog Assertions)**: Formal property specification syntax used in hardware design to declare design invariants.
 - **VCD (Value Change Dump)**: A standardized binary/text waveform file recording exact signal transitions over time during digital logic simulation.
+
+---
+
+## 16. Execution Capability Layer (`ExecutionCapabilityManager`)
+
+To eliminate the "blocked by execution environment" limitation across heterogeneous developer environments (e.g., Windows hosts lacking native GCC or Icarus Verilog), HWSEC employs a unified capability resolution architecture:
+
+### Resolution Precedence
+```
+project-local (<cwd>/bin) ──► native host (PATH) ──► WSL (Ubuntu Linux) ──► container (Docker) ──► unavailable
+```
+
+### Key Capabilities
+- **C/C++ Compiler (`c_compiler`, `cxx_compiler`)**: Resolves `gcc`/`clang`/`g++` on host or `/usr/bin/gcc` via WSL.
+- **Verilog Simulator (`verilog_simulator`)**: Resolves `iverilog`/`vvp` on host or via WSL.
+- **Python / Java Runtimes**: Resolves `py.exe`/`python3` and OpenJDK on host, WSL, or Docker sandboxes.
+- **Security Boundary**: Structured `argv` arrays exclusively, child process API key/secret scrubbing, local-only network proxying (`127.0.0.1:0`), and cryptographic tamper detection.
+
+### Diagnostic Command
+Engineers can inspect system execution capabilities at any time:
+```bash
+hwsec doctor --execution
+```
+
+---
+
+## 17. Blind Large-Scale Real-World Validation (`pallets/werkzeug`)
+
+HWSEC was validated in an air-gapped blind discovery trial against `pallets/werkzeug` (commit `6a604e005d95af8129ee314863be8ad6b240dead`, 59 source files, 18,177 LOC) using strictly the production CLI:
+
+1. **Planning**:
+   ```bash
+   hwsec analyze experiments/autonomous_validation/real_world_targets/werkzeug/src --generate-pov -o experiments/autonomous_validation/runs/werkzeug
+   ```
+2. **Approval & Execution**:
+   ```bash
+   hwsec proceed <analysis-id> --generate-pov -o experiments/autonomous_validation/runs/werkzeug
+   ```
+3. **Outcome**:
+   - Discovered 1 active top-level entry point (`werkzeug/testapp.py`).
+   - Prioritized candidate hypotheses in `tbtools.py` via analyzer disagreement.
+   - Evaluated reachability and cleanly reduced hypotheses to fail-closed `INCONCLUSIVE` (`ENTRYPOINT_UNRESOLVED`) without fabricating synthetic exploits.
+
