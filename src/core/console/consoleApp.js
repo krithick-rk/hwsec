@@ -239,8 +239,10 @@ export class ConsoleApp {
                     break;
                 }
                 case '8': {
+                    console.log('\n[+] Checking tool capabilities...');
                     const status = await this.diagnostics.getToolchainStatus();
                     console.log('\n' + ConsoleInspectors.formatToolsStatus(status) + '\n');
+                    await this.ask('Press ENTER to return to setup menu...');
                     break;
                 }
                 default:
