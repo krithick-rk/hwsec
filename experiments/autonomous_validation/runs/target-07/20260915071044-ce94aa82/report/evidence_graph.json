@@ -1,0 +1,60 @@
+{
+  "nodes": [
+    {
+      "id": "SEMGREP-d525bb7b",
+      "type": "Finding",
+      "label": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+      "severity": "HIGH",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12",
+      "source_tool": "semgrep"
+    },
+    {
+      "id": "CODEQL-88dd63c5",
+      "type": "Finding",
+      "label": "[CWE-078] This command line depends on a [user-provided value](1).",
+      "severity": "HIGH",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12",
+      "source_tool": "codeql"
+    },
+    {
+      "id": "CAND-DISAGREE-036a89d9",
+      "type": "Finding",
+      "label": "Analyzer Disagreement on app.py: [semgrep, codeql] reported findings vs [joern] clean",
+      "severity": "MEDIUM",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:1",
+      "source_tool": "disagreement_controller"
+    },
+    {
+      "id": "CLUSTER-4d9fec",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12",
+      "confidence": 0.8
+    },
+    {
+      "id": "CLUSTER-910c16",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:1",
+      "confidence": 0.6000000000000001
+    }
+  ],
+  "edges": [
+    {
+      "from": "SEMGREP-d525bb7b",
+      "to": "CLUSTER-4d9fec",
+      "relationship": "STRUCTURAL_JOIN",
+      "weight": 0.8
+    },
+    {
+      "from": "CODEQL-88dd63c5",
+      "to": "CLUSTER-4d9fec",
+      "relationship": "STRUCTURAL_JOIN",
+      "weight": 0.8
+    },
+    {
+      "from": "CAND-DISAGREE-036a89d9",
+      "to": "CLUSTER-910c16",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    }
+  ]
+}

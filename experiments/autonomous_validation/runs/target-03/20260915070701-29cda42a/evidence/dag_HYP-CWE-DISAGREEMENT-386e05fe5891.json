@@ -1,0 +1,113 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260915070701-29cda42a",
+  "created_at": "2026-09-15T07:07:36.254Z",
+  "root_hash": "f9c786315f0a612a5ed0c90c1f10d3fdb749f787e3f33e65e68543df66b9a167",
+  "dag_hash": "f9c786315f0a612a5ed0c90c1f10d3fdb749f787e3f33e65e68543df66b9a167",
+  "nodes": [
+    {
+      "id": "HYP-CWE-DISAGREEMENT-386e05fe5891",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-DISAGREEMENT-386e05fe5891",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260915070701-29cda42a",
+        "cwe": "CWE-DISAGREEMENT",
+        "security_condition": "CWE-Disagreement_SecurityOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:1",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:1"
+        ],
+        "entry_point": {
+          "id": "EP-8caef5768570",
+          "status": "RESOLVED",
+          "type": "CLI_MAIN",
+          "framework": "C/C++Standard",
+          "file": "main.c",
+          "target_identifier": "main.c#main",
+          "discovered_at": "2026-09-15T07:07:33.424Z",
+          "resolution_type": "DIRECT_FILE_MATCH"
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "disagreement_controller",
+            "rule_id": "Analyzer Disagreement on main.c: [joern] reported findings vs [semgrep, codeql] clean",
+            "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c",
+            "line": 1,
+            "confidence": 0.65
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": false,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-15T07:07:33.593Z",
+          "origin_finding_id": "CAND-DISAGREE-c3d9c805",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "0193da6b5a6f4b4c92469bcbd85205103ee059f78215ec12657ff9da71e0f0a3",
+      "created_at": "2026-09-15T07:07:36.254Z"
+    },
+    {
+      "id": "EP-8caef5768570",
+      "type": "entry_point",
+      "data": {
+        "id": "EP-8caef5768570",
+        "status": "RESOLVED",
+        "type": "CLI_MAIN",
+        "framework": "C/C++Standard",
+        "file": "main.c",
+        "target_identifier": "main.c#main",
+        "discovered_at": "2026-09-15T07:07:33.424Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "content_hash": "8ceab980817ec9e77faacc2c2efc1e71bc57c40d6e30ae2387a8352a286ad739",
+      "created_at": "2026-09-15T07:07:36.254Z"
+    },
+    {
+      "id": "PROV-20260915070701-29cda42a",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-15T07:07:36.254Z",
+        "broker_version": "2.0.0",
+        "verified": true,
+        "mode": "STANDARD",
+        "analysis_id": "20260915070701-29cda42a"
+      },
+      "content_hash": "11346f26e98621527241c8241ba3c17c25d630dd30814f81e64a1e91d82e802a",
+      "created_at": "2026-09-15T07:07:36.254Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-DISAGREEMENT-386e05fe5891",
+      "target_id": "EP-8caef5768570",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "4f0a570cd69bbe03d4b71838dff1fb7215c1160c62650957a0578fd20388f12e"
+    },
+    {
+      "source_id": "HYP-CWE-DISAGREEMENT-386e05fe5891",
+      "target_id": "PROV-20260915070701-29cda42a",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "34f9fb353fecf222b27406cfe961ab4df5671ba4d55017cf6865148abbe3d7e2"
+    }
+  ]
+}

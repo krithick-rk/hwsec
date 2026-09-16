@@ -1,0 +1,37 @@
+[
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-28a5a4d3b685",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "bfda84092f7e322bae1668b9020353cf023b8ae5744f61b09ea1a7570445bb68",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-28a5a4d3b685.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-28a5a4d3b685",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "88b1d634b6e7e8ccb67d2ca2888a7c27a487d9e4ce6fa6fb3a89c12bdba458c5",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-28a5a4d3b685.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-28a5a4d3b685",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "a6115461634ce157c24662ef1c7f18ec76fd9e43a61cbb07277c5245f6a423ff",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-28a5a4d3b685.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-489: ACTIVE DEBUG CODE-3a4729b96ce7",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "936d5dae618be7b5299f432152cd9da318565cf235c67764c40460ea38f16759",
+    "dossier_path": "evidence/dossier_HYP-CWE-489: ACTIVE DEBUG CODE-3a4729b96ce7.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "c98330074d423b743d138f33834011e018df3b1e2233a765fc11814a60d65678",
+    "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-ef34e9cc3677.md"
+  }
+]

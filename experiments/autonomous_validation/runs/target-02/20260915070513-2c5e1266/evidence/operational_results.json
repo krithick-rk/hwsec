@@ -1,0 +1,37 @@
+[
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8",
+    "verdict": "DETECTED",
+    "reason_code": "VERIFIED_EXPLOIT_WITNESS",
+    "dag_hash": "e858dc74c40cb054898627f75d7d8589777c82f3eb852111b898f25ea02d187d",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "82abfd3d7b8f000d8e3335cdded62d1766bd371b51a640ea0f51242d4fbf77bc",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "459bcccad55b703cbe9774111c64640534cc0cf068bf0ad172ae2838152fa51e",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-DISAGREEMENT-87c822ec859b",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "2654f97be62024f3400969f5397ff2af9aa016f47f938939b4a50c3cf5931df0",
+    "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-87c822ec859b.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "878edb3e9ef9a8ea870173f0a485d1820798c81940595548841327c8250ac79f",
+    "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-88218be26bd8.md"
+  }
+]

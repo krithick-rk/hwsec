@@ -1,0 +1,6 @@
+{
+  "vulnerability_class": "CWE-78",
+  "expected_security_effect": "Execution with payload \"; touch hwsec_marker.tmp\" reproduces unvalidated command/data execution.",
+  "oracle_cwe": "CWE-78",
+  "negative_control_expected": "Security condition remains unviolated"
+}

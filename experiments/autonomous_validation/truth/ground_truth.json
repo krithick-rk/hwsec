@@ -1,0 +1,51 @@
+{
+  "target-01": {
+    "language": "python",
+    "expected_verdict": "DETECTED",
+    "expected_cwe": "CWE-78",
+    "expected_vulnerable_file": "app.py",
+    "category": "simple"
+  },
+  "target-02": {
+    "language": "java",
+    "expected_verdict": "DETECTED",
+    "expected_cwe": "CWE-78",
+    "expected_vulnerable_file": "DiagnosticController.java",
+    "category": "indirect"
+  },
+  "target-03": {
+    "language": "c_cpp",
+    "expected_verdict": "DETECTED",
+    "expected_cwe": "CWE-120",
+    "expected_vulnerable_file": "main.c",
+    "category": "memory_bounds"
+  },
+  "target-04": {
+    "language": "verilog",
+    "expected_verdict": "DETECTED",
+    "expected_cwe": "CWE-1271",
+    "expected_vulnerable_file": "counter.v",
+    "category": "hardware"
+  },
+  "target-05": {
+    "language": "python",
+    "expected_verdict": "NOT_DETECTED",
+    "expected_cwe": null,
+    "expected_vulnerable_file": null,
+    "category": "safe_control"
+  },
+  "target-06": {
+    "language": "python",
+    "expected_verdict": "NOT_DETECTED",
+    "expected_cwe": null,
+    "expected_vulnerable_file": null,
+    "category": "ambiguous"
+  },
+  "target-07": {
+    "language": "python",
+    "expected_verdict": "DETECTED",
+    "expected_cwe": "CWE-78",
+    "expected_vulnerable_file": "app.py",
+    "category": "adversarial_injection"
+  }
+}

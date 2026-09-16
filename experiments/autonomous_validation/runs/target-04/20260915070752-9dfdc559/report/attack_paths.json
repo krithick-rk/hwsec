@@ -1,0 +1,9 @@
+[
+  {
+    "path_id": "SBY-b343fb43",
+    "title": "Formal Invariant Violation in counter module",
+    "evidence_strength": "E5",
+    "description": "A critical formal invariant violation was detected in the 'counter' module (CWE-1234) during Bounded Model Checking (BMC). This indicates a fundamental design flaw where a specified security property or invariant can be violated. The BMC step failure provides a concrete counterexample, demonstrating a path for an attacker to manipulate the counter's state, potentially leading to unauthorized access, denial of service, or incorrect system behavior.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17"
+  }
+]

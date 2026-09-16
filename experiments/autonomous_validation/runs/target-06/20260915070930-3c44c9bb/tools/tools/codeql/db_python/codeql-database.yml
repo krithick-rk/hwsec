@@ -1,0 +1,12 @@
+---
+sourceLocationPrefix: /mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/ambiguous/target-06
+baselineLinesOfCode: 18
+unicodeNewlines: false
+columnKind: utf32
+primaryLanguage: python
+creationMetadata:
+  cliVersion: 2.26.4
+  creationTime: 2026-09-15T07:09:55.329998189Z
+overlayBaseDatabase: false
+overlayDatabase: false
+finalised: true

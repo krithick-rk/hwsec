@@ -1,0 +1,162 @@
+{
+  "schema_version": "2.0.0",
+  "analysis_id": "20260915085450-bcdde56f",
+  "status": "COMPLETED",
+  "approval_required": true,
+  "execution_started": true,
+  "created_at": "2026-09-15T08:55:03.094Z",
+  "target_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src",
+  "novelty_mode": "standard",
+  "spec_path": null,
+  "inventory": {
+    "total_files": 59,
+    "total_loc": 18177,
+    "languages": {
+      "python": [
+        "werkzeug\\datastructures\\accept.py",
+        "werkzeug\\datastructures\\auth.py",
+        "werkzeug\\datastructures\\cache_control.py",
+        "werkzeug\\datastructures\\csp.py",
+        "werkzeug\\datastructures\\etag.py",
+        "werkzeug\\datastructures\\file_storage.py",
+        "werkzeug\\datastructures\\headers.py",
+        "werkzeug\\datastructures\\mixins.py",
+        "werkzeug\\datastructures\\range.py",
+        "werkzeug\\datastructures\\structures.py",
+        "werkzeug\\datastructures\\__init__.py",
+        "werkzeug\\debug\\console.py",
+        "werkzeug\\debug\\repr.py",
+        "werkzeug\\debug\\tbtools.py",
+        "werkzeug\\debug\\__init__.py",
+        "werkzeug\\exceptions.py",
+        "werkzeug\\formparser.py",
+        "werkzeug\\http.py",
+        "werkzeug\\local.py",
+        "werkzeug\\middleware\\dispatcher.py",
+        "werkzeug\\middleware\\http_proxy.py",
+        "werkzeug\\middleware\\lint.py",
+        "werkzeug\\middleware\\profiler.py",
+        "werkzeug\\middleware\\proxy_fix.py",
+        "werkzeug\\middleware\\shared_data.py",
+        "werkzeug\\middleware\\__init__.py",
+        "werkzeug\\routing\\converters.py",
+        "werkzeug\\routing\\exceptions.py",
+        "werkzeug\\routing\\map.py",
+        "werkzeug\\routing\\matcher.py",
+        "werkzeug\\routing\\rules.py",
+        "werkzeug\\routing\\__init__.py",
+        "werkzeug\\sansio\\http.py",
+        "werkzeug\\sansio\\multipart.py",
+        "werkzeug\\sansio\\request.py",
+        "werkzeug\\sansio\\response.py",
+        "werkzeug\\sansio\\utils.py",
+        "werkzeug\\sansio\\__init__.py",
+        "werkzeug\\security.py",
+        "werkzeug\\serving.py",
+        "werkzeug\\test.py",
+        "werkzeug\\testapp.py",
+        "werkzeug\\urls.py",
+        "werkzeug\\user_agent.py",
+        "werkzeug\\utils.py",
+        "werkzeug\\wrappers\\request.py",
+        "werkzeug\\wrappers\\response.py",
+        "werkzeug\\wrappers\\__init__.py",
+        "werkzeug\\wsgi.py",
+        "werkzeug\\_internal.py",
+        "werkzeug\\_reloader.py",
+        "werkzeug\\__init__.py"
+      ],
+      "java": [],
+      "c": [],
+      "cpp": [],
+      "go": [],
+      "verilog": []
+    },
+    "manifests": []
+  },
+  "summary": {
+    "total_files": 59,
+    "total_loc": 18177,
+    "languages": {
+      "python": {
+        "file_count": 52,
+        "loc_estimate": 18177,
+        "sample_files": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\accept.py",
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\auth.py",
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\cache_control.py",
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\csp.py",
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\etag.py"
+        ]
+      }
+    },
+    "manifests": [],
+    "unsupported_count": 7,
+    "likely_attack_surfaces": []
+  },
+  "tools_detected": [
+    "verilator",
+    "yosys",
+    "afl++",
+    "symbiyosys",
+    "spike",
+    "semgrep",
+    "codeql",
+    "joern"
+  ],
+  "tools_unavailable": [],
+  "planned_capabilities": [
+    "sast_pattern_scan",
+    "deep_dataflow",
+    "graph_dataflow"
+  ],
+  "execution_graph": [
+    "discovery",
+    "sast_pattern_scan",
+    "deep_dataflow",
+    "graph_dataflow",
+    "suspicion_scoring",
+    "hypothesis_formulation",
+    "artifact_verification",
+    "correlation",
+    "report_generation"
+  ],
+  "coverage_matrix": {
+    "gaps_count": 12,
+    "high_priority_gaps": [
+      "python: Security Misconfiguration",
+      "python: Hardcoded Credentials & Secrets",
+      "python: Cryptographic & Randomness Failures",
+      "python: Broken Authentication & Access Control",
+      "python: Server-Side Request Forgery (SSRF)",
+      "python: Insecure Deserialization",
+      "python: XML External Entity (XXE)",
+      "python: Cross-Site Scripting (XSS)",
+      "python: Path Traversal & File Inclusion",
+      "python: LDAP Injection",
+      "python: SQL & Query Injection",
+      "python: Command & Code Injection"
+    ]
+  },
+  "budget_estimate": {
+    "novelty_mode": "standard",
+    "estimated_tokens": 80000,
+    "estimated_cost_usd": 0.032,
+    "max_budget_usd": 10,
+    "estimated_duration_seconds": 177
+  },
+  "proof_mode": "standard",
+  "pov_mode": "on-detected",
+  "generate_pov": true,
+  "entry_points_count": 1,
+  "approved_at": "2026-09-15T08:55:39.496Z",
+  "started_at": "2026-09-15T08:55:39.497Z",
+  "completed_at": "2026-09-15T08:57:49.813Z",
+  "results": {
+    "verified_count": 0,
+    "candidate_count": 2,
+    "detected_count": 0,
+    "not_detected_count": 0,
+    "inconclusive_count": 2
+  }
+}

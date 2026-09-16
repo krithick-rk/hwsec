@@ -1,0 +1,89 @@
+[
+  {
+    "schema_version": "2.0.0",
+    "id": "SEMGREP-71f0e66c",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+    "description": "Found 'subprocess' function 'run' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+    "severity": "HIGH",
+    "confidence": 0.95,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+        "startLine": 8,
+        "endLine": 8,
+        "line": 8,
+        "startColumn": 44,
+        "endColumn": 48,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "evidence_ids": [
+      "3d1a0f21"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "3d1a0f21",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "experiments\\autonomous_validation\\runs\\target-01-autonomous-e2e\\20260915070117-89c55dab\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+        "raw_evidence": {
+          "rule_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T07:01:43.470Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "VERIFIED",
+    "provenance": {
+      "tool": "semgrep",
+      "created_at": "2026-09-15T07:01:43.470Z"
+    },
+    "source_tool": "semgrep",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+    "evidence": [
+      {
+        "id": "3d1a0f21",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "experiments\\autonomous_validation\\runs\\target-01-autonomous-e2e\\20260915070117-89c55dab\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+        "raw_evidence": {
+          "rule_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T07:01:43.470Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "631917ca14db25da574285170b444c17833073dc124c901f8c9406e8981010d0",
+    "operational_verdict": "DETECTED",
+    "reason_code": "VERIFIED_EXPLOIT_WITNESS",
+    "verification_level": "E5"
+  }
+]

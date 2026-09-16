@@ -1,0 +1,82 @@
+{
+  "ranked": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py",
+      "suspicion_score": 0.608,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 2,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.43,
+          "reportingTools": [
+            "semgrep",
+            "codeql"
+          ],
+          "silentTools": [
+            "joern"
+          ],
+          "conflictingTools": [
+            "semgrep",
+            "codeql",
+            "joern"
+          ],
+          "reason": "Tool disagreement: [semgrep, codeql] reported findings, while [joern] reported none.",
+          "score": 0.1075
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ],
+  "prioritizedTargets": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py",
+      "suspicion_score": 0.608,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 2,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.43,
+          "reportingTools": [
+            "semgrep",
+            "codeql"
+          ],
+          "silentTools": [
+            "joern"
+          ],
+          "conflictingTools": [
+            "semgrep",
+            "codeql",
+            "joern"
+          ],
+          "reason": "Tool disagreement: [semgrep, codeql] reported findings, while [joern] reported none.",
+          "score": 0.1075
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ]
+}

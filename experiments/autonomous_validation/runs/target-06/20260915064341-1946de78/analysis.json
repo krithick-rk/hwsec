@@ -1,0 +1,107 @@
+{
+  "schema_version": "2.0.0",
+  "analysis_id": "20260915064341-1946de78",
+  "status": "COMPLETED",
+  "approval_required": true,
+  "execution_started": true,
+  "created_at": "2026-09-15T06:43:44.790Z",
+  "target_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06",
+  "novelty_mode": "standard",
+  "spec_path": null,
+  "inventory": {
+    "total_files": 1,
+    "total_loc": 18,
+    "languages": {
+      "python": [
+        "app.py"
+      ],
+      "java": [],
+      "c": [],
+      "cpp": [],
+      "go": [],
+      "verilog": []
+    },
+    "manifests": []
+  },
+  "summary": {
+    "total_files": 1,
+    "total_loc": 18,
+    "languages": {
+      "python": {
+        "file_count": 1,
+        "loc_estimate": 18,
+        "sample_files": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06\\app.py"
+        ]
+      }
+    },
+    "manifests": [],
+    "unsupported_count": 0,
+    "likely_attack_surfaces": []
+  },
+  "tools_detected": [
+    "verilator",
+    "yosys",
+    "afl++",
+    "symbiyosys",
+    "spike",
+    "semgrep",
+    "codeql",
+    "joern"
+  ],
+  "tools_unavailable": [],
+  "planned_capabilities": [
+    "sast_pattern_scan",
+    "deep_dataflow",
+    "graph_dataflow"
+  ],
+  "execution_graph": [
+    "discovery",
+    "sast_pattern_scan",
+    "deep_dataflow",
+    "graph_dataflow",
+    "suspicion_scoring",
+    "hypothesis_formulation",
+    "artifact_verification",
+    "correlation",
+    "report_generation"
+  ],
+  "coverage_matrix": {
+    "gaps_count": 12,
+    "high_priority_gaps": [
+      "python: Security Misconfiguration",
+      "python: Hardcoded Credentials & Secrets",
+      "python: Cryptographic & Randomness Failures",
+      "python: Broken Authentication & Access Control",
+      "python: Server-Side Request Forgery (SSRF)",
+      "python: Insecure Deserialization",
+      "python: XML External Entity (XXE)",
+      "python: Cross-Site Scripting (XSS)",
+      "python: Path Traversal & File Inclusion",
+      "python: LDAP Injection",
+      "python: SQL & Query Injection",
+      "python: Command & Code Injection"
+    ]
+  },
+  "budget_estimate": {
+    "novelty_mode": "standard",
+    "estimated_tokens": 2000,
+    "estimated_cost_usd": 0.0008,
+    "max_budget_usd": 10,
+    "estimated_duration_seconds": 10
+  },
+  "proof_mode": "standard",
+  "pov_mode": "on-detected",
+  "generate_pov": true,
+  "entry_points_count": 2,
+  "approved_at": "2026-09-15T06:43:45.071Z",
+  "started_at": "2026-09-15T06:43:45.072Z",
+  "completed_at": "2026-09-15T06:44:21.103Z",
+  "results": {
+    "verified_count": 0,
+    "candidate_count": 0,
+    "detected_count": 0,
+    "not_detected_count": 0,
+    "inconclusive_count": 0
+  }
+}

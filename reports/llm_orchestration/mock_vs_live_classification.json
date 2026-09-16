@@ -1,0 +1,579 @@
+{
+  "timestamp": "2026-09-15T05:27:23.878Z",
+  "totalInspected": 52,
+  "llmTestsCount": 28,
+  "breakdown": {
+    "mockedCount": 26,
+    "liveCount": 1,
+    "mixedCount": 1,
+    "nonLlmDeterministicCount": 24
+  },
+  "sectionA_orchestrationLogicMocked": [
+    {
+      "file": "run_all_tests.js",
+      "path": "tests\\run_all_tests.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_adaptive_suspicion.js",
+      "path": "tests\\test_adaptive_suspicion.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_adversarial_llm_team.js",
+      "path": "tests\\test_adversarial_llm_team.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Tests orchestration, circuit breaker, or budget logic using local mock classes or synthetic responses"
+    },
+    {
+      "file": "test_architecture_upgrade.js",
+      "path": "tests\\test_architecture_upgrade.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_comparative_operational.js",
+      "path": "tests\\test_comparative_operational.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_controlled_proof_verifier.js",
+      "path": "tests\\test_controlled_proof_verifier.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_e0_e5_verifier.js",
+      "path": "tests\\test_e0_e5_verifier.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_evidence_pipeline.js",
+      "path": "tests\\test_evidence_pipeline.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_exploit_preflight.js",
+      "path": "tests\\test_exploit_preflight.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_improved_architecture.js",
+      "path": "tests\\test_improved_architecture.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p0_security_hardening.js",
+      "path": "tests\\test_p0_security_hardening.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p2_hypothesis_inventory.js",
+      "path": "tests\\test_p2_hypothesis_inventory.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p5_constraint_refinement.js",
+      "path": "tests\\test_p5_constraint_refinement.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p6_observation_provider.js",
+      "path": "tests\\test_p6_observation_provider.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_preflight_scheduler.js",
+      "path": "tests\\test_preflight_scheduler.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_quality_gates.js",
+      "path": "tests\\test_quality_gates.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp12_gateway.js",
+      "path": "tests\\test_wp12_gateway.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Tests orchestration, circuit breaker, or budget logic using local mock classes or synthetic responses"
+    },
+    {
+      "file": "test_wp1_planning_gate.js",
+      "path": "tests\\test_wp1_planning_gate.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp2_nvidia_llm.js",
+      "path": "tests\\test_wp2_nvidia_llm.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Tests orchestration, circuit breaker, or budget logic using local mock classes or synthetic responses"
+    },
+    {
+      "file": "test_wp3_sqlite_db.js",
+      "path": "tests\\test_wp3_sqlite_db.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp6_schema.js",
+      "path": "tests\\test_wp6_schema.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp7_verifier.js",
+      "path": "tests\\test_wp7_verifier.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "verify_operational_gates.js",
+      "path": "tests\\verify_operational_gates.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "verify_webgoat_real_target.js",
+      "path": "tests\\verify_webgoat_real_target.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "generate_benchmark.mjs",
+      "path": "tests\\experimental\\generate_benchmark.mjs",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "generate_java_benchmark.mjs",
+      "path": "tests\\experimental\\generate_java_benchmark.mjs",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    }
+  ],
+  "sectionB_realProviderOperationalLive": [
+    {
+      "file": "verify_providers.mjs",
+      "path": "tests\\experimental\\verify_providers.mjs",
+      "isLlmTest": true,
+      "classification": "LIVE",
+      "rationale": "Makes direct HTTP calls to real provider endpoints with live API keys and evaluates external response"
+    }
+  ],
+  "sectionMixed": [
+    {
+      "file": "run_live_experiment.mjs",
+      "path": "tests\\experimental\\run_live_experiment.mjs",
+      "isLlmTest": true,
+      "classification": "MIXED",
+      "rationale": "Contains mock harnesses alongside real provider endpoints"
+    }
+  ],
+  "allTests": [
+    {
+      "file": "run_all_tests.js",
+      "path": "tests\\run_all_tests.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_adaptive_suspicion.js",
+      "path": "tests\\test_adaptive_suspicion.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_adversarial_llm_team.js",
+      "path": "tests\\test_adversarial_llm_team.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Tests orchestration, circuit breaker, or budget logic using local mock classes or synthetic responses"
+    },
+    {
+      "file": "test_anti_leakage.js",
+      "path": "tests\\test_anti_leakage.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_architecture_upgrade.js",
+      "path": "tests\\test_architecture_upgrade.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_benchmark_crawler.js",
+      "path": "tests\\test_benchmark_crawler.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_bep_evidence.js",
+      "path": "tests\\test_bep_evidence.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_cache_invalidation.js",
+      "path": "tests\\test_cache_invalidation.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_cli_commands.js",
+      "path": "tests\\test_cli_commands.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_cli_e2e_operational.js",
+      "path": "tests\\test_cli_e2e_operational.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_codeql_adapter.js",
+      "path": "tests\\test_codeql_adapter.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_comparative_operational.js",
+      "path": "tests\\test_comparative_operational.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_controlled_proof_verifier.js",
+      "path": "tests\\test_controlled_proof_verifier.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_e0_e5_verifier.js",
+      "path": "tests\\test_e0_e5_verifier.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_e2e_multilang.js",
+      "path": "tests\\test_e2e_multilang.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_evidence_pipeline.js",
+      "path": "tests\\test_evidence_pipeline.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_exploit_preflight.js",
+      "path": "tests\\test_exploit_preflight.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_graph_strengthening.js",
+      "path": "tests\\test_graph_strengthening.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_improved_architecture.js",
+      "path": "tests\\test_improved_architecture.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_java_sandbox.js",
+      "path": "tests\\test_java_sandbox.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_joern_adapter.js",
+      "path": "tests\\test_joern_adapter.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p0_security_hardening.js",
+      "path": "tests\\test_p0_security_hardening.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p1_evidence_dag.js",
+      "path": "tests\\test_p1_evidence_dag.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p2_hypothesis_inventory.js",
+      "path": "tests\\test_p2_hypothesis_inventory.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p3_witness_search.js",
+      "path": "tests\\test_p3_witness_search.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p4_causal_controls.js",
+      "path": "tests\\test_p4_causal_controls.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p5_constraint_refinement.js",
+      "path": "tests\\test_p5_constraint_refinement.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p6_observation_provider.js",
+      "path": "tests\\test_p6_observation_provider.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_p7_operational_modes.js",
+      "path": "tests\\test_p7_operational_modes.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_preflight_scheduler.js",
+      "path": "tests\\test_preflight_scheduler.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_qdrant_rag.js",
+      "path": "tests\\test_qdrant_rag.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_quality_gates.js",
+      "path": "tests\\test_quality_gates.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_spike_adapter.js",
+      "path": "tests\\test_spike_adapter.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_symbiyosys_adapter.js",
+      "path": "tests\\test_symbiyosys_adapter.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp12_gateway.js",
+      "path": "tests\\test_wp12_gateway.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Tests orchestration, circuit breaker, or budget logic using local mock classes or synthetic responses"
+    },
+    {
+      "file": "test_wp1_planning_gate.js",
+      "path": "tests\\test_wp1_planning_gate.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp2_nvidia_llm.js",
+      "path": "tests\\test_wp2_nvidia_llm.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Tests orchestration, circuit breaker, or budget logic using local mock classes or synthetic responses"
+    },
+    {
+      "file": "test_wp3_sqlite_db.js",
+      "path": "tests\\test_wp3_sqlite_db.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp4_broker_multilang.js",
+      "path": "tests\\test_wp4_broker_multilang.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp6_schema.js",
+      "path": "tests\\test_wp6_schema.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp7_verifier.js",
+      "path": "tests\\test_wp7_verifier.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_wp8_wp11_intelligence.js",
+      "path": "tests\\test_wp8_wp11_intelligence.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "test_yosys_adapter.js",
+      "path": "tests\\test_yosys_adapter.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "verify_gate2_isolation.js",
+      "path": "tests\\verify_gate2_isolation.js",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "verify_operational_gates.js",
+      "path": "tests\\verify_operational_gates.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "verify_webgoat_real_target.js",
+      "path": "tests\\verify_webgoat_real_target.js",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "evaluate_artificial_benchmark.mjs",
+      "path": "tests\\experimental\\evaluate_artificial_benchmark.mjs",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "evaluate_java_benchmark.mjs",
+      "path": "tests\\experimental\\evaluate_java_benchmark.mjs",
+      "isLlmTest": false,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "generate_benchmark.mjs",
+      "path": "tests\\experimental\\generate_benchmark.mjs",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "generate_java_benchmark.mjs",
+      "path": "tests\\experimental\\generate_java_benchmark.mjs",
+      "isLlmTest": true,
+      "classification": "MOCKED",
+      "rationale": "Deterministic offline execution using local components and fixtures"
+    },
+    {
+      "file": "run_live_experiment.mjs",
+      "path": "tests\\experimental\\run_live_experiment.mjs",
+      "isLlmTest": true,
+      "classification": "MIXED",
+      "rationale": "Contains mock harnesses alongside real provider endpoints"
+    },
+    {
+      "file": "verify_providers.mjs",
+      "path": "tests\\experimental\\verify_providers.mjs",
+      "isLlmTest": true,
+      "classification": "LIVE",
+      "rationale": "Makes direct HTTP calls to real provider endpoints with live API keys and evaluates external response"
+    }
+  ]
+}

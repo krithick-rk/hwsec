@@ -1,0 +1,13 @@
+{
+  "command": "wsl -e env PATH=/home/intern/tools/jdk-26/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /usr/local/bin/semgrep scan --config auto --json --quiet /mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/c_cpp/target-03/main.c",
+  "exitCode": 0,
+  "stdout": "{\"version\":\"1.176.1\",\"results\":[],\"errors\":[],\"paths\":{\"scanned\":[\"/mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/c_cpp/target-03/main.c\"]},\"time\":{\"rules\":[],\"rules_parse_time\":0.4631800651550293,\"profiling_times\":{\"config_time\":1.6575422286987305,\"core_time\":0.7893095016479492,\"ignores_time\":0.0012180805206298828,\"total_time\":2.467761754989624},\"parsing_time\":{\"total_time\":0.0,\"per_file_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"scanning_time\":{\"total_time\":0.011873960494995117,\"per_file_time\":{\"mean\":0.003957986831665039,\"std_dev\":2.5288594921827706e-07},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"matching_time\":{\"total_time\":0.0,\"per_file_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_files\":[]},\"tainting_time\":{\"total_time\":0.0,\"per_def_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_defs\":[]},\"fixpoint_timeouts\":[],\"prefiltering\":{\"project_level_time\":0.0,\"file_level_time\":0.0,\"rules_with_project_prefilters_ratio\":0.0,\"rules_with_file_prefilters_ratio\":1.0,\"rules_selected_ratio\":0.0,\"rules_matched_ratio\":0.0},\"targets\":[],\"total_bytes\":0,\"max_memory_bytes\":732515904},\"engine_requested\":\"OSS\",\"skipped_rules\":[],\"profiling_results\":[]}\n",
+  "stderr": "",
+  "timeout": false,
+  "durationMs": 4830,
+  "environment": {
+    "platform": "win32",
+    "release": "10.0.22631",
+    "wsl": true
+  }
+}

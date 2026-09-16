@@ -1,0 +1,113 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260915070701-29cda42a",
+  "created_at": "2026-09-15T07:07:35.849Z",
+  "root_hash": "d7b62d42dda5c514094cdefecf4e46f6bd0842a3bb39924dffb13d3dd1689ea5",
+  "dag_hash": "d7b62d42dda5c514094cdefecf4e46f6bd0842a3bb39924dffb13d3dd1689ea5",
+  "nodes": [
+    {
+      "id": "HYP-CWE-78-422af5e388bb",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-78-422af5e388bb",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260915070701-29cda42a",
+        "cwe": "CWE-78",
+        "security_condition": "CommandInjectionOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14"
+        ],
+        "entry_point": {
+          "id": "EP-8caef5768570",
+          "status": "RESOLVED",
+          "type": "CLI_MAIN",
+          "framework": "C/C++Standard",
+          "file": "main.c",
+          "target_identifier": "main.c#main",
+          "discovered_at": "2026-09-15T07:07:33.424Z",
+          "resolution_type": "DIRECT_FILE_MATCH"
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "joern",
+            "rule_id": "[CWE-78] OS command execution sink (system)",
+            "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c",
+            "line": 14,
+            "confidence": 0.85
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": false,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-15T07:07:33.479Z",
+          "origin_finding_id": "JOERN-eaebddc8",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "b7cb27b759d884ae3e79b725181caf3902dbe3dbc8766f10ed0cdc7a76586f30",
+      "created_at": "2026-09-15T07:07:35.849Z"
+    },
+    {
+      "id": "EP-8caef5768570",
+      "type": "entry_point",
+      "data": {
+        "id": "EP-8caef5768570",
+        "status": "RESOLVED",
+        "type": "CLI_MAIN",
+        "framework": "C/C++Standard",
+        "file": "main.c",
+        "target_identifier": "main.c#main",
+        "discovered_at": "2026-09-15T07:07:33.424Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "content_hash": "8ceab980817ec9e77faacc2c2efc1e71bc57c40d6e30ae2387a8352a286ad739",
+      "created_at": "2026-09-15T07:07:35.849Z"
+    },
+    {
+      "id": "PROV-20260915070701-29cda42a",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-15T07:07:35.849Z",
+        "broker_version": "2.0.0",
+        "verified": true,
+        "mode": "STANDARD",
+        "analysis_id": "20260915070701-29cda42a"
+      },
+      "content_hash": "cbb5c7372fea49fdd267d4d3a3538b62853aa27e3f3a81a9e353e05298f44639",
+      "created_at": "2026-09-15T07:07:35.849Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-78-422af5e388bb",
+      "target_id": "EP-8caef5768570",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "38b9004e2ef707866b78e7b504bf2bc5e53cc2a3dcb336ae2c26a05e65d9ea6f"
+    },
+    {
+      "source_id": "HYP-CWE-78-422af5e388bb",
+      "target_id": "PROV-20260915070701-29cda42a",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "2d720e9e09c62f41a0c83ba496cc075e20c0ab2a69b3fe23c07392d1cfa5059a"
+    }
+  ]
+}

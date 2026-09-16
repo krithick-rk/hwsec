@@ -1,0 +1,1 @@
+[{"rule_id":"joern/cwe-78/eval","cwe_id":"CWE-78","title":"Dynamic code evaluation sink (eval)","severity":"CRITICAL","file":"tbtools.py","line":392,"method":"eval","code":"self.console.eval(code)","dataflow_reachable":true}]

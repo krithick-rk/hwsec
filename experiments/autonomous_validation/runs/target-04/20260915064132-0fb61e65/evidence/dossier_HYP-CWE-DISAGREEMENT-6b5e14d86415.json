@@ -1,0 +1,85 @@
+{
+  "case_id": "HYP-CWE-DISAGREEMENT-6b5e14d86415",
+  "run_id": "20260915064132-0fb61e65",
+  "verdict": "INCONCLUSIVE",
+  "pov": {
+    "status": "NOT_REQUESTED",
+    "bundle_path": null,
+    "bundle_hash": null,
+    "replay_result": "NOT_REQUESTED",
+    "reason_code": "INSUFFICIENT_EVIDENCE",
+    "reproduction_command": null,
+    "environment_requirements": "Standard",
+    "vulnerability_class": "CWE-DISAGREEMENT",
+    "observed_security_effect": null
+  },
+  "summary": {
+    "q1_suspected_vulnerability": "CWE-DISAGREEMENT: CWE-Disagreement_SecurityOracle",
+    "q2_attack_surface_and_entry_point": {
+      "attack_surface": "CLI_OR_HTTP",
+      "entry_point": {
+        "id": "EP-9f08c8963b77",
+        "status": "RESOLVED",
+        "type": "HARDWARE_MODULE_IO",
+        "framework": "VerilogRTL",
+        "module_name": "counter",
+        "file": "counter.v",
+        "target_identifier": "counter.v#counter",
+        "discovered_at": "2026-09-15T06:41:39.428Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "resolved": true
+    },
+    "q3_analyzers_and_disagreement": {
+      "signals": [
+        {
+          "analyzer": "disagreement_controller",
+          "rule_id": "Analyzer Disagreement on counter.v: [symbiyosys] reported findings vs [verilator, yosys, afl++, spike] clean",
+          "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v",
+          "line": 1,
+          "confidence": 0.65
+        }
+      ],
+      "analyzers_count": 1,
+      "priority_consensus": 0.5,
+      "model_team_narrative": null
+    },
+    "q4_evidence_attempted": [
+      "hypothesis_valid",
+      "entry_point_resolved",
+      "provenance_manifest_verified"
+    ],
+    "q5_concrete_inputs_tried": [],
+    "q6_application_executed_attack_path": false,
+    "q7_security_effect_observed": false,
+    "q8_controls_status": {
+      "negative_control_passed": false,
+      "provenance_verified": true
+    },
+    "q9_replayable": false,
+    "q10_verdict_decision": {
+      "verdict": "INCONCLUSIVE",
+      "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+      "reasons": [
+        "SEARCH_BUDGET_EXHAUSTED",
+        "REPLAY_FAILURE",
+        "ORACLE_NOT_TRIGGERED",
+        "CONTROL_INVALID"
+      ],
+      "dag_hash": "1a74b673f78aae30490e6c3503b082a59e55d78e5cf56e34d8d0bd7187efbe20"
+    },
+    "pov_artifact": {
+      "status": "NOT_REQUESTED",
+      "bundle_path": null,
+      "bundle_hash": null,
+      "replay_result": "NOT_REQUESTED",
+      "reason_code": "INSUFFICIENT_EVIDENCE",
+      "reproduction_command": null,
+      "environment_requirements": "Standard",
+      "vulnerability_class": "CWE-DISAGREEMENT",
+      "observed_security_effect": null
+    },
+    "next_action_recommendation": "Investigate missing evidence: SEARCH_BUDGET_EXHAUSTED. Manually verify entry point or provide custom driver harness."
+  },
+  "markdown_dossier": "# HWSEC Security Operations Case Dossier\n\n## 1. Suspected Vulnerability\n**CWE-DISAGREEMENT: CWE-Disagreement_SecurityOracle**\n\n## 2. Attack Surface & Entry Point\n- **Attack Surface**: `CLI_OR_HTTP`\n- **Entry Point**: `{\"id\":\"EP-9f08c8963b77\",\"status\":\"RESOLVED\",\"type\":\"HARDWARE_MODULE_IO\",\"framework\":\"VerilogRTL\",\"module_name\":\"counter\",\"file\":\"counter.v\",\"target_identifier\":\"counter.v#counter\",\"discovered_at\":\"2026-09-15T06:41:39.428Z\",\"resolution_type\":\"DIRECT_FILE_MATCH\"}`\n- **Status**: ✅ RESOLVED\n\n## 3. Analyzer Discovery & Model Team Consensus\n- Analyzers: disagreement_controller (Analyzer Disagreement on counter.v: [symbiyosys] reported findings vs [verilator, yosys, afl++, spike] clean)\n- Priority Score: **0.5**\n\n## 4. Operational Verdict & Evidence\n- **Verdict**: **`INCONCLUSIVE`** (`SEARCH_BUDGET_EXHAUSTED`)\n- **Security Effect Observed**: ❌ NO\n- **Negative Control Passed**: ❌ NO\n- **Replayable Witness**: ❌ NO\n\n## 5. Analyst Recommendation\n> Investigate missing evidence: SEARCH_BUDGET_EXHAUSTED. Manually verify entry point or provide custom driver harness."
+}

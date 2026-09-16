@@ -1,0 +1,14 @@
+{
+  "baseline_verification": true,
+  "phase_9_fixed_differential": {
+    "fixed_target_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\safe\\target-05\\app.py",
+    "expected": "POV_BLOCKED_BY_FIX",
+    "actual": "POV_BLOCKED_BY_FIX",
+    "success": true
+  },
+  "phase_17_tamper_integrity": {
+    "tamper_detected": true,
+    "restored_verified": true,
+    "success": true
+  }
+}

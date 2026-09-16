@@ -1,0 +1,86 @@
+{
+  "case_id": "HYP-CWE-078-b19b151eaa85",
+  "run_id": "20260915064421-ad10d244",
+  "verdict": "INCONCLUSIVE",
+  "pov": {
+    "status": "NOT_REQUESTED",
+    "bundle_path": null,
+    "bundle_hash": null,
+    "replay_result": "NOT_REQUESTED",
+    "reason_code": "INSUFFICIENT_EVIDENCE",
+    "reproduction_command": null,
+    "environment_requirements": "Standard",
+    "vulnerability_class": "CWE-078",
+    "observed_security_effect": null
+  },
+  "summary": {
+    "q1_suspected_vulnerability": "CWE-078: CWE-078_SecurityOracle",
+    "q2_attack_surface_and_entry_point": {
+      "attack_surface": "CLI_OR_HTTP",
+      "entry_point": {
+        "id": "EP-541009c73903",
+        "status": "RESOLVED",
+        "type": "HTTP_ENDPOINT",
+        "framework": "PythonWeb",
+        "route": "/api/diagnostic/ping",
+        "http_method": "ROUTE",
+        "file": "app.py",
+        "target_identifier": "app.py",
+        "discovered_at": "2026-09-15T06:45:49.631Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "resolved": true
+    },
+    "q3_analyzers_and_disagreement": {
+      "signals": [
+        {
+          "analyzer": "codeql",
+          "rule_id": "[CWE-078] This command line depends on a [user-provided value](1).",
+          "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py",
+          "line": 12,
+          "confidence": 0.8
+        }
+      ],
+      "analyzers_count": 1,
+      "priority_consensus": 0.5,
+      "model_team_narrative": null
+    },
+    "q4_evidence_attempted": [
+      "hypothesis_valid",
+      "entry_point_resolved",
+      "provenance_manifest_verified"
+    ],
+    "q5_concrete_inputs_tried": [],
+    "q6_application_executed_attack_path": false,
+    "q7_security_effect_observed": false,
+    "q8_controls_status": {
+      "negative_control_passed": false,
+      "provenance_verified": true
+    },
+    "q9_replayable": false,
+    "q10_verdict_decision": {
+      "verdict": "INCONCLUSIVE",
+      "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+      "reasons": [
+        "SEARCH_BUDGET_EXHAUSTED",
+        "REPLAY_FAILURE",
+        "ORACLE_NOT_TRIGGERED",
+        "CONTROL_INVALID"
+      ],
+      "dag_hash": "06c50a579bfe4124c9e7ad1b511502c6ae4de29074c5f63ed2d84e20cd3aac7e"
+    },
+    "pov_artifact": {
+      "status": "NOT_REQUESTED",
+      "bundle_path": null,
+      "bundle_hash": null,
+      "replay_result": "NOT_REQUESTED",
+      "reason_code": "INSUFFICIENT_EVIDENCE",
+      "reproduction_command": null,
+      "environment_requirements": "Standard",
+      "vulnerability_class": "CWE-078",
+      "observed_security_effect": null
+    },
+    "next_action_recommendation": "Investigate missing evidence: SEARCH_BUDGET_EXHAUSTED. Manually verify entry point or provide custom driver harness."
+  },
+  "markdown_dossier": "# HWSEC Security Operations Case Dossier\n\n## 1. Suspected Vulnerability\n**CWE-078: CWE-078_SecurityOracle**\n\n## 2. Attack Surface & Entry Point\n- **Attack Surface**: `CLI_OR_HTTP`\n- **Entry Point**: `{\"id\":\"EP-541009c73903\",\"status\":\"RESOLVED\",\"type\":\"HTTP_ENDPOINT\",\"framework\":\"PythonWeb\",\"route\":\"/api/diagnostic/ping\",\"http_method\":\"ROUTE\",\"file\":\"app.py\",\"target_identifier\":\"app.py\",\"discovered_at\":\"2026-09-15T06:45:49.631Z\",\"resolution_type\":\"DIRECT_FILE_MATCH\"}`\n- **Status**: ✅ RESOLVED\n\n## 3. Analyzer Discovery & Model Team Consensus\n- Analyzers: codeql ([CWE-078] This command line depends on a [user-provided value](1).)\n- Priority Score: **0.5**\n\n## 4. Operational Verdict & Evidence\n- **Verdict**: **`INCONCLUSIVE`** (`SEARCH_BUDGET_EXHAUSTED`)\n- **Security Effect Observed**: ❌ NO\n- **Negative Control Passed**: ❌ NO\n- **Replayable Witness**: ❌ NO\n\n## 5. Analyst Recommendation\n> Investigate missing evidence: SEARCH_BUDGET_EXHAUSTED. Manually verify entry point or provide custom driver harness."
+}

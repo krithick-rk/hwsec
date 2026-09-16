@@ -1,0 +1,42 @@
+[
+  {
+    "id": "EP-b4acecfa6494",
+    "status": "RESOLVED",
+    "type": "CLI_MAIN",
+    "framework": "JavaStandard",
+    "file": "DiagnosticController.java",
+    "target_identifier": "DiagnosticController.java#main",
+    "discovered_at": "2026-09-15T07:05:50.340Z"
+  },
+  {
+    "id": "EP-9703a8d8523b",
+    "status": "RESOLVED",
+    "type": "CLI_MAIN",
+    "framework": "JavaStandard",
+    "file": "src/main/java/com/hwsec/Application.java",
+    "target_identifier": "src/main/java/com/hwsec/Application.java#main",
+    "discovered_at": "2026-09-15T07:05:50.343Z"
+  },
+  {
+    "id": "EP-0df2651988c7",
+    "status": "RESOLVED",
+    "type": "HTTP_ENDPOINT",
+    "framework": "Spring",
+    "route": "/api/diagnostic",
+    "http_method": "ANY",
+    "file": "src/main/java/com/hwsec/DiagnosticController.java",
+    "target_identifier": "src/main/java/com/hwsec/DiagnosticController.java",
+    "discovered_at": "2026-09-15T07:05:50.343Z"
+  },
+  {
+    "id": "EP-75b238af765f",
+    "status": "RESOLVED",
+    "type": "HTTP_ENDPOINT",
+    "framework": "Spring",
+    "route": "/ping",
+    "http_method": "POST",
+    "file": "src/main/java/com/hwsec/DiagnosticController.java",
+    "target_identifier": "src/main/java/com/hwsec/DiagnosticController.java",
+    "discovered_at": "2026-09-15T07:05:50.343Z"
+  }
+]

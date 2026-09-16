@@ -62,3 +62,17 @@ quality-benchmark/hardware/
 quality-benchmark/java/
 quality-benchmark/manifests/
 quality-benchmark/python/
+
+# Experiment run artifacts — CodeQL binary databases, compiled blobs, binary fixtures
+# Source-level reports and configs are tracked; binary DB internals are not
+experiments/**/tools/codeql/*/db-*/
+experiments/**/tools/codeql/*/db-*/**
+tests/fixtures/target_bin
+tests/fixtures/target_sim
+tests/fixtures/multilang_project/target_sim
+
+# Binary/compiled outputs that are regenerated on demand
+*.o
+*.so
+*.elf
+*.bin

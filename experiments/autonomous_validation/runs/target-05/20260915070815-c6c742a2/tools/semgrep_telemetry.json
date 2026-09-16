@@ -1,0 +1,13 @@
+{
+  "command": "wsl -e env PATH=/home/intern/tools/jdk-26/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin semgrep scan --config auto --json --quiet /mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/safe/target-05/app.py",
+  "exitCode": 0,
+  "stdout": "{\"version\":\"1.176.1\",\"results\":[],\"errors\":[],\"paths\":{\"scanned\":[\"/mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/safe/target-05/app.py\"]},\"time\":{\"rules\":[],\"rules_parse_time\":0.4381380081176758,\"profiling_times\":{\"config_time\":1.6268870830535889,\"core_time\":0.8081772327423096,\"ignores_time\":0.0011949539184570312,\"total_time\":2.4541921615600586},\"parsing_time\":{\"total_time\":0.0,\"per_file_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"scanning_time\":{\"total_time\":0.056124210357666016,\"per_file_time\":{\"mean\":0.018708070119222008,\"std_dev\":0.0004211736735947448},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"matching_time\":{\"total_time\":0.0,\"per_file_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_files\":[]},\"tainting_time\":{\"total_time\":0.0,\"per_def_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_defs\":[]},\"fixpoint_timeouts\":[],\"prefiltering\":{\"project_level_time\":0.0,\"file_level_time\":0.0,\"rules_with_project_prefilters_ratio\":0.0,\"rules_with_file_prefilters_ratio\":0.9896551724137931,\"rules_selected_ratio\":0.06896551724137931,\"rules_matched_ratio\":0.06896551724137931},\"targets\":[],\"total_bytes\":0,\"max_memory_bytes\":769014464},\"engine_requested\":\"OSS\",\"skipped_rules\":[],\"profiling_results\":[]}\n",
+  "stderr": "",
+  "timeout": false,
+  "durationMs": 4818,
+  "environment": {
+    "platform": "win32",
+    "release": "10.0.22631",
+    "wsl": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "root_dir": "E:\\Intern\\hwsec\\manual_tests\\targets\\software\\python\\fixed",
+  "languages": {
+    "python": [
+      "E:\\Intern\\hwsec\\manual_tests\\targets\\software\\python\\fixed\\command_injection_fixed.py"
+    ],
+    "java": [],
+    "c": [],
+    "cpp": [],
+    "go": [],
+    "verilog": []
+  },
+  "file_metadata": {
+    "E:\\Intern\\hwsec\\manual_tests\\targets\\software\\python\\fixed\\command_injection_fixed.py": {
+      "relativePath": "command_injection_fixed.py",
+      "language": "python",
+      "loc": 15,
+      "size": 548
+    }
+  },
+  "unsupported": [],
+  "manifests": [],
+  "total_files": 1,
+  "total_loc": 15
+}

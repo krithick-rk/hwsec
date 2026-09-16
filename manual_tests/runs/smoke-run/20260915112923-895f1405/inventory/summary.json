@@ -1,0 +1,16 @@
+{
+  "total_files": 1,
+  "total_loc": 15,
+  "languages": {
+    "python": {
+      "file_count": 1,
+      "loc_estimate": 15,
+      "sample_files": [
+        "E:\\Intern\\hwsec\\manual_tests\\targets\\software\\python\\fixed\\command_injection_fixed.py"
+      ]
+    }
+  },
+  "manifests": [],
+  "unsupported_count": 0,
+  "likely_attack_surfaces": []
+}

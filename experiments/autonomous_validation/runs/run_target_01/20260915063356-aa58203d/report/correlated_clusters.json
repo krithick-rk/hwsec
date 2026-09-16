@@ -1,0 +1,48 @@
+[
+  {
+    "cluster_id": "CLUSTER-3ba5fc",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:13",
+    "evidence_count": 3,
+    "finding_ids": [
+      "SEMGREP-4e7d2e46",
+      "SEMGREP-eaee66a7",
+      "SEMGREP-5ae1a1e6"
+    ],
+    "titles": [
+      "python.flask.security.injection.subprocess-injection.subprocess-injection",
+      "python.lang.security.dangerous-subprocess-use.dangerous-subprocess-use",
+      "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true"
+    ],
+    "severity": "HIGH",
+    "relationship": "STRUCTURAL_JOIN",
+    "confidence": 0.95
+  },
+  {
+    "cluster_id": "CLUSTER-a05ed8",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:27",
+    "evidence_count": 1,
+    "finding_ids": [
+      "SEMGREP-2ca90a30"
+    ],
+    "titles": [
+      "python.flask.security.audit.debug-enabled.debug-enabled"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-1b1411",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1",
+    "evidence_count": 1,
+    "finding_ids": [
+      "CAND-DISAGREE-54ed0b64"
+    ],
+    "titles": [
+      "Analyzer Disagreement on app.py: [semgrep] reported findings vs [joern, codeql] clean"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  }
+]

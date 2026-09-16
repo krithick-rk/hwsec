@@ -1,0 +1,37 @@
+[
+  {
+    "target_id": "target-01",
+    "language": "python",
+    "llm_contribution": "LLM NOT NEEDED"
+  },
+  {
+    "target_id": "target-02",
+    "language": "java",
+    "llm_contribution": "LLM NOT NEEDED"
+  },
+  {
+    "target_id": "target-03",
+    "language": "c_cpp",
+    "llm_contribution": "LLM NOT NEEDED"
+  },
+  {
+    "target_id": "target-04",
+    "language": "verilog",
+    "llm_contribution": "LLM NOT NEEDED"
+  },
+  {
+    "target_id": "target-05",
+    "language": "python",
+    "llm_contribution": "LLM NOT NEEDED"
+  },
+  {
+    "target_id": "target-06",
+    "language": "python",
+    "llm_contribution": "LLM NOT NEEDED"
+  },
+  {
+    "target_id": "target-07",
+    "language": "python",
+    "llm_contribution": "LLM NOT NEEDED"
+  }
+]

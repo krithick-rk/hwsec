@@ -1,0 +1,17 @@
+[
+  {
+    "path_id": "AP-9d98d3",
+    "title": "Multi-Evidence Attack Cluster at E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+    "evidence_strength": "E2",
+    "cluster_ref": "CLUSTER-e62fd6",
+    "description": "2 independent evidence sources converge on E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8. Severity escalated to HIGH. Manual review recommended.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+  },
+  {
+    "path_id": "OSCI-001",
+    "title": "OS Command Injection via subprocess.shell=True with User Input",
+    "evidence_strength": "E5",
+    "description": "The application utilizes `subprocess.run` with the `shell=True` argument, and the command executed by this subprocess call directly incorporates user-provided input. This critical combination allows an attacker to inject arbitrary shell commands by providing malicious input, leading to potential remote code execution, data exfiltration, or full system compromise. Semgrep identified the dangerous use of `shell=True`, while CodeQL confirmed that the command line is dependent on a user-provided value, directly indicating a CWE-078 (OS Command Injection) vulnerability.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+  }
+]

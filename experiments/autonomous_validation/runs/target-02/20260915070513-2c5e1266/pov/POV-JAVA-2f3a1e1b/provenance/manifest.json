@@ -1,0 +1,30 @@
+{
+  "pov_id": "POV-JAVA-2f3a1e1b",
+  "created_at": "2026-09-15T07:05:52.989Z",
+  "generator_type": "deterministic",
+  "target": {
+    "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+    "entry_point": {
+      "id": "EP-b4acecfa6494",
+      "status": "RESOLVED",
+      "type": "CLI_MAIN",
+      "framework": "JavaStandard",
+      "file": "DiagnosticController.java",
+      "target_identifier": "DiagnosticController.java#main",
+      "discovered_at": "2026-09-15T07:05:50.340Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "content_hash": "e2ad1264fac8fbb4d400c728cde8dffb00799a14c8d3cc86d66bfad9bdc1ca5a",
+    "revision": null
+  },
+  "system_info": {
+    "platform": "win32",
+    "node_version": "v24.20.0"
+  },
+  "sandbox_constraints": {
+    "timeout_ms": 25000,
+    "output_limits_bytes": 131072,
+    "network": "localhost_only_when_explicit",
+    "credentials_stripped": true
+  }
+}

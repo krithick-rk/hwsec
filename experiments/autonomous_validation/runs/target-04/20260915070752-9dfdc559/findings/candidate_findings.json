@@ -1,0 +1,146 @@
+[
+  {
+    "schema_version": "2.0.0",
+    "id": "SBY-b343fb43",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "[CWE-1234] Formal Invariant Violation in counter (BMC Step Failure)",
+    "description": "SymbiYosys formal model checking encountered an assertion failure:\nAssert failed in counter: counter.v:17.13.\nConcrete counterexample waveforms generated in VCD trace.",
+    "severity": "CRITICAL",
+    "confidence": 0.99,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v",
+        "startLine": 17,
+        "endLine": 17,
+        "line": 17,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": "FORMAL_BMC_INVARIANT",
+    "cwe_id": "CWE-1234",
+    "evidence_ids": [
+      "EV-2f7f43ef"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "EV-2f7f43ef",
+        "run_id": null,
+        "tool": "symbiyosys",
+        "tool_run_id": null,
+        "evidence_type": "COUNTEREXAMPLE_TRACE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace.vcd",
+        "artifact_hash": "7d3b89b19137d2c808891e813c4eb51b4ed0d59bd4c769ae9dcb5b71aca2f876",
+        "observation": "SymbiYosys Bounded Model Check disproved invariant. Counterexample trace generated at E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace.vcd",
+        "raw_evidence": {
+          "engine": "smtbmc",
+          "module": "counter",
+          "failedAssertion": "Assert failed in counter: counter.v:17.13",
+          "artifacts": [
+            "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal.sby",
+            "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace.vcd",
+            "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace_tb.v",
+            "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace.smtc"
+          ]
+        },
+        "timestamp": "2026-09-15T07:08:02.284Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "symbiyosys",
+      "created_at": "2026-09-15T07:08:02.284Z"
+    },
+    "source_tool": "symbiyosys",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17",
+    "evidence": [
+      {
+        "id": "EV-2f7f43ef",
+        "run_id": null,
+        "tool": "symbiyosys",
+        "tool_run_id": null,
+        "evidence_type": "COUNTEREXAMPLE_TRACE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace.vcd",
+        "artifact_hash": "7d3b89b19137d2c808891e813c4eb51b4ed0d59bd4c769ae9dcb5b71aca2f876",
+        "observation": "SymbiYosys Bounded Model Check disproved invariant. Counterexample trace generated at E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace.vcd",
+        "raw_evidence": {
+          "engine": "smtbmc",
+          "module": "counter",
+          "failedAssertion": "Assert failed in counter: counter.v:17.13",
+          "artifacts": [
+            "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal.sby",
+            "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace.vcd",
+            "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace_tb.v",
+            "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04\\20260915070752-9dfdc559\\tools\\tools\\symbiyosys\\counter_formal\\engine_0\\trace.smtc"
+          ]
+        },
+        "timestamp": "2026-09-15T07:08:02.284Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "e93edb668d50ebbc3c4b56a5c2d59611d5010505f0a9aa97569535b75852c570",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "CAND-DISAGREE-b7d473d7",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "Analyzer Disagreement on counter.v: [symbiyosys] reported findings vs [verilator, yosys, afl++, spike] clean",
+    "description": "Candidate generated via analyzer_disagreement (Escalation: DEEP_DATAFLOW)",
+    "severity": "MEDIUM",
+    "confidence": 0.65,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v",
+        "startLine": 1,
+        "endLine": 1,
+        "line": 1,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-Disagreement",
+    "evidence_ids": [],
+    "supporting_evidence": [],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "disagreement_controller",
+      "created_at": "2026-09-15T07:08:02.568Z"
+    },
+    "source_tool": "disagreement_controller",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:1",
+    "evidence": [],
+    "evidence_dag_hash": "72fb1694d52a397e41bd264cfffaee2668aba236db2a8c91d9dc4bdba4cd4476",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  }
+]

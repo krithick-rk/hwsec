@@ -1,0 +1,11 @@
+[
+  {
+    "id": "EP-8caef5768570",
+    "status": "RESOLVED",
+    "type": "CLI_MAIN",
+    "framework": "C/C++Standard",
+    "file": "main.c",
+    "target_identifier": "main.c#main",
+    "discovered_at": "2026-09-15T07:07:33.424Z"
+  }
+]

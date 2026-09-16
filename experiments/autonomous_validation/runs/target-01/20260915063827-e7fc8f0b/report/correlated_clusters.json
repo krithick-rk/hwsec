@@ -1,0 +1,30 @@
+[
+  {
+    "cluster_id": "CLUSTER-edce82",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+    "evidence_count": 1,
+    "finding_ids": [
+      "SEMGREP-0db56ae3"
+    ],
+    "titles": [
+      "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true"
+    ],
+    "severity": "HIGH",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-dce8ad",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1",
+    "evidence_count": 1,
+    "finding_ids": [
+      "CAND-DISAGREE-110fd020"
+    ],
+    "titles": [
+      "Analyzer Disagreement on app.py: [semgrep] reported findings vs [joern, codeql] clean"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  }
+]

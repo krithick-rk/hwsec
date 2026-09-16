@@ -1,0 +1,9 @@
+{
+  "finding_id": "CASE-BENCH-PY-01",
+  "hypothesis_id": "CASE-BENCH-PY-01",
+  "run_id": "RUN-3a0b69a5",
+  "dag_hash": null,
+  "attached_nodes": [
+    "CASE-BENCH-PY-01"
+  ]
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+<testsuite timestamp="2026-09-15T12:11:39" hostname="DESKTOP-0RI8SFC" package="counter_formal" id="0" name="default" tests="1" errors="0" failures="2" time="0" skipped="0">
+<properties>
+<property name="os" value="Windows"/>
+<property name="expect" value="PASS"/>
+<property name="status" value="FAIL"/>
+</properties>
+<testcase classname="default" name="build execution" time="0">
+<failure type="FAIL" message="Task returned status FAIL." />
+</testcase>
+<testcase classname="default" name="Property ASSERT in counter at counter.v:17.13-17.38" time="0" type="ASSERT" location="counter.v:17.13-17.38" id="_witness_.check_assert_counter_v_17_4" tracefile="engine_0\trace.vcd">
+<failure type="ASSERT" message="Property ASSERT in counter at counter.v:17.13-17.38 failed. Trace file: engine_0\trace.vcd" />
+</testcase>
+<system-out>SBY 12:11:37 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] Removing directory 'E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal'.
+SBY 12:11:37 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] Copy 'E:\Intern\hwsec\experiments\autonomous_validation\targets\verilog\target-04\counter.v' to 'E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal\src\counter.v'.
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: smtbmc
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] base: starting process &quot;cd E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal/src&amp; yosys -ql ../model/design.log ../model/design.ys&quot;
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] base: finished (returncode=0)
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] prep: starting process &quot;cd E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal/model&amp; yosys -ql design_prep.log design_prep.ys&quot;
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] prep: finished (returncode=0)
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] smt2: starting process &quot;cd E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal/model&amp; yosys -ql design_smt2.log design_smt2.ys&quot;
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] smt2: finished (returncode=0)
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: starting process &quot;cd E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal&amp; yosys-smtbmc --presat --unroll --noprogress -t 20  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2&quot;
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Solver: yices
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Checking assumptions in step 0..
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Checking assertions in step 0..
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Checking assumptions in step 1..
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Checking assertions in step 1..
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  BMC failed!
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Assert failed in counter: counter.v:17.13-17.38 (_witness_.check_assert_counter_v_17_4)
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace.vcd
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace_tb.v
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace.smtc
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace.yw
+SBY 12:11:38 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: ##   0:00:00  Status: failed
+SBY 12:11:39 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: finished (returncode=1)
+SBY 12:11:39 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] engine_0: Status returned by engine: FAIL
+SBY 12:11:39 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 12:11:39 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] summary: Elapsed process time unvailable on Windows
+SBY 12:11:39 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] summary: engine_0 (smtbmc) returned FAIL
+SBY 12:11:39 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] summary: counterexample trace: E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal\engine_0\trace.vcd
+SBY 12:11:39 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] summary:   failed assertion counter._witness_.check_assert_counter_v_17_4 at counter.v:17.13-17.38 step 1
+SBY 12:11:39 [E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal] DONE (FAIL, rc=2)
+</system-out>
+<system-err>
+</system-err>
+</testsuite>
+</testsuites>

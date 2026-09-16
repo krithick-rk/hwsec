@@ -1,0 +1,306 @@
+[
+  {
+    "case": "CASE_A_SIMPLE",
+    "complexity": "LOW",
+    "mode": "LLM_OFF",
+    "llmCalled": false,
+    "providers": [],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "DETECTED"
+  },
+  {
+    "case": "CASE_A_SIMPLE",
+    "complexity": "LOW",
+    "mode": "SCOUT_ONLY",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "DETECTED"
+  },
+  {
+    "case": "CASE_A_SIMPLE",
+    "complexity": "LOW",
+    "mode": "SCOUT_CRITIC",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "DETECTED"
+  },
+  {
+    "case": "CASE_A_SIMPLE",
+    "complexity": "LOW",
+    "mode": "FULL_TEAM",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "DETECTED"
+  },
+  {
+    "case": "CASE_B_INDIRECT",
+    "complexity": "MEDIUM",
+    "mode": "LLM_OFF",
+    "llmCalled": false,
+    "providers": [],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  },
+  {
+    "case": "CASE_B_INDIRECT",
+    "complexity": "MEDIUM",
+    "mode": "SCOUT_ONLY",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  },
+  {
+    "case": "CASE_B_INDIRECT",
+    "complexity": "MEDIUM",
+    "mode": "SCOUT_CRITIC",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "DETECTED"
+  },
+  {
+    "case": "CASE_B_INDIRECT",
+    "complexity": "MEDIUM",
+    "mode": "FULL_TEAM",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "DETECTED"
+  },
+  {
+    "case": "CASE_C_COMPLEX",
+    "complexity": "HIGH",
+    "mode": "LLM_OFF",
+    "llmCalled": false,
+    "providers": [],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  },
+  {
+    "case": "CASE_C_COMPLEX",
+    "complexity": "HIGH",
+    "mode": "SCOUT_ONLY",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  },
+  {
+    "case": "CASE_C_COMPLEX",
+    "complexity": "HIGH",
+    "mode": "SCOUT_CRITIC",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  },
+  {
+    "case": "CASE_C_COMPLEX",
+    "complexity": "HIGH",
+    "mode": "FULL_TEAM",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2",
+      "nvidia",
+      "openrouter"
+    ],
+    "escalation": true,
+    "escalationReason": "Target classified as HIGH complexity",
+    "fallback": true,
+    "planChanged": true,
+    "verdictChanged": false,
+    "finalVerdict": "DETECTED"
+  },
+  {
+    "case": "CASE_D_SAFE_RTL",
+    "complexity": "LOW",
+    "mode": "LLM_OFF",
+    "llmCalled": false,
+    "providers": [],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "NOT_DETECTED"
+  },
+  {
+    "case": "CASE_D_SAFE_RTL",
+    "complexity": "LOW",
+    "mode": "SCOUT_ONLY",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "NOT_DETECTED"
+  },
+  {
+    "case": "CASE_D_SAFE_RTL",
+    "complexity": "LOW",
+    "mode": "SCOUT_CRITIC",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "NOT_DETECTED"
+  },
+  {
+    "case": "CASE_D_SAFE_RTL",
+    "complexity": "LOW",
+    "mode": "FULL_TEAM",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "NOT_DETECTED"
+  },
+  {
+    "case": "CASE_E_AMBIGUOUS",
+    "complexity": "HIGH",
+    "mode": "LLM_OFF",
+    "llmCalled": false,
+    "providers": [],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  },
+  {
+    "case": "CASE_E_AMBIGUOUS",
+    "complexity": "HIGH",
+    "mode": "SCOUT_ONLY",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  },
+  {
+    "case": "CASE_E_AMBIGUOUS",
+    "complexity": "HIGH",
+    "mode": "SCOUT_CRITIC",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2"
+    ],
+    "escalation": false,
+    "escalationReason": null,
+    "fallback": false,
+    "planChanged": false,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  },
+  {
+    "case": "CASE_E_AMBIGUOUS",
+    "complexity": "HIGH",
+    "mode": "FULL_TEAM",
+    "llmCalled": true,
+    "providers": [
+      "gemini_account_1",
+      "gemini_account_2",
+      "nvidia",
+      "openrouter"
+    ],
+    "escalation": true,
+    "escalationReason": "Target classified as HIGH complexity",
+    "fallback": true,
+    "planChanged": true,
+    "verdictChanged": false,
+    "finalVerdict": "INCONCLUSIVE"
+  }
+]

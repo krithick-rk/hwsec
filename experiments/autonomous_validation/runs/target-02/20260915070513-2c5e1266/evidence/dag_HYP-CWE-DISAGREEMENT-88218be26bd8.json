@@ -1,0 +1,113 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260915070513-2c5e1266",
+  "created_at": "2026-09-15T07:06:29.946Z",
+  "root_hash": "878edb3e9ef9a8ea870173f0a485d1820798c81940595548841327c8250ac79f",
+  "dag_hash": "878edb3e9ef9a8ea870173f0a485d1820798c81940595548841327c8250ac79f",
+  "nodes": [
+    {
+      "id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260915070513-2c5e1266",
+        "cwe": "CWE-DISAGREEMENT",
+        "security_condition": "CWE-Disagreement_SecurityOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1"
+        ],
+        "entry_point": {
+          "id": "EP-b4acecfa6494",
+          "status": "RESOLVED",
+          "type": "CLI_MAIN",
+          "framework": "JavaStandard",
+          "file": "DiagnosticController.java",
+          "target_identifier": "DiagnosticController.java#main",
+          "discovered_at": "2026-09-15T07:05:50.340Z",
+          "resolution_type": "DIRECT_FILE_MATCH"
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "disagreement_controller",
+            "rule_id": "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean",
+            "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+            "line": 1,
+            "confidence": 0.65
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": false,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-15T07:05:50.581Z",
+          "origin_finding_id": "CAND-DISAGREE-651b29de",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "7076187e659a25bf880371c0f014c377bcaa2159a2aa8e6f85f49803a55995b4",
+      "created_at": "2026-09-15T07:06:29.946Z"
+    },
+    {
+      "id": "EP-b4acecfa6494",
+      "type": "entry_point",
+      "data": {
+        "id": "EP-b4acecfa6494",
+        "status": "RESOLVED",
+        "type": "CLI_MAIN",
+        "framework": "JavaStandard",
+        "file": "DiagnosticController.java",
+        "target_identifier": "DiagnosticController.java#main",
+        "discovered_at": "2026-09-15T07:05:50.340Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "content_hash": "ad7c7b932b404415ddc8e341108599d53e889fa9c77ff5dca1df18ba860f5db9",
+      "created_at": "2026-09-15T07:06:29.947Z"
+    },
+    {
+      "id": "PROV-20260915070513-2c5e1266",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-15T07:06:29.946Z",
+        "broker_version": "2.0.0",
+        "verified": true,
+        "mode": "STANDARD",
+        "analysis_id": "20260915070513-2c5e1266"
+      },
+      "content_hash": "b27d94334bff3363522db28a64e08b27c9e29416fcdc5c528acf89d530592c85",
+      "created_at": "2026-09-15T07:06:29.947Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+      "target_id": "EP-b4acecfa6494",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "3228806f62677a97e40d4e01315afe12528ec0056ff1346d0ed6753901c0a504"
+    },
+    {
+      "source_id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+      "target_id": "PROV-20260915070513-2c5e1266",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "705fccfc9b7838484c099db13c95cffc7b328aae5d1299bdb3e39f3cb5b5a928"
+    }
+  ]
+}

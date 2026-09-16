@@ -1,0 +1,90 @@
+{
+  "ranked": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v",
+      "suspicion_score": 0.615,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 1,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.62,
+          "reportingTools": [
+            "symbiyosys"
+          ],
+          "silentTools": [
+            "verilator",
+            "yosys",
+            "afl++",
+            "spike"
+          ],
+          "conflictingTools": [
+            "symbiyosys",
+            "verilator",
+            "yosys",
+            "afl++",
+            "spike"
+          ],
+          "reason": "Tool disagreement: [symbiyosys] reported findings, while [verilator, yosys, afl++, spike] reported none.",
+          "score": 0.155
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ],
+  "prioritizedTargets": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v",
+      "suspicion_score": 0.615,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 1,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.62,
+          "reportingTools": [
+            "symbiyosys"
+          ],
+          "silentTools": [
+            "verilator",
+            "yosys",
+            "afl++",
+            "spike"
+          ],
+          "conflictingTools": [
+            "symbiyosys",
+            "verilator",
+            "yosys",
+            "afl++",
+            "spike"
+          ],
+          "reason": "Tool disagreement: [symbiyosys] reported findings, while [verilator, yosys, afl++, spike] reported none.",
+          "score": 0.155
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ]
+}

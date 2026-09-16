@@ -1,0 +1,163 @@
+[
+  {
+    "id": "JOERN-e0e098d2",
+    "source": "deterministic_tool",
+    "sourceTool": "joern",
+    "title": "[CWE-78] Dynamic code evaluation sink (eval)",
+    "cwe": "CWE-78",
+    "severity": "CRITICAL",
+    "confidence": 0.85,
+    "sourceLocations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py",
+        "startLine": 392,
+        "endLine": 392,
+        "line": 392,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "evidence": [
+      {
+        "id": "EV-af706bc8",
+        "run_id": null,
+        "tool": "joern",
+        "tool_run_id": null,
+        "evidence_type": "DATAFLOW_TRACE",
+        "invocation": null,
+        "artifact_path": "experiments\\autonomous_validation\\runs\\werkzeug\\20260915085450-bcdde56f\\tools\\.joern_cache\\cpg_batch_139b2d034b6d974f.bin",
+        "artifact_hash": null,
+        "observation": "Joern CPG Analysis: Dynamic code evaluation sink (eval) in method 'eval'. Dataflow reachable from input/param: true",
+        "raw_evidence": {
+          "rule_id": "joern/cwe-78/eval",
+          "cwe_id": "CWE-78",
+          "title": "Dynamic code evaluation sink (eval)",
+          "severity": "CRITICAL",
+          "file": "tbtools.py",
+          "line": 392,
+          "method": "eval",
+          "code": "self.console.eval(code)",
+          "dataflow_reachable": true
+        },
+        "timestamp": "2026-09-15T08:56:28.005Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "dataflowReachable": false,
+    "escalationLevel": "BASELINE",
+    "rawFinding": {
+      "schema_version": "2.0.0",
+      "id": "JOERN-e0e098d2",
+      "run_id": null,
+      "status": "OPEN",
+      "type": "SECURITY_FINDING",
+      "title": "[CWE-78] Dynamic code evaluation sink (eval)",
+      "description": "Joern detected dangerous code pattern in E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:392.\nMethod: eval\nCode snippet: `self.console.eval(code)`\nReachable from function input: true",
+      "severity": "CRITICAL",
+      "confidence": 0.85,
+      "source_locations": [
+        {
+          "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py",
+          "startLine": 392,
+          "endLine": 392,
+          "line": 392,
+          "startColumn": 1,
+          "endColumn": 1,
+          "symbol": null
+        }
+      ],
+      "affected_assets": [],
+      "security_property": null,
+      "cwe_id": "CWE-78",
+      "evidence_ids": [
+        "EV-af706bc8"
+      ],
+      "supporting_evidence": [
+        {
+          "id": "EV-af706bc8",
+          "run_id": null,
+          "tool": "joern",
+          "tool_run_id": null,
+          "evidence_type": "DATAFLOW_TRACE",
+          "invocation": null,
+          "artifact_path": "experiments\\autonomous_validation\\runs\\werkzeug\\20260915085450-bcdde56f\\tools\\.joern_cache\\cpg_batch_139b2d034b6d974f.bin",
+          "artifact_hash": null,
+          "observation": "Joern CPG Analysis: Dynamic code evaluation sink (eval) in method 'eval'. Dataflow reachable from input/param: true",
+          "raw_evidence": {
+            "rule_id": "joern/cwe-78/eval",
+            "cwe_id": "CWE-78",
+            "title": "Dynamic code evaluation sink (eval)",
+            "severity": "CRITICAL",
+            "file": "tbtools.py",
+            "line": 392,
+            "method": "eval",
+            "code": "self.console.eval(code)",
+            "dataflow_reachable": true
+          },
+          "timestamp": "2026-09-15T08:56:28.005Z",
+          "validity_status": "VALID"
+        }
+      ],
+      "contradicting_evidence": [],
+      "exploitability": "UNKNOWN",
+      "exploit_state": "NOT_ATTEMPTED",
+      "exploit_evidence": null,
+      "proof_id": null,
+      "proof_status": "NOT_ELIGIBLE",
+      "proof_record": null,
+      "impact": "UNKNOWN",
+      "verification_state": "CANDIDATE",
+      "provenance": {
+        "tool": "joern",
+        "created_at": "2026-09-15T08:56:28.006Z"
+      },
+      "source_tool": "joern",
+      "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:392",
+      "evidence": [
+        {
+          "id": "EV-af706bc8",
+          "run_id": null,
+          "tool": "joern",
+          "tool_run_id": null,
+          "evidence_type": "DATAFLOW_TRACE",
+          "invocation": null,
+          "artifact_path": "experiments\\autonomous_validation\\runs\\werkzeug\\20260915085450-bcdde56f\\tools\\.joern_cache\\cpg_batch_139b2d034b6d974f.bin",
+          "artifact_hash": null,
+          "observation": "Joern CPG Analysis: Dynamic code evaluation sink (eval) in method 'eval'. Dataflow reachable from input/param: true",
+          "raw_evidence": {
+            "rule_id": "joern/cwe-78/eval",
+            "cwe_id": "CWE-78",
+            "title": "Dynamic code evaluation sink (eval)",
+            "severity": "CRITICAL",
+            "file": "tbtools.py",
+            "line": 392,
+            "method": "eval",
+            "code": "self.console.eval(code)",
+            "dataflow_reachable": true
+          },
+          "timestamp": "2026-09-15T08:56:28.005Z",
+          "validity_status": "VALID"
+        }
+      ]
+    }
+  },
+  {
+    "id": "CAND-DISAGREE-7965df67",
+    "source": "analyzer_disagreement",
+    "sourceTool": "disagreement_controller",
+    "title": "Analyzer Disagreement on tbtools.py: [joern] reported findings vs [semgrep, codeql] clean",
+    "cwe": "CWE-Disagreement",
+    "severity": "MEDIUM",
+    "confidence": 0.65,
+    "sourceLocations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py",
+        "startLine": 1,
+        "endLine": 1
+      }
+    ],
+    "evidence": [],
+    "escalationLevel": "DEEP_DATAFLOW"
+  }
+]

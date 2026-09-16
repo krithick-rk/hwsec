@@ -36,12 +36,14 @@ export class YosysTool extends ToolAdapter {
                 libDir = possibleLib;
             }
         } else {
-            const defaultSuite = process.env.OSS_CAD_SUITE || process.env.YOSYSHQ_ROOT || 'E:/Intern/krithick/Downloads/oss-cad-suite';
-            if (fs.existsSync(defaultSuite)) {
-                suiteRoot = defaultSuite;
+            // Resolve from environment variables only — no hardcoded paths.
+            const envSuiteRoot = process.env.OSS_CAD_SUITE || process.env.YOSYSHQ_ROOT || null;
+            if (envSuiteRoot && fs.existsSync(envSuiteRoot)) {
+                suiteRoot = envSuiteRoot;
                 binDir = path.join(suiteRoot, 'bin');
                 libDir = path.join(suiteRoot, 'lib');
-                const candidateBin = path.join(binDir, 'yosys.exe');
+                const isWin = process.platform === 'win32';
+                const candidateBin = path.join(binDir, isWin ? 'yosys.exe' : 'yosys');
                 if (fs.existsSync(candidateBin)) {
                     command = candidateBin;
                 }

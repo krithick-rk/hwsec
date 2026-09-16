@@ -1,0 +1,12 @@
+---
+sourceLocationPrefix: /mnt/e/Intern/hwsec/experiments/autonomous_validation/real_world_targets/werkzeug/src/werkzeug/datastructures
+baselineLinesOfCode: 2359
+unicodeNewlines: false
+columnKind: utf32
+primaryLanguage: python
+creationMetadata:
+  cliVersion: 2.26.4
+  creationTime: 2026-09-15T08:56:44.776261870Z
+overlayBaseDatabase: false
+overlayDatabase: false
+finalised: true

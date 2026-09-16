@@ -1,0 +1,24 @@
+{
+  "pov_id": "POV-PYTHON-d00eda9f",
+  "created_at": "2026-09-15T06:19:59.578Z",
+  "generator_type": "deterministic",
+  "target": {
+    "path": "E:\\Intern\\hwsec\\tests\\fixtures\\multilang_project\\server.py",
+    "entry_point": {
+      "status": "UNRESOLVED",
+      "reason": "Entry point not yet resolved by inventory"
+    },
+    "content_hash": "1b6c93d6e5063f613979547996a9696d330eabd2a37e335e8c94f63d534595e0",
+    "revision": null
+  },
+  "system_info": {
+    "platform": "win32",
+    "node_version": "v24.20.0"
+  },
+  "sandbox_constraints": {
+    "timeout_ms": 25000,
+    "output_limits_bytes": 131072,
+    "network": "localhost_only_when_explicit",
+    "credentials_stripped": true
+  }
+}

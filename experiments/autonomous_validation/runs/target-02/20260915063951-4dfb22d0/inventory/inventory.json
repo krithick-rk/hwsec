@@ -1,0 +1,52 @@
+{
+  "root_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02",
+  "languages": {
+    "python": [],
+    "java": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\Application.java",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java"
+    ],
+    "c": [],
+    "cpp": [],
+    "go": [],
+    "verilog": []
+  },
+  "file_metadata": {
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java": {
+      "relativePath": "DiagnosticController.java",
+      "language": "java",
+      "loc": 28,
+      "size": 1160
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\Application.java": {
+      "relativePath": "src\\main\\java\\com\\hwsec\\Application.java",
+      "language": "java",
+      "loc": 9,
+      "size": 299
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java": {
+      "relativePath": "src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+      "language": "java",
+      "loc": 29,
+      "size": 1130
+    }
+  },
+  "unsupported": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\pom.xml",
+      "relativePath": "pom.xml",
+      "extension": ".xml"
+    }
+  ],
+  "manifests": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\pom.xml",
+      "relativePath": "pom.xml",
+      "name": "pom.xml",
+      "type": "maven"
+    }
+  ],
+  "total_files": 4,
+  "total_loc": 66
+}

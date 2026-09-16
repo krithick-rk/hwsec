@@ -1,0 +1,12 @@
+[
+  {
+    "id": "EP-9f08c8963b77",
+    "status": "RESOLVED",
+    "type": "HARDWARE_MODULE_IO",
+    "framework": "VerilogRTL",
+    "module_name": "counter",
+    "file": "counter.v",
+    "target_identifier": "counter.v#counter",
+    "discovered_at": "2026-09-15T06:41:39.428Z"
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "pov_version": "1.0.0",
+  "pov_id": "POV-PYTHON-1a5126ac",
+  "finding_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0",
+  "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0",
+  "run_id": "20260915070336-d30a226b",
+  "domain": "python",
+  "vulnerability_class": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+  "target": {
+    "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+    "entry_point": {
+      "id": "EP-541009c73903",
+      "status": "RESOLVED",
+      "type": "HTTP_ENDPOINT",
+      "framework": "PythonWeb",
+      "route": "/api/diagnostic/ping",
+      "http_method": "ROUTE",
+      "file": "app.py",
+      "target_identifier": "app.py",
+      "discovered_at": "2026-09-15T07:04:58.226Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "content_hash": "c2a9827c53596c0604b9497d5a131c8ff61ad6533860a1d9da7891993f6b2260",
+    "revision": null
+  },
+  "status": "VERIFIED",
+  "security_effect": {
+    "expected": "Execution with payload \"hello; echo INJECTED_CMD_OUTPUT\" reproduces unvalidated command/data execution.",
+    "observed": null,
+    "oracle_cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "oracle_verified": false
+  },
+  "witness_input": {
+    "parameter": "USER_INPUT",
+    "value": "hello; echo INJECTED_CMD_OUTPUT",
+    "type": "CLI_OR_HTTP"
+  },
+  "negative_control": {
+    "input": null,
+    "passed": true,
+    "observed_effect": null
+  },
+  "reproduction": {
+    "command": "python3 reproduce.py",
+    "entry_script": "reproduce.py",
+    "timeout_ms": 25000,
+    "output_limits_bytes": 131072,
+    "environment_requirements": [
+      "python"
+    ]
+  },
+  "replay_results": [
+    {
+      "pov_id": "POV-PYTHON-1a5126ac",
+      "verified": true,
+      "pov_status": "VERIFIED",
+      "reason_code": "REPRODUCED_AND_VERIFIED",
+      "execution": {
+        "command": "py E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01\\20260915070336-d30a226b\\pov\\POV-PYTHON-1a5126ac\\reproduce.py",
+        "exit_code": 0,
+        "timed_out": false,
+        "duration_ms": 144,
+        "stdout": "=== HWSEC Proof-of-Vulnerability Replay ===\r\n[*] Executing target with payload: 'hello; echo INJECTED_CMD_OUTPUT'\r\n-> Exit code: 0\r\n-> Output: [APP_EXEC] Executing commanded operation with: hello; echo INJECTED_CMD_OUTPUT\r\n[!] SECURITY EFFECT CONFIRMED: Target demonstrated vulnerability condition.\r\n",
+        "stderr": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01\\20260915070336-d30a226b\\pov\\POV-PYTHON-1a5126ac\\reproduce.py:4: SyntaxWarning: invalid escape sequence '\\I'\r\n  Target: E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py\r\n"
+      },
+      "observations": {
+        "security_effect_occurred": true,
+        "negative_control_passed": true,
+        "is_fixed_target": false
+      },
+      "timestamp": "2026-09-15T07:04:58.939Z"
+    }
+  ],
+  "bundle_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01\\20260915070336-d30a226b\\pov\\POV-PYTHON-1a5126ac",
+  "bundle_hash": "e5eeb01c2e214104a1e492cf62e7ed8c30493eb41c0d11e1f342a15bbbf24d22",
+  "provenance": {
+    "generated_at": "2026-09-15T07:04:58.772Z",
+    "verified_at": null,
+    "generator_type": "deterministic",
+    "generator_model": null,
+    "system_info": {
+      "platform": "win32",
+      "node_version": "v24.20.0"
+    }
+  },
+  "bundle_manifest_hash": "e5eeb01c2e214104a1e492cf62e7ed8c30493eb41c0d11e1f342a15bbbf24d22",
+  "file_hashes": {
+    "evidence/dag_snapshot.json": "37f459832ed24af6056c3232da77c0dc27c07738cc6963e6f43346ca7dee002b",
+    "expected/effect.json": "08b9d30d7766ef176f7ea0332356cb87c41b709ce42009a02bcdb34accf661e6",
+    "input/witness.json": "5d687bfaf36926291b70bda6550656f06bd849856b21e3ffd10e4f6b4a273a68",
+    "provenance/manifest.json": "8dc68c3651f9793dc0f23bd1c8f60143a9328fae4f6169a49ab79b8b3d38940a",
+    "README.md": "693eb87d22fae286ca300b5fa6490e47041eb9b3bf132f190d88dd03edcda012",
+    "reproduce.py": "90c56fe9acc129b224788e50dcbd16a5c61bbca0c559f99d599b96e1b48463af"
+  }
+}

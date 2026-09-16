@@ -1,0 +1,8 @@
+# running in E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915064132-0fb61e65\tools\tools\symbiyosys\counter_formal\model/
+read_rtlil design_prep.il
+hierarchy -smtcheck
+delete */t:$print
+formalff -assume
+dffunmap
+stat
+write_smt2 -wires design_smt2.smt2

@@ -1,0 +1,25 @@
+{
+  "root_dir": "E:\\Intern\\hwsec\\manual_tests\\targets\\software\\python\\vulnerable",
+  "languages": {
+    "python": [
+      "E:\\Intern\\hwsec\\manual_tests\\targets\\software\\python\\vulnerable\\command_injection.py"
+    ],
+    "java": [],
+    "c": [],
+    "cpp": [],
+    "go": [],
+    "verilog": []
+  },
+  "file_metadata": {
+    "E:\\Intern\\hwsec\\manual_tests\\targets\\software\\python\\vulnerable\\command_injection.py": {
+      "relativePath": "command_injection.py",
+      "language": "python",
+      "loc": 11,
+      "size": 385
+    }
+  },
+  "unsupported": [],
+  "manifests": [],
+  "total_files": 1,
+  "total_loc": 11
+}

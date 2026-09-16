@@ -1,0 +1,30 @@
+[
+  {
+    "cluster_id": "CLUSTER-383324",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17",
+    "evidence_count": 1,
+    "finding_ids": [
+      "SBY-b343fb43"
+    ],
+    "titles": [
+      "[CWE-1234] Formal Invariant Violation in counter (BMC Step Failure)"
+    ],
+    "severity": "CRITICAL",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-a7fb7f",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:1",
+    "evidence_count": 1,
+    "finding_ids": [
+      "CAND-DISAGREE-b7d473d7"
+    ],
+    "titles": [
+      "Analyzer Disagreement on counter.v: [symbiyosys] reported findings vs [verilator, yosys, afl++, spike] clean"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  }
+]

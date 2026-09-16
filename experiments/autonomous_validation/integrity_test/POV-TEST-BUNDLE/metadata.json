@@ -1,0 +1,146 @@
+{
+  "pov_version": "1.0.0",
+  "pov_id": "POV-PYTHON-d00eda9f",
+  "finding_id": "CASE-BENCH-PY-01",
+  "hypothesis_id": "CASE-BENCH-PY-01",
+  "run_id": "RUN-3a0b69a5",
+  "domain": "python",
+  "vulnerability_class": "CWE-78",
+  "target": {
+    "path": "E:\\Intern\\hwsec\\tests\\fixtures\\multilang_project\\server.py",
+    "entry_point": {
+      "status": "UNRESOLVED",
+      "reason": "Entry point not yet resolved by inventory"
+    },
+    "content_hash": "1b6c93d6e5063f613979547996a9696d330eabd2a37e335e8c94f63d534595e0",
+    "revision": null
+  },
+  "status": "VERIFIED",
+  "security_effect": {
+    "expected": "Execution with payload \"; touch hwsec_marker.tmp\" reproduces unvalidated command/data execution.",
+    "observed": null,
+    "oracle_cwe": "CWE-78",
+    "oracle_verified": false
+  },
+  "witness_input": {
+    "parameter": "cmd",
+    "value": "; touch hwsec_marker.tmp"
+  },
+  "negative_control": {
+    "input": null,
+    "passed": false,
+    "observed_effect": null
+  },
+  "reproduction": {
+    "command": "python3 reproduce.py",
+    "entry_script": "reproduce.py",
+    "timeout_ms": 25000,
+    "output_limits_bytes": 131072,
+    "environment_requirements": [
+      "python"
+    ]
+  },
+  "replay_results": [
+    {
+      "pov_id": "POV-PYTHON-d00eda9f",
+      "verified": true,
+      "pov_status": "VERIFIED",
+      "reason_code": "REPRODUCED_AND_VERIFIED",
+      "execution": {
+        "command": "py E:\\Intern\\hwsec\\hwsec-output\\benchmark_pov_matrix\\python\\POV-PYTHON-d00eda9f\\reproduce.py",
+        "exit_code": 0,
+        "timed_out": false,
+        "duration_ms": 134,
+        "stdout": "=== HWSEC Proof-of-Vulnerability Replay ===\r\n[*] Executing target with payload: '; touch hwsec_marker.tmp'\r\n-> Exit code: 0\r\n-> Output: \r\n[!] SECURITY EFFECT CONFIRMED: Target demonstrated vulnerability condition.\r\n",
+        "stderr": "E:\\Intern\\hwsec\\hwsec-output\\benchmark_pov_matrix\\python\\POV-PYTHON-d00eda9f\\reproduce.py:4: SyntaxWarning: invalid escape sequence '\\I'\r\n  Target: E:\\Intern\\hwsec\\tests\\fixtures\\multilang_project\\server.py\r\n"
+      },
+      "observations": {
+        "security_effect_occurred": true,
+        "negative_control_passed": true,
+        "is_fixed_target": false
+      },
+      "timestamp": "2026-09-15T06:19:59.737Z"
+    },
+    {
+      "pov_id": "POV-PYTHON-d00eda9f",
+      "verified": true,
+      "pov_status": "VERIFIED",
+      "reason_code": "REPRODUCED_AND_VERIFIED",
+      "execution": {
+        "command": "py E:\\Intern\\hwsec\\experiments\\autonomous_validation\\integrity_test\\POV-TEST-BUNDLE\\reproduce.py",
+        "exit_code": 0,
+        "timed_out": false,
+        "duration_ms": 128,
+        "stdout": "=== HWSEC Proof-of-Vulnerability Replay ===\r\n[*] Executing target with payload: '; touch hwsec_marker.tmp'\r\n-> Exit code: 0\r\n-> Output: \r\n[!] SECURITY EFFECT CONFIRMED: Target demonstrated vulnerability condition.\r\n",
+        "stderr": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\integrity_test\\POV-TEST-BUNDLE\\reproduce.py:4: SyntaxWarning: invalid escape sequence '\\I'\r\n  Target: E:\\Intern\\hwsec\\tests\\fixtures\\multilang_project\\server.py\r\n"
+      },
+      "observations": {
+        "security_effect_occurred": true,
+        "negative_control_passed": true,
+        "is_fixed_target": false
+      },
+      "timestamp": "2026-09-15T07:06:47.204Z"
+    },
+    {
+      "pov_id": "POV-PYTHON-d00eda9f",
+      "verified": true,
+      "pov_status": "POV_BLOCKED_BY_FIX",
+      "reason_code": "FIX_VERIFIED_EFFECT_ELIMINATED",
+      "execution": {
+        "command": "py E:\\Intern\\hwsec\\experiments\\autonomous_validation\\integrity_test\\POV-TEST-BUNDLE\\reproduce.py",
+        "exit_code": 1,
+        "timed_out": false,
+        "duration_ms": 140,
+        "stdout": "=== HWSEC Proof-of-Vulnerability Replay ===\r\n[*] Executing target with payload: '; touch hwsec_marker.tmp'\r\n-> Exit code: 1\r\n-> Output: [BLOCKED] Invalid host format: ; touch hwsec_marker.tmp\r\n[-] Target did not produce the expected security effect.\r\n",
+        "stderr": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\integrity_test\\POV-TEST-BUNDLE\\reproduce.py:4: SyntaxWarning: invalid escape sequence '\\I'\r\n  Target: E:\\Intern\\hwsec\\tests\\fixtures\\multilang_project\\server.py\r\n"
+      },
+      "observations": {
+        "security_effect_occurred": false,
+        "negative_control_passed": true,
+        "is_fixed_target": true
+      },
+      "timestamp": "2026-09-15T07:06:47.656Z"
+    },
+    {
+      "pov_id": "POV-PYTHON-d00eda9f",
+      "verified": true,
+      "pov_status": "VERIFIED",
+      "reason_code": "REPRODUCED_AND_VERIFIED",
+      "execution": {
+        "command": "py E:\\Intern\\hwsec\\experiments\\autonomous_validation\\integrity_test\\POV-TEST-BUNDLE\\reproduce.py",
+        "exit_code": 0,
+        "timed_out": false,
+        "duration_ms": 131,
+        "stdout": "=== HWSEC Proof-of-Vulnerability Replay ===\r\n[*] Executing target with payload: '; touch hwsec_marker.tmp'\r\n-> Exit code: 0\r\n-> Output: \r\n[!] SECURITY EFFECT CONFIRMED: Target demonstrated vulnerability condition.\r\n",
+        "stderr": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\integrity_test\\POV-TEST-BUNDLE\\reproduce.py:4: SyntaxWarning: invalid escape sequence '\\I'\r\n  Target: E:\\Intern\\hwsec\\tests\\fixtures\\multilang_project\\server.py\r\n"
+      },
+      "observations": {
+        "security_effect_occurred": true,
+        "negative_control_passed": true,
+        "is_fixed_target": false
+      },
+      "timestamp": "2026-09-15T07:06:48.261Z"
+    }
+  ],
+  "bundle_path": "E:\\Intern\\hwsec\\hwsec-output\\benchmark_pov_matrix\\python\\POV-PYTHON-d00eda9f",
+  "bundle_hash": "0fcbb95470083036829f28e51d791e4056a8a6ede94c1517eeff4bae9ed33baa",
+  "provenance": {
+    "generated_at": "2026-09-15T06:19:59.578Z",
+    "verified_at": null,
+    "generator_type": "deterministic",
+    "generator_model": null,
+    "system_info": {
+      "platform": "win32",
+      "node_version": "v24.20.0"
+    }
+  },
+  "bundle_manifest_hash": "0fcbb95470083036829f28e51d791e4056a8a6ede94c1517eeff4bae9ed33baa",
+  "file_hashes": {
+    "evidence/dag_snapshot.json": "00a8a2d1605a7f68870957ce46a70ca38a16741d6fe287617c91e3200baef110",
+    "expected/effect.json": "292d8528055e3a1ef2042c76d27b66610aa59a32c5c4023505eafbd806061606",
+    "input/witness.json": "a58ab800d9755746a6a84139ba6cf6821439f1f29d9da71d718fec075d51e8a8",
+    "provenance/manifest.json": "233b71abd32450b250e4acc518f2f78c7fc5625831155665bf8d9b2aa1a335b5",
+    "README.md": "6f6ee43f3f66222713c298bfa2e7d4ec6696abfe4e187faefc2558a0231b53e8",
+    "reproduce.py": "fede1b85a114d5faeb460dd43d7fdf442aaaba4d73e12ec0435ce989d262c786"
+  }
+}

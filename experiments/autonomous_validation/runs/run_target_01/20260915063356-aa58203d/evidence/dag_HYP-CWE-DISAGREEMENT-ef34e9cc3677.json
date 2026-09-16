@@ -1,0 +1,117 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260915063356-aa58203d",
+  "created_at": "2026-09-15T06:34:52.916Z",
+  "root_hash": "c98330074d423b743d138f33834011e018df3b1e2233a765fc11814a60d65678",
+  "dag_hash": "c98330074d423b743d138f33834011e018df3b1e2233a765fc11814a60d65678",
+  "nodes": [
+    {
+      "id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260915063356-aa58203d",
+        "cwe": "CWE-DISAGREEMENT",
+        "security_condition": "CWE-Disagreement_SecurityOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1"
+        ],
+        "entry_point": {
+          "id": "EP-541009c73903",
+          "status": "RESOLVED",
+          "type": "HTTP_ENDPOINT",
+          "framework": "PythonWeb",
+          "route": "/api/diagnostic/ping",
+          "http_method": "ROUTE",
+          "file": "app.py",
+          "target_identifier": "app.py",
+          "discovered_at": "2026-09-15T06:34:49.526Z",
+          "resolution_type": "DIRECT_FILE_MATCH"
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "disagreement_controller",
+            "rule_id": "Analyzer Disagreement on app.py: [semgrep] reported findings vs [joern, codeql] clean",
+            "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+            "line": 1,
+            "confidence": 0.65
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": false,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-15T06:34:49.629Z",
+          "origin_finding_id": "CAND-DISAGREE-54ed0b64",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "2d77e2e31bb09e3a11cc06f4ddc6a1c4964aa46cf40bbc346b0df07beaaec14d",
+      "created_at": "2026-09-15T06:34:52.916Z"
+    },
+    {
+      "id": "EP-541009c73903",
+      "type": "entry_point",
+      "data": {
+        "id": "EP-541009c73903",
+        "status": "RESOLVED",
+        "type": "HTTP_ENDPOINT",
+        "framework": "PythonWeb",
+        "route": "/api/diagnostic/ping",
+        "http_method": "ROUTE",
+        "file": "app.py",
+        "target_identifier": "app.py",
+        "discovered_at": "2026-09-15T06:34:49.526Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "content_hash": "e78e6005d706b143195586e657fefff5376af865ed3c5fa5cc9331eecc6a6aa5",
+      "created_at": "2026-09-15T06:34:52.916Z"
+    },
+    {
+      "id": "PROV-20260915063356-aa58203d",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-15T06:34:52.916Z",
+        "broker_version": "2.0.0",
+        "verified": true,
+        "mode": "STANDARD",
+        "analysis_id": "20260915063356-aa58203d"
+      },
+      "content_hash": "2481e951ffdc3c962277bf6ea2c0e4d0d4f1671c58f13c28ed2f2db127e44722",
+      "created_at": "2026-09-15T06:34:52.916Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+      "target_id": "EP-541009c73903",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "f2da0902aed53ca1d12b34600f3a31971a383d4b46d41fea5556a95a09cc8d87"
+    },
+    {
+      "source_id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+      "target_id": "PROV-20260915063356-aa58203d",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "886a026735a33746d605bdc009189aed84efd0b5d79c2bbb7146118ae3d6def0"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "total_files": 1,
+  "total_loc": 18,
+  "languages": {
+    "python": {
+      "file_count": 1,
+      "loc_estimate": 18,
+      "sample_files": [
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06\\app.py"
+      ]
+    }
+  },
+  "manifests": [],
+  "unsupported_count": 0,
+  "likely_attack_surfaces": []
+}

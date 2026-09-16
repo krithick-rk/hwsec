@@ -1,0 +1,17 @@
+[
+  {
+    "path_id": "AP-5e247f",
+    "title": "Multi-Evidence Attack Cluster at E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12",
+    "evidence_strength": "E2",
+    "cluster_ref": "CLUSTER-4d9fec",
+    "description": "2 independent evidence sources converge on E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12. Severity escalated to HIGH. Manual review recommended.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12"
+  },
+  {
+    "path_id": "CMD-INJ-001",
+    "title": "Command Injection via Subprocess with User Input",
+    "evidence_strength": "E4",
+    "description": "The application at `app.py:12` utilizes `subprocess.run` with `shell=True`, and a user-provided value is directly incorporated into the command executed. This creates a critical command injection vulnerability (CWE-078), allowing an attacker to execute arbitrary shell commands on the system. Both Semgrep and CodeQL reported high-severity findings confirming this issue.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12"
+  }
+]

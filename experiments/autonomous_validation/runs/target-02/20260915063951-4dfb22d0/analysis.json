@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.0.0",
+  "analysis_id": "20260915063951-4dfb22d0",
+  "status": "COMPLETED",
+  "approval_required": true,
+  "execution_started": true,
+  "created_at": "2026-09-15T06:40:00.497Z",
+  "target_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02",
+  "novelty_mode": "standard",
+  "spec_path": null,
+  "inventory": {
+    "total_files": 4,
+    "total_loc": 66,
+    "languages": {
+      "python": [],
+      "java": [
+        "DiagnosticController.java",
+        "src\\main\\java\\com\\hwsec\\Application.java",
+        "src\\main\\java\\com\\hwsec\\DiagnosticController.java"
+      ],
+      "c": [],
+      "cpp": [],
+      "go": [],
+      "verilog": []
+    },
+    "manifests": [
+      {
+        "name": "pom.xml",
+        "type": "maven",
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\pom.xml"
+      }
+    ]
+  },
+  "summary": {
+    "total_files": 4,
+    "total_loc": 66,
+    "languages": {
+      "java": {
+        "file_count": 3,
+        "loc_estimate": 66,
+        "sample_files": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\Application.java",
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java"
+        ]
+      }
+    },
+    "manifests": [
+      {
+        "name": "pom.xml",
+        "type": "maven",
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\pom.xml"
+      }
+    ],
+    "unsupported_count": 1,
+    "likely_attack_surfaces": []
+  },
+  "tools_detected": [
+    "verilator",
+    "yosys",
+    "afl++",
+    "symbiyosys",
+    "spike",
+    "semgrep",
+    "codeql",
+    "joern"
+  ],
+  "tools_unavailable": [],
+  "planned_capabilities": [
+    "sast_pattern_scan",
+    "deep_dataflow",
+    "graph_dataflow"
+  ],
+  "execution_graph": [
+    "discovery",
+    "sast_pattern_scan",
+    "deep_dataflow",
+    "graph_dataflow",
+    "suspicion_scoring",
+    "hypothesis_formulation",
+    "artifact_verification",
+    "correlation",
+    "report_generation"
+  ],
+  "coverage_matrix": {
+    "gaps_count": 12,
+    "high_priority_gaps": [
+      "java: Security Misconfiguration",
+      "java: Hardcoded Credentials & Secrets",
+      "java: Cryptographic & Randomness Failures",
+      "java: Broken Authentication & Access Control",
+      "java: Server-Side Request Forgery (SSRF)",
+      "java: Insecure Deserialization",
+      "java: XML External Entity (XXE)",
+      "java: Cross-Site Scripting (XSS)",
+      "java: Path Traversal & File Inclusion",
+      "java: LDAP Injection",
+      "java: SQL & Query Injection",
+      "java: Command & Code Injection"
+    ]
+  },
+  "budget_estimate": {
+    "novelty_mode": "standard",
+    "estimated_tokens": 2000,
+    "estimated_cost_usd": 0.0008,
+    "max_budget_usd": 10,
+    "estimated_duration_seconds": 12
+  },
+  "proof_mode": "standard",
+  "pov_mode": "on-detected",
+  "generate_pov": true,
+  "entry_points_count": 4,
+  "approved_at": "2026-09-15T06:40:00.766Z",
+  "started_at": "2026-09-15T06:40:00.767Z",
+  "completed_at": "2026-09-15T06:41:12.133Z",
+  "results": {
+    "verified_count": 0,
+    "candidate_count": 5,
+    "detected_count": 0,
+    "not_detected_count": 0,
+    "inconclusive_count": 5
+  }
+}

@@ -1,0 +1,14 @@
+initial
+assume (= [$auto$async2sync.cc:107:execute$12] false)
+assume (= [$auto$async2sync.cc:116:execute$16] true)
+assume (= [data_out] #b11111111)
+
+state 0
+assume (= [clk] false)
+assume (= [data_in] #b00000000)
+assume (= [reset] false)
+
+state 1
+assume (= [clk] false)
+assume (= [data_in] #b00000000)
+assume (= [reset] false)

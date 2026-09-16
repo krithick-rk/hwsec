@@ -1,0 +1,138 @@
+[
+  {
+    "schema_version": "2.0.0",
+    "id": "CODEQL-8526b160",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "[CWE-078] This command line depends on a [user-provided value](1).",
+    "description": "CodeQL detected vulnerability rule py/command-line-injection:\nThis command line depends on a [user-provided value](1).",
+    "severity": "HIGH",
+    "confidence": 0.8,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+        "startLine": 8,
+        "endLine": 8,
+        "line": 8,
+        "startColumn": 29,
+        "endColumn": 36,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-078",
+    "evidence_ids": [
+      "EV-3202b0d2"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "EV-3202b0d2",
+        "run_id": null,
+        "tool": "codeql",
+        "tool_run_id": null,
+        "evidence_type": "SARIF_REPORT",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01\\20260915070336-d30a226b\\tools\\tools\\codeql\\codeql_python_results.sarif",
+        "artifact_hash": null,
+        "observation": "CodeQL Static Analysis: This command line depends on a [user-provided value](1). (Rule: py/command-line-injection)",
+        "raw_evidence": {
+          "ruleId": "py/command-line-injection",
+          "ruleName": "py/command-line-injection",
+          "message": "This command line depends on a [user-provided value](1).",
+          "cwe": "CWE-078",
+          "sarifLevel": "error"
+        },
+        "timestamp": "2026-09-15T07:04:58.071Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "codeql",
+      "created_at": "2026-09-15T07:04:58.071Z"
+    },
+    "source_tool": "codeql",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+    "evidence": [
+      {
+        "id": "EV-3202b0d2",
+        "run_id": null,
+        "tool": "codeql",
+        "tool_run_id": null,
+        "evidence_type": "SARIF_REPORT",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01\\20260915070336-d30a226b\\tools\\tools\\codeql\\codeql_python_results.sarif",
+        "artifact_hash": null,
+        "observation": "CodeQL Static Analysis: This command line depends on a [user-provided value](1). (Rule: py/command-line-injection)",
+        "raw_evidence": {
+          "ruleId": "py/command-line-injection",
+          "ruleName": "py/command-line-injection",
+          "message": "This command line depends on a [user-provided value](1).",
+          "cwe": "CWE-078",
+          "sarifLevel": "error"
+        },
+        "timestamp": "2026-09-15T07:04:58.071Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "2f468dd7c2bef03d94ef4bc46b034a8c51383ff7bb18cf8089da7827ed5ceafe",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "CAND-DISAGREE-d86ce8b2",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "Analyzer Disagreement on app.py: [semgrep, codeql] reported findings vs [joern] clean",
+    "description": "Candidate generated via analyzer_disagreement (Escalation: DEEP_DATAFLOW)",
+    "severity": "MEDIUM",
+    "confidence": 0.65,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+        "startLine": 1,
+        "endLine": 1,
+        "line": 1,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-Disagreement",
+    "evidence_ids": [],
+    "supporting_evidence": [],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "disagreement_controller",
+      "created_at": "2026-09-15T07:04:58.225Z"
+    },
+    "source_tool": "disagreement_controller",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1",
+    "evidence": [],
+    "evidence_dag_hash": "e5cb74eb65e8a7561a2599dd5767ede1d2f9abf87294446ac5c76ca0cb287a60",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  }
+]

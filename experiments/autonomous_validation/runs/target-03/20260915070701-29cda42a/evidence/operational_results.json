@@ -1,0 +1,30 @@
+[
+  {
+    "hypothesis_id": "HYP-CWE-120-723551d331e4",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "db5bbb37802424b64ca26f9dfe1114ad576d1e4de55688c41408a2bd8f513cc2",
+    "dossier_path": "evidence/dossier_HYP-CWE-120-723551d331e4.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-120-31cbaad670c1",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "f5e8c239d740350f93e8ddf08dd2b25cea6ceb9f2d734b220dae53e02425fe32",
+    "dossier_path": "evidence/dossier_HYP-CWE-120-31cbaad670c1.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-78-422af5e388bb",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "d7b62d42dda5c514094cdefecf4e46f6bd0842a3bb39924dffb13d3dd1689ea5",
+    "dossier_path": "evidence/dossier_HYP-CWE-78-422af5e388bb.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-DISAGREEMENT-386e05fe5891",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "f9c786315f0a612a5ed0c90c1f10d3fdb749f787e3f33e65e68543df66b9a167",
+    "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-386e05fe5891.md"
+  }
+]

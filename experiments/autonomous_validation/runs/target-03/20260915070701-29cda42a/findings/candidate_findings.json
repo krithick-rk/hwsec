@@ -1,0 +1,342 @@
+[
+  {
+    "schema_version": "2.0.0",
+    "id": "JOERN-f6607d00",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "[CWE-120] Buffer copy without bounds checking (strcpy)",
+    "description": "Joern detected dangerous code pattern in E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:7.\nMethod: process_input\nCode snippet: `strcpy(buffer, userInput)`\nReachable from function input: true",
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c",
+        "startLine": 7,
+        "endLine": 7,
+        "line": 7,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-120",
+    "evidence_ids": [
+      "EV-1b2ffaa0"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "EV-1b2ffaa0",
+        "run_id": null,
+        "tool": "joern",
+        "tool_run_id": null,
+        "evidence_type": "DATAFLOW_TRACE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-03\\20260915070701-29cda42a\\tools\\.joern_cache\\cpg_batch_4539e5af62a74433.bin",
+        "artifact_hash": null,
+        "observation": "Joern CPG Analysis: Buffer copy without bounds checking (strcpy) in method 'process_input'. Dataflow reachable from input/param: true",
+        "raw_evidence": {
+          "rule_id": "joern/cwe-120/strcpy",
+          "cwe_id": "CWE-120",
+          "title": "Buffer copy without bounds checking (strcpy)",
+          "severity": "HIGH",
+          "file": "main.c",
+          "line": 7,
+          "method": "process_input",
+          "code": "strcpy(buffer, userInput)",
+          "dataflow_reachable": true
+        },
+        "timestamp": "2026-09-15T07:07:29.891Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "joern",
+      "created_at": "2026-09-15T07:07:29.892Z"
+    },
+    "source_tool": "joern",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:7",
+    "evidence": [
+      {
+        "id": "EV-1b2ffaa0",
+        "run_id": null,
+        "tool": "joern",
+        "tool_run_id": null,
+        "evidence_type": "DATAFLOW_TRACE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-03\\20260915070701-29cda42a\\tools\\.joern_cache\\cpg_batch_4539e5af62a74433.bin",
+        "artifact_hash": null,
+        "observation": "Joern CPG Analysis: Buffer copy without bounds checking (strcpy) in method 'process_input'. Dataflow reachable from input/param: true",
+        "raw_evidence": {
+          "rule_id": "joern/cwe-120/strcpy",
+          "cwe_id": "CWE-120",
+          "title": "Buffer copy without bounds checking (strcpy)",
+          "severity": "HIGH",
+          "file": "main.c",
+          "line": 7,
+          "method": "process_input",
+          "code": "strcpy(buffer, userInput)",
+          "dataflow_reachable": true
+        },
+        "timestamp": "2026-09-15T07:07:29.891Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "db5bbb37802424b64ca26f9dfe1114ad576d1e4de55688c41408a2bd8f513cc2",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "JOERN-10124e08",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "[CWE-120] Unbounded sprintf buffer write (sprintf)",
+    "description": "Joern detected dangerous code pattern in E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:10.\nMethod: process_input\nCode snippet: `sprintf(cmd, \"echo %s\", buffer)`\nReachable from function input: true",
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c",
+        "startLine": 10,
+        "endLine": 10,
+        "line": 10,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-120",
+    "evidence_ids": [
+      "EV-ff5dc5da"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "EV-ff5dc5da",
+        "run_id": null,
+        "tool": "joern",
+        "tool_run_id": null,
+        "evidence_type": "DATAFLOW_TRACE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-03\\20260915070701-29cda42a\\tools\\.joern_cache\\cpg_batch_4539e5af62a74433.bin",
+        "artifact_hash": null,
+        "observation": "Joern CPG Analysis: Unbounded sprintf buffer write (sprintf) in method 'process_input'. Dataflow reachable from input/param: true",
+        "raw_evidence": {
+          "rule_id": "joern/cwe-120/sprintf",
+          "cwe_id": "CWE-120",
+          "title": "Unbounded sprintf buffer write (sprintf)",
+          "severity": "HIGH",
+          "file": "main.c",
+          "line": 10,
+          "method": "process_input",
+          "code": "sprintf(cmd, \"echo %s\", buffer)",
+          "dataflow_reachable": true
+        },
+        "timestamp": "2026-09-15T07:07:29.892Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "joern",
+      "created_at": "2026-09-15T07:07:29.892Z"
+    },
+    "source_tool": "joern",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:10",
+    "evidence": [
+      {
+        "id": "EV-ff5dc5da",
+        "run_id": null,
+        "tool": "joern",
+        "tool_run_id": null,
+        "evidence_type": "DATAFLOW_TRACE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-03\\20260915070701-29cda42a\\tools\\.joern_cache\\cpg_batch_4539e5af62a74433.bin",
+        "artifact_hash": null,
+        "observation": "Joern CPG Analysis: Unbounded sprintf buffer write (sprintf) in method 'process_input'. Dataflow reachable from input/param: true",
+        "raw_evidence": {
+          "rule_id": "joern/cwe-120/sprintf",
+          "cwe_id": "CWE-120",
+          "title": "Unbounded sprintf buffer write (sprintf)",
+          "severity": "HIGH",
+          "file": "main.c",
+          "line": 10,
+          "method": "process_input",
+          "code": "sprintf(cmd, \"echo %s\", buffer)",
+          "dataflow_reachable": true
+        },
+        "timestamp": "2026-09-15T07:07:29.892Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "f5e8c239d740350f93e8ddf08dd2b25cea6ceb9f2d734b220dae53e02425fe32",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "JOERN-eaebddc8",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "[CWE-78] OS command execution sink (system)",
+    "description": "Joern detected dangerous code pattern in E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14.\nMethod: process_input\nCode snippet: `system(cmd)`\nReachable from function input: true",
+    "severity": "CRITICAL",
+    "confidence": 0.85,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c",
+        "startLine": 14,
+        "endLine": 14,
+        "line": 14,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-78",
+    "evidence_ids": [
+      "EV-45aa439d"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "EV-45aa439d",
+        "run_id": null,
+        "tool": "joern",
+        "tool_run_id": null,
+        "evidence_type": "DATAFLOW_TRACE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-03\\20260915070701-29cda42a\\tools\\.joern_cache\\cpg_batch_4539e5af62a74433.bin",
+        "artifact_hash": null,
+        "observation": "Joern CPG Analysis: OS command execution sink (system) in method 'process_input'. Dataflow reachable from input/param: true",
+        "raw_evidence": {
+          "rule_id": "joern/cwe-78/system",
+          "cwe_id": "CWE-78",
+          "title": "OS command execution sink (system)",
+          "severity": "CRITICAL",
+          "file": "main.c",
+          "line": 14,
+          "method": "process_input",
+          "code": "system(cmd)",
+          "dataflow_reachable": true
+        },
+        "timestamp": "2026-09-15T07:07:29.892Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "joern",
+      "created_at": "2026-09-15T07:07:29.892Z"
+    },
+    "source_tool": "joern",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14",
+    "evidence": [
+      {
+        "id": "EV-45aa439d",
+        "run_id": null,
+        "tool": "joern",
+        "tool_run_id": null,
+        "evidence_type": "DATAFLOW_TRACE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-03\\20260915070701-29cda42a\\tools\\.joern_cache\\cpg_batch_4539e5af62a74433.bin",
+        "artifact_hash": null,
+        "observation": "Joern CPG Analysis: OS command execution sink (system) in method 'process_input'. Dataflow reachable from input/param: true",
+        "raw_evidence": {
+          "rule_id": "joern/cwe-78/system",
+          "cwe_id": "CWE-78",
+          "title": "OS command execution sink (system)",
+          "severity": "CRITICAL",
+          "file": "main.c",
+          "line": 14,
+          "method": "process_input",
+          "code": "system(cmd)",
+          "dataflow_reachable": true
+        },
+        "timestamp": "2026-09-15T07:07:29.892Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "d7b62d42dda5c514094cdefecf4e46f6bd0842a3bb39924dffb13d3dd1689ea5",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "CAND-DISAGREE-c3d9c805",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "Analyzer Disagreement on main.c: [joern] reported findings vs [semgrep, codeql] clean",
+    "description": "Candidate generated via analyzer_disagreement (Escalation: DEEP_DATAFLOW)",
+    "severity": "MEDIUM",
+    "confidence": 0.65,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c",
+        "startLine": 1,
+        "endLine": 1,
+        "line": 1,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-Disagreement",
+    "evidence_ids": [],
+    "supporting_evidence": [],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "disagreement_controller",
+      "created_at": "2026-09-15T07:07:33.421Z"
+    },
+    "source_tool": "disagreement_controller",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:1",
+    "evidence": [],
+    "evidence_dag_hash": "f9c786315f0a612a5ed0c90c1f10d3fdb749f787e3f33e65e68543df66b9a167",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  }
+]

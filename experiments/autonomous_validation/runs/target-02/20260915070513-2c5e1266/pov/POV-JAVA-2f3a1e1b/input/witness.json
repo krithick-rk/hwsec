@@ -1,0 +1,18 @@
+{
+  "witness_input": {
+    "parameter": "USER_INPUT",
+    "value": "hello; echo INJECTED_CMD_OUTPUT",
+    "type": "CLI_OR_HTTP"
+  },
+  "negative_control": null,
+  "target_entry_point": {
+    "id": "EP-b4acecfa6494",
+    "status": "RESOLVED",
+    "type": "CLI_MAIN",
+    "framework": "JavaStandard",
+    "file": "DiagnosticController.java",
+    "target_identifier": "DiagnosticController.java#main",
+    "discovered_at": "2026-09-15T07:05:50.340Z",
+    "resolution_type": "DIRECT_FILE_MATCH"
+  }
+}

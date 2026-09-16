@@ -1,0 +1,1783 @@
+{
+  "ranked": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py",
+      "suspicion_score": 0.763,
+      "priority": "CRITICAL",
+      "analysis_depth": "TARGETED_FORMAL_LLM",
+      "signals": {
+        "deterministic_findings": {
+          "count": 1,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.57,
+          "reportingTools": [
+            "joern"
+          ],
+          "silentTools": [
+            "semgrep",
+            "codeql"
+          ],
+          "conflictingTools": [
+            "joern",
+            "semgrep",
+            "codeql"
+          ],
+          "reason": "Tool disagreement: [joern] reported findings, while [semgrep, codeql] reported none.",
+          "score": 0.1425
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\auth.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\console.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 6,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\__init__.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 8,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\exceptions.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 6,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\http.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 8,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\rules.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\request.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\response.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 6,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\security.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 8,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\serving.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 8,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\test.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 6,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\utils.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\request.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\response.py",
+      "suspicion_score": 0.18,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 4,
+          "score": 0.16
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\_reloader.py",
+      "suspicion_score": 0.18,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 4,
+          "score": 0.16
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\cache_control.py",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\headers.py",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\profiler.py",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\shared_data.py",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\map.py",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\matcher.py",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\__init__.py",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wsgi.py",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\accept.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\structures.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\repr.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\formparser.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\local.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\lint.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\exceptions.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\http.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\utils.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\testapp.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\urls.py",
+      "suspicion_score": 0.1,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\csp.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\file_storage.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\mixins.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\__init__.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\dispatcher.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\http_proxy.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\proxy_fix.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\converters.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\multipart.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\_internal.py",
+      "suspicion_score": 0.06,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 1,
+          "score": 0.04
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\etag.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\range.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\__init__.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\__init__.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\user_agent.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\__init__.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\__init__.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ],
+  "prioritizedTargets": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py",
+      "suspicion_score": 0.763,
+      "priority": "CRITICAL",
+      "analysis_depth": "TARGETED_FORMAL_LLM",
+      "signals": {
+        "deterministic_findings": {
+          "count": 1,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.57,
+          "reportingTools": [
+            "joern"
+          ],
+          "silentTools": [
+            "semgrep",
+            "codeql"
+          ],
+          "conflictingTools": [
+            "joern",
+            "semgrep",
+            "codeql"
+          ],
+          "reason": "Tool disagreement: [joern] reported findings, while [semgrep, codeql] reported none.",
+          "score": 0.1425
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\auth.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\console.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 6,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\__init__.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 8,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\exceptions.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 6,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\http.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 8,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\rules.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\request.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\response.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 6,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\security.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 8,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\serving.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 8,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\test.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 6,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\utils.py",
+      "suspicion_score": 0.22,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 5,
+          "score": 0.2
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ]
+}

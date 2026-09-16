@@ -1,0 +1,418 @@
+{
+  "root_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src",
+  "languages": {
+    "python": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\accept.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\auth.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\cache_control.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\csp.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\etag.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\file_storage.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\headers.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\mixins.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\range.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\structures.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\__init__.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\console.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\repr.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\__init__.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\exceptions.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\formparser.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\http.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\local.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\dispatcher.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\http_proxy.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\lint.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\profiler.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\proxy_fix.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\shared_data.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\__init__.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\converters.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\exceptions.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\map.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\matcher.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\rules.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\__init__.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\http.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\multipart.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\request.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\response.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\utils.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\__init__.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\security.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\serving.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\test.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\testapp.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\urls.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\user_agent.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\utils.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\request.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\response.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\__init__.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wsgi.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\_internal.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\_reloader.py",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\__init__.py"
+    ],
+    "java": [],
+    "c": [],
+    "cpp": [],
+    "go": [],
+    "verilog": []
+  },
+  "file_metadata": {
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\accept.py": {
+      "relativePath": "werkzeug\\datastructures\\accept.py",
+      "language": "python",
+      "loc": 327,
+      "size": 14603
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\auth.py": {
+      "relativePath": "werkzeug\\datastructures\\auth.py",
+      "language": "python",
+      "loc": 242,
+      "size": 10500
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\cache_control.py": {
+      "relativePath": "werkzeug\\datastructures\\cache_control.py",
+      "language": "python",
+      "loc": 314,
+      "size": 13730
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\csp.py": {
+      "relativePath": "werkzeug\\datastructures\\csp.py",
+      "language": "python",
+      "loc": 128,
+      "size": 6051
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\etag.py": {
+      "relativePath": "werkzeug\\datastructures\\etag.py",
+      "language": "python",
+      "loc": 127,
+      "size": 4788
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\file_storage.py": {
+      "relativePath": "werkzeug\\datastructures\\file_storage.py",
+      "language": "python",
+      "loc": 185,
+      "size": 7716
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\headers.py": {
+      "relativePath": "werkzeug\\datastructures\\headers.py",
+      "language": "python",
+      "loc": 537,
+      "size": 23565
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\mixins.py": {
+      "relativePath": "werkzeug\\datastructures\\mixins.py",
+      "language": "python",
+      "loc": 252,
+      "size": 10384
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\range.py": {
+      "relativePath": "werkzeug\\datastructures\\range.py",
+      "language": "python",
+      "loc": 292,
+      "size": 11780
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\structures.py": {
+      "relativePath": "werkzeug\\datastructures\\structures.py",
+      "language": "python",
+      "loc": 868,
+      "size": 36413
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\__init__.py": {
+      "relativePath": "werkzeug\\datastructures\\__init__.py",
+      "language": "python",
+      "loc": 61,
+      "size": 2907
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\console.py": {
+      "relativePath": "werkzeug\\debug\\console.py",
+      "language": "python",
+      "loc": 166,
+      "size": 6308
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\repr.py": {
+      "relativePath": "werkzeug\\debug\\repr.py",
+      "language": "python",
+      "loc": 242,
+      "size": 9573
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py": {
+      "relativePath": "werkzeug\\debug\\tbtools.py",
+      "language": "python",
+      "loc": 372,
+      "size": 14107
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\__init__.py": {
+      "relativePath": "werkzeug\\debug\\__init__.py",
+      "language": "python",
+      "loc": 479,
+      "size": 20631
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\exceptions.py": {
+      "relativePath": "werkzeug\\exceptions.py",
+      "language": "python",
+      "loc": 674,
+      "size": 27819
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\formparser.py": {
+      "relativePath": "werkzeug\\formparser.py",
+      "language": "python",
+      "loc": 406,
+      "size": 18785
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\http.py": {
+      "relativePath": "werkzeug\\http.py",
+      "language": "python",
+      "loc": 1234,
+      "size": 52602
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\local.py": {
+      "relativePath": "werkzeug\\local.py",
+      "language": "python",
+      "loc": 513,
+      "size": 22837
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\dispatcher.py": {
+      "relativePath": "werkzeug\\middleware\\dispatcher.py",
+      "language": "python",
+      "loc": 63,
+      "size": 2683
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\http_proxy.py": {
+      "relativePath": "werkzeug\\middleware\\http_proxy.py",
+      "language": "python",
+      "loc": 190,
+      "size": 8054
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\lint.py": {
+      "relativePath": "werkzeug\\middleware\\lint.py",
+      "language": "python",
+      "loc": 359,
+      "size": 14915
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\profiler.py": {
+      "relativePath": "werkzeug\\middleware\\profiler.py",
+      "language": "python",
+      "loc": 129,
+      "size": 5828
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\proxy_fix.py": {
+      "relativePath": "werkzeug\\middleware\\proxy_fix.py",
+      "language": "python",
+      "loc": 149,
+      "size": 6938
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\shared_data.py": {
+      "relativePath": "werkzeug\\middleware\\shared_data.py",
+      "language": "python",
+      "loc": 224,
+      "size": 9841
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\middleware\\__init__.py": {
+      "relativePath": "werkzeug\\middleware\\__init__.py",
+      "language": "python",
+      "loc": 0,
+      "size": 0
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\converters.py": {
+      "relativePath": "werkzeug\\routing\\converters.py",
+      "language": "python",
+      "loc": 239,
+      "size": 10289
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\exceptions.py": {
+      "relativePath": "werkzeug\\routing\\exceptions.py",
+      "language": "python",
+      "loc": 134,
+      "size": 5682
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\map.py": {
+      "relativePath": "werkzeug\\routing\\map.py",
+      "language": "python",
+      "loc": 829,
+      "size": 39487
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\matcher.py": {
+      "relativePath": "werkzeug\\routing\\matcher.py",
+      "language": "python",
+      "loc": 178,
+      "size": 8327
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\rules.py": {
+      "relativePath": "werkzeug\\routing\\rules.py",
+      "language": "python",
+      "loc": 795,
+      "size": 34725
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\routing\\__init__.py": {
+      "relativePath": "werkzeug\\routing\\__init__.py",
+      "language": "python",
+      "loc": 104,
+      "size": 4954
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\http.py": {
+      "relativePath": "werkzeug\\sansio\\http.py",
+      "language": "python",
+      "loc": 143,
+      "size": 5966
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\multipart.py": {
+      "relativePath": "werkzeug\\sansio\\multipart.py",
+      "language": "python",
+      "loc": 287,
+      "size": 12488
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\request.py": {
+      "relativePath": "werkzeug\\sansio\\request.py",
+      "language": "python",
+      "loc": 541,
+      "size": 23217
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\response.py": {
+      "relativePath": "werkzeug\\sansio\\response.py",
+      "language": "python",
+      "loc": 689,
+      "size": 29701
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\utils.py": {
+      "relativePath": "werkzeug\\sansio\\utils.py",
+      "language": "python",
+      "loc": 176,
+      "size": 7757
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\sansio\\__init__.py": {
+      "relativePath": "werkzeug\\sansio\\__init__.py",
+      "language": "python",
+      "loc": 0,
+      "size": 0
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\security.py": {
+      "relativePath": "werkzeug\\security.py",
+      "language": "python",
+      "loc": 169,
+      "size": 7428
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\serving.py": {
+      "relativePath": "werkzeug\\serving.py",
+      "language": "python",
+      "loc": 922,
+      "size": 41122
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\test.py": {
+      "relativePath": "werkzeug\\test.py",
+      "language": "python",
+      "loc": 1201,
+      "size": 54969
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\testapp.py": {
+      "relativePath": "werkzeug\\testapp.py",
+      "language": "python",
+      "loc": 175,
+      "size": 6882
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\urls.py": {
+      "relativePath": "werkzeug\\urls.py",
+      "language": "python",
+      "loc": 152,
+      "size": 6893
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\user_agent.py": {
+      "relativePath": "werkzeug\\user_agent.py",
+      "language": "python",
+      "loc": 58,
+      "size": 2444
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\utils.py": {
+      "relativePath": "werkzeug\\utils.py",
+      "language": "python",
+      "loc": 661,
+      "size": 29764
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\request.py": {
+      "relativePath": "werkzeug\\wrappers\\request.py",
+      "language": "python",
+      "loc": 590,
+      "size": 27784
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\response.py": {
+      "relativePath": "werkzeug\\wrappers\\response.py",
+      "language": "python",
+      "loc": 706,
+      "size": 34351
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wrappers\\__init__.py": {
+      "relativePath": "werkzeug\\wrappers\\__init__.py",
+      "language": "python",
+      "loc": 3,
+      "size": 141
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\wsgi.py": {
+      "relativePath": "werkzeug\\wsgi.py",
+      "language": "python",
+      "loc": 479,
+      "size": 22720
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\_internal.py": {
+      "relativePath": "werkzeug\\_internal.py",
+      "language": "python",
+      "loc": 91,
+      "size": 3566
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\_reloader.py": {
+      "relativePath": "werkzeug\\_reloader.py",
+      "language": "python",
+      "loc": 318,
+      "size": 13330
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\__init__.py": {
+      "relativePath": "werkzeug\\__init__.py",
+      "language": "python",
+      "loc": 4,
+      "size": 169
+    }
+  },
+  "unsupported": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\shared\\console.png",
+      "relativePath": "werkzeug\\debug\\shared\\console.png",
+      "extension": ".png"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\shared\\debugger.js",
+      "relativePath": "werkzeug\\debug\\shared\\debugger.js",
+      "extension": ".js"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\shared\\ICON_LICENSE.md",
+      "relativePath": "werkzeug\\debug\\shared\\ICON_LICENSE.md",
+      "extension": ".md"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\shared\\less.png",
+      "relativePath": "werkzeug\\debug\\shared\\less.png",
+      "extension": ".png"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\shared\\more.png",
+      "relativePath": "werkzeug\\debug\\shared\\more.png",
+      "extension": ".png"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\shared\\style.css",
+      "relativePath": "werkzeug\\debug\\shared\\style.css",
+      "extension": ".css"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\py.typed",
+      "relativePath": "werkzeug\\py.typed",
+      "extension": ".typed"
+    }
+  ],
+  "manifests": [],
+  "total_files": 59,
+  "total_loc": 18177
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "646afb39a7f2848e46f9425bbf152cb88e7e23d18adc23d42614206e11f5a3d5",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-078-b24ffe431335",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "a8bd7f299296e1b1c45eff862a5b7c507161fabacfa1036cb846de6f6b3b189d",
+    "dossier_path": "evidence/dossier_HYP-CWE-078-b24ffe431335.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "e03b72f2c670f9329ffd1068f5165d4a8ca313c5e15280bb60bdd12acfbdfcf0",
+    "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-ef34e9cc3677.md"
+  }
+]

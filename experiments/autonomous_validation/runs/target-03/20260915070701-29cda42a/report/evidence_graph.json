@@ -1,0 +1,86 @@
+{
+  "nodes": [
+    {
+      "id": "JOERN-f6607d00",
+      "type": "Finding",
+      "label": "[CWE-120] Buffer copy without bounds checking (strcpy)",
+      "severity": "HIGH",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:7",
+      "source_tool": "joern"
+    },
+    {
+      "id": "JOERN-10124e08",
+      "type": "Finding",
+      "label": "[CWE-120] Unbounded sprintf buffer write (sprintf)",
+      "severity": "HIGH",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:10",
+      "source_tool": "joern"
+    },
+    {
+      "id": "JOERN-eaebddc8",
+      "type": "Finding",
+      "label": "[CWE-78] OS command execution sink (system)",
+      "severity": "CRITICAL",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14",
+      "source_tool": "joern"
+    },
+    {
+      "id": "CAND-DISAGREE-c3d9c805",
+      "type": "Finding",
+      "label": "Analyzer Disagreement on main.c: [joern] reported findings vs [semgrep, codeql] clean",
+      "severity": "MEDIUM",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:1",
+      "source_tool": "disagreement_controller"
+    },
+    {
+      "id": "CLUSTER-a5ab22",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:7",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-a105b3",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:10",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-f1e19c",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-1931b8",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:1",
+      "confidence": 0.6000000000000001
+    }
+  ],
+  "edges": [
+    {
+      "from": "JOERN-f6607d00",
+      "to": "CLUSTER-a5ab22",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "JOERN-10124e08",
+      "to": "CLUSTER-a105b3",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "JOERN-eaebddc8",
+      "to": "CLUSTER-f1e19c",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "CAND-DISAGREE-c3d9c805",
+      "to": "CLUSTER-1931b8",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    }
+  ]
+}

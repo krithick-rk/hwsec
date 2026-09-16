@@ -1,0 +1,25 @@
+{
+  "root_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06",
+  "languages": {
+    "python": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06\\app.py"
+    ],
+    "java": [],
+    "c": [],
+    "cpp": [],
+    "go": [],
+    "verilog": []
+  },
+  "file_metadata": {
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06\\app.py": {
+      "relativePath": "app.py",
+      "language": "python",
+      "loc": 18,
+      "size": 754
+    }
+  },
+  "unsupported": [],
+  "manifests": [],
+  "total_files": 1,
+  "total_loc": 18
+}

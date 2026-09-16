@@ -1,0 +1,20 @@
+{
+  "witness_input": {
+    "parameter": "USER_INPUT",
+    "value": "hello; echo INJECTED_CMD_OUTPUT",
+    "type": "CLI_OR_HTTP"
+  },
+  "negative_control": null,
+  "target_entry_point": {
+    "id": "EP-541009c73903",
+    "status": "RESOLVED",
+    "type": "HTTP_ENDPOINT",
+    "framework": "PythonWeb",
+    "route": "/api/diagnostic/ping",
+    "http_method": "ROUTE",
+    "file": "app.py",
+    "target_identifier": "app.py",
+    "discovered_at": "2026-09-15T07:11:58.819Z",
+    "resolution_type": "DIRECT_FILE_MATCH"
+  }
+}

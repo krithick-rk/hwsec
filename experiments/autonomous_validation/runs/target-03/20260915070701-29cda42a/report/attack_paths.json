@@ -1,0 +1,9 @@
+[
+  {
+    "path_id": "ATTACK-PATH-001",
+    "title": "Remote Code Execution via Buffer Overflow to OS Command Injection",
+    "evidence_strength": "E4",
+    "description": "An attacker can exploit the unbounded buffer writes (CWE-120) via `strcpy` or `sprintf` at lines 7 and 10 to inject malicious command strings. These crafted strings are then executed by the OS command execution sink (CWE-78) at line 14, leading to arbitrary remote code execution on the system.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:7,10,14"
+  }
+]

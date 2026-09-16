@@ -1,0 +1,352 @@
+[
+  {
+    "schema_version": "2.0.0",
+    "id": "SEMGREP-95ccbff1",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+    "description": "A formatted or concatenated string was detected as input to a ProcessBuilder call. This is dangerous if a variable is controlled by user input and could result in a command injection. Ensure your variables are not controlled by users or sufficiently sanitized.",
+    "severity": "HIGH",
+    "confidence": 0.6,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+        "startLine": 21,
+        "endLine": 21,
+        "line": 21,
+        "startColumn": 33,
+        "endColumn": 89,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "evidence_ids": [
+      "05a20760"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "05a20760",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915063951-4dfb22d0\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+        "raw_evidence": {
+          "rule_id": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T06:40:09.025Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "semgrep",
+      "created_at": "2026-09-15T06:40:09.025Z"
+    },
+    "source_tool": "semgrep",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21",
+    "evidence": [
+      {
+        "id": "05a20760",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915063951-4dfb22d0\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+        "raw_evidence": {
+          "rule_id": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T06:40:09.025Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "79424b9e7a0f9e608da9505e6f2e54c785b9106cb4ce9c3d08f9e9b1523ddd8e",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "SEMGREP-7d7e1c05",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+    "description": "A formatted or concatenated string was detected as input to a ProcessBuilder call. This is dangerous if a variable is controlled by user input and could result in a command injection. Ensure your variables are not controlled by users or sufficiently sanitized.",
+    "severity": "HIGH",
+    "confidence": 0.6,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+        "startLine": 16,
+        "endLine": 16,
+        "line": 16,
+        "startColumn": 33,
+        "endColumn": 102,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "evidence_ids": [
+      "4ea89fad"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "4ea89fad",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915063951-4dfb22d0\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+        "raw_evidence": {
+          "rule_id": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T06:40:09.025Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "semgrep",
+      "created_at": "2026-09-15T06:40:09.025Z"
+    },
+    "source_tool": "semgrep",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:16",
+    "evidence": [
+      {
+        "id": "4ea89fad",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915063951-4dfb22d0\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+        "raw_evidence": {
+          "rule_id": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T06:40:09.025Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "9f8737ffbbe648f8b6550111e241e1a0c04db570b1b45b1343d53dcd91d53049",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "SEMGREP-68765a21",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "java.spring.security.injection.tainted-system-command.tainted-system-command",
+    "description": "Detected user input entering a method which executes a system command. This could result in a command injection vulnerability, which allows an attacker to inject an arbitrary system command onto the server. The attacker could download malware onto or steal data from the server. Instead, use ProcessBuilder, separating the command into individual arguments, like this: `new ProcessBuilder(\"ls\", \"-al\", targetDirectory)`. Further, make sure you hardcode or allowlist the actual command so that attackers can't run arbitrary commands.",
+    "severity": "HIGH",
+    "confidence": 0.6,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+        "startLine": 17,
+        "endLine": 17,
+        "line": 17,
+        "startColumn": 31,
+        "endColumn": 41,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "evidence_ids": [
+      "17759458"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "17759458",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915063951-4dfb22d0\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check java.spring.security.injection.tainted-system-command.tainted-system-command",
+        "raw_evidence": {
+          "rule_id": "java.spring.security.injection.tainted-system-command.tainted-system-command",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T06:40:09.025Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "semgrep",
+      "created_at": "2026-09-15T06:40:09.025Z"
+    },
+    "source_tool": "semgrep",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:17",
+    "evidence": [
+      {
+        "id": "17759458",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915063951-4dfb22d0\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check java.spring.security.injection.tainted-system-command.tainted-system-command",
+        "raw_evidence": {
+          "rule_id": "java.spring.security.injection.tainted-system-command.tainted-system-command",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T06:40:09.025Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "9b95e6578859372c2d7469ece67ad009a21442f182e8eb1542b56f0bd5ce7f2a",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "CAND-DISAGREE-30a5fe10",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean",
+    "description": "Candidate generated via analyzer_disagreement (Escalation: DEEP_DATAFLOW)",
+    "severity": "MEDIUM",
+    "confidence": 0.65,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+        "startLine": 1,
+        "endLine": 1,
+        "line": 1,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-Disagreement",
+    "evidence_ids": [],
+    "supporting_evidence": [],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "disagreement_controller",
+      "created_at": "2026-09-15T06:40:39.602Z"
+    },
+    "source_tool": "disagreement_controller",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:1",
+    "evidence": [],
+    "evidence_dag_hash": "af60249af240b046c6a978308fd47b8027f76f745945b445b43f02b249ae719f",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "CAND-DISAGREE-17f122fc",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean",
+    "description": "Candidate generated via analyzer_disagreement (Escalation: DEEP_DATAFLOW)",
+    "severity": "MEDIUM",
+    "confidence": 0.65,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+        "startLine": 1,
+        "endLine": 1,
+        "line": 1,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-Disagreement",
+    "evidence_ids": [],
+    "supporting_evidence": [],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "disagreement_controller",
+      "created_at": "2026-09-15T06:40:39.602Z"
+    },
+    "source_tool": "disagreement_controller",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1",
+    "evidence": [],
+    "evidence_dag_hash": "2d0df9619a9401c2a9fbb1a38c8618102a05e7f9665117d89a36aaf20cc1c6c6",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  }
+]

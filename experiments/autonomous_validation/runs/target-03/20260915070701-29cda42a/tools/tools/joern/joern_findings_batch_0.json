@@ -1,0 +1,3 @@
+[{"rule_id":"joern/cwe-120/strcpy","cwe_id":"CWE-120","title":"Buffer copy without bounds checking (strcpy)","severity":"HIGH","file":"main.c","line":7,"method":"process_input","code":"strcpy(buffer, userInput)","dataflow_reachable":true},
+{"rule_id":"joern/cwe-120/sprintf","cwe_id":"CWE-120","title":"Unbounded sprintf buffer write (sprintf)","severity":"HIGH","file":"main.c","line":10,"method":"process_input","code":"sprintf(cmd, \"echo %s\", buffer)","dataflow_reachable":true},
+{"rule_id":"joern/cwe-78/system","cwe_id":"CWE-78","title":"OS command execution sink (system)","severity":"CRITICAL","file":"main.c","line":14,"method":"process_input","code":"system(cmd)","dataflow_reachable":true}]

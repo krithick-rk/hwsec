@@ -1,0 +1,6 @@
+{
+  "vulnerability_class": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+  "expected_security_effect": "Java target sink successfully triggered by structured witness input.",
+  "oracle_cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+  "negative_control_expected": "Security condition remains unviolated"
+}

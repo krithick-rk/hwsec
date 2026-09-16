@@ -1,0 +1,13 @@
+{
+  "command": "wsl -e env PATH=/home/intern/tools/jdk-26/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin semgrep scan --config auto --json --quiet /mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/ambiguous/target-06/app.py",
+  "exitCode": 0,
+  "stdout": "{\"version\":\"1.176.1\",\"results\":[],\"errors\":[],\"paths\":{\"scanned\":[\"/mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/ambiguous/target-06/app.py\"]},\"time\":{\"rules\":[],\"rules_parse_time\":0.4246408939361572,\"profiling_times\":{\"config_time\":1.1501555442810059,\"core_time\":0.8043928146362305,\"ignores_time\":0.0012388229370117188,\"total_time\":1.9741029739379883},\"parsing_time\":{\"total_time\":0.0,\"per_file_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"scanning_time\":{\"total_time\":0.0587766170501709,\"per_file_time\":{\"mean\":0.019592205683390297,\"std_dev\":0.00047557599798943155},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"matching_time\":{\"total_time\":0.0,\"per_file_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_files\":[]},\"tainting_time\":{\"total_time\":0.0,\"per_def_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_defs\":[]},\"fixpoint_timeouts\":[],\"prefiltering\":{\"project_level_time\":0.0,\"file_level_time\":0.0,\"rules_with_project_prefilters_ratio\":0.0,\"rules_with_file_prefilters_ratio\":0.9896551724137931,\"rules_selected_ratio\":0.05172413793103448,\"rules_matched_ratio\":0.05172413793103448},\"targets\":[],\"total_bytes\":0,\"max_memory_bytes\":755272576},\"engine_requested\":\"OSS\",\"skipped_rules\":[],\"profiling_results\":[]}\n",
+  "stderr": "",
+  "timeout": false,
+  "durationMs": 4314,
+  "environment": {
+    "platform": "win32",
+    "release": "10.0.22631",
+    "wsl": true
+  }
+}

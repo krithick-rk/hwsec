@@ -24,14 +24,16 @@ export class SymbiYosysTool extends ToolAdapter {
 
     /**
      * Resolves the environment for OSS CAD Suite binaries (sby, yosys, smtbmc).
+     * Resolution order: configured tool_path -> OSS_CAD_SUITE env -> YOSYSHQ_ROOT env -> PATH fallback.
+     * Never uses a hardcoded machine-specific path.
      */
     _resolveEnvironment() {
-        let sbyCmd = this.config?.tool_paths?.sby || 'sby';
+        let sbyCmd = this.config?.tool_paths?.sby || null;
         let binDir = null;
         let libDir = null;
         let suiteRoot = null;
 
-        if (fs.existsSync(sbyCmd)) {
+        if (sbyCmd && fs.existsSync(sbyCmd)) {
             binDir = path.dirname(sbyCmd);
             suiteRoot = path.dirname(binDir);
             const possibleLib = path.join(suiteRoot, 'lib');
@@ -39,14 +41,20 @@ export class SymbiYosysTool extends ToolAdapter {
                 libDir = possibleLib;
             }
         } else {
-            const defaultOssCadSuite = process.env.OSS_CAD_SUITE || process.env.YOSYSHQ_ROOT || 'E:/Intern/krithick/Downloads/oss-cad-suite';
-            if (fs.existsSync(defaultOssCadSuite)) {
-                suiteRoot = defaultOssCadSuite;
+            // Resolve from environment variables only — no hardcoded paths.
+            const envSuiteRoot = process.env.OSS_CAD_SUITE || process.env.YOSYSHQ_ROOT || null;
+            if (envSuiteRoot && fs.existsSync(envSuiteRoot)) {
+                suiteRoot = envSuiteRoot;
                 binDir = path.join(suiteRoot, 'bin');
                 libDir = path.join(suiteRoot, 'lib');
-                sbyCmd = path.join(binDir, 'sby.exe');
+                const isWin = process.platform === 'win32';
+                const candidate = path.join(binDir, isWin ? 'sby.exe' : 'sby');
+                if (fs.existsSync(candidate)) sbyCmd = candidate;
             }
         }
+
+        // Final fallback: rely on PATH (also handles WSL sby)
+        if (!sbyCmd) sbyCmd = 'sby';
 
         const env = { ...process.env };
         if (suiteRoot && binDir) {

@@ -1,0 +1,9 @@
+[
+  {
+    "path_id": "SEMGREP-71f0e66c",
+    "title": "Command Injection via subprocess.run(shell=True)",
+    "evidence_strength": "E4",
+    "description": "The application uses `subprocess.run` with `shell=True` at app.py:8. This configuration is highly vulnerable to command injection if any part of the command string is derived from untrusted user input without proper sanitization. An attacker could inject arbitrary shell commands, leading to remote code execution.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+  }
+]

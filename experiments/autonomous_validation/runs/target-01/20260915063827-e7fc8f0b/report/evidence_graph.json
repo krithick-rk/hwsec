@@ -1,0 +1,46 @@
+{
+  "nodes": [
+    {
+      "id": "SEMGREP-0db56ae3",
+      "type": "Finding",
+      "label": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+      "severity": "HIGH",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+      "source_tool": "semgrep"
+    },
+    {
+      "id": "CAND-DISAGREE-110fd020",
+      "type": "Finding",
+      "label": "Analyzer Disagreement on app.py: [semgrep] reported findings vs [joern, codeql] clean",
+      "severity": "MEDIUM",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1",
+      "source_tool": "disagreement_controller"
+    },
+    {
+      "id": "CLUSTER-edce82",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-dce8ad",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1",
+      "confidence": 0.6000000000000001
+    }
+  ],
+  "edges": [
+    {
+      "from": "SEMGREP-0db56ae3",
+      "to": "CLUSTER-edce82",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "CAND-DISAGREE-110fd020",
+      "to": "CLUSTER-dce8ad",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    }
+  ]
+}

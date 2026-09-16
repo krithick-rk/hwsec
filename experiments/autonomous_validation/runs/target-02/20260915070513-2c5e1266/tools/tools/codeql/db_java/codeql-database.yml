@@ -1,0 +1,45 @@
+---
+sourceLocationPrefix: /mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/java/target-02
+baselineLinesOfCode: 66
+unicodeNewlines: false
+columnKind: utf16
+primaryLanguage: java
+inProgress:
+  primaryLanguage: java
+  installedExtractors:
+    javascript:
+     - /home/intern/tools/codeql/javascript
+    ruby:
+     - /home/intern/tools/codeql/ruby
+    go:
+     - /home/intern/tools/codeql/go
+    html:
+     - /home/intern/tools/codeql/html
+    java:
+     - /home/intern/tools/codeql/java
+    xml:
+     - /home/intern/tools/codeql/xml
+    csv:
+     - /home/intern/tools/codeql/csv
+    python:
+     - /home/intern/tools/codeql/python
+    rust:
+     - /home/intern/tools/codeql/rust
+    yaml:
+     - /home/intern/tools/codeql/yaml
+    swift:
+     - /home/intern/tools/codeql/swift
+    cpp:
+     - /home/intern/tools/codeql/cpp
+    properties:
+     - /home/intern/tools/codeql/properties
+    actions:
+     - /home/intern/tools/codeql/actions
+    csharp:
+     - /home/intern/tools/codeql/csharp
+creationMetadata:
+  cliVersion: 2.26.4
+  creationTime: 2026-09-15T07:05:45.652364815Z
+overlayBaseDatabase: false
+overlayDatabase: false
+finalised: false

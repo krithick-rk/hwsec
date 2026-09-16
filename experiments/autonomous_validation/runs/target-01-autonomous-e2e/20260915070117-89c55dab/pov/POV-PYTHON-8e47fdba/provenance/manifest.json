@@ -1,0 +1,32 @@
+{
+  "pov_id": "POV-PYTHON-8e47fdba",
+  "created_at": "2026-09-15T07:02:25.003Z",
+  "generator_type": "deterministic",
+  "target": {
+    "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+    "entry_point": {
+      "id": "EP-541009c73903",
+      "status": "RESOLVED",
+      "type": "HTTP_ENDPOINT",
+      "framework": "PythonWeb",
+      "route": "/api/diagnostic/ping",
+      "http_method": "ROUTE",
+      "file": "app.py",
+      "target_identifier": "app.py",
+      "discovered_at": "2026-09-15T07:02:24.363Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "content_hash": "c2a9827c53596c0604b9497d5a131c8ff61ad6533860a1d9da7891993f6b2260",
+    "revision": null
+  },
+  "system_info": {
+    "platform": "win32",
+    "node_version": "v24.20.0"
+  },
+  "sandbox_constraints": {
+    "timeout_ms": 25000,
+    "output_limits_bytes": 131072,
+    "network": "localhost_only_when_explicit",
+    "credentials_stripped": true
+  }
+}

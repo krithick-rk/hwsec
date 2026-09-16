@@ -1,0 +1,30 @@
+[
+  {
+    "cluster_id": "CLUSTER-26fa2e",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:392",
+    "evidence_count": 1,
+    "finding_ids": [
+      "JOERN-e0e098d2"
+    ],
+    "titles": [
+      "[CWE-78] Dynamic code evaluation sink (eval)"
+    ],
+    "severity": "CRITICAL",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-c895a2",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:1",
+    "evidence_count": 1,
+    "finding_ids": [
+      "CAND-DISAGREE-7965df67"
+    ],
+    "titles": [
+      "Analyzer Disagreement on tbtools.py: [joern] reported findings vs [semgrep, codeql] clean"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  }
+]

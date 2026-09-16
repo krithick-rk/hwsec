@@ -1,0 +1,38 @@
+[
+  {
+    "family": "HardwareRTL",
+    "title": "Hardware RTL Vulnerabilities",
+    "language": "verilog",
+    "cwes": [
+      "CWE-1234",
+      "CWE-1256",
+      "CWE-1271",
+      "CWE-1277",
+      "CWE-1189",
+      "CWE-1300"
+    ],
+    "status": "UNCOVERED",
+    "recommendedTools": [
+      "verilator",
+      "yosys",
+      "symbiyosys",
+      "fuzz_formal"
+    ],
+    "priority": "HIGH"
+  },
+  {
+    "family": "HardcodedCredentials",
+    "title": "Hardcoded Credentials & Secrets",
+    "language": "verilog",
+    "cwes": [
+      "CWE-798",
+      "CWE-259"
+    ],
+    "status": "UNCOVERED",
+    "recommendedTools": [
+      "semgrep",
+      "deep_reasoning"
+    ],
+    "priority": "HIGH"
+  }
+]

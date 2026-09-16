@@ -1,0 +1,252 @@
+{
+  "root_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02",
+  "languages": {
+    "python": [],
+    "java": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\Application.java",
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java"
+    ],
+    "c": [],
+    "cpp": [],
+    "go": [],
+    "verilog": []
+  },
+  "file_metadata": {
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java": {
+      "relativePath": "DiagnosticController.java",
+      "language": "java",
+      "loc": 28,
+      "size": 1160
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\Application.java": {
+      "relativePath": "src\\main\\java\\com\\hwsec\\Application.java",
+      "language": "java",
+      "loc": 9,
+      "size": 299
+    },
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java": {
+      "relativePath": "src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+      "language": "java",
+      "loc": 29,
+      "size": 1130
+    }
+  },
+  "unsupported": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid10284.log",
+      "relativePath": "hs_err_pid10284.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid10528.log",
+      "relativePath": "hs_err_pid10528.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid11036.log",
+      "relativePath": "hs_err_pid11036.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid12124.log",
+      "relativePath": "hs_err_pid12124.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid12964.log",
+      "relativePath": "hs_err_pid12964.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid13016.log",
+      "relativePath": "hs_err_pid13016.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid13768.log",
+      "relativePath": "hs_err_pid13768.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid13992.log",
+      "relativePath": "hs_err_pid13992.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid14000.log",
+      "relativePath": "hs_err_pid14000.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid15344.log",
+      "relativePath": "hs_err_pid15344.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid15672.log",
+      "relativePath": "hs_err_pid15672.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid16248.log",
+      "relativePath": "hs_err_pid16248.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid16520.log",
+      "relativePath": "hs_err_pid16520.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid16836.log",
+      "relativePath": "hs_err_pid16836.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid17140.log",
+      "relativePath": "hs_err_pid17140.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid17380.log",
+      "relativePath": "hs_err_pid17380.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid17424.log",
+      "relativePath": "hs_err_pid17424.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid17552.log",
+      "relativePath": "hs_err_pid17552.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid18264.log",
+      "relativePath": "hs_err_pid18264.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid18328.log",
+      "relativePath": "hs_err_pid18328.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid18508.log",
+      "relativePath": "hs_err_pid18508.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid18892.log",
+      "relativePath": "hs_err_pid18892.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid19152.log",
+      "relativePath": "hs_err_pid19152.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid19316.log",
+      "relativePath": "hs_err_pid19316.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid19712.log",
+      "relativePath": "hs_err_pid19712.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid1988.log",
+      "relativePath": "hs_err_pid1988.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid20220.log",
+      "relativePath": "hs_err_pid20220.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid20552.log",
+      "relativePath": "hs_err_pid20552.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid20728.log",
+      "relativePath": "hs_err_pid20728.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid21164.log",
+      "relativePath": "hs_err_pid21164.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid21248.log",
+      "relativePath": "hs_err_pid21248.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid21336.log",
+      "relativePath": "hs_err_pid21336.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid4076.log",
+      "relativePath": "hs_err_pid4076.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid4200.log",
+      "relativePath": "hs_err_pid4200.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid5236.log",
+      "relativePath": "hs_err_pid5236.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid5740.log",
+      "relativePath": "hs_err_pid5740.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid5920.log",
+      "relativePath": "hs_err_pid5920.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid6968.log",
+      "relativePath": "hs_err_pid6968.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid7920.log",
+      "relativePath": "hs_err_pid7920.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\hs_err_pid8564.log",
+      "relativePath": "hs_err_pid8564.log",
+      "extension": ".log"
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\pom.xml",
+      "relativePath": "pom.xml",
+      "extension": ".xml"
+    }
+  ],
+  "manifests": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\pom.xml",
+      "relativePath": "pom.xml",
+      "name": "pom.xml",
+      "type": "maven"
+    }
+  ],
+  "total_files": 44,
+  "total_loc": 66
+}

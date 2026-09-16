@@ -1,0 +1,9 @@
+[
+  {
+    "path_id": "SEMGREP-95ccbff1",
+    "title": "Command Injection via Process Builder",
+    "evidence_strength": "E4",
+    "description": "The DiagnosticController.java file is vulnerable to command injection attacks due to the use of Process Builder with unvalidated user input.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21"
+  }
+]

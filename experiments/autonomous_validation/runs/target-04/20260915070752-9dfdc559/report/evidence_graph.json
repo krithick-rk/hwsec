@@ -1,0 +1,46 @@
+{
+  "nodes": [
+    {
+      "id": "SBY-b343fb43",
+      "type": "Finding",
+      "label": "[CWE-1234] Formal Invariant Violation in counter (BMC Step Failure)",
+      "severity": "CRITICAL",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17",
+      "source_tool": "symbiyosys"
+    },
+    {
+      "id": "CAND-DISAGREE-b7d473d7",
+      "type": "Finding",
+      "label": "Analyzer Disagreement on counter.v: [symbiyosys] reported findings vs [verilator, yosys, afl++, spike] clean",
+      "severity": "MEDIUM",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:1",
+      "source_tool": "disagreement_controller"
+    },
+    {
+      "id": "CLUSTER-383324",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-a7fb7f",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:1",
+      "confidence": 0.6000000000000001
+    }
+  ],
+  "edges": [
+    {
+      "from": "SBY-b343fb43",
+      "to": "CLUSTER-383324",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "CAND-DISAGREE-b7d473d7",
+      "to": "CLUSTER-a7fb7f",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    }
+  ]
+}

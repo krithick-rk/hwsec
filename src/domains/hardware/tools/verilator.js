@@ -23,31 +23,51 @@ export class VerilatorTool extends ToolAdapter {
     }
 
     _buildCommand(baseArgs) {
-        let command = this.config.tool_paths?.verilator;
-        if (!command || (!fs.existsSync(command) && !fs.existsSync(command + '_bin.exe'))) {
-            const defaultSuite = 'E:/Intern/krithick/Downloads/oss-cad-suite/bin/verilator';
-            if (fs.existsSync(defaultSuite) || fs.existsSync(defaultSuite + '_bin.exe')) {
-                command = defaultSuite;
-            } else {
-                command = "verilator";
-            }
-        }
-        let args = [...baseArgs];
+        let command = this.config?.tool_paths?.verilator;
         const env = { ...process.env };
 
         if (process.platform === 'win32') {
-            const binDir = path.dirname(command);
-            const rootDir = path.dirname(binDir);
-            const verilatorBin = path.join(binDir, 'verilator_bin.exe');
-            const verilatorRoot = path.join(rootDir, 'share', 'verilator');
-
-            if (fs.existsSync(verilatorBin)) {
-                command = verilatorBin;
+            // On Windows, OSS CAD Suite ships verilator_bin.exe (not a shell wrapper).
+            // Determine the suite root from: explicit tool_path -> OSS_CAD_SUITE env -> YOSYSHQ_ROOT env.
+            let suiteRoot = null;
+            if (command) {
+                // config may point at the shell wrapper stub or the bin dir
+                const binDir = fs.existsSync(command) ? path.dirname(command) : command;
+                const candidate = path.join(binDir, 'verilator_bin.exe');
+                if (fs.existsSync(candidate)) {
+                    suiteRoot = path.dirname(binDir);
+                    command = candidate;
+                }
+            }
+            if (!suiteRoot) {
+                // Environment variable fallback — no hardcoded path.
+                const envRoot = process.env.OSS_CAD_SUITE || process.env.YOSYSHQ_ROOT || null;
+                if (envRoot && fs.existsSync(envRoot)) {
+                    suiteRoot = envRoot;
+                    const binDir = path.join(suiteRoot, 'bin');
+                    const candidate = path.join(binDir, 'verilator_bin.exe');
+                    if (fs.existsSync(candidate)) {
+                        command = candidate;
+                    }
+                }
+            }
+            if (suiteRoot) {
+                const binDir = path.join(suiteRoot, 'bin');
+                const libDir = path.join(suiteRoot, 'lib');
+                const verilatorRoot = path.join(suiteRoot, 'share', 'verilator');
                 env.VERILATOR_ROOT = verilatorRoot;
-                env.PATH = `${binDir};${path.join(rootDir, 'lib')};${env.PATH || ''}`;
+                env.YOSYSHQ_ROOT = suiteRoot + (suiteRoot.endsWith('\\') || suiteRoot.endsWith('/') ? '' : path.sep);
+                env.PATH = fs.existsSync(libDir)
+                    ? `${binDir};${libDir};${env.PATH || ''}`
+                    : `${binDir};${env.PATH || ''}`;
             }
         }
-        return { command, args, env };
+
+        if (!command) {
+            command = 'verilator';
+        }
+
+        return { command, args: [...baseArgs], env };
     }
 
     async checkInstalled() {

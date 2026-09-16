@@ -43,7 +43,10 @@ const testFiles = [
     'test_pov_cross_domain.js',
     'test_pov_adversarial.js',
     'test_execution_capability.js',
-    'test_target06_uncertainty_regression.js'
+    'test_target06_uncertainty_regression.js',
+    'test_console_parser.js',
+    'test_console_session.js',
+    'test_console_workflow.js'
 ];
 
 console.log('=====================================================');

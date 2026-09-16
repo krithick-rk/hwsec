@@ -1,0 +1,8 @@
+# running in E:\Intern\hwsec\experiments\autonomous_validation\runs\target-04\20260915070752-9dfdc559\tools\tools\symbiyosys\counter_formal/src/
+read -formal counter.v
+prep -top counter
+
+hierarchy -smtcheck
+rename -witness
+write_jny -no-connections ../model/design.json
+write_rtlil ../model/design.il

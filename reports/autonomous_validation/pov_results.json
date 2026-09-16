@@ -1,0 +1,65 @@
+[
+  {
+    "target_id": "target-01",
+    "language": "python",
+    "pov_status": "VERIFIED",
+    "pov_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01\\20260915070336-d30a226b\\pov\\POV-PYTHON-1a5126ac",
+    "bundle_hash": "e5eeb01c2e214104a1e492cf62e7ed8c30493eb41c0d11e1f342a15bbbf24d22",
+    "pov_generation_success": true,
+    "pov_replay_success": true
+  },
+  {
+    "target_id": "target-02",
+    "language": "java",
+    "pov_status": "VERIFIED",
+    "pov_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915070513-2c5e1266\\pov\\POV-JAVA-2f3a1e1b",
+    "bundle_hash": "46f62537edd51cffa34dc14238b38a05b0c1722b2778e17d5062c75acc598bcb",
+    "pov_generation_success": true,
+    "pov_replay_success": true
+  },
+  {
+    "target_id": "target-03",
+    "language": "c_cpp",
+    "pov_status": "NOT_REQUESTED",
+    "pov_path": null,
+    "bundle_hash": null,
+    "pov_generation_success": false,
+    "pov_replay_success": false
+  },
+  {
+    "target_id": "target-04",
+    "language": "verilog",
+    "pov_status": "NOT_REQUESTED",
+    "pov_path": null,
+    "bundle_hash": null,
+    "pov_generation_success": false,
+    "pov_replay_success": false
+  },
+  {
+    "target_id": "target-05",
+    "language": "python",
+    "pov_status": "NOT_REQUESTED",
+    "pov_path": null,
+    "bundle_hash": null,
+    "pov_generation_success": false,
+    "pov_replay_success": false
+  },
+  {
+    "target_id": "target-06",
+    "language": "python",
+    "pov_status": "NOT_REQUESTED",
+    "pov_path": null,
+    "bundle_hash": null,
+    "pov_generation_success": false,
+    "pov_replay_success": false
+  },
+  {
+    "target_id": "target-07",
+    "language": "python",
+    "pov_status": "VERIFIED",
+    "pov_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-07\\20260915071044-ce94aa82\\pov\\POV-PYTHON-df296a2c",
+    "bundle_hash": "f0cbaccddee5757a6a96f245594275849c8efd5e69ba2f665691ba2da692a6f2",
+    "pov_generation_success": true,
+    "pov_replay_success": true
+  }
+]

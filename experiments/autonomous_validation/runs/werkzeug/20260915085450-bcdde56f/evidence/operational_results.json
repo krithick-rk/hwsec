@@ -1,0 +1,16 @@
+[
+  {
+    "hypothesis_id": "HYP-CWE-78-973b631f85ff",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "ENTRYPOINT_UNRESOLVED",
+    "dag_hash": "ad04683836f4faa78561194efdd1baf07adb285ab5d21bf620974acf942d61fd",
+    "dossier_path": "evidence/dossier_HYP-CWE-78-973b631f85ff.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-DISAGREEMENT-bc193bc046c0",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "ENTRYPOINT_UNRESOLVED",
+    "dag_hash": "758572764cef79f0ee007a46bcdfe52e4cd65af1c54f83dc89000b1e80d5a1fb",
+    "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-bc193bc046c0.md"
+  }
+]

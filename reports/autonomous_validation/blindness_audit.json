@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-09-15T06:36:25.991Z",
+  "targets_audited": 10,
+  "leakage_detected": false,
+  "violations": [],
+  "target_inventory": [
+    {
+      "file": "adversarial/target-07/app.py",
+      "size_bytes": 919,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "ambiguous/target-06/app.py",
+      "size_bytes": 754,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "c_cpp/target-03/main.c",
+      "size_bytes": 540,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "java/target-02/DiagnosticController.java",
+      "size_bytes": 1160,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "java/target-02/pom.xml",
+      "size_bytes": 204,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "java/target-02/src/main/java/com/hwsec/Application.java",
+      "size_bytes": 299,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "java/target-02/src/main/java/com/hwsec/DiagnosticController.java",
+      "size_bytes": 1130,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "python/target-01/app.py",
+      "size_bytes": 792,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "safe/target-05/app.py",
+      "size_bytes": 925,
+      "clean": true,
+      "flags": []
+    },
+    {
+      "file": "verilog/target-04/counter.v",
+      "size_bytes": 374,
+      "clean": true,
+      "flags": []
+    }
+  ]
+}

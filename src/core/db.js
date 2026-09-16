@@ -241,6 +241,31 @@ export class Database {
             CREATE INDEX IF NOT EXISTS idx_proof_finding ON proof_records(finding_id);
             CREATE INDEX IF NOT EXISTS idx_proof_analysis ON proof_records(analysis_id);
             CREATE INDEX IF NOT EXISTS idx_proof_status ON proof_records(proof_status);
+
+            CREATE TABLE IF NOT EXISTS console_sessions (
+                id TEXT PRIMARY KEY,
+                analysis_id TEXT,
+                target_dir TEXT,
+                context_dir TEXT,
+                requirements_path TEXT,
+                mode TEXT DEFAULT 'STANDARD',
+                llm_strategy TEXT DEFAULT 'ADAPTIVE',
+                pov_mode TEXT DEFAULT 'ON-DETECTED',
+                budget REAL DEFAULT 10.0,
+                approval_policy TEXT DEFAULT 'REQUIRED',
+                status TEXT DEFAULT 'INITIALIZED',
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                metadata TEXT
+            );
+
+            CREATE TABLE IF NOT EXISTS console_history (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                session_id TEXT NOT NULL,
+                command TEXT NOT NULL,
+                timestamp TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_history_session ON console_history(session_id);
         `);
     }
 
@@ -772,6 +797,137 @@ export class Database {
             this.db.exec('ROLLBACK;');
             throw err;
         }
+    }
+
+    /**
+     * Saves or updates a console session in SQLite.
+     * @param {Object} session
+     */
+    saveConsoleSession(session) {
+        const stmt = this.db.prepare(`
+            INSERT INTO console_sessions (
+                id, analysis_id, target_dir, context_dir, requirements_path,
+                mode, llm_strategy, pov_mode, budget, approval_policy,
+                status, created_at, updated_at, metadata
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET
+                analysis_id = excluded.analysis_id,
+                target_dir = excluded.target_dir,
+                context_dir = excluded.context_dir,
+                requirements_path = excluded.requirements_path,
+                mode = excluded.mode,
+                llm_strategy = excluded.llm_strategy,
+                pov_mode = excluded.pov_mode,
+                budget = excluded.budget,
+                approval_policy = excluded.approval_policy,
+                status = excluded.status,
+                updated_at = excluded.updated_at,
+                metadata = excluded.metadata
+        `);
+
+        stmt.run(
+            session.id,
+            session.analysisId || null,
+            session.targetDir || null,
+            session.contextDir || null,
+            session.requirementsPath || null,
+            session.mode || 'STANDARD',
+            session.llmStrategy || 'ADAPTIVE',
+            session.povMode || 'ON-DETECTED',
+            session.budget !== undefined ? session.budget : 10.0,
+            session.approvalPolicy || 'REQUIRED',
+            session.status || 'INITIALIZED',
+            session.createdAt || new Date().toISOString(),
+            new Date().toISOString(),
+            session.metadata ? JSON.stringify(session.metadata) : null
+        );
+    }
+
+    /**
+     * Retrieves a console session by ID.
+     * @param {string} id
+     * @returns {Object|null}
+     */
+    getConsoleSession(id) {
+        const row = this.db.prepare(`SELECT * FROM console_sessions WHERE id = ?`).get(id);
+        if (!row) return null;
+        return {
+            id: row.id,
+            analysisId: row.analysis_id,
+            targetDir: row.target_dir,
+            contextDir: row.context_dir,
+            requirementsPath: row.requirements_path,
+            mode: row.mode,
+            llmStrategy: row.llm_strategy,
+            povMode: row.pov_mode,
+            budget: row.budget,
+            approvalPolicy: row.approval_policy,
+            status: row.status,
+            createdAt: row.created_at,
+            updatedAt: row.updated_at,
+            metadata: row.metadata ? JSON.parse(row.metadata) : {}
+        };
+    }
+
+    /**
+     * Lists all console sessions ordered by updated_at descending.
+     * @returns {Array<Object>}
+     */
+    listConsoleSessions() {
+        const rows = this.db.prepare(`SELECT * FROM console_sessions ORDER BY updated_at DESC`).all();
+        return rows.map(row => ({
+            id: row.id,
+            analysisId: row.analysis_id,
+            targetDir: row.target_dir,
+            contextDir: row.context_dir,
+            requirementsPath: row.requirements_path,
+            mode: row.mode,
+            llmStrategy: row.llm_strategy,
+            povMode: row.pov_mode,
+            budget: row.budget,
+            approvalPolicy: row.approval_policy,
+            status: row.status,
+            createdAt: row.created_at,
+            updatedAt: row.updated_at,
+            metadata: row.metadata ? JSON.parse(row.metadata) : {}
+        }));
+    }
+
+    /**
+     * Deletes a console session and its associated history.
+     * @param {string} id
+     */
+    deleteConsoleSession(id) {
+        this.db.prepare(`DELETE FROM console_history WHERE session_id = ?`).run(id);
+        this.db.prepare(`DELETE FROM console_sessions WHERE id = ?`).run(id);
+    }
+
+    /**
+     * Records a command in console history.
+     * @param {string} sessionId
+     * @param {string} command
+     */
+    recordConsoleHistory(sessionId, command) {
+        if (!command || !command.trim()) return;
+        this.db.prepare(`
+            INSERT INTO console_history (session_id, command, timestamp)
+            VALUES (?, ?, ?)
+        `).run(sessionId, command.trim(), new Date().toISOString());
+    }
+
+    /**
+     * Retrieves recent command history for a session.
+     * @param {string} sessionId
+     * @param {number} [limit=50]
+     * @returns {Array<Object>}
+     */
+    getConsoleHistory(sessionId, limit = 50) {
+        return this.db.prepare(`
+            SELECT command, timestamp FROM console_history
+            WHERE session_id = ?
+            ORDER BY id ASC
+            LIMIT ?
+        `).all(sessionId, limit);
     }
 
     close() {

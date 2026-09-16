@@ -1,0 +1,58 @@
+[
+  {
+    "cluster_id": "CLUSTER-a5ab22",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:7",
+    "evidence_count": 1,
+    "finding_ids": [
+      "JOERN-f6607d00"
+    ],
+    "titles": [
+      "[CWE-120] Buffer copy without bounds checking (strcpy)"
+    ],
+    "severity": "HIGH",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-a105b3",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:10",
+    "evidence_count": 1,
+    "finding_ids": [
+      "JOERN-10124e08"
+    ],
+    "titles": [
+      "[CWE-120] Unbounded sprintf buffer write (sprintf)"
+    ],
+    "severity": "HIGH",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-f1e19c",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14",
+    "evidence_count": 1,
+    "finding_ids": [
+      "JOERN-eaebddc8"
+    ],
+    "titles": [
+      "[CWE-78] OS command execution sink (system)"
+    ],
+    "severity": "CRITICAL",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-1931b8",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:1",
+    "evidence_count": 1,
+    "finding_ids": [
+      "CAND-DISAGREE-c3d9c805"
+    ],
+    "titles": [
+      "Analyzer Disagreement on main.c: [joern] reported findings vs [semgrep, codeql] clean"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  }
+]

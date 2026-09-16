@@ -1,0 +1,30 @@
+{
+  "target_name": "pallets/werkzeug",
+  "repository_url": "https://github.com/pallets/werkzeug.git",
+  "commit": "6a604e005d95af8129ee314863be8ad6b240dead",
+  "sealed_at": "2026-09-15T14:25:00.000Z",
+  "language": "python",
+  "target_characteristics": {
+    "framework": "WSGI library / web framework foundations",
+    "loc_estimate": 25000,
+    "modules": [
+      "datastructures",
+      "routing",
+      "sansio",
+      "wrappers",
+      "debug",
+      "serving"
+    ]
+  },
+  "ground_truth_protocol": {
+    "isolation_rule": "Air-gapped. Zero hints, CWE IDs, file names, or expected verdicts exposed to HWSEC CLI.",
+    "evaluation_procedure": "HWSEC must autonomously discover entry points, formulate hypotheses, gather evidence, search for witnesses, and reduce verdicts via EvidenceAuthority.",
+    "evaluator_verification_classification": [
+      "NOVEL_CORRECT",
+      "KNOWN_CORRECT",
+      "FALSE_POSITIVE",
+      "MISSED",
+      "INCONCLUSIVE"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-09-15T07:07:33Z",
+  "source": {
+    "id": "cpp/autobuilder/summary",
+    "name": "autobuild summary",
+    "extractorName": "cpp"
+  },
+  "severity": "error",
+  "visibility": {
+    "statusPage": false,
+    "cliSummaryTable": false,
+    "telemetry": true
+  },
+  "attributes": {
+    "tried": []
+  }
+}

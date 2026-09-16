@@ -1,0 +1,9 @@
+[
+  {
+    "path_id": "SBY-f517a552",
+    "title": "[CWE-1234] Formal Invariant Violation in counter (BMC Step Failure)",
+    "evidence_strength": "E5",
+    "description": "A critical formal invariant violation was found in the counter module, indicating a potential security vulnerability.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17"
+  }
+]

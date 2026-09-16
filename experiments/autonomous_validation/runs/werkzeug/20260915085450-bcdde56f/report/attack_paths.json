@@ -1,0 +1,9 @@
+[
+  {
+    "path_id": "JOERN-e0e098d2",
+    "title": "Dynamic Code Evaluation (CWE-78) via 'eval' sink",
+    "evidence_strength": "E4",
+    "description": "A critical vulnerability exists due to a dynamic code evaluation sink (specifically 'eval') being present in the codebase. If an attacker can control the input to this 'eval' function, they can execute arbitrary code on the system, potentially leading to Remote Code Execution (RCE) and full system compromise. This is a direct finding from the Joern analyzer.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:392"
+  }
+]

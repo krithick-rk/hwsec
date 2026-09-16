@@ -1,0 +1,46 @@
+{
+  "nodes": [
+    {
+      "id": "JOERN-e0e098d2",
+      "type": "Finding",
+      "label": "[CWE-78] Dynamic code evaluation sink (eval)",
+      "severity": "CRITICAL",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:392",
+      "source_tool": "joern"
+    },
+    {
+      "id": "CAND-DISAGREE-7965df67",
+      "type": "Finding",
+      "label": "Analyzer Disagreement on tbtools.py: [joern] reported findings vs [semgrep, codeql] clean",
+      "severity": "MEDIUM",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:1",
+      "source_tool": "disagreement_controller"
+    },
+    {
+      "id": "CLUSTER-26fa2e",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:392",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-c895a2",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:1",
+      "confidence": 0.6000000000000001
+    }
+  ],
+  "edges": [
+    {
+      "from": "JOERN-e0e098d2",
+      "to": "CLUSTER-26fa2e",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "CAND-DISAGREE-7965df67",
+      "to": "CLUSTER-c895a2",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    }
+  ]
+}

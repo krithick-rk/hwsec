@@ -1,0 +1,25 @@
+{
+  "root_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04",
+  "languages": {
+    "python": [],
+    "java": [],
+    "c": [],
+    "cpp": [],
+    "go": [],
+    "verilog": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v"
+    ]
+  },
+  "file_metadata": {
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v": {
+      "relativePath": "counter.v",
+      "language": "verilog",
+      "loc": 19,
+      "size": 374
+    }
+  },
+  "unsupported": [],
+  "manifests": [],
+  "total_files": 1,
+  "total_loc": 19
+}

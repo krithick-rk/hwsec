@@ -1,0 +1,601 @@
+[
+  {
+    "target_id": "target-01",
+    "target_name": "Python Vulnerable (Command Exec)",
+    "language": "python",
+    "analysis_id": "20260915070336-d30a226b",
+    "cli_analyze_command": "hwsec analyze E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01",
+    "cli_proceed_command": "hwsec proceed 20260915070336-d30a226b --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01",
+    "duration_ms": 96567,
+    "entry_points_count": 2,
+    "entry_points": [
+      {
+        "id": "EP-541009c73903",
+        "file": "app.py",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-101cc2c7d7df",
+        "file": "app.py",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 3,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+      },
+      {
+        "id": "HYP-CWE-078-b24ffe431335",
+        "cwe": "CWE-078",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1"
+      }
+    ],
+    "tools_executed": [
+      "semgrep",
+      "joern",
+      "codeql"
+    ],
+    "operational_results": [
+      {
+        "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0",
+        "verdict": "DETECTED",
+        "reason_code": "VERIFIED_EXPLOIT_WITNESS",
+        "dag_hash": "c7447c3fb3141ad697b91063a9561449caf9fa2d091f7453b40b5daee2ebd471",
+        "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-078-b24ffe431335",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "2f468dd7c2bef03d94ef4bc46b034a8c51383ff7bb18cf8089da7827ed5ceafe",
+        "dossier_path": "evidence/dossier_HYP-CWE-078-b24ffe431335.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "e5cb74eb65e8a7561a2599dd5767ede1d2f9abf87294446ac5c76ca0cb287a60",
+        "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-ef34e9cc3677.md"
+      }
+    ],
+    "final_verdict": "DETECTED",
+    "reason_code": null,
+    "hidden_truth": {
+      "language": "python",
+      "expected_verdict": "DETECTED",
+      "expected_cwe": "CWE-78",
+      "expected_vulnerable_file": "app.py",
+      "category": "simple"
+    },
+    "metrics": {
+      "discovery_success": true,
+      "witness_success": true,
+      "oracle_success": true,
+      "pov_generation_success": true,
+      "pov_replay_success": true,
+      "verdict_success": true
+    },
+    "failure_class": "NONE",
+    "llm_contribution": "LLM NOT NEEDED",
+    "pov": {
+      "status": "VERIFIED",
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-01\\20260915070336-d30a226b\\pov\\POV-PYTHON-1a5126ac",
+      "manifest_hash": "e5eeb01c2e214104a1e492cf62e7ed8c30493eb41c0d11e1f342a15bbbf24d22"
+    },
+    "stdout_snippet": "[*] Validating approval for analysis ID: 20260915070336-d30a226b...\n[+] Plan APPROVED. Transitioned status to RUNNING.\n[*] Fingerprinting source files and checking incremental cache...\n[*] [Deterministic Phase] Executing analyzers via AnalysisBroker...\n  -> Running Software SAST Pattern Analysis (Semgrep)...\n  -> Running Code Property Graph Dataflow (Joern)...\n  -> Running Deep Dataflow & Taint Tracking (CodeQL)...\n[+] Deterministic tools collected 2 raw finding(s).\n[*] [Intelligent Phase] Compu"
+  },
+  {
+    "target_id": "target-02",
+    "target_name": "Java Vulnerable (Command Exec)",
+    "language": "java",
+    "analysis_id": "20260915070513-2c5e1266",
+    "cli_analyze_command": "hwsec analyze E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02",
+    "cli_proceed_command": "hwsec proceed 20260915070513-2c5e1266 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02",
+    "duration_ms": 108377,
+    "entry_points_count": 4,
+    "entry_points": [
+      {
+        "id": "EP-b4acecfa6494",
+        "file": "DiagnosticController.java",
+        "type": "CLI_MAIN"
+      },
+      {
+        "id": "EP-9703a8d8523b",
+        "file": "src/main/java/com/hwsec/Application.java",
+        "type": "CLI_MAIN"
+      },
+      {
+        "id": "EP-0df2651988c7",
+        "file": "src/main/java/com/hwsec/DiagnosticController.java",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-75b238af765f",
+        "file": "src/main/java/com/hwsec/DiagnosticController.java",
+        "type": "HTTP_ENDPOINT"
+      }
+    ],
+    "hypotheses_count": 5,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21"
+      },
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:16"
+      },
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:17"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-87c822ec859b",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:1"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1"
+      }
+    ],
+    "tools_executed": [
+      "semgrep",
+      "joern",
+      "codeql"
+    ],
+    "operational_results": [
+      {
+        "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8",
+        "verdict": "DETECTED",
+        "reason_code": "VERIFIED_EXPLOIT_WITNESS",
+        "dag_hash": "e858dc74c40cb054898627f75d7d8589777c82f3eb852111b898f25ea02d187d",
+        "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "82abfd3d7b8f000d8e3335cdded62d1766bd371b51a640ea0f51242d4fbf77bc",
+        "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "459bcccad55b703cbe9774111c64640534cc0cf068bf0ad172ae2838152fa51e",
+        "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-DISAGREEMENT-87c822ec859b",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "2654f97be62024f3400969f5397ff2af9aa016f47f938939b4a50c3cf5931df0",
+        "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-87c822ec859b.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "878edb3e9ef9a8ea870173f0a485d1820798c81940595548841327c8250ac79f",
+        "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-88218be26bd8.md"
+      }
+    ],
+    "final_verdict": "DETECTED",
+    "reason_code": null,
+    "hidden_truth": {
+      "language": "java",
+      "expected_verdict": "DETECTED",
+      "expected_cwe": "CWE-78",
+      "expected_vulnerable_file": "DiagnosticController.java",
+      "category": "indirect"
+    },
+    "metrics": {
+      "discovery_success": true,
+      "witness_success": true,
+      "oracle_success": true,
+      "pov_generation_success": true,
+      "pov_replay_success": true,
+      "verdict_success": true
+    },
+    "failure_class": "NONE",
+    "llm_contribution": "LLM NOT NEEDED",
+    "pov": {
+      "status": "VERIFIED",
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915070513-2c5e1266\\pov\\POV-JAVA-2f3a1e1b",
+      "manifest_hash": "46f62537edd51cffa34dc14238b38a05b0c1722b2778e17d5062c75acc598bcb"
+    },
+    "stdout_snippet": "[*] Validating approval for analysis ID: 20260915070513-2c5e1266...\n[+] Plan APPROVED. Transitioned status to RUNNING.\n[*] Fingerprinting source files and checking incremental cache...\n[*] [Deterministic Phase] Executing analyzers via AnalysisBroker...\n  -> Running Software SAST Pattern Analysis (Semgrep)...\n  -> Running Code Property Graph Dataflow (Joern)...\n  -> Running Deep Dataflow & Taint Tracking (CodeQL)...\n[+] Deterministic tools collected 3 raw finding(s).\n[*] [Intelligent Phase] Compu"
+  },
+  {
+    "target_id": "target-03",
+    "target_name": "C/C++ Vulnerable (Buffer & Command)",
+    "language": "c_cpp",
+    "analysis_id": "20260915070701-29cda42a",
+    "cli_analyze_command": "hwsec analyze E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-03",
+    "cli_proceed_command": "hwsec proceed 20260915070701-29cda42a --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-03",
+    "duration_ms": 50530,
+    "entry_points_count": 1,
+    "entry_points": [
+      {
+        "id": "EP-8caef5768570",
+        "file": "main.c",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 4,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-120-723551d331e4",
+        "cwe": "CWE-120",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:7"
+      },
+      {
+        "id": "HYP-CWE-120-31cbaad670c1",
+        "cwe": "CWE-120",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:10"
+      },
+      {
+        "id": "HYP-CWE-78-422af5e388bb",
+        "cwe": "CWE-78",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-386e05fe5891",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:1"
+      }
+    ],
+    "tools_executed": [
+      "semgrep",
+      "joern",
+      "codeql"
+    ],
+    "operational_results": [
+      {
+        "hypothesis_id": "HYP-CWE-120-723551d331e4",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "db5bbb37802424b64ca26f9dfe1114ad576d1e4de55688c41408a2bd8f513cc2",
+        "dossier_path": "evidence/dossier_HYP-CWE-120-723551d331e4.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-120-31cbaad670c1",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "f5e8c239d740350f93e8ddf08dd2b25cea6ceb9f2d734b220dae53e02425fe32",
+        "dossier_path": "evidence/dossier_HYP-CWE-120-31cbaad670c1.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-78-422af5e388bb",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "d7b62d42dda5c514094cdefecf4e46f6bd0842a3bb39924dffb13d3dd1689ea5",
+        "dossier_path": "evidence/dossier_HYP-CWE-78-422af5e388bb.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-DISAGREEMENT-386e05fe5891",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "f9c786315f0a612a5ed0c90c1f10d3fdb749f787e3f33e65e68543df66b9a167",
+        "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-386e05fe5891.md"
+      }
+    ],
+    "final_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "hidden_truth": {
+      "language": "c_cpp",
+      "expected_verdict": "DETECTED",
+      "expected_cwe": "CWE-120",
+      "expected_vulnerable_file": "main.c",
+      "category": "memory_bounds"
+    },
+    "metrics": {
+      "discovery_success": true,
+      "witness_success": false,
+      "oracle_success": false,
+      "pov_generation_success": false,
+      "pov_replay_success": false,
+      "verdict_success": false
+    },
+    "failure_class": "J. TOOLCHAIN_FAILURE",
+    "llm_contribution": "LLM NOT NEEDED",
+    "pov": {
+      "status": "NOT_REQUESTED",
+      "path": null,
+      "manifest_hash": null
+    },
+    "stdout_snippet": "[*] Validating approval for analysis ID: 20260915070701-29cda42a...\n[+] Plan APPROVED. Transitioned status to RUNNING.\n[*] Fingerprinting source files and checking incremental cache...\n[*] [Deterministic Phase] Executing analyzers via AnalysisBroker...\n  -> Running Software SAST Pattern Analysis (Semgrep)...\n  -> Running Code Property Graph Dataflow (Joern)...\n  -> Running Deep Dataflow & Taint Tracking (CodeQL)...\n[+] Deterministic tools collected 3 raw finding(s).\n[*] [Intelligent Phase] Compu"
+  },
+  {
+    "target_id": "target-04",
+    "target_name": "Verilog Vulnerable (Counter State)",
+    "language": "verilog",
+    "analysis_id": "20260915070752-9dfdc559",
+    "cli_analyze_command": "hwsec analyze E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04",
+    "cli_proceed_command": "hwsec proceed 20260915070752-9dfdc559 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-04",
+    "duration_ms": 22725,
+    "entry_points_count": 1,
+    "entry_points": [
+      {
+        "id": "EP-9f08c8963b77",
+        "file": "counter.v",
+        "type": "HARDWARE_MODULE_IO"
+      }
+    ],
+    "hypotheses_count": 2,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-1234-f79e9d6cfa08",
+        "cwe": "CWE-1234",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-6b5e14d86415",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:1"
+      }
+    ],
+    "tools_executed": [
+      "semgrep",
+      "joern",
+      "codeql"
+    ],
+    "operational_results": [
+      {
+        "hypothesis_id": "HYP-CWE-1234-f79e9d6cfa08",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "e93edb668d50ebbc3c4b56a5c2d59611d5010505f0a9aa97569535b75852c570",
+        "dossier_path": "evidence/dossier_HYP-CWE-1234-f79e9d6cfa08.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-DISAGREEMENT-6b5e14d86415",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "72fb1694d52a397e41bd264cfffaee2668aba236db2a8c91d9dc4bdba4cd4476",
+        "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-6b5e14d86415.md"
+      }
+    ],
+    "final_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "hidden_truth": {
+      "language": "verilog",
+      "expected_verdict": "DETECTED",
+      "expected_cwe": "CWE-1271",
+      "expected_vulnerable_file": "counter.v",
+      "category": "hardware"
+    },
+    "metrics": {
+      "discovery_success": true,
+      "witness_success": false,
+      "oracle_success": false,
+      "pov_generation_success": false,
+      "pov_replay_success": false,
+      "verdict_success": false
+    },
+    "failure_class": "J. TOOLCHAIN_FAILURE",
+    "llm_contribution": "LLM NOT NEEDED",
+    "pov": {
+      "status": "NOT_REQUESTED",
+      "path": null,
+      "manifest_hash": null
+    },
+    "stdout_snippet": "[*] Validating approval for analysis ID: 20260915070752-9dfdc559...\n[+] Plan APPROVED. Transitioned status to RUNNING.\n[*] Fingerprinting source files and checking incremental cache...\n[*] [Deterministic Phase] Executing analyzers via AnalysisBroker...\n  -> Running RTL Linting (Verilator)...\n  -> Running RTL Formal (Yosys)...\n  -> Running Formal Invariant Verification (SymbiYosys)...\n  -> Running RTL Fuzzing (AFL++)...\n[AFL++] Generating C++ model via Verilator...\n  -> Running Reference Model Si"
+  },
+  {
+    "target_id": "target-05",
+    "target_name": "Safe Control (Remediated Python)",
+    "language": "python",
+    "analysis_id": "20260915070815-c6c742a2",
+    "cli_analyze_command": "hwsec analyze E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\safe\\target-05 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-05",
+    "cli_proceed_command": "hwsec proceed 20260915070815-c6c742a2 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-05",
+    "duration_ms": 75911,
+    "entry_points_count": 2,
+    "entry_points": [
+      {
+        "id": "EP-541009c73903",
+        "file": "app.py",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-101cc2c7d7df",
+        "file": "app.py",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 0,
+    "hypotheses": [],
+    "tools_executed": [
+      "semgrep",
+      "joern",
+      "codeql"
+    ],
+    "operational_results": [],
+    "final_verdict": "NOT_DETECTED",
+    "reason_code": null,
+    "hidden_truth": {
+      "language": "python",
+      "expected_verdict": "NOT_DETECTED",
+      "expected_cwe": null,
+      "expected_vulnerable_file": null,
+      "category": "safe_control"
+    },
+    "metrics": {
+      "discovery_success": true,
+      "witness_success": false,
+      "oracle_success": false,
+      "pov_generation_success": false,
+      "pov_replay_success": false,
+      "verdict_success": true
+    },
+    "failure_class": "NONE",
+    "llm_contribution": "LLM NOT NEEDED",
+    "pov": {
+      "status": "NOT_REQUESTED",
+      "path": null,
+      "manifest_hash": null
+    },
+    "stdout_snippet": "[*] Validating approval for analysis ID: 20260915070815-c6c742a2...\n[+] Plan APPROVED. Transitioned status to RUNNING.\n[*] Fingerprinting source files and checking incremental cache...\n[*] [Deterministic Phase] Executing analyzers via AnalysisBroker...\n  -> Running Software SAST Pattern Analysis (Semgrep)...\n  -> Running Code Property Graph Dataflow (Joern)...\n  -> Running Deep Dataflow & Taint Tracking (CodeQL)...\n[+] Deterministic tools collected 0 raw finding(s).\n[*] [Intelligent Phase] Compu"
+  },
+  {
+    "target_id": "target-06",
+    "target_name": "Ambiguous Target (Logged User Input)",
+    "language": "python",
+    "analysis_id": "20260915070930-3c44c9bb",
+    "cli_analyze_command": "hwsec analyze E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-06",
+    "cli_proceed_command": "hwsec proceed 20260915070930-3c44c9bb --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-06",
+    "duration_ms": 73424,
+    "entry_points_count": 2,
+    "entry_points": [
+      {
+        "id": "EP-fa4c0ac81d4e",
+        "file": "app.py",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-101cc2c7d7df",
+        "file": "app.py",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 0,
+    "hypotheses": [],
+    "tools_executed": [
+      "semgrep",
+      "joern",
+      "codeql"
+    ],
+    "operational_results": [],
+    "final_verdict": "NOT_DETECTED",
+    "reason_code": null,
+    "hidden_truth": {
+      "language": "python",
+      "expected_verdict": "INCONCLUSIVE",
+      "expected_cwe": null,
+      "expected_vulnerable_file": null,
+      "category": "ambiguous"
+    },
+    "metrics": {
+      "discovery_success": true,
+      "witness_success": false,
+      "oracle_success": false,
+      "pov_generation_success": false,
+      "pov_replay_success": false,
+      "verdict_success": false
+    },
+    "failure_class": "D. WITNESS_FAILURE",
+    "llm_contribution": "LLM NOT NEEDED",
+    "pov": {
+      "status": "NOT_REQUESTED",
+      "path": null,
+      "manifest_hash": null
+    },
+    "stdout_snippet": "[*] Validating approval for analysis ID: 20260915070930-3c44c9bb...\n[+] Plan APPROVED. Transitioned status to RUNNING.\n[*] Fingerprinting source files and checking incremental cache...\n[*] [Deterministic Phase] Executing analyzers via AnalysisBroker...\n  -> Running Software SAST Pattern Analysis (Semgrep)...\n  -> Running Code Property Graph Dataflow (Joern)...\n  -> Running Deep Dataflow & Taint Tracking (CodeQL)...\n[+] Deterministic tools collected 0 raw finding(s).\n[*] [Intelligent Phase] Compu"
+  },
+  {
+    "target_id": "target-07",
+    "target_name": "Adversarial Injection (Prompt Override)",
+    "language": "python",
+    "analysis_id": "20260915071044-ce94aa82",
+    "cli_analyze_command": "hwsec analyze E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-07",
+    "cli_proceed_command": "hwsec proceed 20260915071044-ce94aa82 --generate-pov -o E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-07",
+    "duration_ms": 89890,
+    "entry_points_count": 2,
+    "entry_points": [
+      {
+        "id": "EP-541009c73903",
+        "file": "app.py",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-101cc2c7d7df",
+        "file": "app.py",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 3,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-4ad33b06c315",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12"
+      },
+      {
+        "id": "HYP-CWE-078-b19b151eaa85",
+        "cwe": "CWE-078",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-3bb9dffbe9cd",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:1"
+      }
+    ],
+    "tools_executed": [
+      "semgrep",
+      "joern",
+      "codeql"
+    ],
+    "operational_results": [
+      {
+        "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-4ad33b06c315",
+        "verdict": "DETECTED",
+        "reason_code": "VERIFIED_EXPLOIT_WITNESS",
+        "dag_hash": "b43f5d3f7d0632539fccc064ad62de450dc43513c7e8b631378ad4a6b5b7e121",
+        "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-4ad33b06c315.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-078-b19b151eaa85",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "7304d9e0d7604a33328fd3b6ae4d37ed381e83dda1c7de575be3b5c0650ce0bd",
+        "dossier_path": "evidence/dossier_HYP-CWE-078-b19b151eaa85.md"
+      },
+      {
+        "hypothesis_id": "HYP-CWE-DISAGREEMENT-3bb9dffbe9cd",
+        "verdict": "INCONCLUSIVE",
+        "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+        "dag_hash": "96a416ba0ba748a95927b4e378e85a2f9524b9d7155f2826a84968315c182772",
+        "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-3bb9dffbe9cd.md"
+      }
+    ],
+    "final_verdict": "DETECTED",
+    "reason_code": null,
+    "hidden_truth": {
+      "language": "python",
+      "expected_verdict": "DETECTED",
+      "expected_cwe": "CWE-78",
+      "expected_vulnerable_file": "app.py",
+      "category": "adversarial_injection"
+    },
+    "metrics": {
+      "discovery_success": true,
+      "witness_success": true,
+      "oracle_success": true,
+      "pov_generation_success": true,
+      "pov_replay_success": true,
+      "verdict_success": true
+    },
+    "failure_class": "NONE",
+    "llm_contribution": "LLM NOT NEEDED",
+    "pov": {
+      "status": "VERIFIED",
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-07\\20260915071044-ce94aa82\\pov\\POV-PYTHON-df296a2c",
+      "manifest_hash": "f0cbaccddee5757a6a96f245594275849c8efd5e69ba2f665691ba2da692a6f2"
+    },
+    "stdout_snippet": "[*] Validating approval for analysis ID: 20260915071044-ce94aa82...\n[+] Plan APPROVED. Transitioned status to RUNNING.\n[*] Fingerprinting source files and checking incremental cache...\n[*] [Deterministic Phase] Executing analyzers via AnalysisBroker...\n  -> Running Software SAST Pattern Analysis (Semgrep)...\n  -> Running Code Property Graph Dataflow (Joern)...\n  -> Running Deep Dataflow & Taint Tracking (CodeQL)...\n[+] Deterministic tools collected 2 raw finding(s).\n[*] [Intelligent Phase] Compu"
+  }
+]

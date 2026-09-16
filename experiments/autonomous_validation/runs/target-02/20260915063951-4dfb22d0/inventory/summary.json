@@ -1,0 +1,24 @@
+{
+  "total_files": 4,
+  "total_loc": 66,
+  "languages": {
+    "java": {
+      "file_count": 3,
+      "loc_estimate": 66,
+      "sample_files": [
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\Application.java",
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java"
+      ]
+    }
+  },
+  "manifests": [
+    {
+      "name": "pom.xml",
+      "type": "maven",
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\pom.xml"
+    }
+  ],
+  "unsupported_count": 1,
+  "likely_attack_surfaces": []
+}

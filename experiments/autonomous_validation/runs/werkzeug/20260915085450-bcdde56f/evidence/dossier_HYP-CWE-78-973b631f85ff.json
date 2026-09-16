@@ -1,0 +1,79 @@
+{
+  "case_id": "HYP-CWE-78-973b631f85ff",
+  "run_id": "20260915085450-bcdde56f",
+  "verdict": "INCONCLUSIVE",
+  "pov": {
+    "status": "NOT_REQUESTED",
+    "bundle_path": null,
+    "bundle_hash": null,
+    "replay_result": "NOT_REQUESTED",
+    "reason_code": "INSUFFICIENT_EVIDENCE",
+    "reproduction_command": null,
+    "environment_requirements": "Standard",
+    "vulnerability_class": "CWE-78",
+    "observed_security_effect": null
+  },
+  "summary": {
+    "q1_suspected_vulnerability": "CWE-78: CommandInjectionOracle",
+    "q2_attack_surface_and_entry_point": {
+      "attack_surface": "CLI_OR_HTTP",
+      "entry_point": {
+        "status": "UNRESOLVED",
+        "reason": "No application HTTP/CLI/service entry point resolves to target path [E:/Intern/hwsec/experiments/autonomous_validation/real_world_targets/werkzeug/src/werkzeug/debug/tbtools.py]",
+        "requires_synthetic_scope": true
+      },
+      "resolved": false
+    },
+    "q3_analyzers_and_disagreement": {
+      "signals": [
+        {
+          "analyzer": "joern",
+          "rule_id": "[CWE-78] Dynamic code evaluation sink (eval)",
+          "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py",
+          "line": 392,
+          "confidence": 0.85
+        }
+      ],
+      "analyzers_count": 1,
+      "priority_consensus": 0.5,
+      "model_team_narrative": null
+    },
+    "q4_evidence_attempted": [
+      "hypothesis_valid",
+      "provenance_manifest_verified"
+    ],
+    "q5_concrete_inputs_tried": [],
+    "q6_application_executed_attack_path": false,
+    "q7_security_effect_observed": false,
+    "q8_controls_status": {
+      "negative_control_passed": false,
+      "provenance_verified": true
+    },
+    "q9_replayable": false,
+    "q10_verdict_decision": {
+      "verdict": "INCONCLUSIVE",
+      "reason_code": "ENTRYPOINT_UNRESOLVED",
+      "reasons": [
+        "ENTRYPOINT_UNRESOLVED",
+        "SEARCH_BUDGET_EXHAUSTED",
+        "REPLAY_FAILURE",
+        "ORACLE_NOT_TRIGGERED",
+        "CONTROL_INVALID"
+      ],
+      "dag_hash": "ad04683836f4faa78561194efdd1baf07adb285ab5d21bf620974acf942d61fd"
+    },
+    "pov_artifact": {
+      "status": "NOT_REQUESTED",
+      "bundle_path": null,
+      "bundle_hash": null,
+      "replay_result": "NOT_REQUESTED",
+      "reason_code": "INSUFFICIENT_EVIDENCE",
+      "reproduction_command": null,
+      "environment_requirements": "Standard",
+      "vulnerability_class": "CWE-78",
+      "observed_security_effect": null
+    },
+    "next_action_recommendation": "Investigate missing evidence: ENTRYPOINT_UNRESOLVED. Manually verify entry point or provide custom driver harness."
+  },
+  "markdown_dossier": "# HWSEC Security Operations Case Dossier\n\n## 1. Suspected Vulnerability\n**CWE-78: CommandInjectionOracle**\n\n## 2. Attack Surface & Entry Point\n- **Attack Surface**: `CLI_OR_HTTP`\n- **Entry Point**: `{\"status\":\"UNRESOLVED\",\"reason\":\"No application HTTP/CLI/service entry point resolves to target path [E:/Intern/hwsec/experiments/autonomous_validation/real_world_targets/werkzeug/src/werkzeug/debug/tbtools.py]\",\"requires_synthetic_scope\":true}`\n- **Status**: ⚠️ UNRESOLVED\n\n## 3. Analyzer Discovery & Model Team Consensus\n- Analyzers: joern ([CWE-78] Dynamic code evaluation sink (eval))\n- Priority Score: **0.5**\n\n## 4. Operational Verdict & Evidence\n- **Verdict**: **`INCONCLUSIVE`** (`ENTRYPOINT_UNRESOLVED`)\n- **Security Effect Observed**: ❌ NO\n- **Negative Control Passed**: ❌ NO\n- **Replayable Witness**: ❌ NO\n\n## 5. Analyst Recommendation\n> Investigate missing evidence: ENTRYPOINT_UNRESOLVED. Manually verify entry point or provide custom driver harness."
+}

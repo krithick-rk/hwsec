@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-09-15T05:30:10.292Z",
+  "totalTests": 12,
+  "passedCount": 12,
+  "failedCount": 0,
+  "allPassed": true,
+  "tests": [
+    {
+      "id": 1,
+      "name": "Provider Unavailable",
+      "pass": true,
+      "summary": "Gracefully threw bounded exception without crashing: [ProviderPool] Unknown endpoint: 'non_existent_provider'",
+      "safeFallback": true
+    },
+    {
+      "id": 2,
+      "name": "HTTP 429 Rate Limit Handling",
+      "pass": true,
+      "summary": "Circuit breaker recorded rate limit event, updated metrics, and transitioned to DEGRADED",
+      "circuitState": "DEGRADED",
+      "rateLimitCount": 1
+    },
+    {
+      "id": 3,
+      "name": "HTTP 5xx Server Error & Circuit Breaker",
+      "pass": true,
+      "summary": "Tripped circuit breaker to OPEN after threshold failures and blocked further execution",
+      "circuitState": "OPEN"
+    },
+    {
+      "id": 4,
+      "name": "Malformed JSON Rejection",
+      "pass": true,
+      "summary": "Garbled / non-RFC JSON caught cleanly by parser before pipeline propagation",
+      "parsedPayload": null
+    },
+    {
+      "id": 5,
+      "name": "Schema Mismatch Handling",
+      "pass": true,
+      "summary": "Missing mandatory schema properties detected: [message_type, cwe, sink, security_condition, assumptions, attack_seeds, falsifiers]",
+      "rejected": true
+    },
+    {
+      "id": 6,
+      "name": "Timeout / AbortSignal Handling",
+      "pass": true,
+      "summary": "AbortSignal cleanly terminated pending request without thread leakage",
+      "timeoutCaught": true
+    },
+    {
+      "id": 7,
+      "name": "Provider Disagreement Detection",
+      "pass": true,
+      "summary": "ConsensusEngine flagged material disagreement on: [sink]",
+      "decision": "DISAGREEMENT"
+    },
+    {
+      "id": 8,
+      "name": "Verdict-Injection Containment",
+      "pass": true,
+      "summary": "LLM attempted to inject DETECTED; EvidenceAuthority strictly returned INCONCLUSIVE",
+      "finalVerdict": "INCONCLUSIVE"
+    },
+    {
+      "id": 9,
+      "name": "Prompt-Injection Passive Enclosure",
+      "pass": true,
+      "summary": "Untrusted input isolated within XML delimiter boundaries",
+      "quarantined": true
+    },
+    {
+      "id": 10,
+      "name": "Empty Response Handling",
+      "pass": true,
+      "summary": "Empty / whitespace model response triggers deterministic fallback proposal",
+      "handled": true
+    },
+    {
+      "id": 11,
+      "name": "Budget / Cost Guard Enforcement",
+      "pass": true,
+      "summary": "Budget controller successfully rejected over-budget execution: [LLMGateway] Budget policy rejected task 'file_function_summarization': Global budget exceeded (consumed 500000.0% of $0.01 cap)",
+      "rejected": true
+    },
+    {
+      "id": 12,
+      "name": "LLM-Disabled Mode Execution",
+      "pass": true,
+      "summary": "Pipeline executes fully deterministic path when LLM orchestration is OFF",
+      "verdict": "INCONCLUSIVE"
+    }
+  ]
+}

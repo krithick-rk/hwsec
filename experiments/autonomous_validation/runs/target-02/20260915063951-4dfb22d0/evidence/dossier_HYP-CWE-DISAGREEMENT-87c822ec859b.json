@@ -1,0 +1,84 @@
+{
+  "case_id": "HYP-CWE-DISAGREEMENT-87c822ec859b",
+  "run_id": "20260915063951-4dfb22d0",
+  "verdict": "INCONCLUSIVE",
+  "pov": {
+    "status": "NOT_REQUESTED",
+    "bundle_path": null,
+    "bundle_hash": null,
+    "replay_result": "NOT_REQUESTED",
+    "reason_code": "INSUFFICIENT_EVIDENCE",
+    "reproduction_command": null,
+    "environment_requirements": "Standard",
+    "vulnerability_class": "CWE-DISAGREEMENT",
+    "observed_security_effect": null
+  },
+  "summary": {
+    "q1_suspected_vulnerability": "CWE-DISAGREEMENT: CWE-Disagreement_SecurityOracle",
+    "q2_attack_surface_and_entry_point": {
+      "attack_surface": "CLI_OR_HTTP",
+      "entry_point": {
+        "id": "EP-b4acecfa6494",
+        "status": "RESOLVED",
+        "type": "CLI_MAIN",
+        "framework": "JavaStandard",
+        "file": "DiagnosticController.java",
+        "target_identifier": "DiagnosticController.java#main",
+        "discovered_at": "2026-09-15T06:40:39.603Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "resolved": true
+    },
+    "q3_analyzers_and_disagreement": {
+      "signals": [
+        {
+          "analyzer": "disagreement_controller",
+          "rule_id": "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean",
+          "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+          "line": 1,
+          "confidence": 0.65
+        }
+      ],
+      "analyzers_count": 1,
+      "priority_consensus": 0.5,
+      "model_team_narrative": null
+    },
+    "q4_evidence_attempted": [
+      "hypothesis_valid",
+      "entry_point_resolved",
+      "provenance_manifest_verified"
+    ],
+    "q5_concrete_inputs_tried": [],
+    "q6_application_executed_attack_path": false,
+    "q7_security_effect_observed": false,
+    "q8_controls_status": {
+      "negative_control_passed": false,
+      "provenance_verified": true
+    },
+    "q9_replayable": false,
+    "q10_verdict_decision": {
+      "verdict": "INCONCLUSIVE",
+      "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+      "reasons": [
+        "SEARCH_BUDGET_EXHAUSTED",
+        "REPLAY_FAILURE",
+        "ORACLE_NOT_TRIGGERED",
+        "CONTROL_INVALID"
+      ],
+      "dag_hash": "af60249af240b046c6a978308fd47b8027f76f745945b445b43f02b249ae719f"
+    },
+    "pov_artifact": {
+      "status": "NOT_REQUESTED",
+      "bundle_path": null,
+      "bundle_hash": null,
+      "replay_result": "NOT_REQUESTED",
+      "reason_code": "INSUFFICIENT_EVIDENCE",
+      "reproduction_command": null,
+      "environment_requirements": "Standard",
+      "vulnerability_class": "CWE-DISAGREEMENT",
+      "observed_security_effect": null
+    },
+    "next_action_recommendation": "Investigate missing evidence: SEARCH_BUDGET_EXHAUSTED. Manually verify entry point or provide custom driver harness."
+  },
+  "markdown_dossier": "# HWSEC Security Operations Case Dossier\n\n## 1. Suspected Vulnerability\n**CWE-DISAGREEMENT: CWE-Disagreement_SecurityOracle**\n\n## 2. Attack Surface & Entry Point\n- **Attack Surface**: `CLI_OR_HTTP`\n- **Entry Point**: `{\"id\":\"EP-b4acecfa6494\",\"status\":\"RESOLVED\",\"type\":\"CLI_MAIN\",\"framework\":\"JavaStandard\",\"file\":\"DiagnosticController.java\",\"target_identifier\":\"DiagnosticController.java#main\",\"discovered_at\":\"2026-09-15T06:40:39.603Z\",\"resolution_type\":\"DIRECT_FILE_MATCH\"}`\n- **Status**: ✅ RESOLVED\n\n## 3. Analyzer Discovery & Model Team Consensus\n- Analyzers: disagreement_controller (Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean)\n- Priority Score: **0.5**\n\n## 4. Operational Verdict & Evidence\n- **Verdict**: **`INCONCLUSIVE`** (`SEARCH_BUDGET_EXHAUSTED`)\n- **Security Effect Observed**: ❌ NO\n- **Negative Control Passed**: ❌ NO\n- **Replayable Witness**: ❌ NO\n\n## 5. Analyst Recommendation\n> Investigate missing evidence: SEARCH_BUDGET_EXHAUSTED. Manually verify entry point or provide custom driver harness."
+}

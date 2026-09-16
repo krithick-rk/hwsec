@@ -1,0 +1,106 @@
+{
+  "nodes": [
+    {
+      "id": "SEMGREP-fe91ab80",
+      "type": "Finding",
+      "label": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+      "severity": "HIGH",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21",
+      "source_tool": "semgrep"
+    },
+    {
+      "id": "SEMGREP-283bf915",
+      "type": "Finding",
+      "label": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+      "severity": "HIGH",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:16",
+      "source_tool": "semgrep"
+    },
+    {
+      "id": "SEMGREP-9d19971d",
+      "type": "Finding",
+      "label": "java.spring.security.injection.tainted-system-command.tainted-system-command",
+      "severity": "HIGH",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:17",
+      "source_tool": "semgrep"
+    },
+    {
+      "id": "CAND-DISAGREE-2cbe05a2",
+      "type": "Finding",
+      "label": "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean",
+      "severity": "MEDIUM",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:1",
+      "source_tool": "disagreement_controller"
+    },
+    {
+      "id": "CAND-DISAGREE-651b29de",
+      "type": "Finding",
+      "label": "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean",
+      "severity": "MEDIUM",
+      "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1",
+      "source_tool": "disagreement_controller"
+    },
+    {
+      "id": "CLUSTER-a596bb",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-e266c7",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:16",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-efcd76",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:17",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-d6c608",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:1",
+      "confidence": 0.6000000000000001
+    },
+    {
+      "id": "CLUSTER-518e51",
+      "type": "Cluster",
+      "label": "Evidence Cluster @ E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1",
+      "confidence": 0.6000000000000001
+    }
+  ],
+  "edges": [
+    {
+      "from": "SEMGREP-fe91ab80",
+      "to": "CLUSTER-a596bb",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "SEMGREP-283bf915",
+      "to": "CLUSTER-e266c7",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "SEMGREP-9d19971d",
+      "to": "CLUSTER-efcd76",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "CAND-DISAGREE-2cbe05a2",
+      "to": "CLUSTER-d6c608",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    },
+    {
+      "from": "CAND-DISAGREE-651b29de",
+      "to": "CLUSTER-518e51",
+      "relationship": "SINGLE_EVIDENCE",
+      "weight": 0.6000000000000001
+    }
+  ]
+}

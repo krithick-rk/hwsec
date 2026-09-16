@@ -1,0 +1,106 @@
+[
+  {
+    "providerId": "gemini_account_1",
+    "displayName": "Gemini Account 1",
+    "logicalRole": "Fast Scout",
+    "configured": true,
+    "model": "gemini-2.5-flash",
+    "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+    "keyStatus": "AQ.A...moYA",
+    "success": true,
+    "httpStatus": 200,
+    "latencyMs": 2261,
+    "tokens": {
+      "promptTokens": 27,
+      "completionTokens": 17,
+      "totalTokens": 113
+    },
+    "responseHash": "36a985f8c713a66d",
+    "parsingResult": "SUCCESS",
+    "parsedPayload": {
+      "status": "operational",
+      "provider": "gemini_account_1"
+    },
+    "retryBehavior": "not_needed",
+    "fallbackBehavior": "none",
+    "circuitBreakerBehavior": "HEALTHY",
+    "errorCategory": null,
+    "errorMessage": null
+  },
+  {
+    "providerId": "gemini_account_2",
+    "displayName": "Gemini Account 2",
+    "logicalRole": "Independent Critic",
+    "configured": true,
+    "model": "gemini-2.5-flash",
+    "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+    "keyStatus": "AQ.A...PQmA",
+    "success": true,
+    "httpStatus": 200,
+    "latencyMs": 2004,
+    "tokens": {
+      "promptTokens": 27,
+      "completionTokens": 17,
+      "totalTokens": 94
+    },
+    "responseHash": "1ec04dbe2f358534",
+    "parsingResult": "SUCCESS",
+    "parsedPayload": {
+      "status": "operational",
+      "provider": "gemini_account_2"
+    },
+    "retryBehavior": "not_needed",
+    "fallbackBehavior": "none",
+    "circuitBreakerBehavior": "HEALTHY",
+    "errorCategory": null,
+    "errorMessage": null
+  },
+  {
+    "providerId": "nvidia",
+    "displayName": "NVIDIA NIM Model Pool",
+    "logicalRole": "Deep Reasoner / Case Lead",
+    "configured": true,
+    "model": "deepseek-ai/deepseek-r1",
+    "endpoint": "https://integrate.api.nvidia.com/v1/chat/completions",
+    "keyStatus": "nvap...ugm-",
+    "success": false,
+    "httpStatus": 404,
+    "latencyMs": 86,
+    "tokens": null,
+    "responseHash": null,
+    "parsingResult": null,
+    "retryBehavior": "retried_1_time",
+    "fallbackBehavior": "routes_to_fallback_provider",
+    "circuitBreakerBehavior": "RECORDED_FAILURE",
+    "errorCategory": "FUNCTION_OR_MODEL_NOT_FOUND",
+    "errorMessage": "NVIDIA API HTTP 404: 404 page not found\n"
+  },
+  {
+    "providerId": "openrouter",
+    "displayName": "OpenRouter Pool",
+    "logicalRole": "Specialist / Fallback",
+    "configured": true,
+    "model": "meta-llama/llama-3.3-70b-instruct",
+    "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+    "keyStatus": "sk-o...c318",
+    "success": true,
+    "httpStatus": 200,
+    "latencyMs": 1341,
+    "tokens": {
+      "promptTokens": 109,
+      "completionTokens": 15,
+      "totalTokens": 124
+    },
+    "responseHash": "d679316291734d9d",
+    "parsingResult": "SUCCESS",
+    "parsedPayload": {
+      "status": "operational",
+      "provider": "openrouter"
+    },
+    "retryBehavior": "not_needed",
+    "fallbackBehavior": "none",
+    "circuitBreakerBehavior": "HEALTHY",
+    "errorCategory": null,
+    "errorMessage": null
+  }
+]

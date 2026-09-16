@@ -1,0 +1,101 @@
+{
+  "schema_version": "2.0.0",
+  "analysis_id": "20260915064132-0fb61e65",
+  "status": "COMPLETED",
+  "approval_required": true,
+  "execution_started": true,
+  "created_at": "2026-09-15T06:41:35.596Z",
+  "target_dir": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04",
+  "novelty_mode": "standard",
+  "spec_path": null,
+  "inventory": {
+    "total_files": 1,
+    "total_loc": 19,
+    "languages": {
+      "python": [],
+      "java": [],
+      "c": [],
+      "cpp": [],
+      "go": [],
+      "verilog": [
+        "counter.v"
+      ]
+    },
+    "manifests": []
+  },
+  "summary": {
+    "total_files": 1,
+    "total_loc": 19,
+    "languages": {
+      "verilog": {
+        "file_count": 1,
+        "loc_estimate": 19,
+        "sample_files": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v"
+        ]
+      }
+    },
+    "manifests": [],
+    "unsupported_count": 0,
+    "likely_attack_surfaces": []
+  },
+  "tools_detected": [
+    "verilator",
+    "yosys",
+    "afl++",
+    "symbiyosys",
+    "spike",
+    "semgrep",
+    "codeql",
+    "joern"
+  ],
+  "tools_unavailable": [],
+  "planned_capabilities": [
+    "rtl_lint",
+    "rtl_formal",
+    "formal_invariant_verification",
+    "rtl_fuzz",
+    "reference_model"
+  ],
+  "execution_graph": [
+    "discovery",
+    "rtl_lint",
+    "rtl_formal",
+    "formal_invariant_verification",
+    "rtl_fuzz",
+    "reference_model",
+    "suspicion_scoring",
+    "hypothesis_formulation",
+    "artifact_verification",
+    "correlation",
+    "report_generation"
+  ],
+  "coverage_matrix": {
+    "gaps_count": 2,
+    "high_priority_gaps": [
+      "verilog: Hardware RTL Vulnerabilities",
+      "verilog: Hardcoded Credentials & Secrets"
+    ]
+  },
+  "budget_estimate": {
+    "novelty_mode": "standard",
+    "estimated_tokens": 2000,
+    "estimated_cost_usd": 0.0008,
+    "max_budget_usd": 10,
+    "estimated_duration_seconds": 10
+  },
+  "proof_mode": "standard",
+  "pov_mode": "on-detected",
+  "generate_pov": true,
+  "entry_points_count": 1,
+  "approved_at": "2026-09-15T06:41:35.926Z",
+  "started_at": "2026-09-15T06:41:35.927Z",
+  "completed_at": "2026-09-15T06:42:10.805Z",
+  "results": {
+    "verified_count": 0,
+    "candidate_count": 2,
+    "detected_count": 0,
+    "not_detected_count": 0,
+    "inconclusive_count": 2
+  }
+}

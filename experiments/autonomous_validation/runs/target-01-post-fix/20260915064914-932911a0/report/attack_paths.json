@@ -1,0 +1,17 @@
+[
+  {
+    "path_id": "AP-acb382",
+    "title": "Multi-Evidence Attack Cluster at E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+    "evidence_strength": "E2",
+    "cluster_ref": "CLUSTER-16c193",
+    "description": "2 independent evidence sources converge on E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8. Severity escalated to HIGH. Manual review recommended.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+  },
+  {
+    "path_id": "SEMGREP-26963da5",
+    "title": "Command Injection via Subprocess",
+    "evidence_strength": "E5",
+    "description": "The application uses the subprocess module with shell=True, which can lead to command injection attacks if user-provided input is not properly sanitized.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+  }
+]

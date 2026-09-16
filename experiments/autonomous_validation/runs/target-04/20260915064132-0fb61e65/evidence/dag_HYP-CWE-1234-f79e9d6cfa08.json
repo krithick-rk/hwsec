@@ -1,0 +1,115 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260915064132-0fb61e65",
+  "created_at": "2026-09-15T06:41:39.882Z",
+  "root_hash": "d88d58e2d4d69452a9e2d65cebc09ceba985dd28afa48258fa8db118af39e993",
+  "dag_hash": "d88d58e2d4d69452a9e2d65cebc09ceba985dd28afa48258fa8db118af39e993",
+  "nodes": [
+    {
+      "id": "HYP-CWE-1234-f79e9d6cfa08",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-1234-f79e9d6cfa08",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260915064132-0fb61e65",
+        "cwe": "CWE-1234",
+        "security_condition": "CWE-1234_SecurityOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17"
+        ],
+        "entry_point": {
+          "id": "EP-9f08c8963b77",
+          "status": "RESOLVED",
+          "type": "HARDWARE_MODULE_IO",
+          "framework": "VerilogRTL",
+          "module_name": "counter",
+          "file": "counter.v",
+          "target_identifier": "counter.v#counter",
+          "discovered_at": "2026-09-15T06:41:39.428Z",
+          "resolution_type": "DIRECT_FILE_MATCH"
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "symbiyosys",
+            "rule_id": "[CWE-1234] Formal Invariant Violation in counter (BMC Step Failure)",
+            "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v",
+            "line": 17,
+            "confidence": 0.99
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": false,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-15T06:41:39.429Z",
+          "origin_finding_id": "SBY-f517a552",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "efa67a3ecd7eecbd2f3a4b563f4300ccd672cc5f243b3a8a356bc508f5e26125",
+      "created_at": "2026-09-15T06:41:39.882Z"
+    },
+    {
+      "id": "EP-9f08c8963b77",
+      "type": "entry_point",
+      "data": {
+        "id": "EP-9f08c8963b77",
+        "status": "RESOLVED",
+        "type": "HARDWARE_MODULE_IO",
+        "framework": "VerilogRTL",
+        "module_name": "counter",
+        "file": "counter.v",
+        "target_identifier": "counter.v#counter",
+        "discovered_at": "2026-09-15T06:41:39.428Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "content_hash": "0755ec45a7aab0d0f93cae2522bc5236f16d9c779a7f2390a9ad461b24e96725",
+      "created_at": "2026-09-15T06:41:39.882Z"
+    },
+    {
+      "id": "PROV-20260915064132-0fb61e65",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-15T06:41:39.882Z",
+        "broker_version": "2.0.0",
+        "verified": true,
+        "mode": "STANDARD",
+        "analysis_id": "20260915064132-0fb61e65"
+      },
+      "content_hash": "8a6d4669b52f935dc559746521c78115650dbd0b90f47c0cd24c87df9c1ed92e",
+      "created_at": "2026-09-15T06:41:39.882Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-1234-f79e9d6cfa08",
+      "target_id": "EP-9f08c8963b77",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "0183c61bc0f6cafe66abbf47b82352a9baad91e4a0985fc0dfad2a86786e8008"
+    },
+    {
+      "source_id": "HYP-CWE-1234-f79e9d6cfa08",
+      "target_id": "PROV-20260915064132-0fb61e65",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "bc81203312a6cabce2a96d9433df5e0aefff483a52d824bc9f24559f048fdd60"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "EP-0c4cf8367166",
+    "status": "RESOLVED",
+    "type": "CLI_MAIN",
+    "framework": "PythonStandard",
+    "file": "command_injection.py",
+    "target_identifier": "command_injection.py#__main__",
+    "discovered_at": "2026-09-15T11:26:43.361Z"
+  }
+]

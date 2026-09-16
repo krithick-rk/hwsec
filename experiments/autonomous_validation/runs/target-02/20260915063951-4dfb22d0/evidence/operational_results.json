@@ -1,0 +1,37 @@
+[
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "79424b9e7a0f9e608da9505e6f2e54c785b9106cb4ce9c3d08f9e9b1523ddd8e",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "9f8737ffbbe648f8b6550111e241e1a0c04db570b1b45b1343d53dcd91d53049",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "9b95e6578859372c2d7469ece67ad009a21442f182e8eb1542b56f0bd5ce7f2a",
+    "dossier_path": "evidence/dossier_HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-DISAGREEMENT-87c822ec859b",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "af60249af240b046c6a978308fd47b8027f76f745945b445b43f02b249ae719f",
+    "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-87c822ec859b.md"
+  },
+  {
+    "hypothesis_id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+    "verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED",
+    "dag_hash": "2d0df9619a9401c2a9fbb1a38c8618102a05e7f9665117d89a36aaf20cc1c6c6",
+    "dossier_path": "evidence/dossier_HYP-CWE-DISAGREEMENT-88218be26bd8.md"
+  }
+]

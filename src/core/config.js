@@ -64,25 +64,38 @@ function interpolateEnv(val) {
 }
 
 /**
- * Auto-detects local tool installation paths if not set in config
+ * Auto-detects OSS CAD Suite tool paths from environment variables.
+ * Resolution order: OSS_CAD_SUITE -> YOSYSHQ_ROOT -> no-op (tools unavailable).
+ * Never falls back to a hardcoded machine-specific path.
  */
 function enrichToolPaths(config) {
     if (!config.tool_paths) {
         config.tool_paths = {};
     }
 
-    const defaultOssCadSuite = 'E:/Intern/krithick/Downloads/oss-cad-suite/bin';
-    if (fs.existsSync(defaultOssCadSuite)) {
-        if (!config.tool_paths.sby) {
-            config.tool_paths.sby = path.join(defaultOssCadSuite, 'sby.exe').replace(/\\/g, '/');
-        }
-        if (!config.tool_paths.yosys) {
-            config.tool_paths.yosys = path.join(defaultOssCadSuite, 'yosys.exe').replace(/\\/g, '/');
-        }
-        if (!config.tool_paths.verilator) {
-            config.tool_paths.verilator = path.join(defaultOssCadSuite, 'verilator').replace(/\\/g, '/');
+    // Resolve OSS CAD Suite root from environment variables only.
+    const suiteRoot = process.env.OSS_CAD_SUITE || process.env.YOSYSHQ_ROOT || null;
+    if (suiteRoot && fs.existsSync(suiteRoot)) {
+        const binDir = path.join(suiteRoot, 'bin');
+        if (fs.existsSync(binDir)) {
+            const isWin = process.platform === 'win32';
+            if (!config.tool_paths.sby) {
+                const sby = path.join(binDir, isWin ? 'sby.exe' : 'sby');
+                if (fs.existsSync(sby)) config.tool_paths.sby = sby.replace(/\\/g, '/');
+            }
+            if (!config.tool_paths.yosys) {
+                const yosys = path.join(binDir, isWin ? 'yosys.exe' : 'yosys');
+                if (fs.existsSync(yosys)) config.tool_paths.yosys = yosys.replace(/\\/g, '/');
+            }
+            if (!config.tool_paths.verilator) {
+                // Verilator on Windows ships as verilator_bin.exe; the shell wrapper is absent.
+                const verilatorBin = path.join(binDir, isWin ? 'verilator_bin.exe' : 'verilator');
+                if (fs.existsSync(verilatorBin)) config.tool_paths.verilator = path.join(binDir, isWin ? 'verilator' : 'verilator').replace(/\\/g, '/');
+            }
         }
     }
+    // If no suite root is found, tool_paths are left empty — adapters will
+    // fall through to WSL/PATH discovery or report UNAVAILABLE gracefully.
 
     return config;
 }

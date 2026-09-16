@@ -1,0 +1,20 @@
+{
+  "total_files": 59,
+  "total_loc": 18177,
+  "languages": {
+    "python": {
+      "file_count": 52,
+      "loc_estimate": 18177,
+      "sample_files": [
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\accept.py",
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\auth.py",
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\cache_control.py",
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\csp.py",
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\datastructures\\etag.py"
+      ]
+    }
+  },
+  "manifests": [],
+  "unsupported_count": 7,
+  "likely_attack_surfaces": []
+}

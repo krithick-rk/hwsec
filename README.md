@@ -22,76 +22,262 @@
 
 ---
 
-## Quick Start
+## Interactive Console (Recommended Operator Workflow)
 
-### 1. Clone & Install
+The primary operator interface for HWSEC is the **Metasploit-style Interactive Security Operations Console**:
+
+```bash
+hwsec console
+# Or: node src/index.js console
+```
+
+### Visual Opening & Startup Readiness
+
+Upon launch, `hwsec console` presents the key-motif ASCII branding and real subsystem readiness checks:
+
+```text
+ ______________________
+/                      \
+/   H W S E C  )====>   |
+|                       |
+\______________________/
+  \                  /
+   \__________/
+
+============================================================
+HWSEC SECURITY OPERATIONS CONSOLE
+============================================================
+[+] HWSEC engine READY
+[+] EvidenceAuthority READY
+[+] Execution Broker READY
+[+] Provider Pool READY
+[+] Workspace Manager READY
+
+hwsec >
+```
+
+### Guided Session Onboarding & Menus
+
+New operators can use guided setup (`menu`) or configure via numbered menus:
+
+```text
+hwsec > menu
+HWSEC SESSION SETUP
+-------------------
+1. Target / scope
+2. Context / requirements
+3. Analysis mode
+4. LLM / provider configuration
+5. PoV policy
+6. Execution policy
+7. Budget
+8. Tool status
+9. Start with defaults
+0. Exit setup
+
+Select option [9]:
+```
+
+### Canonical Configuration (`set` / `show options`)
+
+Operators can use direct commands or open the interactive settings menu by typing `set`:
+
+```text
+hwsec > set target E:\projects\myapp
+hwsec > set context E:\projects\context
+hwsec > set mode DEEP
+hwsec > set llm ADAPTIVE
+hwsec > set pov ON-DETECTED
+hwsec > set budget 20
+hwsec > set approval REQUIRED
+hwsec > set tool.yosys.path E:\tools\oss-cad-suite\bin\yosys.exe
+hwsec > show options
+```
+
+### Tool Status Center (`tools` & `doctor`)
+
+Inspect real toolchain capabilities across Core, Software, Hardware, and Infrastructure:
+
+```text
+hwsec > tools
+HWSEC TOOLCHAIN STATUS
+======================
+
+CORE
+----
+Node.js READY
+SQLite READY
+EvidenceAuthority READY
+Execution Broker READY
+
+SOFTWARE
+--------
+Python READY native
+Java READY native
+GCC READY WSL
+G++ READY WSL
+Clang READY WSL
+AFL++ READY WSL
+Semgrep READY WSL
+Joern MISSING optional
+CodeQL MISSING optional
+
+HARDWARE
+--------
+Yosys READY native
+Verilator READY native
+SymbiYosys READY native
+Icarus Verilog READY WSL
+Spike READY WSL
+
+INFRASTRUCTURE
+--------------
+Docker READY
+Qdrant AVAILABLE / OFFLINE / NOT CONFIGURED
+WSL2 READY
+
+Use `doctor <tool>` for details.
+```
+
+Inspect and test specific tools:
+```text
+hwsec > doctor yosys
+hwsec > doctor yosys --test
+hwsec > tools config
+```
+
+### Zero-Key Operational Mode (`LLM=OFF`)
+
+API keys are **strictly optional**. HWSEC functions out of the box with zero LLM API keys configured:
+
+```text
+hwsec > set llm OFF
+```
+
+Deterministic static analysis, AST parsing, ProofSandbox execution, EvidenceAuthority verification, and PoV replay remain fully functional without LLM keys. Raw API keys are **never** logged, saved in SQLite history, or output in report files.
+
+### Dynamic Provider Management & Masked Rotation
+
+Manage provider credentials dynamically inside `hwsec console`:
+
+- `providers`: Display safe health, role, and model configuration state for all provider accounts.
+- `providers configure`: Numbered interactive provider configuration menu.
+- `providers rotate <id>`: Safely update or rotate API key with masked input (`> ********`).
+- `providers test [id]`: Run live health checks against provider endpoints.
+- `providers disable <id>` / `providers enable <id>`: Toggle provider endpoints.
+
+### LLM Brain Visibility & Session Health (`status`)
+
+Inspect operational brain metadata without exposing private prompts or hidden chain-of-thought:
+
+```text
+hwsec > status
+BRAIN / ORCHESTRATION
+---------------------
+Mode : ADAPTIVE
+Current phase : INVESTIGATING
+Active hypothesis : HYP-001
+
+Scout : Gemini-1 / HEALTHY
+Critic : Gemini-2 / HEALTHY
+Redundant scout : Gemini-3 / DISABLED
+Deep reasoner : NVIDIA / HEALTHY
+Fallback : OpenRouter / HEALTHY
+
+Worker activity
+Semgrep DONE
+Joern DONE
+CodeQL DONE
+Runtime witness PENDING
+PoV PENDING
+
+Operational state
+hypotheses : 4
+escalations : 0
+disagreements : 1
+evidence items : 8
+
+SESSION
+-------
+ID : HW-20260916-001
+TARGET : E:\projects\myapp
+PHASE : PLANNED
+APPROVAL : REQUIRED
+MODE : STANDARD
+LLM : ADAPTIVE
+POV : ON-DETECTED
+BUDGET : $10.00
+
+EXECUTION
+---------
+Python : native / READY
+Java : native / READY
+C/C++ : WSL / READY
+Verilog : native / READY
+Yosys : native / READY
+SymbiYosys : native / READY
+
+SECURITY
+--------
+Network : BLOCKED
+Shell : DISABLED
+Credential scrub: ENABLED
+Evidence DAG : ENABLED
+PoV integrity : ENABLED
+```
+
+---
+
+## Clean-Clone Reproducibility & Manual Test Pack
+
+HWSEC includes a dedicated, repository-tracked manual testing workspace at [`manual_tests/`](manual_tests/README.md) containing curated, safe, reproducible test targets across Python, C/C++, Java, Verilog, and SystemVerilog.
+
+### Clean-Clone Quickstart
 
 ```bash
 git clone https://github.com/krithick-rk/hwsec.git
 cd hwsec
 npm install
+
+# 1. Run environment check
+./manual_tests/scripts/setup.sh    # Linux/WSL
+# Or PowerShell: .\manual_tests\scripts\setup.ps1
+
+# 2. Run automated manual smoke test pack
+./manual_tests/scripts/run_smoke.sh
+# Or PowerShell: .\manual_tests\scripts\run_smoke.ps1
 ```
 
-### 2. Configure
-
-```bash
-cp .env.example .env
-cp config.example.json config.json
-# Edit .env — add at least one LLM API key
-```
-
-**Minimum**: one of `GEMINI_API_KEY`, `NVIDIA_API_KEY`, or `OPENROUTER_API_KEY`.
-
-For hardware verification (Verilog/Yosys/Verilator), also set:
-```bash
-# In .env:
-OSS_CAD_SUITE=/path/to/oss-cad-suite
-```
-
-### 3. Start Optional Vector Memory (Docker)
-
-```bash
-docker run -d --name hwsec-qdrant -p 6333:6333 -p 6334:6334 qdrant/qdrant
-```
-
-### 4. Verify & Run Tests
-
-```bash
-npm test                          # 25 test suites
-node audit/runners/main-runner.js --profile full   # 50 adversarial security invariants
-```
+For complete step-by-step interpretation guidance and ground truth expected verdicts, refer to [`manual_tests/QUICKSTART.md`](manual_tests/QUICKSTART.md) and [`manual_tests/expected/interpretation/README.md`](manual_tests/expected/interpretation/README.md).
 
 ---
 
-## Basic Usage
+## Scriptable CLI Usage (Automated CI/CD Pipelines)
 
-### Step 1: Plan (Non-Destructive)
+Non-interactive scriptable CLI commands remain fully supported:
+
+### 1. Plan Analysis (Non-Destructive)
 
 ```bash
-node src/index.js analyze ./example-project --proof standard
+node src/index.js analyze ./example-project --proof-mode standard
 ```
 
-Review the generated plan:
+Review generated plan:
 ```bash
 cat hwsec-output/<analysis-id>/plan.md
 ```
 
-### Step 2: Approve and Execute
+### 2. Approve and Execute
 
 ```bash
 node src/index.js proceed <analysis-id> --mode standard
 ```
 
-### Step 3: View Results
+### 3. View Findings & Reports
 
 ```bash
-# Final report
-cat hwsec-output/<analysis-id>/report/final.md
-
-# Structured findings
+node src/index.js report <analysis-id>
 node src/index.js findings <analysis-id>
-
-# Analyst dossier for a specific case
 node src/index.js dossier <analysis-id>
 ```
 

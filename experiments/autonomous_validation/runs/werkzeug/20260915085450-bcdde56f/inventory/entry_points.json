@@ -1,0 +1,11 @@
+[
+  {
+    "id": "EP-aa4f83228420",
+    "status": "RESOLVED",
+    "type": "CLI_MAIN",
+    "framework": "PythonStandard",
+    "file": "werkzeug/testapp.py",
+    "target_identifier": "werkzeug/testapp.py#__main__",
+    "discovered_at": "2026-09-15T08:57:32.511Z"
+  }
+]

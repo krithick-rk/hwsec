@@ -1,0 +1,147 @@
+{
+  "ranked": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+      "suspicion_score": 0.563,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 2,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.57,
+          "reportingTools": [
+            "semgrep"
+          ],
+          "silentTools": [
+            "joern",
+            "codeql"
+          ],
+          "conflictingTools": [
+            "semgrep",
+            "joern",
+            "codeql"
+          ],
+          "reason": "Tool disagreement: [semgrep] reported findings, while [joern, codeql] reported none.",
+          "score": 0.1425
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+      "suspicion_score": 0.493,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 1,
+          "score": 0.25
+        },
+        "sensitive_keywords": {
+          "hits": 2,
+          "score": 0.08
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.57,
+          "reportingTools": [
+            "semgrep"
+          ],
+          "silentTools": [
+            "joern",
+            "codeql"
+          ],
+          "conflictingTools": [
+            "semgrep",
+            "joern",
+            "codeql"
+          ],
+          "reason": "Tool disagreement: [semgrep] reported findings, while [joern, codeql] reported none.",
+          "score": 0.1425
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    },
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\Application.java",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ],
+  "prioritizedTargets": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+      "suspicion_score": 0.563,
+      "priority": "HIGH",
+      "analysis_depth": "DEEP_DATAFLOW",
+      "signals": {
+        "deterministic_findings": {
+          "count": 2,
+          "score": 0.4
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": true,
+          "disagreementScore": 0.57,
+          "reportingTools": [
+            "semgrep"
+          ],
+          "silentTools": [
+            "joern",
+            "codeql"
+          ],
+          "conflictingTools": [
+            "semgrep",
+            "joern",
+            "codeql"
+          ],
+          "reason": "Tool disagreement: [semgrep] reported findings, while [joern, codeql] reported none.",
+          "score": 0.1425
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ]
+}

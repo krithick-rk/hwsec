@@ -1,0 +1,22 @@
+[
+  {
+    "id": "EP-541009c73903",
+    "status": "RESOLVED",
+    "type": "HTTP_ENDPOINT",
+    "framework": "PythonWeb",
+    "route": "/api/diagnostic/ping",
+    "http_method": "ROUTE",
+    "file": "app.py",
+    "target_identifier": "app.py",
+    "discovered_at": "2026-09-15T06:45:49.631Z"
+  },
+  {
+    "id": "EP-101cc2c7d7df",
+    "status": "RESOLVED",
+    "type": "CLI_MAIN",
+    "framework": "PythonStandard",
+    "file": "app.py",
+    "target_identifier": "app.py#__main__",
+    "discovered_at": "2026-09-15T06:45:49.631Z"
+  }
+]

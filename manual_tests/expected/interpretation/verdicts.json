@@ -1,0 +1,46 @@
+{
+  "targets": [
+    {
+      "path": "manual_tests/targets/software/python/vulnerable",
+      "expected_verdict": "DETECTED",
+      "expected_pov_status": "VERIFIED",
+      "cwe": "CWE-78",
+      "description": "Python subprocess shell injection"
+    },
+    {
+      "path": "manual_tests/targets/software/python/fixed",
+      "expected_verdict": "NOT_DETECTED",
+      "expected_pov_status": "POV_BLOCKED_BY_FIX",
+      "cwe": "CWE-78",
+      "description": "Validated IP input with shell=False"
+    },
+    {
+      "path": "manual_tests/targets/software/c_cpp/vulnerable",
+      "expected_verdict": "DETECTED",
+      "expected_pov_status": "VERIFIED",
+      "cwe": "CWE-121",
+      "description": "Unbounded strcpy buffer overflow"
+    },
+    {
+      "path": "manual_tests/targets/software/c_cpp/fixed",
+      "expected_verdict": "NOT_DETECTED",
+      "expected_pov_status": "POV_BLOCKED_BY_FIX",
+      "cwe": "CWE-121",
+      "description": "Bounded strncpy string copy"
+    },
+    {
+      "path": "manual_tests/targets/hardware/verilog/vulnerable",
+      "expected_verdict": "DETECTED",
+      "expected_pov_status": "VERIFIED",
+      "cwe": "CWE-1256",
+      "description": "Verilog debug mode secret key bus leakage"
+    },
+    {
+      "path": "manual_tests/targets/hardware/verilog/fixed",
+      "expected_verdict": "NOT_DETECTED",
+      "expected_pov_status": "POV_BLOCKED_BY_FIX",
+      "cwe": "CWE-1256",
+      "description": "Redacted debug bus signal"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "cluster_id": "CLUSTER-4baa5d",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21",
+    "evidence_count": 1,
+    "finding_ids": [
+      "SEMGREP-95ccbff1"
+    ],
+    "titles": [
+      "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder"
+    ],
+    "severity": "HIGH",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-ac12d2",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:16",
+    "evidence_count": 1,
+    "finding_ids": [
+      "SEMGREP-7d7e1c05"
+    ],
+    "titles": [
+      "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder"
+    ],
+    "severity": "HIGH",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-a0286c",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:17",
+    "evidence_count": 1,
+    "finding_ids": [
+      "SEMGREP-68765a21"
+    ],
+    "titles": [
+      "java.spring.security.injection.tainted-system-command.tainted-system-command"
+    ],
+    "severity": "HIGH",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-5407f2",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:1",
+    "evidence_count": 1,
+    "finding_ids": [
+      "CAND-DISAGREE-30a5fe10"
+    ],
+    "titles": [
+      "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  },
+  {
+    "cluster_id": "CLUSTER-ab3628",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1",
+    "evidence_count": 1,
+    "finding_ids": [
+      "CAND-DISAGREE-17f122fc"
+    ],
+    "titles": [
+      "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  }
+]

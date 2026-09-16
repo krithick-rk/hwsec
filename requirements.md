@@ -117,8 +117,8 @@ OPENROUTER_API_KEY=your_openrouter_api_key_here
 QDRANT_URL=http://localhost:6333
 QDRANT_API_KEY=your_optional_qdrant_key_here
 
-# Optional: Custom Tool Paths (Overrides system PATH)
-# OSS_CAD_SUITE=E:/Intern/krithick/Downloads/oss-cad-suite
+# Optional: Point to your OSS CAD Suite installation directory
+# OSS_CAD_SUITE=/path/to/oss-cad-suite
 ```
 
 ---
@@ -145,7 +145,7 @@ docker run -d --name hwsec-qdrant -p 6333:6333 -p 6334:6334 qdrant/qdrant
 ```
 
 ### Step 4: Configure OSS CAD Suite Path (For Hardware Verification)
-Add your OSS CAD Suite path to `config.json` or ensure `OSS_CAD_SUITE` environment variable points to your installation directory (e.g. `E:/Intern/krithick/Downloads/oss-cad-suite`).
+Set the `OSS_CAD_SUITE` environment variable to point to your OSS CAD Suite installation directory, or add explicit `tool_paths` entries to `config.json`. HWSEC will auto-discover the suite's binaries from either source.
 
 ---
 
@@ -171,9 +171,10 @@ Add your OSS CAD Suite path to `config.json` or ensure `OSS_CAD_SUITE` environme
     "verifier": { "model": "gemini-2.5-pro" }
   },
   "tool_paths": {
-    "yosys": "E:/Intern/krithick/Downloads/oss-cad-suite/bin/yosys.exe",
-    "sby": "E:/Intern/krithick/Downloads/oss-cad-suite/bin/sby.exe",
-    "verilator": "E:/Intern/krithick/Downloads/oss-cad-suite/bin/verilator_bin.exe"
+    "comment": "Explicit overrides; omit to use OSS_CAD_SUITE env var or WSL PATH discovery",
+    "yosys": "/path/to/oss-cad-suite/bin/yosys.exe",
+    "sby": "/path/to/oss-cad-suite/bin/sby.exe",
+    "verilator": "/path/to/oss-cad-suite/bin/verilator_bin.exe"
   },
   "token_budgets": {
     "max_cost_usd": 10.0,

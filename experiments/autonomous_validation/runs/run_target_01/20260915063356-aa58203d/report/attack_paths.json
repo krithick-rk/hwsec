@@ -1,0 +1,17 @@
+[
+  {
+    "path_id": "AP-7eba33",
+    "title": "Multi-Evidence Attack Cluster at E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:13",
+    "evidence_strength": "E2",
+    "cluster_ref": "CLUSTER-3ba5fc",
+    "description": "3 independent evidence sources converge on E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:13. Severity escalated to HIGH. Manual review recommended.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:13"
+  },
+  {
+    "path_id": "AP-1",
+    "title": "Subprocess Injection via Flask",
+    "evidence_strength": "E5",
+    "description": "The application uses subprocess with user-controlled input, allowing an attacker to inject malicious commands. This is identified by multiple findings (SEMGREP-4e7d2e46, SEMGREP-eaee66a7, SEMGREP-5ae1a1e6) at the same location (app.py:13), indicating a high likelihood of a critical vulnerability.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:13"
+  }
+]

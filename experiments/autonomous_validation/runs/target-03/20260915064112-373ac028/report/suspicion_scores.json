@@ -1,0 +1,60 @@
+{
+  "ranked": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "Fewer than 2 tools executed on this asset",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ],
+  "prioritizedTargets": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c",
+      "suspicion_score": 0.14,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 3,
+          "score": 0.12
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "Fewer than 2 tools executed on this asset",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ]
+}

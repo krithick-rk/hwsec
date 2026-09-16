@@ -1,0 +1,60 @@
+{
+  "ranked": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06\\app.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ],
+  "prioritizedTargets": [
+    {
+      "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\ambiguous\\target-06\\app.py",
+      "suspicion_score": 0.02,
+      "priority": "LOW",
+      "analysis_depth": "BASELINE_ONLY",
+      "signals": {
+        "deterministic_findings": {
+          "count": 0,
+          "score": 0
+        },
+        "sensitive_keywords": {
+          "hits": 0,
+          "score": 0
+        },
+        "analyzer_disagreement": {
+          "hasDisagreement": false,
+          "disagreementScore": 0,
+          "conflictingTools": [],
+          "reason": "All executed tools are in consensus",
+          "score": 0
+        },
+        "graph_risk": {
+          "score": 0
+        },
+        "novelty_modifier": 0.02
+      }
+    }
+  ]
+}

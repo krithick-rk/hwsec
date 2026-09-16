@@ -1,0 +1,12 @@
+---
+sourceLocationPrefix: /mnt/e/Intern/hwsec/experiments/autonomous_validation/targets/python/target-01
+baselineLinesOfCode: 21
+unicodeNewlines: false
+columnKind: utf32
+primaryLanguage: python
+creationMetadata:
+  cliVersion: 2.26.4
+  creationTime: 2026-09-15T06:34:35.957141067Z
+overlayBaseDatabase: false
+overlayDatabase: false
+finalised: true

@@ -1,0 +1,6 @@
+{
+  "vulnerability_class": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+  "expected_security_effect": "Execution with payload \"hello; echo INJECTED_CMD_OUTPUT\" reproduces unvalidated command/data execution.",
+  "oracle_cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+  "negative_control_expected": "Security condition remains unviolated"
+}

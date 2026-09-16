@@ -69,7 +69,24 @@ export class ProviderPool {
             hasKey: !!geminiKey2
         });
 
-        // 3. NVIDIA (Deep Reasoner / Case Lead)
+        // 3. Gemini Account 3 (Scout Redundancy)
+        const geminiKey3 = process.env.GEMINI_API_KEY_3 || this.config.llm_providers?.gemini_3?.api_key || null;
+        this._registerEndpoint('gemini_account_3', {
+            providerType: 'gemini',
+            role: AccountRole.SCOUT,
+            displayName: 'Gemini Account 3 (Scout Redundancy)',
+            preferredModel: 'gemini-2.5-flash',
+            provider: new GeminiProvider({
+                ...this.config,
+                llm_providers: {
+                    ...this.config.llm_providers,
+                    gemini: { api_key: geminiKey3, api_keys: geminiKey3 ? [geminiKey3] : [] }
+                }
+            }),
+            hasKey: !!geminiKey3
+        });
+
+        // 4. NVIDIA (Deep Reasoner / Case Lead)
         const nvidiaKey = process.env.NVIDIA_API_KEY || this.config.llm_providers?.nvidia?.api_key || null;
         this._registerEndpoint('nvidia', {
             providerType: 'nvidia',
@@ -86,7 +103,7 @@ export class ProviderPool {
             hasKey: !!nvidiaKey
         });
 
-        // 4. OpenRouter (Fallback / Specialist Pool)
+        // 5. OpenRouter (Fallback / Specialist Pool)
         const openrouterKey = process.env.OPENROUTER_API_KEY || this.config.llm_providers?.openrouter?.api_key || null;
         this._registerEndpoint('openrouter', {
             providerType: 'openrouter',
@@ -264,6 +281,108 @@ export class ProviderPool {
     }
 
     /**
+     * Resolves user-supplied alias to canonical internal endpoint ID.
+     * @param {string} alias 
+     * @returns {string|null}
+     */
+    resolveEndpointId(alias) {
+        if (!alias) return null;
+        const norm = String(alias).trim().toLowerCase().replace(/_/g, '-');
+        const map = {
+            'gemini-1': 'gemini_account_1',
+            'gemini1': 'gemini_account_1',
+            'gemini_account_1': 'gemini_account_1',
+            'gemini-2': 'gemini_account_2',
+            'gemini2': 'gemini_account_2',
+            'gemini_account_2': 'gemini_account_2',
+            'gemini-3': 'gemini_account_3',
+            'gemini3': 'gemini_account_3',
+            'gemini_account_3': 'gemini_account_3',
+            'nvidia': 'nvidia',
+            'openrouter': 'openrouter'
+        };
+        return map[norm] || (this.endpoints.has(alias) ? alias : null);
+    }
+
+    /**
+     * Updates key for a specific endpoint dynamically without printing secrets.
+     */
+    updateKey(alias, apiKey) {
+        const id = this.resolveEndpointId(alias);
+        const ep = this.endpoints.get(id);
+        if (!ep) throw new Error(`Unknown provider endpoint: '${alias}'`);
+
+        const cleanKey = apiKey && apiKey.trim() ? apiKey.trim() : null;
+        ep.hasKey = !!cleanKey;
+
+        if (ep.providerType === 'gemini') {
+            ep.provider = new GeminiProvider({
+                ...this.config,
+                llm_providers: { gemini: { api_key: cleanKey, api_keys: cleanKey ? [cleanKey] : [] } }
+            });
+        } else if (ep.providerType === 'nvidia') {
+            ep.provider = new NvidiaProvider({
+                ...this.config,
+                llm_providers: { nvidia: { api_key: cleanKey } }
+            });
+        } else if (ep.providerType === 'openrouter') {
+            ep.provider = new OpenRouterProvider({
+                ...this.config,
+                llm_providers: { openrouter: { api_key: cleanKey } }
+            });
+        }
+
+        if (cleanKey) {
+            ep.forcedUnavailable = false;
+            ep.state = CircuitState.HEALTHY;
+            ep.consecutiveFailures = 0;
+        } else {
+            ep.forcedUnavailable = true;
+            ep.state = CircuitState.OPEN;
+        }
+        return ep;
+    }
+
+    /**
+     * Disables or enables an endpoint explicitly.
+     */
+    setDisabled(alias, disabled) {
+        const id = this.resolveEndpointId(alias);
+        const ep = this.endpoints.get(id);
+        if (!ep) throw new Error(`Unknown provider endpoint: '${alias}'`);
+
+        ep.forcedUnavailable = !!disabled;
+        if (disabled) {
+            ep.state = CircuitState.OPEN;
+        } else if (ep.hasKey) {
+            ep.state = CircuitState.HEALTHY;
+            ep.consecutiveFailures = 0;
+        }
+        return ep;
+    }
+
+    /**
+     * Tests a specific provider endpoint safely.
+     */
+    async testEndpoint(alias) {
+        const id = this.resolveEndpointId(alias);
+        const ep = this.endpoints.get(id);
+        if (!ep) throw new Error(`Unknown provider endpoint: '${alias}'`);
+        if (!ep.hasKey || ep.forcedUnavailable) {
+            return { id, healthy: false, state: ep.forcedUnavailable ? 'DISABLED' : 'NOT_CONFIGURED', reason: 'NO_KEY_OR_DISABLED' };
+        }
+        try {
+            const avail = ep.provider.isAvailable();
+            if (!avail) {
+                return { id, healthy: false, state: ep.state, reason: 'PROVIDER_UNAVAILABLE' };
+            }
+            return { id, healthy: true, state: ep.state, model: ep.preferredModel };
+        } catch (err) {
+            return { id, healthy: false, state: ep.state, reason: err.message };
+        }
+    }
+
+    /**
      * Returns sanitized health & telemetry report for all endpoints (no API keys).
      */
     getPoolStatus() {
@@ -274,10 +393,11 @@ export class ProviderPool {
                 role: ep.role,
                 configured: ep.hasKey,
                 healthy: this.isHealthy(id),
-                circuitState: ep.state,
+                circuitState: ep.forcedUnavailable ? 'DISABLED' : ep.state,
                 metrics: { ...ep.metrics }
             };
         }
         return status;
     }
 }
+

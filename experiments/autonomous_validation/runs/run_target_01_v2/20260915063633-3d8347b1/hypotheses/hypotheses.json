@@ -1,0 +1,112 @@
+[
+  {
+    "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0",
+    "repository_id": "PROJ-453a5c49",
+    "run_id": "20260915063633-3d8347b1",
+    "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "security_condition": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')_SecurityOracle",
+    "source": "USER_INPUT",
+    "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+    "sanitizer_assumptions": [],
+    "candidate_path": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+    ],
+    "entry_point": {
+      "id": "EP-541009c73903",
+      "status": "RESOLVED",
+      "type": "HTTP_ENDPOINT",
+      "framework": "PythonWeb",
+      "route": "/api/diagnostic/ping",
+      "http_method": "ROUTE",
+      "file": "app.py",
+      "target_identifier": "app.py",
+      "discovered_at": "2026-09-15T06:37:34.828Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "attack_surface": "CLI_OR_HTTP",
+    "required_evidence": [
+      "OBSERVABLE_SINK_EFFECT",
+      "NEGATIVE_CONTROL",
+      "REPLAY_WITNESS"
+    ],
+    "negative_control": {
+      "type": "BENIGN_INPUT",
+      "description": "Benign control input exercising path without triggering security condition"
+    },
+    "discovery_signals": [
+      {
+        "analyzer": "semgrep",
+        "rule_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+        "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+        "line": 8,
+        "confidence": 0.6
+      }
+    ],
+    "priority": 0.5,
+    "uncertainty": {
+      "entry_point_unresolved": false,
+      "sink_uncertain": false,
+      "sanitizer_unverified": true
+    },
+    "provenance": {
+      "created_at": "2026-09-15T06:37:34.828Z",
+      "origin_finding_id": "SEMGREP-7f229afd",
+      "schema_version": "2.0.0"
+    }
+  },
+  {
+    "id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+    "repository_id": "PROJ-453a5c49",
+    "run_id": "20260915063633-3d8347b1",
+    "cwe": "CWE-DISAGREEMENT",
+    "security_condition": "CWE-Disagreement_SecurityOracle",
+    "source": "USER_INPUT",
+    "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1",
+    "sanitizer_assumptions": [],
+    "candidate_path": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1"
+    ],
+    "entry_point": {
+      "id": "EP-541009c73903",
+      "status": "RESOLVED",
+      "type": "HTTP_ENDPOINT",
+      "framework": "PythonWeb",
+      "route": "/api/diagnostic/ping",
+      "http_method": "ROUTE",
+      "file": "app.py",
+      "target_identifier": "app.py",
+      "discovered_at": "2026-09-15T06:37:34.828Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "attack_surface": "CLI_OR_HTTP",
+    "required_evidence": [
+      "OBSERVABLE_SINK_EFFECT",
+      "NEGATIVE_CONTROL",
+      "REPLAY_WITNESS"
+    ],
+    "negative_control": {
+      "type": "BENIGN_INPUT",
+      "description": "Benign control input exercising path without triggering security condition"
+    },
+    "discovery_signals": [
+      {
+        "analyzer": "disagreement_controller",
+        "rule_id": "Analyzer Disagreement on app.py: [semgrep] reported findings vs [joern, codeql] clean",
+        "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+        "line": 1,
+        "confidence": 0.65
+      }
+    ],
+    "priority": 0.5,
+    "uncertainty": {
+      "entry_point_unresolved": false,
+      "sink_uncertain": false,
+      "sanitizer_unverified": true
+    },
+    "provenance": {
+      "created_at": "2026-09-15T06:37:34.934Z",
+      "origin_finding_id": "CAND-DISAGREE-f2055767",
+      "schema_version": "2.0.0"
+    }
+  }
+]

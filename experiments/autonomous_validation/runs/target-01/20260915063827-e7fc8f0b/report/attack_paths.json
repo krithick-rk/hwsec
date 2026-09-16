@@ -1,0 +1,9 @@
+[
+  {
+    "path_id": "SEMGREP-0db56ae3",
+    "title": "Subprocess Shell Injection",
+    "evidence_strength": "E4",
+    "description": "The application uses subprocess with shell=True, which can lead to shell injection attacks if user input is not properly sanitized.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "cluster_id": "CLUSTER-4d9fec",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12",
+    "evidence_count": 2,
+    "finding_ids": [
+      "SEMGREP-d525bb7b",
+      "CODEQL-88dd63c5"
+    ],
+    "titles": [
+      "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+      "[CWE-078] This command line depends on a [user-provided value](1)."
+    ],
+    "severity": "HIGH",
+    "relationship": "STRUCTURAL_JOIN",
+    "confidence": 0.8
+  },
+  {
+    "cluster_id": "CLUSTER-910c16",
+    "location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:1",
+    "evidence_count": 1,
+    "finding_ids": [
+      "CAND-DISAGREE-036a89d9"
+    ],
+    "titles": [
+      "Analyzer Disagreement on app.py: [semgrep, codeql] reported findings vs [joern] clean"
+    ],
+    "severity": "MEDIUM",
+    "relationship": "SINGLE_EVIDENCE",
+    "confidence": 0.6000000000000001
+  }
+]

@@ -1,0 +1,9 @@
+[
+  {
+    "path_id": "SEMGREP-7f229afd",
+    "title": "Subprocess Shell True Vulnerability",
+    "evidence_strength": "E4",
+    "description": "The subprocess module in Python is used with shell=True, which can lead to arbitrary command execution and potentially allow an attacker to execute malicious system commands.",
+    "affected_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+  }
+]

@@ -1,0 +1,103 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260915085450-bcdde56f",
+  "created_at": "2026-09-15T08:57:35.076Z",
+  "root_hash": "ad04683836f4faa78561194efdd1baf07adb285ab5d21bf620974acf942d61fd",
+  "dag_hash": "ad04683836f4faa78561194efdd1baf07adb285ab5d21bf620974acf942d61fd",
+  "nodes": [
+    {
+      "id": "HYP-CWE-78-973b631f85ff",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-78-973b631f85ff",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260915085450-bcdde56f",
+        "cwe": "CWE-78",
+        "security_condition": "CommandInjectionOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:392",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py:392"
+        ],
+        "entry_point": {
+          "status": "UNRESOLVED",
+          "reason": "No application HTTP/CLI/service entry point resolves to target path [E:/Intern/hwsec/experiments/autonomous_validation/real_world_targets/werkzeug/src/werkzeug/debug/tbtools.py]",
+          "requires_synthetic_scope": true
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "joern",
+            "rule_id": "[CWE-78] Dynamic code evaluation sink (eval)",
+            "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\real_world_targets\\werkzeug\\src\\werkzeug\\debug\\tbtools.py",
+            "line": 392,
+            "confidence": 0.85
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": true,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-15T08:57:32.512Z",
+          "origin_finding_id": "JOERN-e0e098d2",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "68884892775fca7dce34cede0591289216221a77ef61d60050f1bb93642e9f65",
+      "created_at": "2026-09-15T08:57:35.076Z"
+    },
+    {
+      "id": "EP-undefined",
+      "type": "entry_point",
+      "data": {
+        "status": "UNRESOLVED",
+        "reason": "No application HTTP/CLI/service entry point resolves to target path [E:/Intern/hwsec/experiments/autonomous_validation/real_world_targets/werkzeug/src/werkzeug/debug/tbtools.py]",
+        "requires_synthetic_scope": true
+      },
+      "content_hash": "fe528e40815d874767478ac708ef5e7634ff3e7c8fbaa94747486670e21249fb",
+      "created_at": "2026-09-15T08:57:35.077Z"
+    },
+    {
+      "id": "PROV-20260915085450-bcdde56f",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-15T08:57:35.076Z",
+        "broker_version": "2.0.0",
+        "verified": true,
+        "mode": "STANDARD",
+        "analysis_id": "20260915085450-bcdde56f"
+      },
+      "content_hash": "498d9063e4bcac5b45053bfaab43545d8bcc08e617325944a947b716be220c39",
+      "created_at": "2026-09-15T08:57:35.077Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-78-973b631f85ff",
+      "target_id": "EP-undefined",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "b7971ac41afbfc575ebfc4800879f0cf762910276b0d98718d314e1d88a5ad95"
+    },
+    {
+      "source_id": "HYP-CWE-78-973b631f85ff",
+      "target_id": "PROV-20260915085450-bcdde56f",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "c21401647bc8f92607e3f6e9d011538f25f261b42898faba87edfccb9f0a6d72"
+    }
+  ]
+}

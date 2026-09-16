@@ -1,0 +1,16 @@
+{
+  "total_files": 1,
+  "total_loc": 19,
+  "languages": {
+    "verilog": {
+      "file_count": 1,
+      "loc_estimate": 19,
+      "sample_files": [
+        "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v"
+      ]
+    }
+  },
+  "manifests": [],
+  "unsupported_count": 0,
+  "likely_attack_surfaces": []
+}

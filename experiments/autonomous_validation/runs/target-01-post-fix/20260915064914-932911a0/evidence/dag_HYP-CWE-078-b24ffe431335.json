@@ -1,0 +1,117 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260915064914-932911a0",
+  "created_at": "2026-09-15T06:50:50.672Z",
+  "root_hash": "a8bd7f299296e1b1c45eff862a5b7c507161fabacfa1036cb846de6f6b3b189d",
+  "dag_hash": "a8bd7f299296e1b1c45eff862a5b7c507161fabacfa1036cb846de6f6b3b189d",
+  "nodes": [
+    {
+      "id": "HYP-CWE-078-b24ffe431335",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-078-b24ffe431335",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260915064914-932911a0",
+        "cwe": "CWE-078",
+        "security_condition": "CWE-078_SecurityOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+        ],
+        "entry_point": {
+          "id": "EP-541009c73903",
+          "status": "RESOLVED",
+          "type": "HTTP_ENDPOINT",
+          "framework": "PythonWeb",
+          "route": "/api/diagnostic/ping",
+          "http_method": "ROUTE",
+          "file": "app.py",
+          "target_identifier": "app.py",
+          "discovered_at": "2026-09-15T06:50:48.806Z",
+          "resolution_type": "DIRECT_FILE_MATCH"
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "codeql",
+            "rule_id": "[CWE-078] This command line depends on a [user-provided value](1).",
+            "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py",
+            "line": 8,
+            "confidence": 0.8
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": false,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-15T06:50:48.812Z",
+          "origin_finding_id": "CODEQL-6964e71a",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "c57ff26dc143304e34635b586c4250d24954f84ce2f6d8e737093c542ca7c255",
+      "created_at": "2026-09-15T06:50:50.672Z"
+    },
+    {
+      "id": "EP-541009c73903",
+      "type": "entry_point",
+      "data": {
+        "id": "EP-541009c73903",
+        "status": "RESOLVED",
+        "type": "HTTP_ENDPOINT",
+        "framework": "PythonWeb",
+        "route": "/api/diagnostic/ping",
+        "http_method": "ROUTE",
+        "file": "app.py",
+        "target_identifier": "app.py",
+        "discovered_at": "2026-09-15T06:50:48.806Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "content_hash": "7bd4e6d0fd371a409fe96874fba0559654e4ce64a088d0680b655ebe0d09d04f",
+      "created_at": "2026-09-15T06:50:50.672Z"
+    },
+    {
+      "id": "PROV-20260915064914-932911a0",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-15T06:50:50.672Z",
+        "broker_version": "2.0.0",
+        "verified": true,
+        "mode": "STANDARD",
+        "analysis_id": "20260915064914-932911a0"
+      },
+      "content_hash": "3741549a83490e4ffee1fc46a05b072a9ad3602a1d7f3357ded550ac0697eedb",
+      "created_at": "2026-09-15T06:50:50.672Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-078-b24ffe431335",
+      "target_id": "EP-541009c73903",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "596330a9a6120a6ea85af0f3d1232be509379a8d8cd4f9add0a6a9e52174c822"
+    },
+    {
+      "source_id": "HYP-CWE-078-b24ffe431335",
+      "target_id": "PROV-20260915064914-932911a0",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "64211fb4a1a482bc3770dffc61a7e6dc33c80347c4ceeaf46db11109d9b1faed"
+    }
+  ]
+}

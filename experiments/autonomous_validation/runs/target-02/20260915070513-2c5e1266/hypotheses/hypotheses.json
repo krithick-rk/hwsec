@@ -1,0 +1,267 @@
+[
+  {
+    "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8",
+    "repository_id": "PROJ-453a5c49",
+    "run_id": "20260915070513-2c5e1266",
+    "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "security_condition": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')_SecurityOracle",
+    "source": "USER_INPUT",
+    "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21",
+    "sanitizer_assumptions": [],
+    "candidate_path": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21"
+    ],
+    "entry_point": {
+      "id": "EP-b4acecfa6494",
+      "status": "RESOLVED",
+      "type": "CLI_MAIN",
+      "framework": "JavaStandard",
+      "file": "DiagnosticController.java",
+      "target_identifier": "DiagnosticController.java#main",
+      "discovered_at": "2026-09-15T07:05:50.340Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "attack_surface": "CLI_OR_HTTP",
+    "required_evidence": [
+      "OBSERVABLE_SINK_EFFECT",
+      "NEGATIVE_CONTROL",
+      "REPLAY_WITNESS"
+    ],
+    "negative_control": {
+      "type": "BENIGN_INPUT",
+      "description": "Benign control input exercising path without triggering security condition"
+    },
+    "discovery_signals": [
+      {
+        "analyzer": "semgrep",
+        "rule_id": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+        "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+        "line": 21,
+        "confidence": 0.6
+      }
+    ],
+    "priority": 0.5,
+    "uncertainty": {
+      "entry_point_unresolved": false,
+      "sink_uncertain": false,
+      "sanitizer_unverified": true
+    },
+    "provenance": {
+      "created_at": "2026-09-15T07:05:50.344Z",
+      "origin_finding_id": "SEMGREP-fe91ab80",
+      "schema_version": "2.0.0"
+    }
+  },
+  {
+    "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968",
+    "repository_id": "PROJ-453a5c49",
+    "run_id": "20260915070513-2c5e1266",
+    "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "security_condition": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')_SecurityOracle",
+    "source": "USER_INPUT",
+    "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:16",
+    "sanitizer_assumptions": [],
+    "candidate_path": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:16"
+    ],
+    "entry_point": {
+      "id": "EP-b4acecfa6494",
+      "status": "RESOLVED",
+      "type": "CLI_MAIN",
+      "framework": "JavaStandard",
+      "file": "DiagnosticController.java",
+      "target_identifier": "DiagnosticController.java#main",
+      "discovered_at": "2026-09-15T07:05:50.340Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "attack_surface": "CLI_OR_HTTP",
+    "required_evidence": [
+      "OBSERVABLE_SINK_EFFECT",
+      "NEGATIVE_CONTROL",
+      "REPLAY_WITNESS"
+    ],
+    "negative_control": {
+      "type": "BENIGN_INPUT",
+      "description": "Benign control input exercising path without triggering security condition"
+    },
+    "discovery_signals": [
+      {
+        "analyzer": "semgrep",
+        "rule_id": "java.lang.security.audit.command-injection-process-builder.command-injection-process-builder",
+        "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+        "line": 16,
+        "confidence": 0.6
+      }
+    ],
+    "priority": 0.5,
+    "uncertainty": {
+      "entry_point_unresolved": false,
+      "sink_uncertain": false,
+      "sanitizer_unverified": true
+    },
+    "provenance": {
+      "created_at": "2026-09-15T07:05:50.420Z",
+      "origin_finding_id": "SEMGREP-283bf915",
+      "schema_version": "2.0.0"
+    }
+  },
+  {
+    "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997",
+    "repository_id": "PROJ-453a5c49",
+    "run_id": "20260915070513-2c5e1266",
+    "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "security_condition": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')_SecurityOracle",
+    "source": "USER_INPUT",
+    "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:17",
+    "sanitizer_assumptions": [],
+    "candidate_path": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:17"
+    ],
+    "entry_point": {
+      "id": "EP-b4acecfa6494",
+      "status": "RESOLVED",
+      "type": "CLI_MAIN",
+      "framework": "JavaStandard",
+      "file": "DiagnosticController.java",
+      "target_identifier": "DiagnosticController.java#main",
+      "discovered_at": "2026-09-15T07:05:50.340Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "attack_surface": "CLI_OR_HTTP",
+    "required_evidence": [
+      "OBSERVABLE_SINK_EFFECT",
+      "NEGATIVE_CONTROL",
+      "REPLAY_WITNESS"
+    ],
+    "negative_control": {
+      "type": "BENIGN_INPUT",
+      "description": "Benign control input exercising path without triggering security condition"
+    },
+    "discovery_signals": [
+      {
+        "analyzer": "semgrep",
+        "rule_id": "java.spring.security.injection.tainted-system-command.tainted-system-command",
+        "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+        "line": 17,
+        "confidence": 0.6
+      }
+    ],
+    "priority": 0.5,
+    "uncertainty": {
+      "entry_point_unresolved": false,
+      "sink_uncertain": false,
+      "sanitizer_unverified": true
+    },
+    "provenance": {
+      "created_at": "2026-09-15T07:05:50.498Z",
+      "origin_finding_id": "SEMGREP-9d19971d",
+      "schema_version": "2.0.0"
+    }
+  },
+  {
+    "id": "HYP-CWE-DISAGREEMENT-87c822ec859b",
+    "repository_id": "PROJ-453a5c49",
+    "run_id": "20260915070513-2c5e1266",
+    "cwe": "CWE-DISAGREEMENT",
+    "security_condition": "CWE-Disagreement_SecurityOracle",
+    "source": "USER_INPUT",
+    "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:1",
+    "sanitizer_assumptions": [],
+    "candidate_path": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:1"
+    ],
+    "entry_point": {
+      "id": "EP-b4acecfa6494",
+      "status": "RESOLVED",
+      "type": "CLI_MAIN",
+      "framework": "JavaStandard",
+      "file": "DiagnosticController.java",
+      "target_identifier": "DiagnosticController.java#main",
+      "discovered_at": "2026-09-15T07:05:50.340Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "attack_surface": "CLI_OR_HTTP",
+    "required_evidence": [
+      "OBSERVABLE_SINK_EFFECT",
+      "NEGATIVE_CONTROL",
+      "REPLAY_WITNESS"
+    ],
+    "negative_control": {
+      "type": "BENIGN_INPUT",
+      "description": "Benign control input exercising path without triggering security condition"
+    },
+    "discovery_signals": [
+      {
+        "analyzer": "disagreement_controller",
+        "rule_id": "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean",
+        "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+        "line": 1,
+        "confidence": 0.65
+      }
+    ],
+    "priority": 0.5,
+    "uncertainty": {
+      "entry_point_unresolved": false,
+      "sink_uncertain": false,
+      "sanitizer_unverified": true
+    },
+    "provenance": {
+      "created_at": "2026-09-15T07:05:50.574Z",
+      "origin_finding_id": "CAND-DISAGREE-2cbe05a2",
+      "schema_version": "2.0.0"
+    }
+  },
+  {
+    "id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+    "repository_id": "PROJ-453a5c49",
+    "run_id": "20260915070513-2c5e1266",
+    "cwe": "CWE-DISAGREEMENT",
+    "security_condition": "CWE-Disagreement_SecurityOracle",
+    "source": "USER_INPUT",
+    "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1",
+    "sanitizer_assumptions": [],
+    "candidate_path": [
+      "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1"
+    ],
+    "entry_point": {
+      "id": "EP-b4acecfa6494",
+      "status": "RESOLVED",
+      "type": "CLI_MAIN",
+      "framework": "JavaStandard",
+      "file": "DiagnosticController.java",
+      "target_identifier": "DiagnosticController.java#main",
+      "discovered_at": "2026-09-15T07:05:50.340Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "attack_surface": "CLI_OR_HTTP",
+    "required_evidence": [
+      "OBSERVABLE_SINK_EFFECT",
+      "NEGATIVE_CONTROL",
+      "REPLAY_WITNESS"
+    ],
+    "negative_control": {
+      "type": "BENIGN_INPUT",
+      "description": "Benign control input exercising path without triggering security condition"
+    },
+    "discovery_signals": [
+      {
+        "analyzer": "disagreement_controller",
+        "rule_id": "Analyzer Disagreement on DiagnosticController.java: [semgrep] reported findings vs [joern, codeql] clean",
+        "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java",
+        "line": 1,
+        "confidence": 0.65
+      }
+    ],
+    "priority": 0.5,
+    "uncertainty": {
+      "entry_point_unresolved": false,
+      "sink_uncertain": false,
+      "sanitizer_unverified": true
+    },
+    "provenance": {
+      "created_at": "2026-09-15T07:05:50.581Z",
+      "origin_finding_id": "CAND-DISAGREE-651b29de",
+      "schema_version": "2.0.0"
+    }
+  }
+]

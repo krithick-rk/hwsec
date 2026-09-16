@@ -1,0 +1,3 @@
+read_verilog "E:/Intern/hwsec/experiments/autonomous_validation/targets/verilog/target-04/counter.v"
+hierarchy -check
+prep

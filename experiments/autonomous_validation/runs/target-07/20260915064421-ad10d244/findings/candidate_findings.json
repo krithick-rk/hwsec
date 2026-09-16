@@ -1,0 +1,224 @@
+[
+  {
+    "schema_version": "2.0.0",
+    "id": "SEMGREP-af70db60",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+    "description": "Found 'subprocess' function 'run' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+    "severity": "HIGH",
+    "confidence": 0.6,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py",
+        "startLine": 12,
+        "endLine": 12,
+        "line": 12,
+        "startColumn": 44,
+        "endColumn": 48,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "evidence_ids": [
+      "ae3a7716"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "ae3a7716",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-07\\20260915064421-ad10d244\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+        "raw_evidence": {
+          "rule_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T06:44:38.283Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "semgrep",
+      "created_at": "2026-09-15T06:44:38.283Z"
+    },
+    "source_tool": "semgrep",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12",
+    "evidence": [
+      {
+        "id": "ae3a7716",
+        "run_id": null,
+        "tool": "semgrep",
+        "tool_run_id": null,
+        "evidence_type": "GENERIC_EVIDENCE",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-07\\20260915064421-ad10d244\\tools\\semgrep_telemetry.json",
+        "artifact_hash": null,
+        "observation": "Semgrep matched check python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+        "raw_evidence": {
+          "rule_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+          "lines": "requires login",
+          "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+        },
+        "timestamp": "2026-09-15T06:44:38.283Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "6e2289394a4621cf4cfd96e3a0f27eae87fe8f1587fcd4ca207daa55b76527ca",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "CODEQL-acdcfaad",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "[CWE-078] This command line depends on a [user-provided value](1).",
+    "description": "CodeQL detected vulnerability rule py/command-line-injection:\nThis command line depends on a [user-provided value](1).",
+    "severity": "HIGH",
+    "confidence": 0.8,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py",
+        "startLine": 12,
+        "endLine": 12,
+        "line": 12,
+        "startColumn": 29,
+        "endColumn": 36,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-078",
+    "evidence_ids": [
+      "EV-0f9d4787"
+    ],
+    "supporting_evidence": [
+      {
+        "id": "EV-0f9d4787",
+        "run_id": null,
+        "tool": "codeql",
+        "tool_run_id": null,
+        "evidence_type": "SARIF_REPORT",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-07\\20260915064421-ad10d244\\tools\\tools\\codeql\\codeql_python_results.sarif",
+        "artifact_hash": null,
+        "observation": "CodeQL Static Analysis: This command line depends on a [user-provided value](1). (Rule: py/command-line-injection)",
+        "raw_evidence": {
+          "ruleId": "py/command-line-injection",
+          "ruleName": "py/command-line-injection",
+          "message": "This command line depends on a [user-provided value](1).",
+          "cwe": "CWE-078",
+          "sarifLevel": "error"
+        },
+        "timestamp": "2026-09-15T06:45:49.443Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "codeql",
+      "created_at": "2026-09-15T06:45:49.443Z"
+    },
+    "source_tool": "codeql",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12",
+    "evidence": [
+      {
+        "id": "EV-0f9d4787",
+        "run_id": null,
+        "tool": "codeql",
+        "tool_run_id": null,
+        "evidence_type": "SARIF_REPORT",
+        "invocation": null,
+        "artifact_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-07\\20260915064421-ad10d244\\tools\\tools\\codeql\\codeql_python_results.sarif",
+        "artifact_hash": null,
+        "observation": "CodeQL Static Analysis: This command line depends on a [user-provided value](1). (Rule: py/command-line-injection)",
+        "raw_evidence": {
+          "ruleId": "py/command-line-injection",
+          "ruleName": "py/command-line-injection",
+          "message": "This command line depends on a [user-provided value](1).",
+          "cwe": "CWE-078",
+          "sarifLevel": "error"
+        },
+        "timestamp": "2026-09-15T06:45:49.443Z",
+        "validity_status": "VALID"
+      }
+    ],
+    "evidence_dag_hash": "06c50a579bfe4124c9e7ad1b511502c6ae4de29074c5f63ed2d84e20cd3aac7e",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "schema_version": "2.0.0",
+    "id": "CAND-DISAGREE-96dbb90f",
+    "run_id": null,
+    "status": "OPEN",
+    "type": "SECURITY_FINDING",
+    "title": "Analyzer Disagreement on app.py: [semgrep, codeql] reported findings vs [joern] clean",
+    "description": "Candidate generated via analyzer_disagreement (Escalation: DEEP_DATAFLOW)",
+    "severity": "MEDIUM",
+    "confidence": 0.65,
+    "source_locations": [
+      {
+        "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py",
+        "startLine": 1,
+        "endLine": 1,
+        "line": 1,
+        "startColumn": 1,
+        "endColumn": 1,
+        "symbol": null
+      }
+    ],
+    "affected_assets": [],
+    "security_property": null,
+    "cwe_id": "CWE-Disagreement",
+    "evidence_ids": [],
+    "supporting_evidence": [],
+    "contradicting_evidence": [],
+    "exploitability": "UNKNOWN",
+    "exploit_state": "NOT_ATTEMPTED",
+    "exploit_evidence": null,
+    "proof_id": null,
+    "proof_status": "NOT_ELIGIBLE",
+    "proof_record": null,
+    "impact": "UNKNOWN",
+    "verification_state": "CANDIDATE",
+    "provenance": {
+      "tool": "disagreement_controller",
+      "created_at": "2026-09-15T06:45:49.627Z"
+    },
+    "source_tool": "disagreement_controller",
+    "rtl_location": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:1",
+    "evidence": [],
+    "evidence_dag_hash": "6196853eaf9e210b82c94f7a0085f92575c8161227bf7f3161c552443baf4a1b",
+    "operational_verdict": "INCONCLUSIVE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  }
+]

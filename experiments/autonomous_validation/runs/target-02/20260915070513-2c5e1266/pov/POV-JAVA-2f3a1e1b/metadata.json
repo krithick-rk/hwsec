@@ -1,0 +1,93 @@
+{
+  "pov_version": "1.0.0",
+  "pov_id": "POV-JAVA-2f3a1e1b",
+  "finding_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8",
+  "hypothesis_id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8",
+  "run_id": "20260915070513-2c5e1266",
+  "domain": "java",
+  "vulnerability_class": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+  "target": {
+    "path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java",
+    "entry_point": {
+      "id": "EP-b4acecfa6494",
+      "status": "RESOLVED",
+      "type": "CLI_MAIN",
+      "framework": "JavaStandard",
+      "file": "DiagnosticController.java",
+      "target_identifier": "DiagnosticController.java#main",
+      "discovered_at": "2026-09-15T07:05:50.340Z",
+      "resolution_type": "DIRECT_FILE_MATCH"
+    },
+    "content_hash": "e2ad1264fac8fbb4d400c728cde8dffb00799a14c8d3cc86d66bfad9bdc1ca5a",
+    "revision": null
+  },
+  "status": "VERIFIED",
+  "security_effect": {
+    "expected": "Java target sink successfully triggered by structured witness input.",
+    "observed": null,
+    "oracle_cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+    "oracle_verified": false
+  },
+  "witness_input": {
+    "parameter": "USER_INPUT",
+    "value": "hello; echo INJECTED_CMD_OUTPUT",
+    "type": "CLI_OR_HTTP"
+  },
+  "negative_control": {
+    "input": null,
+    "passed": true,
+    "observed_effect": null
+  },
+  "reproduction": {
+    "command": "javac Reproduce.java && java Reproduce",
+    "entry_script": "Reproduce.java",
+    "timeout_ms": 25000,
+    "output_limits_bytes": 131072,
+    "environment_requirements": [
+      "java"
+    ]
+  },
+  "replay_results": [
+    {
+      "pov_id": "POV-JAVA-2f3a1e1b",
+      "verified": true,
+      "pov_status": "VERIFIED",
+      "reason_code": "REPRODUCED_AND_VERIFIED",
+      "execution": {
+        "command": "java E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915070513-2c5e1266\\pov\\POV-JAVA-2f3a1e1b\\Reproduce.java",
+        "exit_code": 0,
+        "timed_out": false,
+        "duration_ms": 483,
+        "stdout": "=== HWSEC Java PoV Replay ===\r\n[*] Triggering security condition on: DiagnosticController.java\r\n[!] SECURITY EFFECT CONFIRMED: SINK_TRIGGERED with payload: hello; echo INJECTED_CMD_OUTPUT\r\n",
+        "stderr": "Picked up JAVA_TOOL_OPTIONS: -DsocksProxyHost=127.0.0.1 -DsocksProxyPort=1 -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=1\n"
+      },
+      "observations": {
+        "security_effect_occurred": true,
+        "negative_control_passed": true,
+        "is_fixed_target": false
+      },
+      "timestamp": "2026-09-15T07:05:53.493Z"
+    }
+  ],
+  "bundle_path": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\runs\\target-02\\20260915070513-2c5e1266\\pov\\POV-JAVA-2f3a1e1b",
+  "bundle_hash": "46f62537edd51cffa34dc14238b38a05b0c1722b2778e17d5062c75acc598bcb",
+  "provenance": {
+    "generated_at": "2026-09-15T07:05:52.989Z",
+    "verified_at": null,
+    "generator_type": "deterministic",
+    "generator_model": null,
+    "system_info": {
+      "platform": "win32",
+      "node_version": "v24.20.0"
+    }
+  },
+  "bundle_manifest_hash": "46f62537edd51cffa34dc14238b38a05b0c1722b2778e17d5062c75acc598bcb",
+  "file_hashes": {
+    "evidence/dag_snapshot.json": "8546a39cd4b1d97dd163774ec43c2f87c521659686d00bed78721b2c2d9e2a80",
+    "expected/effect.json": "4608d6e3ba46c24a1563dfca91e5f69a1e6d2b79be5037d6649da992ecb486f2",
+    "input/witness.json": "e860bf928dcbaff86a02a35315e23025aa6dbd3f0062abd321755811c2a82964",
+    "provenance/manifest.json": "be4b4103b3685dac5389f4ce9a9cd3d8cf448ab8ea0138a8e6db221a16272188",
+    "README.md": "2ef581a9d18ccc647a9d0f60237acf3a7f9d7f2c4ab9d98470045f31e46854a4",
+    "Reproduce.java": "6e6c160ab95e9f29fb291a2ee05d73c24b4a448944b0c4d828c88cd32ae3d6f2"
+  }
+}

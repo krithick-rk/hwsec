@@ -1,0 +1,58 @@
+[
+  {
+    "target_id": "target-01",
+    "language": "python",
+    "expected_verdict": "DETECTED",
+    "actual_verdict": "DETECTED",
+    "failure_class": "NONE",
+    "reason_code": null
+  },
+  {
+    "target_id": "target-02",
+    "language": "java",
+    "expected_verdict": "DETECTED",
+    "actual_verdict": "DETECTED",
+    "failure_class": "NONE",
+    "reason_code": null
+  },
+  {
+    "target_id": "target-03",
+    "language": "c_cpp",
+    "expected_verdict": "DETECTED",
+    "actual_verdict": "INCONCLUSIVE",
+    "failure_class": "J. TOOLCHAIN_FAILURE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "target_id": "target-04",
+    "language": "verilog",
+    "expected_verdict": "DETECTED",
+    "actual_verdict": "INCONCLUSIVE",
+    "failure_class": "J. TOOLCHAIN_FAILURE",
+    "reason_code": "SEARCH_BUDGET_EXHAUSTED"
+  },
+  {
+    "target_id": "target-05",
+    "language": "python",
+    "expected_verdict": "NOT_DETECTED",
+    "actual_verdict": "NOT_DETECTED",
+    "failure_class": "NONE",
+    "reason_code": null
+  },
+  {
+    "target_id": "target-06",
+    "language": "python",
+    "expected_verdict": "INCONCLUSIVE",
+    "actual_verdict": "NOT_DETECTED",
+    "failure_class": "D. WITNESS_FAILURE",
+    "reason_code": null
+  },
+  {
+    "target_id": "target-07",
+    "language": "python",
+    "expected_verdict": "DETECTED",
+    "actual_verdict": "DETECTED",
+    "failure_class": "NONE",
+    "reason_code": null
+  }
+]

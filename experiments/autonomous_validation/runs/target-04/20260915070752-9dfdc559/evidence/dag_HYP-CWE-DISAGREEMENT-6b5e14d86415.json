@@ -1,0 +1,115 @@
+{
+  "dag_version": "2.0.0",
+  "run_id": "20260915070752-9dfdc559",
+  "created_at": "2026-09-15T07:08:03.509Z",
+  "root_hash": "72fb1694d52a397e41bd264cfffaee2668aba236db2a8c91d9dc4bdba4cd4476",
+  "dag_hash": "72fb1694d52a397e41bd264cfffaee2668aba236db2a8c91d9dc4bdba4cd4476",
+  "nodes": [
+    {
+      "id": "HYP-CWE-DISAGREEMENT-6b5e14d86415",
+      "type": "hypothesis",
+      "data": {
+        "id": "HYP-CWE-DISAGREEMENT-6b5e14d86415",
+        "repository_id": "PROJ-453a5c49",
+        "run_id": "20260915070752-9dfdc559",
+        "cwe": "CWE-DISAGREEMENT",
+        "security_condition": "CWE-Disagreement_SecurityOracle",
+        "source": "USER_INPUT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:1",
+        "sanitizer_assumptions": [],
+        "candidate_path": [
+          "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:1"
+        ],
+        "entry_point": {
+          "id": "EP-9f08c8963b77",
+          "status": "RESOLVED",
+          "type": "HARDWARE_MODULE_IO",
+          "framework": "VerilogRTL",
+          "module_name": "counter",
+          "file": "counter.v",
+          "target_identifier": "counter.v#counter",
+          "discovered_at": "2026-09-15T07:08:02.569Z",
+          "resolution_type": "DIRECT_FILE_MATCH"
+        },
+        "attack_surface": "CLI_OR_HTTP",
+        "required_evidence": [
+          "OBSERVABLE_SINK_EFFECT",
+          "NEGATIVE_CONTROL",
+          "REPLAY_WITNESS"
+        ],
+        "negative_control": {
+          "type": "BENIGN_INPUT",
+          "description": "Benign control input exercising path without triggering security condition"
+        },
+        "discovery_signals": [
+          {
+            "analyzer": "disagreement_controller",
+            "rule_id": "Analyzer Disagreement on counter.v: [symbiyosys] reported findings vs [verilator, yosys, afl++, spike] clean",
+            "file": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v",
+            "line": 1,
+            "confidence": 0.65
+          }
+        ],
+        "priority": 0.5,
+        "uncertainty": {
+          "entry_point_unresolved": false,
+          "sink_uncertain": false,
+          "sanitizer_unverified": true
+        },
+        "provenance": {
+          "created_at": "2026-09-15T07:08:02.645Z",
+          "origin_finding_id": "CAND-DISAGREE-b7d473d7",
+          "schema_version": "2.0.0"
+        }
+      },
+      "content_hash": "89fffc582d664c4c5094644d8c1e695d6457558b5f3ae6b73557445520628790",
+      "created_at": "2026-09-15T07:08:03.509Z"
+    },
+    {
+      "id": "EP-9f08c8963b77",
+      "type": "entry_point",
+      "data": {
+        "id": "EP-9f08c8963b77",
+        "status": "RESOLVED",
+        "type": "HARDWARE_MODULE_IO",
+        "framework": "VerilogRTL",
+        "module_name": "counter",
+        "file": "counter.v",
+        "target_identifier": "counter.v#counter",
+        "discovered_at": "2026-09-15T07:08:02.569Z",
+        "resolution_type": "DIRECT_FILE_MATCH"
+      },
+      "content_hash": "1a078f4ff04a0fb9c4d5cbd1a0831f80cec025d2e543fe705c5dd3c28f184cf1",
+      "created_at": "2026-09-15T07:08:03.509Z"
+    },
+    {
+      "id": "PROV-20260915070752-9dfdc559",
+      "type": "provenance_manifest",
+      "data": {
+        "created_at": "2026-09-15T07:08:03.509Z",
+        "broker_version": "2.0.0",
+        "verified": true,
+        "mode": "STANDARD",
+        "analysis_id": "20260915070752-9dfdc559"
+      },
+      "content_hash": "6de54e5eea06d29ebe573081dbf0cf57a6fb37e3588afea64ff10d87bf16d0b4",
+      "created_at": "2026-09-15T07:08:03.509Z"
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "HYP-CWE-DISAGREEMENT-6b5e14d86415",
+      "target_id": "EP-9f08c8963b77",
+      "relation": "supports",
+      "metadata": {},
+      "edge_hash": "5f3ecde34b59c33e70baf46a56424e225110ce639a4a69393ca334570e905dcd"
+    },
+    {
+      "source_id": "HYP-CWE-DISAGREEMENT-6b5e14d86415",
+      "target_id": "PROV-20260915070752-9dfdc559",
+      "relation": "same_environment_as",
+      "metadata": {},
+      "edge_hash": "296c1d1bc7ffa9663dc5051a9736764489bb93eb90aac8cf0095e4df4638213d"
+    }
+  ]
+}

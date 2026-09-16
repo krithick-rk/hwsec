@@ -1,0 +1,11 @@
+{
+  "witness_input": {
+    "parameter": "cmd",
+    "value": "; touch hwsec_marker.tmp"
+  },
+  "negative_control": null,
+  "target_entry_point": {
+    "status": "UNRESOLVED",
+    "reason": "Entry point not yet resolved by inventory"
+  }
+}

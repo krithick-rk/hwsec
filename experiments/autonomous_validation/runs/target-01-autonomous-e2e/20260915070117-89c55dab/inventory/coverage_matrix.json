@@ -1,0 +1,975 @@
+{
+  "matrix": {
+    "MemorySafety": {
+      "c": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "cpp": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "java": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "python": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "go": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "CommandInjection": {
+      "c": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "cpp": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "SQLInjection": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "LDAPInjection": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "PathTraversal": {
+      "c": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "cpp": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "CrossSiteScripting": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "XMLInjectionXXE": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "Deserialization": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "ServerSideRequestForgery": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "BrokenAuthAndAccess": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "CryptographicFailures": {
+      "c": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "cpp": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "HardcodedCredentials": {
+      "c": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "cpp": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      }
+    },
+    "SecurityMisconfiguration": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "python": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "go": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      },
+      "verilog": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      }
+    },
+    "HardwareRTL": {
+      "c": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "cpp": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "java": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "python": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "go": {
+        "applicable": false,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "NOT_APPLICABLE"
+      },
+      "verilog": {
+        "applicable": true,
+        "semgrep": false,
+        "joern": false,
+        "codeql": false,
+        "graph": false,
+        "fuzz_formal": false,
+        "deep_reasoning": false,
+        "findingsCount": 0,
+        "status": "UNCOVERED"
+      }
+    }
+  },
+  "analyzedFiles": [
+    "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py"
+  ],
+  "findingsCountByFamily": {
+    "MemorySafety": 0,
+    "CommandInjection": 0,
+    "SQLInjection": 0,
+    "LDAPInjection": 0,
+    "PathTraversal": 0,
+    "CrossSiteScripting": 0,
+    "XMLInjectionXXE": 0,
+    "Deserialization": 0,
+    "ServerSideRequestForgery": 0,
+    "BrokenAuthAndAccess": 0,
+    "CryptographicFailures": 0,
+    "HardcodedCredentials": 0,
+    "SecurityMisconfiguration": 0,
+    "HardwareRTL": 0
+  }
+}

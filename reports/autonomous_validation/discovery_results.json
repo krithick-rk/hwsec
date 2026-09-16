@@ -1,0 +1,232 @@
+[
+  {
+    "target_id": "target-01",
+    "language": "python",
+    "entry_points_count": 2,
+    "entry_points": [
+      {
+        "id": "EP-541009c73903",
+        "file": "app.py",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-101cc2c7d7df",
+        "file": "app.py",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 3,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-907cb9cf36d0",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+      },
+      {
+        "id": "HYP-CWE-078-b24ffe431335",
+        "cwe": "CWE-078",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:8"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-ef34e9cc3677",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\python\\target-01\\app.py:1"
+      }
+    ],
+    "discovery_success": true
+  },
+  {
+    "target_id": "target-02",
+    "language": "java",
+    "entry_points_count": 4,
+    "entry_points": [
+      {
+        "id": "EP-b4acecfa6494",
+        "file": "DiagnosticController.java",
+        "type": "CLI_MAIN"
+      },
+      {
+        "id": "EP-9703a8d8523b",
+        "file": "src/main/java/com/hwsec/Application.java",
+        "type": "CLI_MAIN"
+      },
+      {
+        "id": "EP-0df2651988c7",
+        "file": "src/main/java/com/hwsec/DiagnosticController.java",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-75b238af765f",
+        "file": "src/main/java/com/hwsec/DiagnosticController.java",
+        "type": "HTTP_ENDPOINT"
+      }
+    ],
+    "hypotheses_count": 5,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-0c27c06bf5c8",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:21"
+      },
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-9b7a47e61968",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:16"
+      },
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-63b1d68c4997",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:17"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-87c822ec859b",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\DiagnosticController.java:1"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-88218be26bd8",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\java\\target-02\\src\\main\\java\\com\\hwsec\\DiagnosticController.java:1"
+      }
+    ],
+    "discovery_success": true
+  },
+  {
+    "target_id": "target-03",
+    "language": "c_cpp",
+    "entry_points_count": 1,
+    "entry_points": [
+      {
+        "id": "EP-8caef5768570",
+        "file": "main.c",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 4,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-120-723551d331e4",
+        "cwe": "CWE-120",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:7"
+      },
+      {
+        "id": "HYP-CWE-120-31cbaad670c1",
+        "cwe": "CWE-120",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:10"
+      },
+      {
+        "id": "HYP-CWE-78-422af5e388bb",
+        "cwe": "CWE-78",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:14"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-386e05fe5891",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\c_cpp\\target-03\\main.c:1"
+      }
+    ],
+    "discovery_success": true
+  },
+  {
+    "target_id": "target-04",
+    "language": "verilog",
+    "entry_points_count": 1,
+    "entry_points": [
+      {
+        "id": "EP-9f08c8963b77",
+        "file": "counter.v",
+        "type": "HARDWARE_MODULE_IO"
+      }
+    ],
+    "hypotheses_count": 2,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-1234-f79e9d6cfa08",
+        "cwe": "CWE-1234",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:17"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-6b5e14d86415",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\verilog\\target-04\\counter.v:1"
+      }
+    ],
+    "discovery_success": true
+  },
+  {
+    "target_id": "target-05",
+    "language": "python",
+    "entry_points_count": 2,
+    "entry_points": [
+      {
+        "id": "EP-541009c73903",
+        "file": "app.py",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-101cc2c7d7df",
+        "file": "app.py",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 0,
+    "hypotheses": [],
+    "discovery_success": true
+  },
+  {
+    "target_id": "target-06",
+    "language": "python",
+    "entry_points_count": 2,
+    "entry_points": [
+      {
+        "id": "EP-fa4c0ac81d4e",
+        "file": "app.py",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-101cc2c7d7df",
+        "file": "app.py",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 0,
+    "hypotheses": [],
+    "discovery_success": true
+  },
+  {
+    "target_id": "target-07",
+    "language": "python",
+    "entry_points_count": 2,
+    "entry_points": [
+      {
+        "id": "EP-541009c73903",
+        "file": "app.py",
+        "type": "HTTP_ENDPOINT"
+      },
+      {
+        "id": "EP-101cc2c7d7df",
+        "file": "app.py",
+        "type": "CLI_MAIN"
+      }
+    ],
+    "hypotheses_count": 3,
+    "hypotheses": [
+      {
+        "id": "HYP-CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')-4ad33b06c315",
+        "cwe": "CWE-78: IMPROPER NEUTRALIZATION OF SPECIAL ELEMENTS USED IN AN OS COMMAND ('OS COMMAND INJECTION')",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12"
+      },
+      {
+        "id": "HYP-CWE-078-b19b151eaa85",
+        "cwe": "CWE-078",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:12"
+      },
+      {
+        "id": "HYP-CWE-DISAGREEMENT-3bb9dffbe9cd",
+        "cwe": "CWE-DISAGREEMENT",
+        "sink": "E:\\Intern\\hwsec\\experiments\\autonomous_validation\\targets\\adversarial\\target-07\\app.py:1"
+      }
+    ],
+    "discovery_success": true
+  }
+]
